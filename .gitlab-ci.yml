@@ -1,0 +1,48 @@
+include:
+  - project: 'stream-machine/tools-and-utilities/ci-templates'
+    file: '/gradle/build-and-test.yml'
+  - project: 'stream-machine/tools-and-utilities/ci-templates'
+    file: '/gradle/jar-publish.yml'
+  - project: 'stream-machine/tools-and-utilities/ci-templates'
+    file: '/common/semantic-release.yml'
+
+stages:
+  - buf
+  - release
+  - publish
+
+.buf:
+  stage: buf
+  image: bufbuild/buf:latest
+  except: # Do not run for tag pipelines and also do not run for master pipelines when it's a release commit
+    variables:
+      - ($CI_BUILD_REF_NAME == "master" && $CI_COMMIT_MESSAGE =~ /.*chore\(release\).*/) || $CI_COMMIT_TAG
+
+lint:
+  extends: .buf
+  script:
+    - buf lint
+
+breaking:
+  extends: .buf
+  script:
+    - export LATEST_TAG=$(git tag -l | sort -V | tail -n 1)
+    - echo "Latest tag = $LATEST_TAG"
+    - buf breaking --against ".git#tag=$LATEST_TAG"
+
+release:
+  stage: release
+  extends: .semantic-release
+
+artifact-snapshot:
+  stage: publish
+  extends: .jar-snapshot-template
+  script:
+    - ./gradlew --build-cache publish
+
+artifact-release:
+  stage: publish
+  extends: .jar-release-template
+  script:
+    - ./gradlew --build-cache publish
+

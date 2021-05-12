@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package io.streammachine.internal_api.streams.v1;
+option java_multiple_files = true;
+
+service StreamsService {
+  rpc ListClientIds (ListClientIdsRequest) returns (ListClientIdsResponse) {
+  }
+}
+
+message ListClientIdsRequest {
+}
+
+message ListClientIdsResponse {
+  repeated string client_ids = 1;
+}

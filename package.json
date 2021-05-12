@@ -1,0 +1,78 @@
+{
+  "devDependencies": {
+    "@commitlint/config-conventional": "^12.1.1",
+    "@google/semantic-release-replace-plugin": "^1.0.2",
+    "@semantic-release/changelog": "5.0.1",
+    "@semantic-release/exec": "^5.0.0",
+    "@semantic-release/git": "9.0.0",
+    "@semantic-release/gitlab": "^6.0.9",
+    "commitlint": "12.1.1",
+    "conventional-changelog-conventionalcommits": "4.5.0",
+    "cz-conventional-changelog": "^3.3.0",
+    "husky": "^6.0.0",
+    "semantic-release": "17.4.2"
+  },
+  "scripts": {
+    "postinstall": "husky install",
+    "semantic-release": "semantic-release",
+    "buf-lint": "buf lint",
+    "buf-breaking": "buf breaking --against \".git#tag=$(git tag -l | sort -V | tail -n 1)\""
+  },
+  "release": {
+    "branches": [
+      "master"
+    ],
+    "plugins": [
+      "@semantic-release/commit-analyzer",
+      "@semantic-release/release-notes-generator",
+      "@semantic-release/changelog",
+      [
+        "@google/semantic-release-replace-plugin",
+        {
+          "replacements": [
+            {
+              "files": [
+                "gradle.properties"
+              ],
+              "from": "version\\s?=\\s?.*",
+              "to": "version = ${nextRelease.version}",
+              "results": [
+                {
+                  "file": "gradle.properties",
+                  "hasChanged": true,
+                  "numMatches": 1,
+                  "numReplacements": 1
+                }
+              ],
+              "countMatches": true
+            }
+          ]
+        }
+      ],
+      [
+        "@semantic-release/git",
+        {
+          "message": "chore(release): ${nextRelease.version}\n\n${nextRelease.notes}",
+          "assets": [
+            "gradle.properties",
+            "CHANGELOG.md"
+          ]
+        }
+      ],
+      "@semantic-release/gitlab"
+    ]
+  },
+  "engines": {
+    "node": "^12.12.0"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
+  }
+}
