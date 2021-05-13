@@ -1,5 +1,6 @@
 syntax = "proto3";
 package io.streammachine.external_api.entities.v1;
+// TODO discuss
 option java_multiple_files = true;
 
 import "google/protobuf/timestamp.proto";
@@ -7,32 +8,42 @@ import "google/protobuf/timestamp.proto";
 // See our attribute spreadsheet for the initial fields version
 // https://docs.google.com/spreadsheets/d/12dooxWXRQjEKhZxS_Bpa4fXpDpaEbPu9JorxOo_BElQ
 
+/**
+Stream entity.
+
+Streams are source or derived streams depending on whether or not linked_stream is null.
+Key streams are a separate entity in the api.
+ */
 message Stream {
-  string billing_id = 1;
-  string name = 2;
-  string description = 3;
-  repeated int32 consent_levels = 4;
-  ConsentLevelType consent_level_type = 5;
-  bool enabled = 6 ; // TODO default is false ?
-  float rate_limit=7;
-  int64 event_ct_limit = 8;
-  string linked_stream = 9;
-  repeated string tags = 10;
-  string status = 11;
+  string billing_id                   = 1;
+  string name                         = 2;
+  string description                  = 3; // customer purpose.
+  repeated int32 consent_levels       = 4; // consent levels for derived streams
+  ConsentLevelType consent_level_type = 5; // how event consent-levels are interpreted by decrypters.
+  bool enabled                        = 6; // whether or not this stream is enabled.
+  float rate_limit                    = 7; // filled in from customer profile
+  int64 event_ct_limit                = 8; // filled in from customer profile
+  string linked_stream                = 9; // null for source streams
+  repeated string tags                = 10; // customer purposes.
+  string status                       = 11; // engineering status message. Add enum when we know more.
 }
+
+
 
 enum ConsentLevelType {
-  CONSENT_LEVEL_TYPE_UNSPECIFIED=0;
-  CONSENT_LEVEL_TYPE_CUMULATIVE = 1;
-  CONSENT_LEVEL_TYPE_GRANULAR = 2;
+  CONSENT_LEVEL_TYPE_UNSPECIFIED = 0;
+  CONSENT_LEVEL_TYPE_CUMULATIVE  = 1;
+  CONSENT_LEVEL_TYPE_GRANULAR    = 2;
 }
 
+/**
+A Stream of key-link, encryption-key messages created from a source stream
+with the same `name`.
+ */
 message KeyStream {
-  string billing_id = 1;
-  string name = 2;
-  bool enabled = 3;
-  string source_stream = 4;
-  string status = 5;
+  string billing_id    = 1;
+  string name          = 2; // identical to the source stream
+  string status        = 5;
 }
 
 message Credentials {
