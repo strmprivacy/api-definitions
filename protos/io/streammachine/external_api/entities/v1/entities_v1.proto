@@ -28,8 +28,15 @@ message Stream {
   string status                       = 11; // engineering status message. Add enum when we know more.
 }
 
+/**
+Consent level is meant to interpret the consent-levels of an event for decryption purposes only.
 
+Cumulative means that the highest consent-level in an event must be greater than or equal to the single requested level
+for the decrypted stream.
 
+Granular means that the set of consent-levels in an event must enclose the set of requested event levels for the
+decrypted stream.
+ */
 enum ConsentLevelType {
   CONSENT_LEVEL_TYPE_UNSPECIFIED = 0;
   CONSENT_LEVEL_TYPE_CUMULATIVE  = 1;
@@ -46,94 +53,133 @@ message KeyStream {
   string status        = 5;
 }
 
-message Credentials {
-  string billing_id = 1;
-  string client_id = 2;
-  string stream_name = 3;
-  // whether or not these credentials are on a stream or a key-stream
-  bool key_stream = 4;
-  string client_secret = 5;
+/** refer to a stream or key stream.
+ */
+message StreamRef  {
+  string stream_name = 1;
+  bool key_stream = 2; // whether we refer to the source stream or its corresponding keys stream.
 }
 
+/**
+Credentials to produce to the event-gateway, or to consume from egress.
+ */
+message Credentials {
+  string billing_id    = 1;
+  string client_id     = 2;
+  StreamRef stream_ref = 3;
+  string client_secret = 4;
+}
+
+/** the sink configuration used by the batch exporters.
+
+ */
 message Sink {
-  string billing_id = 1;
-  string name = 2;
+  string billing_id  = 1;
+  string name        = 2;
   SinkType sink_type = 3;
   string bucket_name = 4;
   string credentials = 5;
 }
 
 enum SinkType {
-  SINK_TYPE_UNSPECIFIED  = 0;
-  SINK_TYPE_S3  = 1;
-  SINK_TYPE_GCLOUD=2;
-  SINK_TYPE_AZURE=3;
-  SINK_TYPE_MONGO=4;
-  SINK_TYPE_ELASTIC=5;
+  SINK_TYPE_UNSPECIFIED = 0;
+  SINK_TYPE_S3          = 1;
+  SINK_TYPE_GCLOUD      = 2;
+  SINK_TYPE_AZURE       = 3;
+  SINK_TYPE_MONGO       = 4;
+  SINK_TYPE_ELASTIC     = 5;
 }
 
+/**
+A batch exporter.
+ */
 message BatchExporter {
-  string billing_id = 1;
-  string name = 2;
-  int32 interval = 3 ; // interval in seconds
-  string sink_name = 4;
-  string path_prefix = 5;
+  string billing_id    = 1;
+  string name          = 2;
+  StreamRef stream_ref = 3;
+  int32 interval       = 4 ; // interval in seconds
+  string sink_name     = 5;
+  string path_prefix   = 6;
 }
 
+/**
+Currently only our internal shared export cluster.
+ */
 message KafkaCluster {
-  string billing_id = 1;
-  string name = 2;
-  string bootstrap_servers = 3;
-  AuthMechanism auth_mechanism = 4;
-  string token_uri = 5;
+  KafkaClusterRef cluster_ref  = 1;
+  string bootstrap_servers     = 2;
+  AuthMechanism auth_mechanism = 3;
+  string token_uri             = 4;
+}
+
+/**
+How to refer to a certain Kafka cluster.
+ */
+message KafkaClusterRef {
+  string billing_id = 1; // streammachine
+  string name = 2; // shared export
 }
 
 enum AuthMechanism {
-  // TODO values
-  AUTH_MECHANISM_UNSPECIFIED  = 0;
-  AUTH_MECHANISM_PLAINTEXT = 1;
-  AUTH_MECHANISM_SASL = 2;
-  AUTH_MECHANISM_TLS = 3;
+  // TODO align values with JAAS.
+  AUTH_MECHANISM_UNSPECIFIED = 0;
+  AUTH_MECHANISM_PLAINTEXT   = 1;
+  AUTH_MECHANISM_SASL        = 2;
+  AUTH_MECHANISM_TLS         = 3;
 }
 
 message KafkaExporter  {
-  string billing_id = 1;
-  string name = 2;
-  string stream_name = 3;
-  string key_stream = 4;
-  string cluster_name = 5;
-  string cluster_billing_id =  6;
-  string produce_to_topic = 7;
-  string client_id  = 8;
-  string client_secret  = 9;
+  string billing_id           = 1;
+  string name                 = 2; // typically default  <cluster-name>-<stream-name>
+  StreamRef stream_ref        = 3; // what stream
+  KafkaClusterRef cluster_ref = 4; // what cluster to produce to.
+  string produce_to_topic     = 5; // the topic this exporter produces to
+  string client_id            = 6; // how to produce to the cluster.
+  string client_secret        = 7; // how to produce to the cluster.
 }
 
+/**
+User credentials to consume from topic produced by Kafka Exporter.
+
+The kafka exporter is linked to a certain cluster, so this entity is bound to a certain
+kafka cluster.
+ */
 message KafkaUser {
-  string billing_id = 1;
-  string name = 2;
+  string billing_id          = 1;
+  string name                = 2;
   string kafka_exporter_name = 3;
-  string consume_from_topic=4;
-  string client_id = 5;
-  string client_secret = 6;
+  string topic               = 4;
+  string client_id           = 5;
+  string client_secret       = 6;
 }
 
+/**
+for descriptive purposes only.
+ */
 message ConsentLevel {
   string billing_id = 1;
-  string name = 2;
-  int32 value = 3;
-  string dpo_reference=4;
+  string name = 2; // some text like 'analytics'
+  int32 value = 3; // the typically small integer value that we use in the events.
+  string dpo_reference=4; // reference to DPO documentation.
 }
 
+/**
+event usage information.
+ */
 message Events {
   string billing_id = 1;
   repeated EventsInfo event_infos = 3;
 }
 
 message EventsInfo {
+  StreamRef stream_ref = 1;
+  repeated EventsPeriodInfo info = 2;
+}
+
+message EventsPeriodInfo {
   google.protobuf.Timestamp t0 = 1;
   int32 duration_s = 2;
-  string stream_name = 3;
-  int64 count = 4;
+  int64 count = 3; // the number of events in this interval.
 }
 
 message Schema {
