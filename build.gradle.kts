@@ -151,7 +151,7 @@ publishing {
             artifact(sourcesJar)
 
             groupId = "${project.group}"
-            artifactId = "internal-apis-kotlin"
+            artifactId = "external-apis-kotlin"
             version = "${project.version}"
 
             pom {
@@ -159,9 +159,9 @@ publishing {
                 description.set(project.description)
 
                 scm {
-                    url.set("https://gitlab.com/stream-machine/internal-apis")
-                    connection.set("scm:git:git@gitlab.com:stream-machine/internal-apis.git")
-                    developerConnection.set("scm:git:git@gitlab.com:stream-machine/internal-apis.git")
+                    url.set("https://gitlab.com/stream-machine/external-apis")
+                    connection.set("scm:git:git@gitlab.com:stream-machine/external-apis.git")
+                    developerConnection.set("scm:git:git@gitlab.com:stream-machine/external-apis.git")
                 }
             }
         }

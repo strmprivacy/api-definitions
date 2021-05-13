@@ -1,1 +1,1 @@
-rootProject.name = "internal-apis"
+rootProject.name = "external-apis"
