@@ -1,0 +1,59 @@
+syntax = "proto3";
+
+package io.streammachine.external_api.sinks.v1;
+
+import "io/streammachine/external_api/entities/v1/entities_v1.proto";
+
+// TODO discuss!
+//option java_multiple_files = true;
+
+service SinksService {
+  rpc ListSinks (ListSinksRequest) returns (ListSinksResponse);
+  rpc GetSink (GetSinkRequest) returns (GetSinkResponse);
+  rpc DeleteSink (DeleteSinkRequest) returns (DeleteSinkResponse);
+  rpc CreateSink (CreateSinkRequest) returns (CreateSinkResponse);
+  rpc ShowRelations(ShowRelationsRequest) returns (ShowRelationsResponse);
+}
+
+message ListSinksRequest {
+}
+
+message ListSinksResponse {
+  repeated io.streammachine.external_api.entities.v1.Sink sinks = 1;
+}
+
+message DeleteSinkRequest {
+  string name = 1;
+  bool recursive = 2;
+  bool force  = 3;
+}
+
+message DeleteSinkResponse {
+  io.streammachine.external_api.entities.v1.Sink sink = 1;
+}
+
+message CreateSinkRequest {
+  // not all fields are used, and if you fill them in, they'll be overwritten
+  // by the api gateway (like status, the limits etc...)
+  io.streammachine.external_api.entities.v1.Sink sink = 1;
+}
+
+message CreateSinkResponse {
+  io.streammachine.external_api.entities.v1.Sink sink = 1;
+}
+
+message GetSinkRequest {
+  string name = 1;
+}
+
+message GetSinkResponse {
+  io.streammachine.external_api.entities.v1.Sink sink = 1;
+}
+
+message ShowRelationsRequest {
+  string name = 1;
+}
+
+message ShowRelationsResponse {
+  repeated io.streammachine.external_api.entities.v1.SinkRelations relations = 1;
+}

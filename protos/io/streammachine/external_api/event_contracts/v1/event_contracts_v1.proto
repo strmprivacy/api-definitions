@@ -1,0 +1,50 @@
+syntax = "proto3";
+
+package io.streammachine.external_api.event_contracts.v1;
+
+import "io/streammachine/external_api/entities/v1/entities_v1.proto";
+
+// TODO discuss!
+//option java_multiple_files = true;
+
+service EventContractsService {
+  rpc ListEventContracts (ListEventContractsRequest) returns (ListEventContractsResponse);
+  rpc GetEventContract (GetEventContractRequest) returns (GetEventContractResponse);
+  rpc DeleteEventContract (DeleteEventContractRequest) returns (DeleteEventContractResponse);
+  rpc CreateEventContract (CreateEventContractRequest) returns (CreateEventContractResponse);
+}
+
+message ListEventContractsRequest {
+  string stream_name = 1;
+}
+
+message ListEventContractsResponse {
+  repeated io.streammachine.external_api.entities.v1.EventContract event_contracts = 1;
+}
+
+// just changes the status (maybe)
+message DeleteEventContractRequest {
+  string name = 1;
+}
+
+message DeleteEventContractResponse {
+  io.streammachine.external_api.entities.v1.EventContract event_contract = 1;
+}
+
+message CreateEventContractRequest {
+  // not all fields are used, and if you fill them in, they'll be overwritten
+  // by the api gateway (like status, the limits etc...)
+  io.streammachine.external_api.entities.v1.EventContract event_contract = 1;
+}
+
+message CreateEventContractResponse {
+  io.streammachine.external_api.entities.v1.EventContract event_contract = 1;
+}
+
+message GetEventContractRequest {
+  string name = 1;
+}
+
+message GetEventContractResponse {
+  io.streammachine.external_api.entities.v1.EventContract event_contract = 1;
+}

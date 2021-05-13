@@ -183,3 +183,8 @@ message KafkaExporterRelations {
   streammachine.external_api.entities.v1.KafkaExporter self = 1;
   repeated streammachine.external_api.entities.v1.KafkaUser users = 2;
 }
+
+message SinkRelations {
+  streammachine.external_api.entities.v1.Sink self = 1;
+  repeated streammachine.external_api.entities.v1.BatchExporter exporters = 2;
+}

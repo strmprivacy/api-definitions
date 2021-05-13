@@ -1,0 +1,50 @@
+syntax = "proto3";
+
+package io.streammachine.external_api.consent_levels.v1;
+
+import "io/streammachine/external_api/entities/v1/entities_v1.proto";
+
+// TODO discuss!
+//option java_multiple_files = true;
+
+service ConsentLevelsService {
+  rpc ListConsentLevels (ListConsentLevelsRequest) returns (ListConsentLevelsResponse);
+  rpc GetConsentLevel (GetConsentLevelRequest) returns (GetConsentLevelResponse);
+  rpc DeleteConsentLevel (DeleteConsentLevelRequest) returns (DeleteConsentLevelResponse);
+  rpc CreateConsentLevel (CreateConsentLevelRequest) returns (CreateConsentLevelResponse);
+}
+
+message ListConsentLevelsRequest {
+  string stream_name = 1;
+}
+
+message ListConsentLevelsResponse {
+  repeated io.streammachine.external_api.entities.v1.ConsentLevel consent_levels = 1;
+}
+
+// just changes the status (maybe)
+message DeleteConsentLevelRequest {
+  string name = 1;
+}
+
+message DeleteConsentLevelResponse {
+  io.streammachine.external_api.entities.v1.ConsentLevel consent_level = 1;
+}
+
+message CreateConsentLevelRequest {
+  // not all fields are used, and if you fill them in, they'll be overwritten
+  // by the api gateway (like status, the limits etc...)
+  io.streammachine.external_api.entities.v1.ConsentLevel consent_level = 1;
+}
+
+message CreateConsentLevelResponse {
+  io.streammachine.external_api.entities.v1.ConsentLevel consent_level = 1;
+}
+
+message GetConsentLevelRequest {
+  string name = 1;
+}
+
+message GetConsentLevelResponse {
+  io.streammachine.external_api.entities.v1.ConsentLevel consent_level = 1;
+}
