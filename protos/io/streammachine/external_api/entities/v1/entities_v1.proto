@@ -205,13 +205,22 @@ message EventContract {
   string handle = 2;
   string name = 3;
   string version = 4;
-  string definition = 6;
   string status_message = 7;
   Status status = 8;
   string schema_handle = 9;
   string schema_name = 10;
   string schema_version = 11;
+  string key_field = 12;
+  map<string, int32> pii_fields = 13;
+  repeated Validation validations = 14;
 }
+
+message  Validation  {
+  string field = 1;
+  string type = 2;
+  string value = 3;
+}
+
 
 enum Status {
   STATUS_UNSPECIFIED = 0;
