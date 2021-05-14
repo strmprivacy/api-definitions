@@ -59,6 +59,7 @@ message KeyStream {
 message StreamRef  {
   string stream_name = 1;
   bool key_stream = 2; // whether we refer to the source stream or its corresponding keys stream.
+  string billing_id = 3;
 }
 
 /**
@@ -152,6 +153,7 @@ message KafkaUser {
   string topic               = 4;
   string client_id           = 5;
   string client_secret       = 6;
+  KafkaClusterRef cluster_ref = 7;
 }
 
 /**
