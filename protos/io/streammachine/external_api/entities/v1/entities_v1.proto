@@ -26,6 +26,7 @@ message Stream {
   string linked_stream                = 9; // null for source streams
   repeated string tags                = 10; // customer purposes.
   string status                       = 11; // engineering status message. Add enum when we know more.
+  repeated Credentials credentials    = 12;
 }
 
 /**
