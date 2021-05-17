@@ -1,5 +1,5 @@
 syntax = "proto3";
-package io.streammachine.external_api.entities.v1;
+package io.streammachine.internal_api.entities.v1;
 // TODO discuss
 option java_multiple_files = true;
 
