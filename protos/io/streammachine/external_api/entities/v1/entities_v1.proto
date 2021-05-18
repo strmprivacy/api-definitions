@@ -241,19 +241,19 @@ message CustomerProfile {
 }
 
 message StreamRelations {
-  streammachine.external_api.entities.v1.Stream self = 1;
-  streammachine.external_api.entities.v1.KeyStream key_stream = 2;
-  repeated streammachine.external_api.entities.v1.Stream derived = 3;
-  repeated streammachine.external_api.entities.v1.BatchExporter batch_exporters = 4;
-  repeated streammachine.external_api.entities.v1.KafkaExporterRelations kafka_exporters = 5;
+  Stream self = 1;
+  KeyStream key_stream = 2;
+  repeated Stream derived = 3;
+  repeated BatchExporter batch_exporters = 4;
+  repeated KafkaExporterRelations kafka_exporters = 5;
 }
 
 message KafkaExporterRelations {
-  streammachine.external_api.entities.v1.KafkaExporter self = 1;
-  repeated streammachine.external_api.entities.v1.KafkaUser users = 2;
+  KafkaExporter self = 1;
+  repeated KafkaUser users = 2;
 }
 
 message SinkRelations {
-  streammachine.external_api.entities.v1.Sink self = 1;
-  repeated streammachine.external_api.entities.v1.BatchExporter exporters = 2;
+  Sink self = 1;
+  repeated BatchExporter exporters = 2;
 }
