@@ -10,25 +10,16 @@ import "io/streammachine/external_api/entities/v1/entities_v1.proto";
 service SchemasService {
   rpc ListSchemas (ListSchemasRequest) returns (ListSchemasResponse);
   rpc GetSchema (GetSchemaRequest) returns (GetSchemaResponse);
-  rpc DeleteSchema (DeleteSchemaRequest) returns (DeleteSchemaResponse);
+  rpc GetSchemaByFingerprint (GetSchemaByFingerprintRequest) returns (GetSchemaByFingerprintResponse);
   rpc CreateSchema (CreateSchemaRequest) returns (CreateSchemaResponse);
 }
 
 message ListSchemasRequest {
-  string stream_name = 1;
+  string filter = 1;
 }
 
 message ListSchemasResponse {
   repeated io.streammachine.external_api.entities.v1.Schema schemas = 1;
-}
-
-// just changes the status (maybe)
-message DeleteSchemaRequest {
-  string name = 1;
-}
-
-message DeleteSchemaResponse {
-  io.streammachine.external_api.entities.v1.Schema schema = 1;
 }
 
 message CreateSchemaRequest {
@@ -42,9 +33,18 @@ message CreateSchemaResponse {
 }
 
 message GetSchemaRequest {
-  string name = 1;
+  io.streammachine.external_api.entities.v1.SchemaRef ref = 1;
 }
 
 message GetSchemaResponse {
   io.streammachine.external_api.entities.v1.Schema schema = 1;
+}
+
+message GetSchemaByFingerprintRequest {
+  int64 fingerprint = 1;
+}
+
+message GetSchemaByFingerprintResponse {
+  io.streammachine.external_api.entities.v1.SchemaType type = 1;
+  string definition = 2;
 }
