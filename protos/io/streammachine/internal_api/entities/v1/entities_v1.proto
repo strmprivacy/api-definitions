@@ -25,3 +25,15 @@ message DecrypterExt {
   string uuid =3;
 
 }
+
+message SinkExt {
+  io.streammachine.external_api.entities.v1.Sink sink = 1;
+  string uuid = 2;
+}
+
+message BatchExporterExt {
+  io.streammachine.external_api.entities.v1.BatchExporter batch_exporter = 1;
+  string uuid = 2;
+  io.streammachine.external_api.entities.v1.SinkType sink_type = 3;
+
+}
