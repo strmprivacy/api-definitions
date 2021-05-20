@@ -6,7 +6,7 @@ import org.ajoberstar.grgit.Grgit
 group = "io.streammachine.api"
 description = "Internal APIs for Stream Machine"
 
-ext["grpcVersion"] = "1.37.0"
+ext["grpcVersion"] = "1.37.1"
 ext["grpcKotlinVersion"] = "1.1.0"
 ext["protobufVersion"] = "3.13.0"
 
@@ -17,7 +17,7 @@ rootProject.version = if (tag != null || branch == "master") project.version els
 
 buildscript {
     dependencies {
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.0")
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.4.30")
     }
 
     repositories {
@@ -46,7 +46,7 @@ plugins {
     id("java-library")
     id("com.google.cloud.artifactregistry.gradle-plugin") version ("2.1.1")
     id("maven-publish")
-    kotlin("jvm") version "1.5.0"
+    kotlin("jvm") version "1.4.30"
     id("com.google.protobuf") version "0.8.16"
     id("org.ajoberstar.grgit") version("4.1.0")
 }

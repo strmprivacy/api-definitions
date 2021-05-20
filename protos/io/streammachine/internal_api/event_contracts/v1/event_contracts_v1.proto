@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package io.streammachine.internal_api.event_contracts.v1;
+
+import "io/streammachine/external_api/entities/v1/entities_v1.proto";
+
+// TODO discuss!
+//option java_multiple_files = true;
+
+service InternalEventContractsService {
+  rpc DeleteEventContract (DeleteEventContractRequest) returns (DeleteEventContractResponse);
+}
+
+message DeleteEventContractRequest {
+  io.streammachine.external_api.entities.v1.EventContractRef ref = 1;
+}
+
+message DeleteEventContractResponse {
+}

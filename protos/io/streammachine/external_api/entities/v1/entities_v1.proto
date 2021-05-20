@@ -15,18 +15,18 @@ Streams are source or derived streams depending on whether or not linked_stream 
 Key streams are a separate entity in the api.
  */
 message Stream {
-  string billing_id                   = 1;
-  string name                         = 2;
-  string description                  = 3; // customer purpose.
-  repeated int32 consent_levels       = 4; // consent levels for derived streams
+  string billing_id = 1;
+  string name = 2;
+  string description = 3; // customer purpose.
+  repeated int32 consent_levels = 4; // consent levels for derived streams
   ConsentLevelType consent_level_type = 5; // how event consent-levels are interpreted by decrypters.
-  bool enabled                        = 6; // whether or not this stream is enabled.
-  float rate_limit                    = 7; // filled in from customer profile
-  int64 event_ct_limit                = 8; // filled in from customer profile
-  string linked_stream                = 9; // null for source streams
-  repeated string tags                = 10; // customer purposes.
-  string status                       = 11; // engineering status message. Add enum when we know more.
-  repeated Credentials credentials    = 12;
+  bool enabled = 6; // whether or not this stream is enabled.
+  float rate_limit = 7; // filled in from customer profile
+  int64 event_ct_limit = 8; // filled in from customer profile
+  string linked_stream = 9; // null for source streams
+  repeated string tags = 10; // customer purposes.
+  string status = 11; // engineering status message. Add enum when we know more.
+  repeated Credentials credentials = 12;
 }
 
 /**
@@ -40,8 +40,8 @@ decrypted stream.
  */
 enum ConsentLevelType {
   CONSENT_LEVEL_TYPE_UNSPECIFIED = 0;
-  CONSENT_LEVEL_TYPE_CUMULATIVE  = 1;
-  CONSENT_LEVEL_TYPE_GRANULAR    = 2;
+  CONSENT_LEVEL_TYPE_CUMULATIVE = 1;
+  CONSENT_LEVEL_TYPE_GRANULAR = 2;
 }
 
 /**
@@ -49,9 +49,9 @@ A Stream of key-link, encryption-key messages created from a source stream
 with the same `name`.
  */
 message KeyStream {
-  string billing_id    = 1;
-  string name          = 2; // identical to the source stream
-  string status        = 5;
+  string billing_id = 1;
+  string name = 2; // identical to the source stream
+  string status = 5;
 }
 
 /** refer to a stream or key stream.
@@ -66,8 +66,8 @@ message StreamRef  {
 Credentials to produce to the event-gateway, or to consume from egress.
  */
 message Credentials {
-  string billing_id    = 1;
-  string client_id     = 2;
+  string billing_id = 1;
+  string client_id = 2;
   StreamRef stream_ref = 3;
   string client_secret = 4;
 }
@@ -76,8 +76,8 @@ message Credentials {
 
  */
 message Sink {
-  string billing_id  = 1;
-  string name        = 2;
+  string billing_id = 1;
+  string name = 2;
   SinkType sink_type = 3;
   string bucket_name = 4;
   string credentials = 5;
@@ -85,33 +85,33 @@ message Sink {
 
 enum SinkType {
   SINK_TYPE_UNSPECIFIED = 0;
-  SINK_TYPE_S3          = 1;
-  SINK_TYPE_GCLOUD      = 2;
-  SINK_TYPE_AZURE       = 3;
-  SINK_TYPE_MONGO       = 4;
-  SINK_TYPE_ELASTIC     = 5;
+  SINK_TYPE_S3 = 1;
+  SINK_TYPE_GCLOUD = 2;
+  SINK_TYPE_AZURE = 3;
+  SINK_TYPE_MONGO = 4;
+  SINK_TYPE_ELASTIC = 5;
 }
 
 /**
 A batch exporter.
  */
 message BatchExporter {
-  string billing_id    = 1;
-  string name          = 2;
+  string billing_id = 1;
+  string name = 2;
   StreamRef stream_ref = 3;
-  int32 interval       = 4 ; // interval in seconds
-  string sink_name     = 5;
-  string path_prefix   = 6;
+  int32 interval = 4 ; // interval in seconds
+  string sink_name = 5;
+  string path_prefix = 6;
 }
 
 /**
 Currently only our internal shared export cluster.
  */
 message KafkaCluster {
-  KafkaClusterRef cluster_ref  = 1;
-  string bootstrap_servers     = 2;
+  KafkaClusterRef cluster_ref = 1;
+  string bootstrap_servers = 2;
   AuthMechanism auth_mechanism = 3;
-  string token_uri             = 4;
+  string token_uri = 4;
 }
 
 /**
@@ -125,19 +125,19 @@ message KafkaClusterRef {
 enum AuthMechanism {
   // TODO align values with JAAS.
   AUTH_MECHANISM_UNSPECIFIED = 0;
-  AUTH_MECHANISM_PLAINTEXT   = 1;
-  AUTH_MECHANISM_SASL        = 2;
-  AUTH_MECHANISM_TLS         = 3;
+  AUTH_MECHANISM_PLAINTEXT = 1;
+  AUTH_MECHANISM_SASL = 2;
+  AUTH_MECHANISM_TLS = 3;
 }
 
 message KafkaExporter  {
-  string billing_id           = 1;
-  string name                 = 2; // typically default  <cluster-name>-<stream-name>
-  StreamRef stream_ref        = 3; // what stream
+  string billing_id = 1;
+  string name = 2; // typically default  <cluster-name>-<stream-name>
+  StreamRef stream_ref = 3; // what stream
   KafkaClusterRef cluster_ref = 4; // what cluster to produce to.
-  string produce_to_topic     = 5; // the topic this exporter produces to
-  string client_id            = 6; // how to produce to the cluster.
-  string client_secret        = 7; // how to produce to the cluster.
+  string produce_to_topic = 5; // the topic this exporter produces to
+  string client_id = 6; // how to produce to the cluster.
+  string client_secret = 7; // how to produce to the cluster.
 }
 
 /**
@@ -147,12 +147,12 @@ The kafka exporter is linked to a certain cluster, so this entity is bound to a 
 kafka cluster.
  */
 message KafkaUser {
-  string billing_id          = 1;
-  string name                = 2;
+  string billing_id = 1;
+  string name = 2;
   string kafka_exporter_name = 3;
-  string topic               = 4;
-  string client_id           = 5;
-  string client_secret       = 6;
+  string topic = 4;
+  string client_id = 5;
+  string client_secret = 6;
   KafkaClusterRef cluster_ref = 7;
 }
 
@@ -163,7 +163,7 @@ message ConsentLevel {
   string billing_id = 1;
   string name = 2; // some text like 'analytics'
   int32 value = 3; // the typically small integer value that we use in the events.
-  string dpo_reference=4; // reference to DPO documentation.
+  string dpo_reference = 4; // reference to DPO documentation.
 }
 
 /**
@@ -185,52 +185,64 @@ message EventsPeriodInfo {
   int64 count = 3; // the number of events in this interval.
 }
 
+message SchemaRef {
+  string handle = 1;
+  string name = 2;
+  string version = 3;
+}
+
+enum SchemaStatus {
+  SCHEMA_STATUS_UNSPECIFIED = 0;
+  SCHEMA_STATUS_PENDING = 1;
+  SCHEMA_STATUS_IN_REVIEW = 2;
+  SCHEMA_STATUS_REJECTED = 3;
+  SCHEMA_STATUS_ACTIVE = 4;
+  SCHEMA_STATUS_DELETED = 5;
+}
+
 message Schema {
-  string billing_id = 1;
-  string handle = 2;
-  string name = 3;
-  string version = 4;
-  SchemaType type = 5;
-  string definition = 6;
-  string status_message = 7;
-  Status status = 8;
+  SchemaRef ref = 1;
+  SchemaType type = 2;
+  bool is_public = 3;
+  string definition = 4;
+  SchemaStatus status = 5;
 }
 
 enum SchemaType {
   SCHEMA_TYPE_UNSPECIFIED = 0 ;
-  SCHEMA_TYPE_AVRO=1;
-  SCHEMA_TYPE_JSONSCHEMA=2;
+  SCHEMA_TYPE_AVRO = 1;
+  SCHEMA_TYPE_JSONSCHEMA = 2;
+}
+
+message EventContractRef {
+  string handle = 1;
+  string name = 2;
+  string version = 3;
+}
+
+enum EventContractStatus {
+  EVENT_CONTRACT_STATUS_UNSPECIFIED = 0;
+  EVENT_CONTRACT_STATUS_PENDING = 1;
+  EVENT_CONTRACT_STATUS_IN_REVIEW = 2;
+  EVENT_CONTRACT_STATUS_REJECTED = 3;
+  EVENT_CONTRACT_STATUS_ACTIVE = 4;
+  EVENT_CONTRACT_STATUS_DELETED = 5;
 }
 
 message EventContract {
-  string billing_id = 1;
-  string handle = 2;
-  string name = 3;
-  string version = 4;
-  string status_message = 7;
-  Status status = 8;
-  string schema_handle = 9;
-  string schema_name = 10;
-  string schema_version = 11;
-  string key_field = 12;
-  map<string, int32> pii_fields = 13;
-  repeated Validation validations = 14;
+  EventContractRef ref = 1;
+  EventContractStatus status = 2;
+  SchemaRef schema_ref = 3;
+  bool is_public = 4;
+  string key_field = 5;
+  map<string, int32> pii_fields = 6;
+  repeated Validation validations = 7;
 }
 
-message  Validation  {
+message Validation {
   string field = 1;
   string type = 2;
   string value = 3;
-}
-
-
-enum Status {
-  STATUS_UNSPECIFIED = 0;
-  STATUS_PENDING = 1;
-  STATUS_IN_REVIEW = 2;
-  STATUS_REJECTED = 3;
-  STATUS_ACTIVE = 4;
-  STATUS_DELETED = 5;
 }
 
 message CustomerProfile {
