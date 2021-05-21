@@ -126,9 +126,8 @@ message KafkaClusterRef {
 enum AuthMechanism {
   // TODO align values with JAAS.
   AUTH_MECHANISM_UNSPECIFIED = 0;
-  AUTH_MECHANISM_PLAINTEXT = 1;
-  AUTH_MECHANISM_SASL = 2;
-  AUTH_MECHANISM_TLS = 3;
+  AUTH_MECHANISM_SASL_PLAIN = 1;
+  AUTH_MECHANISM_SASL_SSL = 2;
 }
 
 message KafkaExporter  {
@@ -155,6 +154,7 @@ message KafkaUser {
   string client_id = 5;
   string client_secret = 6;
   KafkaClusterRef cluster_ref = 7;
+  string stream_name = 8;
 }
 
 /**

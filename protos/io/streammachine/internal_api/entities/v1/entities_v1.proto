@@ -41,3 +41,19 @@ message KafkaExporterExt {
   io.streammachine.external_api.entities.v1.KafkaExporter exporter = 1;
   string uuid = 2;
 }
+
+message KafkaClusterExt {
+  /*
+  Oh what madness! Why does Bart do this?
+
+  To standardize the Extended vs the public entities.
+   */
+  io.streammachine.external_api.entities.v1.KafkaCluster cluster = 1;
+}
+
+
+message KafkaUserExt {
+  io.streammachine.external_api.entities.v1.KafkaUser user =1 ;
+  KafkaExporterExt exporter =2 ;
+  StreamExt stream = 3 ;
+}
