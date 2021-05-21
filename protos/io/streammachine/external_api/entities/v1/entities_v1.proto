@@ -112,6 +112,7 @@ message KafkaCluster {
   string bootstrap_servers = 2;
   AuthMechanism auth_mechanism = 3;
   string token_uri = 4;
+  bool owned = 5; // TODO define what this means
 }
 
 /**
