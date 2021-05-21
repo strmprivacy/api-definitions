@@ -35,5 +35,10 @@ message BatchExporterExt {
   io.streammachine.external_api.entities.v1.BatchExporter batch_exporter = 1;
   string uuid = 2;
   io.streammachine.external_api.entities.v1.SinkType sink_type = 3;
+  io.streammachine.internal_api.entities.v1.StreamExt sourceStream = 4;
+}
 
+message KafkaExporterExt {
+  io.streammachine.external_api.entities.v1.KafkaExporter exporter = 1;
+  string uuid = 2;
 }
