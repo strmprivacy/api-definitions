@@ -153,8 +153,9 @@ message KafkaUser {
   string topic = 4;
   string client_id = 5;
   string client_secret = 6;
-  KafkaClusterRef cluster_ref = 7;
-  string stream_name = 8;
+  string cluster_billing_id = 7;
+  string cluster_name = 8;
+  string stream_name = 9;
 }
 
 /**
@@ -254,19 +255,21 @@ message CustomerProfile {
 }
 
 message StreamRelations {
-  Stream self = 1;
-  KeyStream key_stream = 2;
+  oneof stream {
+    Stream event_stream = 1;
+    KeyStream key_stream = 2;
+  }
   repeated Stream derived = 3;
   repeated BatchExporter batch_exporters = 4;
   repeated KafkaExporterRelations kafka_exporters = 5;
 }
 
 message KafkaExporterRelations {
-  KafkaExporter self = 1;
+  KafkaExporter kafka_exporter = 1;
   repeated KafkaUser users = 2;
 }
 
 message SinkRelations {
-  Sink self = 1;
+  Sink sink = 1;
   repeated BatchExporter exporters = 2;
 }

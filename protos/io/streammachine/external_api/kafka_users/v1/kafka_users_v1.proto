@@ -24,8 +24,6 @@ message ListKafkaUsersResponse {
 
 message DeleteKafkaUserRequest {
   string name = 1;
-  string kafka_exporter_name = 2;
-  bool force = 3;
 }
 
 message DeleteKafkaUserResponse {

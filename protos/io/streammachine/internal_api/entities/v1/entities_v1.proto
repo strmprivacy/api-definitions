@@ -54,6 +54,4 @@ message KafkaClusterExt {
 
 message KafkaUserExt {
   io.streammachine.external_api.entities.v1.KafkaUser user =1 ;
-  KafkaExporterExt exporter =2 ;
-  StreamExt stream = 3 ;
 }
