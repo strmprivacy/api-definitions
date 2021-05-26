@@ -12,10 +12,10 @@ Stream Extended
 message StreamExt {
   io.streammachine.external_api.entities.v1.Stream stream = 1;
   string topic = 2;
+  string uuid =3;
   /** whether or not a key stream EXISTS for this stream.
   So when this flag is true, there are TWO topics associated with this stream.
    */
-  string uuid =3;
   bool key_stream = 4;
 }
 
