@@ -28,7 +28,7 @@ breaking:
   script:
     - export LATEST_TAG=$(git tag -l | sort -V | tail -n 1)
     - echo "Latest tag = $LATEST_TAG"
-    - buf breaking --against ".git#tag=$LATEST_TAG"
+    - if [ ! -z "$LATEST_TAG" ] ; then buf breaking --against ".git#tag=$LATEST_TAG"; fi
 
 release:
   stage: release

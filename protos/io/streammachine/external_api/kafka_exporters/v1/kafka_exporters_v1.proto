@@ -24,15 +24,17 @@ message ListKafkaExportersResponse {
 
 message DeleteKafkaExporterRequest {
   string name = 1;
+  bool recursive = 2;
+  bool force  = 3;
 }
 
 message DeleteKafkaExporterResponse {
-  io.streammachine.external_api.entities.v1.KafkaExporter kafka_exporter = 1;
+  io.streammachine.external_api.entities.v1.KafkaExporterRelations relations = 1;
 }
 
 message CreateKafkaExporterRequest {
   // not all fields are used, and if you fill them in, they'll be overwritten
-  // by the api gateway (like status, the limits etc...)
+  // by the api gateway (like status, ...)
   io.streammachine.external_api.entities.v1.KafkaExporter kafka_exporter = 1;
 }
 

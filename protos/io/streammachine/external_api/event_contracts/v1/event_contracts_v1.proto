@@ -10,25 +10,15 @@ import "io/streammachine/external_api/entities/v1/entities_v1.proto";
 service EventContractsService {
   rpc ListEventContracts (ListEventContractsRequest) returns (ListEventContractsResponse);
   rpc GetEventContract (GetEventContractRequest) returns (GetEventContractResponse);
-  rpc DeleteEventContract (DeleteEventContractRequest) returns (DeleteEventContractResponse);
   rpc CreateEventContract (CreateEventContractRequest) returns (CreateEventContractResponse);
 }
 
 message ListEventContractsRequest {
-  string stream_name = 1;
+  string filter = 1;
 }
 
 message ListEventContractsResponse {
   repeated io.streammachine.external_api.entities.v1.EventContract event_contracts = 1;
-}
-
-// just changes the status (maybe)
-message DeleteEventContractRequest {
-  string name = 1;
-}
-
-message DeleteEventContractResponse {
-  io.streammachine.external_api.entities.v1.EventContract event_contract = 1;
 }
 
 message CreateEventContractRequest {
@@ -42,7 +32,7 @@ message CreateEventContractResponse {
 }
 
 message GetEventContractRequest {
-  string name = 1;
+  io.streammachine.external_api.entities.v1.EventContractRef ref = 1;
 }
 
 message GetEventContractResponse {
