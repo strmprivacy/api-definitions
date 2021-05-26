@@ -12,24 +12,23 @@ service StreamsService {
   rpc GetStream (GetStreamRequest) returns (GetStreamResponse);
   rpc DeleteStream (DeleteStreamRequest) returns (DeleteStreamResponse);
   rpc CreateStream (CreateStreamRequest) returns (CreateStreamResponse);
-  rpc ShowRelations(ShowRelationsRequest) returns (ShowRelationsResponse);
 }
 
 message ListStreamsRequest {
+  bool recursive = 1;
 }
 
 message ListStreamsResponse {
-  repeated io.streammachine.external_api.entities.v1.Stream streams = 1;
+  repeated io.streammachine.external_api.entities.v1.StreamRelations streams = 1;
 }
 
 message DeleteStreamRequest {
   string name = 1;
   bool recursive = 2;
-  bool force  = 3;
 }
 
 message DeleteStreamResponse {
-  io.streammachine.external_api.entities.v1.Stream stream = 1;
+  io.streammachine.external_api.entities.v1.StreamRelations stream = 1;
 }
 
 message CreateStreamRequest {
@@ -44,16 +43,9 @@ message CreateStreamResponse {
 
 message GetStreamRequest {
   string name = 1;
+  bool recursive = 2;
 }
 
 message GetStreamResponse {
-  io.streammachine.external_api.entities.v1.Stream stream = 1;
-}
-
-message ShowRelationsRequest {
-  string name = 1;
-}
-
-message ShowRelationsResponse {
-  repeated io.streammachine.external_api.entities.v1.StreamRelations relations = 1;
+  io.streammachine.external_api.entities.v1.StreamRelations stream = 1;
 }
