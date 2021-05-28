@@ -1,3 +1,10 @@
+## [1.0.1](https://gitlab.com/stream-machine/external-apis/compare/v1.0.0...v1.0.1) (2021-05-28)
+
+
+### Bug Fixes
+
+* fix the damn ci ([e36c25b](https://gitlab.com/stream-machine/external-apis/commit/e36c25b361485a2469376cb390c836733376810b))
+
 # 1.0.0 (2021-05-28)
 
 
