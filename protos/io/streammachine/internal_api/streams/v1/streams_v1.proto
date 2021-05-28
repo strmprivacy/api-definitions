@@ -14,13 +14,19 @@ service InternalStreamsService {
 }
 
 message GetStreamByClientIdRequest {
-  repeated string client_ids = 1;
+  message Pair {
+    string billing_id = 2;
+    string client_id = 3;
+
+  }
+  repeated Pair pairs = 4;
 }
 
 message GetStreamByClientIdResponse {
   message Response {
     string client_id = 1;
     io.streammachine.internal_api.entities.v1.StreamExt stream = 2;
+    string billing_id = 3;
   }
   repeated Response responses = 1;
 }
