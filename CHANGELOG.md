@@ -1,3 +1,10 @@
+# [1.1.0](https://gitlab.com/stream-machine/external-apis/compare/v1.0.1...v1.1.0) (2021-06-01)
+
+
+### Features
+
+* **internal-api:** streams list by streamrefs ([ad926be](https://gitlab.com/stream-machine/external-apis/commit/ad926be57e08951e5f971cca59eda84885fc40ff))
+
 ## [1.0.1](https://gitlab.com/stream-machine/external-apis/compare/v1.0.0...v1.0.1) (2021-05-28)
 
 
