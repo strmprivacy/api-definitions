@@ -10,7 +10,21 @@ import "io/streammachine/external_api/entities/v1/entities_v1.proto";
 
 service InternalStreamsService {
   rpc GetStreamByClientId(GetStreamByClientIdRequest) returns (GetStreamByClientIdResponse);
+  rpc GetStreamsByStreamRefs(GetStreamsByStreamRefsRequest) returns( GetStreamsByStreamRefsResponse);
   rpc SetStreamsEnable(SetStreamsEnableRequest) returns (SetStreamsEnableResponse);
+}
+
+message GetStreamsByStreamRefsRequest {
+  repeated io.streammachine.external_api.entities.v1.StreamRef stream_refs = 1;
+}
+
+message GetStreamsByStreamRefsResponse{
+  message Response {
+    io.streammachine.internal_api.entities.v1.StreamExt stream = 2;
+    string billing_id = 3;
+  }
+  repeated Response responses = 1;
+
 }
 
 message GetStreamByClientIdRequest {
