@@ -1,7 +1,7 @@
 syntax = "proto3";
 
 package io.streammachine.external_api.event_contracts.v1;
-option go_package = "streammachine.io/external_api/event_contracts/v1;event_contracts";
+option go_package = "streammachine.io/api/external_api/event_contracts/v1;event_contracts";
 
 import "io/streammachine/external_api/entities/v1/entities_v1.proto";
 

@@ -7,7 +7,10 @@ mkfile_path := $(abspath $(lastword $(MAKEFILE_LIST)))
 mkfile_dir := $(dir $(mkfile_path))
 
 go:
-	${mkfile_dir}/make-go-modules.sh ${mkfile_dir} ${proto_files}
+	protoc ${proto_files} --go_out=plugins=grpc,module=streammachine.io/api:build && \
+	cd ${mkfile_dir}/build && \
+	go mod init streammachine.io/api && \
+	go mod tidy
 
 clean:
 	rm -rf build/*
