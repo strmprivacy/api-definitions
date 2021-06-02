@@ -1,6 +1,7 @@
 syntax = "proto3";
 
 package io.streammachine.external_api.events.v1;
+option go_package = "streammachine.io/external_api/events/v1;events";
 
 import "io/streammachine/external_api/entities/v1/entities_v1.proto";
 import "google/protobuf/timestamp.proto";

@@ -1,6 +1,7 @@
 syntax = "proto3";
 
 package io.streammachine.external_api.sinks.v1;
+option go_package = "streammachine.io/external_api/sinks/v1;sinks";
 
 import "io/streammachine/external_api/entities/v1/entities_v1.proto";
 

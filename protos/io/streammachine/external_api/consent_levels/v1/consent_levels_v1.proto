@@ -1,6 +1,7 @@
 syntax = "proto3";
 
 package io.streammachine.external_api.consent_levels.v1;
+option go_package = "streammachine.io/external_api/consent_levels/v1;consent_levels";
 
 import "io/streammachine/external_api/entities/v1/entities_v1.proto";
 
