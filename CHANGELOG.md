@@ -1,3 +1,11 @@
+# [1.2.0](https://gitlab.com/stream-machine/external-apis/compare/v1.1.0...v1.2.0) (2021-06-07)
+
+
+### Features
+
+* **golang:** builds complete strm api in protos/build ([5b6b401](https://gitlab.com/stream-machine/external-apis/commit/5b6b4014dc3f4f8b56032e273c52bf554d5923a3))
+* **golang:** go_packages being built ([687ecae](https://gitlab.com/stream-machine/external-apis/commit/687ecae47492a8b1b49bdbf5975170dbc01dcdb4))
+
 # [1.1.0](https://gitlab.com/stream-machine/external-apis/compare/v1.0.1...v1.1.0) (2021-06-01)
 
 
