@@ -139,6 +139,7 @@ message KafkaExporter  {
   string produce_to_topic = 5; // the topic this exporter produces to
   string client_id = 6; // how to produce to the cluster.
   string client_secret = 7; // how to produce to the cluster.
+  KafkaUser  kafka_user = 8;
 }
 
 /**
