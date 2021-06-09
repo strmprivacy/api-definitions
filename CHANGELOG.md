@@ -1,3 +1,10 @@
+## [1.2.1](https://gitlab.com/stream-machine/external-apis/compare/v1.2.0...v1.2.1) (2021-06-09)
+
+
+### Bug Fixes
+
+* **kafka-user:** added optional KafkaUser to KafkaExporter create response ([aa4a47c](https://gitlab.com/stream-machine/external-apis/commit/aa4a47c3f90058bc2a813f6831880e8b8b3c0b35))
+
 # [1.2.0](https://gitlab.com/stream-machine/external-apis/compare/v1.1.0...v1.2.0) (2021-06-07)
 
 
