@@ -151,17 +151,17 @@ publishing {
             artifact(sourcesJar)
 
             groupId = "${project.group}"
-            artifactId = "external-apis-kotlin"
+            artifactId = "api-definitions-kotlin"
             version = "${project.version}"
 
             pom {
-                name.set("Internal APIs")
+                name.set("API Definitions")
                 description.set(project.description)
 
                 scm {
-                    url.set("https://gitlab.com/stream-machine/external-apis")
-                    connection.set("scm:git:git@gitlab.com:stream-machine/external-apis.git")
-                    developerConnection.set("scm:git:git@gitlab.com:stream-machine/external-apis.git")
+                    url.set("https://gitlab.com/stream-machine/api-definitions")
+                    connection.set("scm:git:git@gitlab.com:stream-machine/api-definitions.git")
+                    developerConnection.set("scm:git:git@gitlab.com:stream-machine/api-definitions.git")
                 }
             }
         }
