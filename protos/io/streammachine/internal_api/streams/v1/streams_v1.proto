@@ -14,18 +14,6 @@ service InternalStreamsService {
   rpc SetStreamsEnable(SetStreamsEnableRequest) returns (SetStreamsEnableResponse);
 }
 
-message GetStreamsByStreamRefsRequest {
-  repeated io.streammachine.api.entities.v1.StreamRef stream_refs = 1;
-}
-
-message GetStreamsByStreamRefsResponse{
-  message Response {
-    io.streammachine.internal_api.entities.v1.StreamExt stream = 2;
-    string billing_id = 3;
-  }
-  repeated Response responses = 1;
-}
-
 message GetStreamByClientIdRequest {
   message Pair {
     string billing_id = 2;
@@ -43,10 +31,22 @@ message GetStreamByClientIdResponse {
   repeated Response responses = 1;
 }
 
+message GetStreamsByStreamRefsRequest {
+  repeated io.streammachine.api.entities.v1.StreamRef stream_refs = 1;
+}
+
+message GetStreamsByStreamRefsResponse{
+  message Response {
+    io.streammachine.internal_api.entities.v1.StreamExt stream = 2;
+    string billing_id = 3;
+  }
+  repeated Response responses = 1;
+}
+
 message SetStreamsEnableRequest {
   message Request {
     io.streammachine.api.entities.v1.StreamRef ref = 1;
-    bool on_off = 2;
+    bool on_off = 2; // TODO: replace with "enabled"
   }
   repeated Request request = 1;
 }
