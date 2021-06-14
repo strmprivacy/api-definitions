@@ -1,3 +1,10 @@
+# [1.3.0](https://gitlab.com/stream-machine/api-definitions/compare/v1.2.1...v1.3.0) (2021-06-14)
+
+
+### Features
+
+* **chore:** renamed project to api-definitions ([2098d55](https://gitlab.com/stream-machine/api-definitions/commit/2098d55dd784dd8e3cb66784b2c402485a334a2b))
+
 ## [1.2.1](https://gitlab.com/stream-machine/api-definitions/compare/v1.2.0...v1.2.1) (2021-06-09)
 
 
