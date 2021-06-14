@@ -6,8 +6,7 @@ option go_package = "streammachine.io/api/api/events/v1;events";
 import "io/streammachine/api/entities/v1/entities_v1.proto";
 import "google/protobuf/timestamp.proto";
 
-// TODO discuss!
-//option java_multiple_files = true;
+option java_multiple_files = true;
 
 service EventsService {
   rpc GetEvent (GetEventRequest) returns (GetEventResponse);
@@ -17,7 +16,7 @@ message GetEventRequest {
   google.protobuf.Timestamp from = 1;
   google.protobuf.Timestamp to = 2;
   int32 aggregate_interval = 3; // interval in seconds
-  io.streammachine.api.entities.v1.StreamRef stream_ref =4; // what stream to refer to
+  io.streammachine.api.entities.v1.StreamRef stream_ref = 4; // what stream to refer to
 
 }
 

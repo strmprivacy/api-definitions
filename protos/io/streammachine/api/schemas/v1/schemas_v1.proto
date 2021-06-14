@@ -5,8 +5,7 @@ option go_package = "streammachine.io/api/api/schemas/v1;schemas";
 
 import "io/streammachine/api/entities/v1/entities_v1.proto";
 
-// TODO discuss!
-//option java_multiple_files = true;
+option java_multiple_files = true;
 
 service SchemasService {
   rpc ListSchemas (ListSchemasRequest) returns (ListSchemasResponse);
@@ -24,8 +23,8 @@ message ListSchemasResponse {
 }
 
 message CreateSchemaRequest {
-  // not all fields are used, and if you fill them in, they'll be overwritten
-  // by the api gateway (like status, the limits etc...)
+  /* not all fields are used, and if you fill them in, they'll be overwritten
+   * by the api gateway (like status, the limits etc...) */
   io.streammachine.api.entities.v1.Schema schema = 1;
 }
 

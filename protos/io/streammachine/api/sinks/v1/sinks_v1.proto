@@ -5,8 +5,7 @@ option go_package = "streammachine.io/api/api/sinks/v1;sinks";
 
 import "io/streammachine/api/entities/v1/entities_v1.proto";
 
-// TODO discuss!
-//option java_multiple_files = true;
+option java_multiple_files = true;
 
 service SinksService {
   rpc ListSinks (ListSinksRequest) returns (ListSinksResponse);
@@ -33,8 +32,8 @@ message DeleteSinkResponse {
 }
 
 message CreateSinkRequest {
-  // not all fields are used, and if you fill them in, they'll be overwritten
-  // by the api gateway (like status, the limits etc...)
+  /* not all fields are used, and if you fill them in, they'll be overwritten
+   * by the api gateway (like status, the limits etc...) */
   io.streammachine.api.entities.v1.Sink sink = 1;
 }
 

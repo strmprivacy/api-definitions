@@ -3,10 +3,9 @@ syntax = "proto3";
 package io.streammachine.internal_api.schemas.v1;
 option go_package = "streammachine.io/api/internal_api/schemas/v1;schemas";
 
-import "io/streammachine/api/entities/v1/entities_v1.proto";
+option java_multiple_files = true;
 
-// TODO discuss!
-//option java_multiple_files = true;
+import "io/streammachine/api/entities/v1/entities_v1.proto";
 
 service InternalSchemasService {
   rpc GetSchemaByConfluentId (GetSchemaByConfluentIdRequest) returns (GetSchemaByConfluentIdResponse);

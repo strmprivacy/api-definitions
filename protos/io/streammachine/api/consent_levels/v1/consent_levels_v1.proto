@@ -5,8 +5,7 @@ option go_package = "streammachine.io/api/api/consent_levels/v1;consent_levels";
 
 import "io/streammachine/api/entities/v1/entities_v1.proto";
 
-// TODO discuss!
-//option java_multiple_files = true;
+option java_multiple_files = true;
 
 service ConsentLevelsService {
   rpc ListConsentLevels (ListConsentLevelsRequest) returns (ListConsentLevelsResponse);

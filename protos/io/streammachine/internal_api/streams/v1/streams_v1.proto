@@ -3,15 +3,14 @@ syntax = "proto3";
 package io.streammachine.internal_api.streams.v1;
 option go_package = "streammachine.io/api/internal_api/streams/v1;streams";
 
+option java_multiple_files = true;
+
 import "io/streammachine/internal_api/entities/v1/entities_v1.proto";
 import "io/streammachine/api/entities/v1/entities_v1.proto";
 
-// TODO discuss!
-//option java_multiple_files = true;
-
 service InternalStreamsService {
   rpc GetStreamByClientId(GetStreamByClientIdRequest) returns (GetStreamByClientIdResponse);
-  rpc GetStreamsByStreamRefs(GetStreamsByStreamRefsRequest) returns( GetStreamsByStreamRefsResponse);
+  rpc GetStreamsByStreamRefs(GetStreamsByStreamRefsRequest) returns(GetStreamsByStreamRefsResponse);
   rpc SetStreamsEnable(SetStreamsEnableRequest) returns (SetStreamsEnableResponse);
 }
 
@@ -25,14 +24,12 @@ message GetStreamsByStreamRefsResponse{
     string billing_id = 3;
   }
   repeated Response responses = 1;
-
 }
 
 message GetStreamByClientIdRequest {
   message Pair {
     string billing_id = 2;
     string client_id = 3;
-
   }
   repeated Pair pairs = 4;
 }
@@ -53,7 +50,7 @@ message SetStreamsEnableRequest {
   }
   repeated Request request = 1;
 }
+
 message SetStreamsEnableResponse {
   repeated io.streammachine.api.entities.v1.Stream streams = 1;
-
 }

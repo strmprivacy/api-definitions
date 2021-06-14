@@ -1,7 +1,7 @@
 syntax = "proto3";
 package io.streammachine.api.entities.v1;
 option go_package = "streammachine.io/api/api/entities/v1;entities";
-// TODO discuss
+
 option java_multiple_files = true;
 
 import "google/protobuf/timestamp.proto";
@@ -9,13 +9,12 @@ import "google/protobuf/timestamp.proto";
 // See our attribute spreadsheet for the initial fields version
 // https://docs.google.com/spreadsheets/d/12dooxWXRQjEKhZxS_Bpa4fXpDpaEbPu9JorxOo_BElQ
 
-/**
-Stream entity.
-
-Streams are source or derived streams depending on whether or not linked_stream is null.
-Key streams are a separate entity in the api.
+/*
+  Streams are source or derived streams depending on whether or not linked_stream is null.
+  Key streams are a separate entity in the api.
  */
 message Stream {
+  // TODO: I think we should use StreamRef here instead of these 2 properties (billing_id + name)
   string billing_id = 1;
   string name = 2;
   string description = 3; // customer purpose.
@@ -30,7 +29,7 @@ message Stream {
   repeated Credentials credentials = 12;
 }
 
-/**
+/*
 Consent level is meant to interpret the consent-levels of an event for decryption purposes only.
 
 Cumulative means that the highest consent-level in an event must be greater than or equal to the single requested level
@@ -45,7 +44,7 @@ enum ConsentLevelType {
   CONSENT_LEVEL_TYPE_GRANULAR = 2;
 }
 
-/**
+/*
 A Stream of key-link, encryption-key messages created from a source stream
 with the same `name`.
  */
@@ -55,25 +54,26 @@ message KeyStream {
   string status = 5;
 }
 
-/** refer to a stream or key stream.
+/* refer to a stream or key stream.
  */
 message StreamRef  {
   string stream_name = 1;
+  // TODO: Can't we do this in another way than with a boolean flag?
   bool key_stream = 2; // whether we refer to the source stream or its corresponding keys stream.
   string billing_id = 3;
 }
 
-/**
+/*
 Credentials to produce to the event-gateway, or to consume from egress.
  */
 message Credentials {
   string billing_id = 1;
   string client_id = 2;
-  StreamRef stream_ref = 3;
-  string client_secret = 4;
+  StreamRef stream_ref = 3; // TODO: Should this be here? It makes the domain model more tangled and this message less extensible
+  string client_secret = 4; // TODO: Should we expose this?
 }
 
-/** the sink configuration used by the batch exporters.
+/* the sink configuration used by the batch exporters.
 
  */
 message Sink {
@@ -88,24 +88,21 @@ enum SinkType {
   SINK_TYPE_UNSPECIFIED = 0;
   SINK_TYPE_S3 = 1;
   SINK_TYPE_GCLOUD = 2;
-  SINK_TYPE_AZURE = 3;
-  SINK_TYPE_MONGO = 4;
-  SINK_TYPE_ELASTIC = 5;
 }
 
-/**
+/*
 A batch exporter.
  */
 message BatchExporter {
   string billing_id = 1;
   string name = 2;
   StreamRef stream_ref = 3;
-  int32 interval = 4 ; // interval in seconds
+  int32 interval = 4; //interval in seconds
   string sink_name = 5;
   string path_prefix = 6;
 }
 
-/**
+/*
 Currently only our internal shared export cluster.
  */
 message KafkaCluster {
@@ -116,7 +113,7 @@ message KafkaCluster {
   bool owned = 5; // TODO define what this means
 }
 
-/**
+/*
 How to refer to a certain Kafka cluster.
  */
 message KafkaClusterRef {
@@ -142,7 +139,7 @@ message KafkaExporter  {
   KafkaUser  kafka_user = 8;
 }
 
-/**
+/*
 User credentials to consume from topic produced by Kafka Exporter.
 
 The kafka exporter is linked to a certain cluster, so this entity is bound to a certain
@@ -160,7 +157,7 @@ message KafkaUser {
   string stream_name = 9;
 }
 
-/**
+/*
 for descriptive purposes only.
  */
 message ConsentLevel {
@@ -170,7 +167,7 @@ message ConsentLevel {
   string dpo_reference = 4; // reference to DPO documentation.
 }
 
-/**
+/*
 event usage information.
  */
 message Events {

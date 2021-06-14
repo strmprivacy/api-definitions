@@ -5,8 +5,7 @@ option go_package = "streammachine.io/api/api/kafka_clusters/v1;kafka_clusters";
 
 import "io/streammachine/api/entities/v1/entities_v1.proto";
 
-// TODO discuss!
-//option java_multiple_files = true;
+option java_multiple_files = true;
 
 service KafkaClustersService {
   rpc ListKafkaClusters (ListKafkaClustersRequest) returns (ListKafkaClustersResponse);
@@ -31,8 +30,8 @@ message DeleteKafkaClusterResponse {
 }
 
 message CreateKafkaClusterRequest {
-  // not all fields are used, and if you fill them in, they'll be overwritten
-  // by the api gateway (like status, the limits etc...)
+  /* not all fields are used, and if you fill them in,
+   * they'll be overwritten by the api gateway (like status, the limits etc...) */
   io.streammachine.api.entities.v1.KafkaCluster kafka_cluster = 1;
 }
 

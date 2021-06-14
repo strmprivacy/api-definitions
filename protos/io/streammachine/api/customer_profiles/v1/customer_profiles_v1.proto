@@ -5,8 +5,7 @@ option go_package = "streammachine.io/api/api/customer_profiles/v1;customer_prof
 
 import "io/streammachine/api/entities/v1/entities_v1.proto";
 
-// TODO discuss!
-//option java_multiple_files = true;
+option java_multiple_files = true;
 
 service CustomerProfilesService {
   rpc GetCustomerProfile (GetCustomerProfileRequest) returns (GetCustomerProfileResponse);

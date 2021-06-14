@@ -5,8 +5,7 @@ option go_package = "streammachine.io/api/api/kafka_exporters/v1;kafka_exporters
 
 import "io/streammachine/api/entities/v1/entities_v1.proto";
 
-// TODO discuss!
-//option java_multiple_files = true;
+option java_multiple_files = true;
 
 service KafkaExportersService {
   rpc ListKafkaExporters (ListKafkaExportersRequest) returns (ListKafkaExportersResponse);
@@ -33,8 +32,8 @@ message DeleteKafkaExporterResponse {
 }
 
 message CreateKafkaExporterRequest {
-  // not all fields are used, and if you fill them in, they'll be overwritten
-  // by the api gateway (like status, ...)
+  /* not all fields are used, and if you fill them in, they'll be overwritten
+   * by the api gateway (like status, ...) */
   io.streammachine.api.entities.v1.KafkaExporter kafka_exporter = 1;
 }
 
