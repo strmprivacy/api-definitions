@@ -1,0 +1,50 @@
+syntax = "proto3";
+
+package io.streammachine.api.kafka_users.v1;
+option go_package = "streammachine.io/api/api/kafka_users/v1;kafka_users";
+
+import "io/streammachine/api/entities/v1/entities_v1.proto";
+
+// TODO discuss!
+//option java_multiple_files = true;
+
+service KafkaUsersService {
+  rpc ListKafkaUsers (ListKafkaUsersRequest) returns (ListKafkaUsersResponse);
+  rpc GetKafkaUser (GetKafkaUserRequest) returns (GetKafkaUserResponse);
+  rpc DeleteKafkaUser (DeleteKafkaUserRequest) returns (DeleteKafkaUserResponse);
+  rpc CreateKafkaUser (CreateKafkaUserRequest) returns (CreateKafkaUserResponse);
+}
+
+message ListKafkaUsersRequest {
+    string stream_name = 1;
+}
+
+message ListKafkaUsersResponse {
+  repeated io.streammachine.api.entities.v1.KafkaUser kafka_users = 1;
+}
+
+message DeleteKafkaUserRequest {
+  string name = 1;
+}
+
+message DeleteKafkaUserResponse {
+  io.streammachine.api.entities.v1.KafkaUser kafka_user = 1;
+}
+
+message CreateKafkaUserRequest {
+  // not all fields are used, and if you fill them in, they'll be overwritten
+  // by the api gateway (like status, the limits etc...)
+  io.streammachine.api.entities.v1.KafkaUser kafka_user = 1;
+}
+
+message CreateKafkaUserResponse {
+  io.streammachine.api.entities.v1.KafkaUser kafka_user = 1;
+}
+
+message GetKafkaUserRequest {
+  string name = 1;
+}
+
+message GetKafkaUserResponse {
+  io.streammachine.api.entities.v1.KafkaUser kafka_user = 1;
+}

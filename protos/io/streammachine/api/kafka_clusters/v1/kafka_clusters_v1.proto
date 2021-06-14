@@ -1,0 +1,49 @@
+syntax = "proto3";
+
+package io.streammachine.api.kafka_clusters.v1;
+option go_package = "streammachine.io/api/api/kafka_clusters/v1;kafka_clusters";
+
+import "io/streammachine/api/entities/v1/entities_v1.proto";
+
+// TODO discuss!
+//option java_multiple_files = true;
+
+service KafkaClustersService {
+  rpc ListKafkaClusters (ListKafkaClustersRequest) returns (ListKafkaClustersResponse);
+  rpc GetKafkaCluster (GetKafkaClusterRequest) returns (GetKafkaClusterResponse);
+  rpc DeleteKafkaCluster (DeleteKafkaClusterRequest) returns (DeleteKafkaClusterResponse);
+  rpc CreateKafkaCluster (CreateKafkaClusterRequest) returns (CreateKafkaClusterResponse);
+}
+
+message ListKafkaClustersRequest {
+}
+
+message ListKafkaClustersResponse {
+  repeated io.streammachine.api.entities.v1.KafkaCluster kafka_clusters = 1;
+}
+
+message DeleteKafkaClusterRequest {
+  string name = 1;
+}
+
+message DeleteKafkaClusterResponse {
+  io.streammachine.api.entities.v1.KafkaCluster kafka_cluster = 1;
+}
+
+message CreateKafkaClusterRequest {
+  // not all fields are used, and if you fill them in, they'll be overwritten
+  // by the api gateway (like status, the limits etc...)
+  io.streammachine.api.entities.v1.KafkaCluster kafka_cluster = 1;
+}
+
+message CreateKafkaClusterResponse {
+  io.streammachine.api.entities.v1.KafkaCluster kafka_cluster = 1;
+}
+
+message GetKafkaClusterRequest {
+  string name = 1;
+}
+
+message GetKafkaClusterResponse {
+  io.streammachine.api.entities.v1.KafkaCluster kafka_cluster = 1;
+}

@@ -1,0 +1,52 @@
+syntax = "proto3";
+
+package io.streammachine.api.streams.v1;
+option go_package = "streammachine.io/api/api/streams/v1;streams";
+
+import "io/streammachine/api/entities/v1/entities_v1.proto";
+
+// TODO discuss!
+//option java_multiple_files = true;
+
+service StreamsService {
+  rpc ListStreams (ListStreamsRequest) returns (ListStreamsResponse);
+  rpc GetStream (GetStreamRequest) returns (GetStreamResponse);
+  rpc DeleteStream (DeleteStreamRequest) returns (DeleteStreamResponse);
+  rpc CreateStream (CreateStreamRequest) returns (CreateStreamResponse);
+}
+
+message ListStreamsRequest {
+  bool recursive = 1;
+}
+
+message ListStreamsResponse {
+  repeated io.streammachine.api.entities.v1.StreamRelations streams = 1;
+}
+
+message DeleteStreamRequest {
+  string name = 1;
+  bool recursive = 2;
+}
+
+message DeleteStreamResponse {
+  io.streammachine.api.entities.v1.StreamRelations stream = 1;
+}
+
+message CreateStreamRequest {
+  // not all fields are used, and if you fill them in, they'll be overwritten
+  // by the api gateway (like status, the limits etc...)
+  io.streammachine.api.entities.v1.Stream stream = 1;
+}
+
+message CreateStreamResponse {
+  io.streammachine.api.entities.v1.Stream stream = 1;
+}
+
+message GetStreamRequest {
+  string name = 1;
+  bool recursive = 2;
+}
+
+message GetStreamResponse {
+  io.streammachine.api.entities.v1.StreamRelations stream = 1;
+}

@@ -1,0 +1,41 @@
+syntax = "proto3";
+
+package io.streammachine.api.event_contracts.v1;
+option go_package = "streammachine.io/api/api/event_contracts/v1;event_contracts";
+
+import "io/streammachine/api/entities/v1/entities_v1.proto";
+
+// TODO discuss!
+//option java_multiple_files = true;
+
+service EventContractsService {
+  rpc ListEventContracts (ListEventContractsRequest) returns (ListEventContractsResponse);
+  rpc GetEventContract (GetEventContractRequest) returns (GetEventContractResponse);
+  rpc CreateEventContract (CreateEventContractRequest) returns (CreateEventContractResponse);
+}
+
+message ListEventContractsRequest {
+  string filter = 1;
+}
+
+message ListEventContractsResponse {
+  repeated io.streammachine.api.entities.v1.EventContract event_contracts = 1;
+}
+
+message CreateEventContractRequest {
+  // not all fields are used, and if you fill them in, they'll be overwritten
+  // by the api gateway (like status, the limits etc...)
+  io.streammachine.api.entities.v1.EventContract event_contract = 1;
+}
+
+message CreateEventContractResponse {
+  io.streammachine.api.entities.v1.EventContract event_contract = 1;
+}
+
+message GetEventContractRequest {
+  io.streammachine.api.entities.v1.EventContractRef ref = 1;
+}
+
+message GetEventContractResponse {
+  io.streammachine.api.entities.v1.EventContract event_contract = 1;
+}

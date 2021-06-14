@@ -5,13 +5,12 @@ proto_files := $(shell find protos -name *.proto)
 buf-breaking:
 	bash .buf-breaking.sh
 
-go:
-	${MAKE} -C protos clean go
-
 clean:
-	./gradlew clean
-	make -C protos clean
+	rm -rf build/go/*
 
-mvn:
-	./gradlew publishToMavenLocal
-# vim:noexpandtab
+go: clean
+	protoc ${proto_files} --proto_path=protos --go_out=module=streammachine.io/api:build/go --go-grpc_out=module=streammachine.io/api:build/go && \
+	cd build/go && \
+	go mod init streammachine.io/api && \
+	go mod tidy
+

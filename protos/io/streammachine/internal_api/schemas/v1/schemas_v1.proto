@@ -3,7 +3,7 @@ syntax = "proto3";
 package io.streammachine.internal_api.schemas.v1;
 option go_package = "streammachine.io/api/internal_api/schemas/v1;schemas";
 
-import "io/streammachine/external_api/entities/v1/entities_v1.proto";
+import "io/streammachine/api/entities/v1/entities_v1.proto";
 
 // TODO discuss!
 //option java_multiple_files = true;
@@ -27,13 +27,13 @@ message GetCombinedByEventContractRefRequest {
 }
 
 message GetCombinedByEventContractRefResponse {
-  io.streammachine.external_api.entities.v1.Schema schema = 1;
-  io.streammachine.external_api.entities.v1.EventContract event_contract = 2;
+  io.streammachine.api.entities.v1.Schema schema = 1;
+  io.streammachine.api.entities.v1.EventContract event_contract = 2;
   int32 confluent_id = 3;
 }
 
 message DeleteSchemaRequest {
-  io.streammachine.external_api.entities.v1.SchemaRef ref = 1;
+  io.streammachine.api.entities.v1.SchemaRef ref = 1;
 }
 
 message DeleteSchemaResponse {

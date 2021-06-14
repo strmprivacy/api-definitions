@@ -1,0 +1,48 @@
+syntax = "proto3";
+
+package io.streammachine.api.consent_levels.v1;
+option go_package = "streammachine.io/api/api/consent_levels/v1;consent_levels";
+
+import "io/streammachine/api/entities/v1/entities_v1.proto";
+
+// TODO discuss!
+//option java_multiple_files = true;
+
+service ConsentLevelsService {
+  rpc ListConsentLevels (ListConsentLevelsRequest) returns (ListConsentLevelsResponse);
+  rpc GetConsentLevel (GetConsentLevelRequest) returns (GetConsentLevelResponse);
+  rpc DeleteConsentLevel (DeleteConsentLevelRequest) returns (DeleteConsentLevelResponse);
+  rpc CreateConsentLevel (CreateConsentLevelRequest) returns (CreateConsentLevelResponse);
+}
+
+message ListConsentLevelsRequest {
+}
+
+message ListConsentLevelsResponse {
+  repeated io.streammachine.api.entities.v1.ConsentLevel consent_levels = 1;
+}
+
+// just changes the status (maybe)
+message DeleteConsentLevelRequest {
+  int32 level = 1;
+}
+
+message DeleteConsentLevelResponse {
+  io.streammachine.api.entities.v1.ConsentLevel consent_level = 1;
+}
+
+message CreateConsentLevelRequest {
+  io.streammachine.api.entities.v1.ConsentLevel consent_level = 1;
+}
+
+message CreateConsentLevelResponse {
+  io.streammachine.api.entities.v1.ConsentLevel consent_level = 1;
+}
+
+message GetConsentLevelRequest {
+  int32 level = 1;
+}
+
+message GetConsentLevelResponse {
+  io.streammachine.api.entities.v1.ConsentLevel consent_level = 1;
+}

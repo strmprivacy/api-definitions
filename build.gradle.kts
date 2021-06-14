@@ -1,10 +1,11 @@
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import com.google.protobuf.gradle.*
 import org.ajoberstar.grgit.Grgit
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 
 group = "io.streammachine.api"
 description = "Internal APIs for Stream Machine"
+buildDir = File("build/jvm")
 
 ext["grpcVersion"] = "1.37.1"
 ext["grpcKotlinVersion"] = "1.1.0"
@@ -48,7 +49,7 @@ plugins {
     id("maven-publish")
     kotlin("jvm") version "1.4.30"
     id("com.google.protobuf") version "0.8.16"
-    id("org.ajoberstar.grgit") version("4.1.0")
+    id("org.ajoberstar.grgit") version ("4.1.0")
 }
 
 dependencies {
@@ -93,7 +94,7 @@ kotlin {
 }
 
 protobuf {
-    generatedFilesBaseDir =layout.buildDirectory.dir("generated/proto").get().toString()
+    generatedFilesBaseDir = layout.buildDirectory.dir("generated/proto").get().toString()
 
     protoc {
         artifact = "com.google.protobuf:protoc:${rootProject.ext["protobufVersion"]}"

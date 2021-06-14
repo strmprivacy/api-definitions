@@ -4,7 +4,7 @@ package io.streammachine.internal_api.streams.v1;
 option go_package = "streammachine.io/api/internal_api/streams/v1;streams";
 
 import "io/streammachine/internal_api/entities/v1/entities_v1.proto";
-import "io/streammachine/external_api/entities/v1/entities_v1.proto";
+import "io/streammachine/api/entities/v1/entities_v1.proto";
 
 // TODO discuss!
 //option java_multiple_files = true;
@@ -16,7 +16,7 @@ service InternalStreamsService {
 }
 
 message GetStreamsByStreamRefsRequest {
-  repeated io.streammachine.external_api.entities.v1.StreamRef stream_refs = 1;
+  repeated io.streammachine.api.entities.v1.StreamRef stream_refs = 1;
 }
 
 message GetStreamsByStreamRefsResponse{
@@ -48,12 +48,12 @@ message GetStreamByClientIdResponse {
 
 message SetStreamsEnableRequest {
   message Request {
-    io.streammachine.external_api.entities.v1.StreamRef ref = 1;
+    io.streammachine.api.entities.v1.StreamRef ref = 1;
     bool on_off = 2;
   }
   repeated Request request = 1;
 }
 message SetStreamsEnableResponse {
-  repeated io.streammachine.external_api.entities.v1.Stream streams = 1;
+  repeated io.streammachine.api.entities.v1.Stream streams = 1;
 
 }

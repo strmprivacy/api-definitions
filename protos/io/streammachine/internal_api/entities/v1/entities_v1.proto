@@ -5,13 +5,13 @@ option go_package = "streammachine.io/api/internal_api/entities/v1;entities";
 option java_multiple_files = true;
 
 
-import "io/streammachine/external_api/entities/v1/entities_v1.proto";
+import "io/streammachine/api/entities/v1/entities_v1.proto";
 
 /**
 Stream Extended
  */
 message StreamExt {
-  io.streammachine.external_api.entities.v1.Stream stream = 1;
+  io.streammachine.api.entities.v1.Stream stream = 1;
   string topic = 2;
   string uuid =3;
   /** whether or not a key stream EXISTS for this stream.
@@ -28,18 +28,18 @@ message DecrypterExt {
 }
 
 message SinkExt {
-  io.streammachine.external_api.entities.v1.Sink sink = 1;
+  io.streammachine.api.entities.v1.Sink sink = 1;
   string uuid = 2;
 }
 
 message BatchExporterExt {
-  io.streammachine.external_api.entities.v1.BatchExporter batch_exporter = 1;
+  io.streammachine.api.entities.v1.BatchExporter batch_exporter = 1;
   string uuid = 2;
-  io.streammachine.external_api.entities.v1.SinkType sink_type = 3;
+  io.streammachine.api.entities.v1.SinkType sink_type = 3;
 }
 
 message KafkaExporterExt {
-  io.streammachine.external_api.entities.v1.KafkaExporter exporter = 1;
+  io.streammachine.api.entities.v1.KafkaExporter exporter = 1;
   string uuid = 2;
 }
 
@@ -49,10 +49,10 @@ message KafkaClusterExt {
 
   To standardize the Extended vs the public entities.
    */
-  io.streammachine.external_api.entities.v1.KafkaCluster cluster = 1;
+  io.streammachine.api.entities.v1.KafkaCluster cluster = 1;
 }
 
 
 message KafkaUserExt {
-  io.streammachine.external_api.entities.v1.KafkaUser user =1 ;
+  io.streammachine.api.entities.v1.KafkaUser user =1 ;
 }
