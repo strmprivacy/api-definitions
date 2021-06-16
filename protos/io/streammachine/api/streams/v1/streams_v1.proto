@@ -1,7 +1,7 @@
 syntax = "proto3";
 
 package io.streammachine.api.streams.v1;
-option go_package = "streammachine.io/api/api/streams/v1;streams";
+option go_package = "streammachine.io/api/streams/v1;streams";
 
 import "io/streammachine/api/entities/v1/entities_v1.proto";
 

@@ -1,6 +1,6 @@
 syntax = "proto3";
 package io.streammachine.api.entities.v1;
-option go_package = "streammachine.io/api/api/entities/v1;entities";
+option go_package = "streammachine.io/api/entities/v1;entities";
 
 option java_multiple_files = true;
 

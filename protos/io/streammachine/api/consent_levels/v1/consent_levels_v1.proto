@@ -1,7 +1,7 @@
 syntax = "proto3";
 
 package io.streammachine.api.consent_levels.v1;
-option go_package = "streammachine.io/api/api/consent_levels/v1;consent_levels";
+option go_package = "streammachine.io/api/consent_levels/v1;consent_levels";
 
 import "io/streammachine/api/entities/v1/entities_v1.proto";
 
