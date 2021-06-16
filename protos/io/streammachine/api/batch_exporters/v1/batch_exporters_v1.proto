@@ -1,0 +1,50 @@
+syntax = "proto3";
+
+package io.streammachine.api.batch_exporters.v1;
+option go_package = "streammachine.io/api/batch_exporters/v1;batch_exporters";
+
+import "io/streammachine/api/entities/v1/entities_v1.proto";
+
+option java_multiple_files = true;
+
+service BatchExportersService {
+  rpc ListBatchExporters (ListBatchExportersRequest) returns (ListBatchExportersResponse);
+  rpc GetBatchExporter (GetBatchExporterRequest) returns (GetBatchExporterResponse);
+  rpc DeleteBatchExporter (DeleteBatchExporterRequest) returns (DeleteBatchExporterResponse);
+  rpc CreateBatchExporter (CreateBatchExporterRequest) returns (CreateBatchExporterResponse);
+}
+
+message ListBatchExportersRequest {
+}
+
+message ListBatchExportersResponse {
+  repeated io.streammachine.api.entities.v1.BatchExporter batch_exporters = 1;
+}
+
+message DeleteBatchExporterRequest {
+  string name = 1;
+}
+
+message DeleteBatchExporterResponse {
+  io.streammachine.api.entities.v1.BatchExporter batch_exporter = 1;
+}
+
+message CreateBatchExporterRequest {
+  /*
+   not all fields are used, and if you fill them in, they'll be overwritten
+   by the api gateway (like status, ...)
+   */
+  io.streammachine.api.entities.v1.BatchExporter batch_exporter = 1;
+}
+
+message CreateBatchExporterResponse {
+  io.streammachine.api.entities.v1.BatchExporter batch_exporter = 1;
+}
+
+message GetBatchExporterRequest {
+  string name = 1;
+}
+
+message GetBatchExporterResponse {
+  io.streammachine.api.entities.v1.BatchExporter batch_exporter = 1;
+}

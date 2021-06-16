@@ -1,0 +1,58 @@
+syntax = "proto3";
+
+package io.streammachine.api.kafka_exporters.v1;
+option go_package = "streammachine.io/api/kafka_exporters/v1;kafka_exporters";
+
+import "io/streammachine/api/entities/v1/entities_v1.proto";
+
+option java_multiple_files = true;
+
+service KafkaExportersService {
+  rpc ListKafkaExporters (ListKafkaExportersRequest) returns (ListKafkaExportersResponse);
+  rpc GetKafkaExporter (GetKafkaExporterRequest) returns (GetKafkaExporterResponse);
+  rpc DeleteKafkaExporter (DeleteKafkaExporterRequest) returns (DeleteKafkaExporterResponse);
+  rpc CreateKafkaExporter (CreateKafkaExporterRequest) returns (CreateKafkaExporterResponse);
+  rpc ShowRelations(ShowRelationsRequest) returns (ShowRelationsResponse);
+}
+
+message ListKafkaExportersRequest {
+}
+
+message ListKafkaExportersResponse {
+  repeated io.streammachine.api.entities.v1.KafkaExporter kafka_exporters = 1;
+}
+
+message DeleteKafkaExporterRequest {
+  string name = 1;
+  bool recursive = 2;
+}
+
+message DeleteKafkaExporterResponse {
+  io.streammachine.api.entities.v1.KafkaExporterRelations relations = 1;
+}
+
+message CreateKafkaExporterRequest {
+  /* not all fields are used, and if you fill them in, they'll be overwritten
+   * by the api gateway (like status, ...) */
+  io.streammachine.api.entities.v1.KafkaExporter kafka_exporter = 1;
+}
+
+message CreateKafkaExporterResponse {
+  io.streammachine.api.entities.v1.KafkaExporter kafka_exporter = 1;
+}
+
+message GetKafkaExporterRequest {
+  string name = 1;
+}
+
+message GetKafkaExporterResponse {
+  io.streammachine.api.entities.v1.KafkaExporter kafka_exporter = 1;
+}
+
+message ShowRelationsRequest {
+  string name = 1;
+}
+
+message ShowRelationsResponse {
+  repeated io.streammachine.api.entities.v1.KafkaExporterRelations relations = 1;
+}

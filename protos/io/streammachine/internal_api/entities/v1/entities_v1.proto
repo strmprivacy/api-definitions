@@ -1,58 +1,47 @@
 syntax = "proto3";
 package io.streammachine.internal_api.entities.v1;
 option go_package = "streammachine.io/api/internal_api/entities/v1;entities";
-// TODO discuss
+
 option java_multiple_files = true;
 
+import "io/streammachine/api/entities/v1/entities_v1.proto";
 
-import "io/streammachine/external_api/entities/v1/entities_v1.proto";
-
-/**
-Stream Extended
- */
+/* Stream Extended */
 message StreamExt {
-  io.streammachine.external_api.entities.v1.Stream stream = 1;
+  io.streammachine.api.entities.v1.Stream stream = 1;
   string topic = 2;
-  string uuid =3;
-  /** whether or not a key stream EXISTS for this stream.
-  So when this flag is true, there are TWO topics associated with this stream.
-   */
+  string uuid = 3;
+  /* whether or not a key stream EXISTS for this stream.
+   * So when this flag is true, there are TWO topics associated with this stream. */
   bool key_stream = 4;
 }
 
 message DecrypterExt {
   StreamExt source = 1;
   repeated StreamExt derived = 2;
-  string uuid =3;
-
+  string uuid = 3;
 }
 
 message SinkExt {
-  io.streammachine.external_api.entities.v1.Sink sink = 1;
+  io.streammachine.api.entities.v1.Sink sink = 1;
   string uuid = 2;
 }
 
 message BatchExporterExt {
-  io.streammachine.external_api.entities.v1.BatchExporter batch_exporter = 1;
+  io.streammachine.api.entities.v1.BatchExporter batch_exporter = 1;
   string uuid = 2;
-  io.streammachine.external_api.entities.v1.SinkType sink_type = 3;
+  io.streammachine.api.entities.v1.SinkType sink_type = 3;
 }
 
 message KafkaExporterExt {
-  io.streammachine.external_api.entities.v1.KafkaExporter exporter = 1;
+  io.streammachine.api.entities.v1.KafkaExporter exporter = 1;
   string uuid = 2;
 }
 
 message KafkaClusterExt {
-  /*
-  Oh what madness! Why does Bart do this?
-
-  To standardize the Extended vs the public entities.
-   */
-  io.streammachine.external_api.entities.v1.KafkaCluster cluster = 1;
+  io.streammachine.api.entities.v1.KafkaCluster cluster = 1;
 }
 
-
 message KafkaUserExt {
-  io.streammachine.external_api.entities.v1.KafkaUser user =1 ;
+  io.streammachine.api.entities.v1.KafkaUser user = 1 ;
 }

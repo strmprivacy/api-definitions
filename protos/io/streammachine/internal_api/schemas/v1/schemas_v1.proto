@@ -3,10 +3,9 @@ syntax = "proto3";
 package io.streammachine.internal_api.schemas.v1;
 option go_package = "streammachine.io/api/internal_api/schemas/v1;schemas";
 
-import "io/streammachine/external_api/entities/v1/entities_v1.proto";
+option java_multiple_files = true;
 
-// TODO discuss!
-//option java_multiple_files = true;
+import "io/streammachine/api/entities/v1/entities_v1.proto";
 
 service InternalSchemasService {
   rpc GetSchemaByConfluentId (GetSchemaByConfluentIdRequest) returns (GetSchemaByConfluentIdResponse);
@@ -23,17 +22,17 @@ message GetSchemaByConfluentIdResponse {
 }
 
 message GetCombinedByEventContractRefRequest {
-  string schema_name = 1;
+  string schema_name = 1; // TODO: Replace this with EventContractRef
 }
 
 message GetCombinedByEventContractRefResponse {
-  io.streammachine.external_api.entities.v1.Schema schema = 1;
-  io.streammachine.external_api.entities.v1.EventContract event_contract = 2;
+  io.streammachine.api.entities.v1.Schema schema = 1;
+  io.streammachine.api.entities.v1.EventContract event_contract = 2;
   int32 confluent_id = 3;
 }
 
 message DeleteSchemaRequest {
-  io.streammachine.external_api.entities.v1.SchemaRef ref = 1;
+  io.streammachine.api.entities.v1.SchemaRef ref = 1;
 }
 
 message DeleteSchemaResponse {

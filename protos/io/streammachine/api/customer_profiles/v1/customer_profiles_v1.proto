@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package io.streammachine.api.customer_profiles.v1;
+option go_package = "streammachine.io/api/customer_profiles/v1;customer_profiles";
+
+import "io/streammachine/api/entities/v1/entities_v1.proto";
+
+option java_multiple_files = true;
+
+service CustomerProfilesService {
+  rpc GetCustomerProfile (GetCustomerProfileRequest) returns (GetCustomerProfileResponse);
+}
+
+message GetCustomerProfileRequest {
+}
+
+message GetCustomerProfileResponse {
+  io.streammachine.api.entities.v1.CustomerProfile customer_profile = 1;
+}

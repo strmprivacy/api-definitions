@@ -1,0 +1,274 @@
+syntax = "proto3";
+package io.streammachine.api.entities.v1;
+option go_package = "streammachine.io/api/entities/v1;entities";
+
+option java_multiple_files = true;
+
+import "google/protobuf/timestamp.proto";
+
+// See our attribute spreadsheet for the initial fields version
+// https://docs.google.com/spreadsheets/d/12dooxWXRQjEKhZxS_Bpa4fXpDpaEbPu9JorxOo_BElQ
+
+/*
+  Streams are source or derived streams depending on whether or not linked_stream is null.
+  Key streams are a separate entity in the api.
+ */
+message Stream {
+  // TODO: I think we should use StreamRef here instead of these 2 properties (billing_id + name)
+  string billing_id = 1;
+  string name = 2;
+  string description = 3; // customer purpose.
+  repeated int32 consent_levels = 4; // consent levels for derived streams
+  ConsentLevelType consent_level_type = 5; // how event consent-levels are interpreted by decrypters.
+  bool enabled = 6; // whether or not this stream is enabled.
+  float rate_limit = 7; // filled in from customer profile
+  int64 event_ct_limit = 8; // filled in from customer profile
+  string linked_stream = 9; // null for source streams
+  repeated string tags = 10; // customer purposes.
+  string status = 11; // engineering status message. Add enum when we know more.
+  repeated Credentials credentials = 12;
+}
+
+/*
+Consent level is meant to interpret the consent-levels of an event for decryption purposes only.
+
+Cumulative means that the highest consent-level in an event must be greater than or equal to the single requested level
+for the decrypted stream.
+
+Granular means that the set of consent-levels in an event must enclose the set of requested event levels for the
+decrypted stream.
+ */
+enum ConsentLevelType {
+  CONSENT_LEVEL_TYPE_UNSPECIFIED = 0;
+  CONSENT_LEVEL_TYPE_CUMULATIVE = 1;
+  CONSENT_LEVEL_TYPE_GRANULAR = 2;
+}
+
+/*
+A Stream of key-link, encryption-key messages created from a source stream
+with the same `name`.
+ */
+message KeyStream {
+  string billing_id = 1;
+  string name = 2; // identical to the source stream
+  string status = 5;
+}
+
+/* refer to a stream or key stream.
+ */
+message StreamRef  {
+  string stream_name = 1;
+  // TODO: Can't we do this in another way than with a boolean flag?
+  bool key_stream = 2; // whether we refer to the source stream or its corresponding keys stream.
+  string billing_id = 3;
+}
+
+/*
+Credentials to produce to the event-gateway, or to consume from egress.
+ */
+message Credentials {
+  string billing_id = 1;
+  string client_id = 2;
+  StreamRef stream_ref = 3; // TODO: Should this be here? It makes the domain model more tangled and this message less extensible
+  string client_secret = 4; // TODO: Should we expose this?
+}
+
+/* the sink configuration used by the batch exporters.
+
+ */
+message Sink {
+  string billing_id = 1;
+  string name = 2;
+  SinkType sink_type = 3;
+  string bucket_name = 4;
+  string credentials = 5;
+}
+
+enum SinkType {
+  SINK_TYPE_UNSPECIFIED = 0;
+  SINK_TYPE_S3 = 1;
+  SINK_TYPE_GCLOUD = 2;
+}
+
+/*
+A batch exporter.
+ */
+message BatchExporter {
+  string billing_id = 1;
+  string name = 2;
+  StreamRef stream_ref = 3;
+  int32 interval = 4; //interval in seconds
+  string sink_name = 5;
+  string path_prefix = 6;
+}
+
+/*
+Currently only our internal shared export cluster.
+ */
+message KafkaCluster {
+  KafkaClusterRef cluster_ref = 1;
+  string bootstrap_servers = 2;
+  AuthMechanism auth_mechanism = 3;
+  string token_uri = 4;
+  bool owned = 5; // TODO define what this means
+}
+
+/*
+How to refer to a certain Kafka cluster.
+ */
+message KafkaClusterRef {
+  string billing_id = 1; // streammachine
+  string name = 2; // shared export
+}
+
+enum AuthMechanism {
+  // TODO align values with JAAS.
+  AUTH_MECHANISM_UNSPECIFIED = 0;
+  AUTH_MECHANISM_SASL_PLAIN = 1;
+  AUTH_MECHANISM_SASL_SSL = 2;
+}
+
+message KafkaExporter  {
+  string billing_id = 1;
+  string name = 2; // typically default  <cluster-name>-<stream-name>
+  StreamRef stream_ref = 3; // what stream
+  KafkaClusterRef cluster_ref = 4; // what cluster to produce to.
+  string produce_to_topic = 5; // the topic this exporter produces to
+  string client_id = 6; // how to produce to the cluster.
+  string client_secret = 7; // how to produce to the cluster.
+  KafkaUser  kafka_user = 8;
+}
+
+/*
+User credentials to consume from topic produced by Kafka Exporter.
+
+The kafka exporter is linked to a certain cluster, so this entity is bound to a certain
+kafka cluster.
+ */
+message KafkaUser {
+  string billing_id = 1;
+  string name = 2;
+  string kafka_exporter_name = 3;
+  string topic = 4;
+  string client_id = 5;
+  string client_secret = 6;
+  string cluster_billing_id = 7;
+  string cluster_name = 8;
+  string stream_name = 9;
+}
+
+/*
+for descriptive purposes only.
+ */
+message ConsentLevel {
+  string billing_id = 1;
+  string name = 2; // some text like 'analytics'
+  int32 value = 3; // the typically small integer value that we use in the events.
+  string dpo_reference = 4; // reference to DPO documentation.
+}
+
+/*
+event usage information.
+ */
+message Events {
+  string billing_id = 1;
+  repeated EventsInfo event_infos = 3;
+}
+
+message EventsInfo {
+  StreamRef stream_ref = 1;
+  repeated EventsPeriodInfo info = 2;
+}
+
+message EventsPeriodInfo {
+  google.protobuf.Timestamp t0 = 1;
+  int32 duration_s = 2;
+  int64 count = 3; // the number of events in this interval.
+}
+
+message SchemaRef {
+  string handle = 1;
+  string name = 2;
+  string version = 3;
+}
+
+enum SchemaStatus {
+  SCHEMA_STATUS_UNSPECIFIED = 0;
+  SCHEMA_STATUS_PENDING = 1;
+  SCHEMA_STATUS_IN_REVIEW = 2;
+  SCHEMA_STATUS_REJECTED = 3;
+  SCHEMA_STATUS_ACTIVE = 4;
+  SCHEMA_STATUS_DELETED = 5;
+}
+
+message Schema {
+  SchemaRef ref = 1;
+  SchemaType type = 2;
+  bool is_public = 3;
+  string definition = 4;
+  SchemaStatus status = 5;
+}
+
+enum SchemaType {
+  SCHEMA_TYPE_UNSPECIFIED = 0 ;
+  SCHEMA_TYPE_AVRO = 1;
+  SCHEMA_TYPE_JSONSCHEMA = 2;
+}
+
+message EventContractRef {
+  string handle = 1;
+  string name = 2;
+  string version = 3;
+}
+
+enum EventContractStatus {
+  EVENT_CONTRACT_STATUS_UNSPECIFIED = 0;
+  EVENT_CONTRACT_STATUS_PENDING = 1;
+  EVENT_CONTRACT_STATUS_IN_REVIEW = 2;
+  EVENT_CONTRACT_STATUS_REJECTED = 3;
+  EVENT_CONTRACT_STATUS_ACTIVE = 4;
+  EVENT_CONTRACT_STATUS_DELETED = 5;
+}
+
+message EventContract {
+  EventContractRef ref = 1;
+  EventContractStatus status = 2;
+  SchemaRef schema_ref = 3;
+  bool is_public = 4;
+  string key_field = 5;
+  map<string, int32> pii_fields = 6;
+  repeated Validation validations = 7;
+}
+
+message Validation {
+  string field = 1;
+  string type = 2;
+  string value = 3;
+}
+
+message CustomerProfile {
+  string billing_id = 1;
+  string limits = 2;
+  string defaults = 3;
+  string subscription_type = 4;
+}
+
+message StreamRelations {
+  oneof stream {
+    Stream event_stream = 1;
+    KeyStream key_stream = 2;
+  }
+  repeated Stream derived = 3;
+  repeated BatchExporter batch_exporters = 4;
+  repeated KafkaExporterRelations kafka_exporters = 5;
+}
+
+message KafkaExporterRelations {
+  KafkaExporter kafka_exporter = 1;
+  repeated KafkaUser users = 2;
+}
+
+message SinkRelations {
+  Sink sink = 1;
+  repeated BatchExporter exporters = 2;
+}
