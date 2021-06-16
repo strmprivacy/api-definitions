@@ -1,3 +1,15 @@
+# [1.4.0](https://gitlab.com/stream-machine/api-definitions/compare/v1.3.0...v1.4.0) (2021-06-16)
+
+
+### Bug Fixes
+
+* **go:** remove duplicate api in go package ([7ea232e](https://gitlab.com/stream-machine/api-definitions/commit/7ea232e0fce262fef1045b25e31f0f78dc9c462b))
+
+
+### Features
+
+* **apis:** cleanup of the protos ([771f178](https://gitlab.com/stream-machine/api-definitions/commit/771f178fb43e40f032e5800f94e882e5aaff5f4e))
+
 # [1.3.0](https://gitlab.com/stream-machine/api-definitions/compare/v1.2.1...v1.3.0) (2021-06-14)
 
 
