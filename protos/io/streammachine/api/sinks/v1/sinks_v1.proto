@@ -1,10 +1,11 @@
 syntax = "proto3";
 
 package io.streammachine.api.sinks.v1;
-option go_package = "streammachine.io/api/sinks/v1;sinks";
 
 import "io/streammachine/api/entities/v1/entities_v1.proto";
+import "google/api/field_behavior.proto";
 
+option go_package = "streammachine.io/api/sinks/v1;sinks";
 option java_multiple_files = true;
 
 service SinksService {
@@ -12,23 +13,22 @@ service SinksService {
   rpc GetSink (GetSinkRequest) returns (GetSinkResponse);
   rpc DeleteSink (DeleteSinkRequest) returns (DeleteSinkResponse);
   rpc CreateSink (CreateSinkRequest) returns (CreateSinkResponse);
-  rpc ShowRelations(ShowRelationsRequest) returns (ShowRelationsResponse);
 }
 
 message ListSinksRequest {
+  bool recursive = 1;
 }
 
 message ListSinksResponse {
-  repeated io.streammachine.api.entities.v1.Sink sinks = 1;
+  repeated io.streammachine.api.entities.v1.SinkTree sinks = 1;
 }
 
 message DeleteSinkRequest {
-  string name = 1;
+  string name = 1 [(google.api.field_behavior) = REQUIRED];
   bool recursive = 2;
 }
 
 message DeleteSinkResponse {
-  io.streammachine.api.entities.v1.Sink sink = 1;
 }
 
 message CreateSinkRequest {
@@ -43,16 +43,9 @@ message CreateSinkResponse {
 
 message GetSinkRequest {
   string name = 1;
+  bool recursive = 2;
 }
 
 message GetSinkResponse {
-  io.streammachine.api.entities.v1.Sink sink = 1;
-}
-
-message ShowRelationsRequest {
-  string name = 1;
-}
-
-message ShowRelationsResponse {
-  repeated io.streammachine.api.entities.v1.SinkRelations relations = 1;
+  io.streammachine.api.entities.v1.SinkTree sink_tree = 1;
 }

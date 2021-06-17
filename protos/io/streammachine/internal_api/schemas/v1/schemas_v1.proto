@@ -22,7 +22,7 @@ message GetSchemaByConfluentIdResponse {
 }
 
 message GetCombinedByEventContractRefRequest {
-  string schema_name = 1; // TODO: Replace this with EventContractRef
+  io.streammachine.api.entities.v1.EventContractRef ref = 1;
 }
 
 message GetCombinedByEventContractRefResponse {

@@ -7,41 +7,39 @@ import "io/streammachine/api/entities/v1/entities_v1.proto";
 
 option java_multiple_files = true;
 
-service ConsentLevelsService {
-  rpc ListConsentLevels (ListConsentLevelsRequest) returns (ListConsentLevelsResponse);
-  rpc GetConsentLevel (GetConsentLevelRequest) returns (GetConsentLevelResponse);
-  rpc DeleteConsentLevel (DeleteConsentLevelRequest) returns (DeleteConsentLevelResponse);
-  rpc CreateConsentLevel (CreateConsentLevelRequest) returns (CreateConsentLevelResponse);
+service ConsentLevelMappingsService {
+  rpc ListConsentLevelMappings (ListConsentLevelMappingsRequest) returns (ListConsentLevelMappingsResponse);
+  rpc GetConsentLevelMapping (GetConsentLevelMappingRequest) returns (GetConsentLevelMappingResponse);
+  rpc DeleteConsentLevelMapping (DeleteConsentLevelMappingRequest) returns (DeleteConsentLevelMappingResponse);
+  rpc CreateConsentLevelMapping (CreateConsentLevelMappingRequest) returns (CreateConsentLevelMappingResponse);
 }
 
-message ListConsentLevelsRequest {
+message ListConsentLevelMappingsRequest {
 }
 
-message ListConsentLevelsResponse {
-  repeated io.streammachine.api.entities.v1.ConsentLevel consent_levels = 1;
+message ListConsentLevelMappingsResponse {
+  repeated io.streammachine.api.entities.v1.ConsentLevelMapping consent_level_mappings = 1;
 }
 
-// just changes the status (maybe)
-message DeleteConsentLevelRequest {
+message DeleteConsentLevelMappingRequest {
   int32 level = 1;
 }
 
-message DeleteConsentLevelResponse {
-  io.streammachine.api.entities.v1.ConsentLevel consent_level = 1;
+message DeleteConsentLevelMappingResponse {
 }
 
-message CreateConsentLevelRequest {
-  io.streammachine.api.entities.v1.ConsentLevel consent_level = 1;
+message CreateConsentLevelMappingRequest {
+  io.streammachine.api.entities.v1.ConsentLevelMapping consent_level_mapping = 1;
 }
 
-message CreateConsentLevelResponse {
-  io.streammachine.api.entities.v1.ConsentLevel consent_level = 1;
+message CreateConsentLevelMappingResponse {
+  io.streammachine.api.entities.v1.ConsentLevelMapping consent_level_mapping = 1;
 }
 
-message GetConsentLevelRequest {
+message GetConsentLevelMappingRequest {
   int32 level = 1;
 }
 
-message GetConsentLevelResponse {
-  io.streammachine.api.entities.v1.ConsentLevel consent_level = 1;
+message GetConsentLevelMappingResponse {
+  io.streammachine.api.entities.v1.ConsentLevelMapping consent_level_mapping = 1;
 }

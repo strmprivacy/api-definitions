@@ -1,10 +1,11 @@
 syntax = "proto3";
 
 package io.streammachine.api.streams.v1;
-option go_package = "streammachine.io/api/streams/v1;streams";
 
 import "io/streammachine/api/entities/v1/entities_v1.proto";
+import "google/api/field_behavior.proto";
 
+option go_package = "streammachine.io/api/streams/v1;streams";
 option java_multiple_files = true;
 
 service StreamsService {
@@ -19,7 +20,7 @@ message ListStreamsRequest {
 }
 
 message ListStreamsResponse {
-  repeated io.streammachine.api.entities.v1.StreamRelations streams = 1;
+  repeated io.streammachine.api.entities.v1.StreamTree streams = 1;
 }
 
 message DeleteStreamRequest {
@@ -28,13 +29,12 @@ message DeleteStreamRequest {
 }
 
 message DeleteStreamResponse {
-  io.streammachine.api.entities.v1.StreamRelations stream = 1;
 }
 
 message CreateStreamRequest {
   /* not all fields are used, and if you fill them in, they'll be overwritten
    * by the api gateway (like status, the limits etc...) */
-  io.streammachine.api.entities.v1.Stream stream = 1;
+  io.streammachine.api.entities.v1.Stream stream = 1 [(google.api.field_behavior) = REQUIRED];
 }
 
 message CreateStreamResponse {
@@ -47,5 +47,5 @@ message GetStreamRequest {
 }
 
 message GetStreamResponse {
-  io.streammachine.api.entities.v1.StreamRelations stream = 1;
+  io.streammachine.api.entities.v1.StreamTree stream_tree = 1;
 }

@@ -3,7 +3,7 @@
 proto_files := $(shell find protos -name *.proto)
 
 buf-breaking:
-	bash .buf-breaking.sh
+	bash buf-breaking.sh
 
 clean:
 	rm -rf build/go/*

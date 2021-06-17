@@ -1,0 +1,51 @@
+---
+- included_paths:
+    - 'protos/**/*.proto'
+  disabled_rules:
+    # Comments are sometimes so trivial, we'd rather omit them
+    - 'core::0192::has-comments'
+
+    # protoc enforces the Java package name already, no need to explicitly specify it
+    - 'core::0191::java-package'
+
+    # Since we have multiple files for Java, this is not required
+    - 'core::0191::java-outer-classname'
+
+    # We don't need pagination just yet, so we'd rather not overcomplicate this
+    - 'core::0158::request-page-size-field'
+    - 'core::0158::response-next-page-token-field'
+    - 'core::0158::request-page-token-field'
+
+    # We'd rather specify a relation that an entity has to another entity
+    # rather than a hierarchy as Google requires here
+    - 'core::0132::request-parent-required'
+    - 'core::0133::request-parent-required'
+
+    # Google APIs specific, seems to be focused on mapping gRPC to REST
+    - 'core::0131::method-signature'
+    - 'core::0133::method-signature'
+    - 'core::0133::response-message-name'
+    - 'core::0135::request-name-reference'
+    - 'core::0135::response-message-name'
+    - 'core::0135::method-signature'
+
+    # We don't need gRPC to REST transcoding yet, so we disable it for now
+    - 'core::0127::http-annotation'
+
+    # We choose to wrap all our entities in a response object,
+    # as we do not always return the requested entity, but a Tree view
+    # on the entity
+    - 'core::0131::response-message-name'
+
+    # Get RPCs do not always have a name as a unique identifier
+    - 'core::0131::request-unknown-fields'
+    - 'core::0131::request-name-required'
+
+    # Temporarily disabled
+    - 'core::0133::request-resource-behavior'
+- included_paths:
+    - 'protos/**/consent_levels_*.proto'
+  disabled_rules:
+    # The unique identifier for consent levels is the level
+    - 'core::0135::request-unknown-fields'
+    - 'core::0135::request-name-required'

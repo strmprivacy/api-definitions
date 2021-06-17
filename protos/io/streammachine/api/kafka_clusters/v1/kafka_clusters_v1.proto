@@ -26,7 +26,6 @@ message DeleteKafkaClusterRequest {
 }
 
 message DeleteKafkaClusterResponse {
-  io.streammachine.api.entities.v1.KafkaCluster kafka_cluster = 1;
 }
 
 message CreateKafkaClusterRequest {

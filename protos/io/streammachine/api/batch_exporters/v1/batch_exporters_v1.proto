@@ -1,10 +1,11 @@
 syntax = "proto3";
 
 package io.streammachine.api.batch_exporters.v1;
-option go_package = "streammachine.io/api/batch_exporters/v1;batch_exporters";
 
 import "io/streammachine/api/entities/v1/entities_v1.proto";
+import "google/api/field_behavior.proto";
 
+option go_package = "streammachine.io/api/batch_exporters/v1;batch_exporters";
 option java_multiple_files = true;
 
 service BatchExportersService {
@@ -22,11 +23,10 @@ message ListBatchExportersResponse {
 }
 
 message DeleteBatchExporterRequest {
-  string name = 1;
+  string name = 1 [(google.api.field_behavior) = REQUIRED];
 }
 
 message DeleteBatchExporterResponse {
-  io.streammachine.api.entities.v1.BatchExporter batch_exporter = 1;
 }
 
 message CreateBatchExporterRequest {
@@ -42,7 +42,7 @@ message CreateBatchExporterResponse {
 }
 
 message GetBatchExporterRequest {
-  string name = 1;
+  string name = 1 [(google.api.field_behavior) = REQUIRED];
 }
 
 message GetBatchExporterResponse {

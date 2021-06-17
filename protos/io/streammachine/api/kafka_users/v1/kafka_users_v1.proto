@@ -27,11 +27,10 @@ message DeleteKafkaUserRequest {
 }
 
 message DeleteKafkaUserResponse {
-  io.streammachine.api.entities.v1.KafkaUser kafka_user = 1;
 }
 
 message CreateKafkaUserRequest {
-  // not all fields are used, and if you fill them in, they'll be overwritten
+  // not all fields are used, and if you fill them in, they might be overwritten
   // by the api gateway (like status, the limits etc...)
   io.streammachine.api.entities.v1.KafkaUser kafka_user = 1;
 }
