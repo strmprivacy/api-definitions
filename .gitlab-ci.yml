@@ -12,6 +12,20 @@ stages:
   - release
   - publish
 
+.buf:
+  image: bufbuild/buf:latest
+  before_script:
+    - git clone https://gitlab-ci-token:${CI_JOB_TOKEN}@gitlab.com/stream-machine/tools-and-utilities/google-api-linter.git
+  except: # Do not run for tag pipelines and also do not run for master pipelines when it's a release commit
+    variables:
+      - ($CI_BUILD_REF_NAME == "master" && $CI_COMMIT_MESSAGE =~ /.*chore\(release\).*/) || $CI_COMMIT_TAG
+
+buf-lint:
+  extends: .buf
+  stage: lint
+  script:
+    - buf lint
+
 aip-guidelines-lint:
   stage: lint
   image: eu.gcr.io/stream-machine-development/google/api-linter:1.25.0
@@ -19,12 +33,7 @@ aip-guidelines-lint:
     - ./api-linter.sh
 
 breaking:
-  image: bufbuild/buf:latest
-  before_script:
-    - git clone https://gitlab-ci-token:${CI_JOB_TOKEN}@gitlab.com/stream-machine/tools-and-utilities/google-api-linter.git
-  except: # Do not run for tag pipelines and also do not run for master pipelines when it's a release commit
-    variables:
-      - ($CI_BUILD_REF_NAME == "master" && $CI_COMMIT_MESSAGE =~ /.*chore\(release\).*/) || $CI_COMMIT_TAG
+ extends: .buf
  stage: breaking-change
  script:
    - export LATEST_TAG=$(git tag -l | sort -V | tail -n 1)
