@@ -1,16 +1,16 @@
 syntax = "proto3";
 
 package io.streammachine.api.schemas.v1;
-option go_package = "streammachine.io/api/schemas/v1;schemas";
 
 import "io/streammachine/api/entities/v1/entities_v1.proto";
 
+option go_package = "streammachine.io/api/schemas/v1;schemas";
 option java_multiple_files = true;
 
 service SchemasService {
   rpc ListSchemas (ListSchemasRequest) returns (ListSchemasResponse);
   rpc GetSchema (GetSchemaRequest) returns (GetSchemaResponse);
-  rpc GetSchemaByFingerprint (GetSchemaByFingerprintRequest) returns (GetSchemaByFingerprintResponse);
+  rpc GetSchemaDefinition (GetSchemaDefinitionRequest) returns (GetSchemaDefinitionResponse);
   rpc CreateSchema (CreateSchemaRequest) returns (CreateSchemaResponse);
 }
 
@@ -18,6 +18,8 @@ message ListSchemasRequest {
   string filter = 1;
 }
 
+// (-- api-linter: core::0158::response-plural-first-field=disabled
+//     aip.dev/not-precedent: Somehow this rule is not correctly checked here. --)
 message ListSchemasResponse {
   repeated io.streammachine.api.entities.v1.Schema schemas = 1;
 }
@@ -40,11 +42,11 @@ message GetSchemaResponse {
   io.streammachine.api.entities.v1.Schema schema = 1;
 }
 
-message GetSchemaByFingerprintRequest {
+message GetSchemaDefinitionRequest {
   int64 fingerprint = 1;
 }
 
-message GetSchemaByFingerprintResponse {
+message GetSchemaDefinitionResponse {
   io.streammachine.api.entities.v1.SchemaType type = 1;
   string definition = 2;
 }

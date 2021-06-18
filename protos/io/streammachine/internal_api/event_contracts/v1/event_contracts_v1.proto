@@ -1,17 +1,21 @@
 syntax = "proto3";
 
 package io.streammachine.internal_api.event_contracts.v1;
-option go_package = "streammachine.io/api/internal_api/event_contracts/v1;event_contracts";
-
-option java_multiple_files = true;
 
 import "io/streammachine/api/entities/v1/entities_v1.proto";
+
+option go_package = "streammachine.io/api/internal_api/event_contracts/v1;event_contracts";
+option java_multiple_files = true;
 
 service InternalEventContractsService {
   rpc DeleteEventContract (DeleteEventContractRequest) returns (DeleteEventContractResponse);
 }
 
+// (-- api-linter: core::0135::request-name-required=disabled
+//     aip.dev/not-precedent: An event contract has no name, but a ref. --)
 message DeleteEventContractRequest {
+  // (-- api-linter: core::0135::request-unknown-fields=disabled
+  //     aip.dev/not-precedent: An event contract has no name, but a ref. --)
   io.streammachine.api.entities.v1.EventContractRef ref = 1;
 }
 

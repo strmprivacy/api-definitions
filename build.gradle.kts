@@ -84,6 +84,7 @@ sourceSets["main"].apply {
 java {
     sourceSets["main"].apply {
         java.srcDir(layout.buildDirectory.dir("generated/proto/main/java").get())
+        java.srcDir("protos")
     }
 }
 

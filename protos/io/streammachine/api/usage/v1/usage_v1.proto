@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+package io.streammachine.api.usage.v1;
+
+import "google/protobuf/duration.proto";
+import "google/protobuf/timestamp.proto";
+import "io/streammachine/api/entities/v1/entities_v1.proto";
+
+option go_package = "streammachine.io/api/usage/v1;usage";
+option java_multiple_files = true;
+
+service UsageService {
+  rpc GetStreamEventUsage (GetStreamEventUsageRequest) returns (GetStreamEventUsageResponse);
+}
+
+message GetStreamEventUsageRequest {
+  io.streammachine.api.entities.v1.StreamRef ref = 1;
+  google.protobuf.Timestamp start_time = 2;
+  google.protobuf.Timestamp end_time = 3;
+  google.protobuf.Duration interval = 4;
+}
+
+message GetStreamEventUsageResponse {
+  io.streammachine.api.entities.v1.StreamRef ref = 1;
+  repeated io.streammachine.api.entities.v1.WindowedEventCount windows = 2;
+}

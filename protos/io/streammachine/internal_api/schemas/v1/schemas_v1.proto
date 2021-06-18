@@ -1,37 +1,41 @@
 syntax = "proto3";
 
 package io.streammachine.internal_api.schemas.v1;
-option go_package = "streammachine.io/api/internal_api/schemas/v1;schemas";
-
-option java_multiple_files = true;
 
 import "io/streammachine/api/entities/v1/entities_v1.proto";
 
+option go_package = "streammachine.io/api/internal_api/schemas/v1;schemas";
+option java_multiple_files = true;
+
 service InternalSchemasService {
-  rpc GetSchemaByConfluentId (GetSchemaByConfluentIdRequest) returns (GetSchemaByConfluentIdResponse);
-  rpc GetCombinedByEventContractRef (GetCombinedByEventContractRefRequest) returns (GetCombinedByEventContractRefResponse);
+  rpc GetSchemaDefinition (GetSchemaDefinitionRequest) returns (GetSchemaDefinitionResponse);
+  rpc GetCombined (GetCombinedRequest) returns (GetCombinedResponse);
   rpc DeleteSchema (DeleteSchemaRequest) returns (DeleteSchemaResponse);
 }
 
-message GetSchemaByConfluentIdRequest {
+message GetSchemaDefinitionRequest {
   int32 confluent_id = 1;
 }
 
-message GetSchemaByConfluentIdResponse {
+message GetSchemaDefinitionResponse {
   string definition = 1;
 }
 
-message GetCombinedByEventContractRefRequest {
-  string schema_name = 1; // TODO: Replace this with EventContractRef
+message GetCombinedRequest {
+  io.streammachine.api.entities.v1.EventContractRef ref = 1;
 }
 
-message GetCombinedByEventContractRefResponse {
+message GetCombinedResponse {
   io.streammachine.api.entities.v1.Schema schema = 1;
   io.streammachine.api.entities.v1.EventContract event_contract = 2;
   int32 confluent_id = 3;
 }
 
+// (-- api-linter: core::0135::request-name-required=disabled
+//     aip.dev/not-precedent: Schema's have no name, but a ref. --)
 message DeleteSchemaRequest {
+  // (-- api-linter: core::0135::request-unknown-fields=disabled
+  //     aip.dev/not-precedent: Schema's have no name, but a ref. --)
   io.streammachine.api.entities.v1.SchemaRef ref = 1;
 }
 
