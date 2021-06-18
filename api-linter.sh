@@ -2,15 +2,21 @@
 
 proto_files=$(find protos/io/streammachine/api -name '*.proto')
 
-echo $proto_files
+declare -i EXIT_STATUS_CODE=0
 
-api-linter --config api-linter.yaml -I protos $proto_files
+for file in $proto_files; do
+  echo "------------------------------------------"
+  echo "$file"
+  echo "------------------------------------------"
+  api-linter \
+    --set-exit-status \
+    --config api-linter.yaml \
+    -I /included-protos/ \
+    -I protos \
+    "$file"
+  EXIT_STATUS_CODE+=$?
+  echo
+done
 
-#for file in $proto_files; do
-#  echo "------------------------------------------"
-#  echo "$file"
-#  echo "------------------------------------------"
-#  api-linter --config api-linter.yaml -I protos "$file"
-#  echo
-#  echo
-#done
+echo $EXIT_STATUS_CODE
+exit $EXIT_STATUS_CODE

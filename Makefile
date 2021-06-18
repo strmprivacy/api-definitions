@@ -1,9 +1,13 @@
 .PHONY: buf-breaking go clean mvn
 
 proto_files := $(shell find protos -name *.proto)
+pwd := $(shell pwd)
 
 buf-breaking:
 	bash buf-breaking.sh
+
+api-lint:
+	docker run --rm -v "${pwd}:/workspace" eu.gcr.io/stream-machine-development/google/api-linter:1.25.0 api-linter.sh
 
 clean:
 	rm -rf build/go/*
