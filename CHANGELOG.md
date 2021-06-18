@@ -1,3 +1,13 @@
+# [1.5.0](https://gitlab.com/stream-machine/api-definitions/compare/v1.4.0...v1.5.0) (2021-06-18)
+
+
+### Features
+
+* **apis:** fixed all AIP lint errors ([7871b83](https://gitlab.com/stream-machine/api-definitions/commit/7871b835a96cfedb42e0d4ac98f3a372b15f2973))
+* **field_behavior:** added non-optional field_behavior to messages ([0d9f506](https://gitlab.com/stream-machine/api-definitions/commit/0d9f50643308d22d710ae610227e6b8126004d2d))
+* add api linter scripts and comply to Google AIP rules ([7948e84](https://gitlab.com/stream-machine/api-definitions/commit/7948e84d3cebd9163ce507b6f6ad78dcd8954f70))
+* refactoring and renaming v1 ([f5bbf4d](https://gitlab.com/stream-machine/api-definitions/commit/f5bbf4dac4cd7bc384fd4c004dde26a9f28df953))
+
 # [1.4.0](https://gitlab.com/stream-machine/api-definitions/compare/v1.3.0...v1.4.0) (2021-06-16)
 
 
