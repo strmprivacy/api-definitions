@@ -2,3 +2,5 @@
 .gradle
 node_modules
 /build/
+
+protos/*.jar

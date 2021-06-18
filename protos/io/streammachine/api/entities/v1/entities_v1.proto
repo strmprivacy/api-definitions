@@ -1,11 +1,12 @@
 syntax = "proto3";
+
 package io.streammachine.api.entities.v1;
-option go_package = "streammachine.io/api/entities/v1;entities";
 
-option java_multiple_files = true;
-
-import "google/protobuf/timestamp.proto";
 import "google/protobuf/duration.proto";
+import "google/protobuf/timestamp.proto";
+
+option go_package = "streammachine.io/api/entities/v1;entities";
+option java_multiple_files = true;
 
 // (-- See our attribute spreadsheet for the initial fields version
 //     https://docs.google.com/spreadsheets/d/12dooxWXRQjEKhZxS_Bpa4fXpDpaEbPu9JorxOo_BElQ --)
@@ -53,7 +54,7 @@ message KeyStream {
 
 /* refers to a stream or key stream.
  */
-message StreamRef  {
+message StreamRef {
   string billing_id = 1;
   // the name of the stream
   string name = 2;
@@ -117,7 +118,7 @@ message KafkaClusterRef {
   string name = 2;
 }
 
-message KafkaExporter  {
+message KafkaExporter {
   // default value  <cluster-name>-<stream-name>
   string name = 1;
   StreamRef stream_ref = 2;
