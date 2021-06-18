@@ -2,8 +2,8 @@ syntax = "proto3";
 
 package io.streammachine.internal_api.streams.v1;
 
-import "io/streammachine/internal_api/entities/v1/entities_v1.proto";
 import "io/streammachine/api/entities/v1/entities_v1.proto";
+import "io/streammachine/internal_api/entities/v1/entities_v1.proto";
 
 option go_package = "streammachine.io/api/internal_api/streams/v1;streams";
 option java_multiple_files = true;

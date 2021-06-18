@@ -2,9 +2,9 @@ syntax = "proto3";
 
 package io.streammachine.api.events.v1;
 
-import "io/streammachine/api/entities/v1/entities_v1.proto";
-import "google/protobuf/timestamp.proto";
 import "google/protobuf/duration.proto";
+import "google/protobuf/timestamp.proto";
+import "io/streammachine/api/entities/v1/entities_v1.proto";
 
 option go_package = "streammachine.io/api/events/v1;events";
 option java_multiple_files = true;

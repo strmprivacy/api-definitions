@@ -2,8 +2,8 @@ syntax = "proto3";
 
 package io.streammachine.api.kafka_users.v1;
 
-import "io/streammachine/api/entities/v1/entities_v1.proto";
 import "google/api/field_behavior.proto";
+import "io/streammachine/api/entities/v1/entities_v1.proto";
 
 option go_package = "streammachine.io/api/kafka_users/v1;kafka_users";
 option java_multiple_files = true;

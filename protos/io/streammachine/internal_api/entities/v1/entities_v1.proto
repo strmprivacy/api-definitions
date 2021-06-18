@@ -1,4 +1,5 @@
 syntax = "proto3";
+
 package io.streammachine.internal_api.entities.v1;
 
 import "io/streammachine/api/entities/v1/entities_v1.proto";
