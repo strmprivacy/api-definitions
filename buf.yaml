@@ -9,6 +9,7 @@ version: v1beta1
 build:
   roots:
     - protos
+    - google-api-linter/included-protos
 lint:
   use:
     - DEFAULT
