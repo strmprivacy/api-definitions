@@ -28,7 +28,7 @@ lint:
 
 aip-guidelines-lint:
   stage: lint
-  image: eu.gcr.io/stream-machine-development/google/api-linter:latest
+  image: eu.gcr.io/stream-machine-development/google/api-linter:1.25.0
   script:
     - ./api-linter.sh
 
