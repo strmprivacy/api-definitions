@@ -8,7 +8,7 @@ include:
 
 stages:
   - lint
-  - breaking-change
+#  - breaking-change
   - release
   - publish
 
@@ -32,7 +32,7 @@ aip-guidelines-lint:
   script:
     - ./api-linter.sh
 
-breaking:
+.breaking:
  extends: .buf
  stage: breaking-change
  script:
