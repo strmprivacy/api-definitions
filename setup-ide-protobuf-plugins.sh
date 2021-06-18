@@ -22,10 +22,10 @@ cat << EOF > ".idea/protoeditor.xml"
           <option name="location" value="file://\$PROJECT_DIR$/protos" />
         </ImportPathEntry>
         <ImportPathEntry>
-          <option name="path" value="jar://\$PROJECT_DIR$/$IDEA_DIR/proto-google-common-protos.jar!/" />
+          <option name="location" value="jar://\$PROJECT_DIR$/$IDEA_DIR/proto-google-common-protos.jar!/" />
         </ImportPathEntry>
         <ImportPathEntry>
-          <option name="path" value="jar://\$PROJECT_DIR$/$IDEA_DIR/protobuf-java.jar!/" />
+          <option name="location" value="jar://\$PROJECT_DIR$/$IDEA_DIR/protobuf-java.jar!/" />
         </ImportPathEntry>
       </list>
     </option>
