@@ -1,12 +1,12 @@
 syntax = "proto3";
 
-package io.streammachine.api.events.v1;
+package io.streammachine.api.usage.v1;
 
 import "google/protobuf/duration.proto";
 import "google/protobuf/timestamp.proto";
 import "io/streammachine/api/entities/v1/entities_v1.proto";
 
-option go_package = "streammachine.io/api/events/v1;events";
+option go_package = "streammachine.io/api/usage/v1;usage";
 option java_multiple_files = true;
 
 service UsageService {
