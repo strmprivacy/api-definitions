@@ -14,11 +14,8 @@ the [Google API Linter](https://github.com/googleapis/api-linter) for checking t
 - Uses `gradle` for compiling Proto files and publishing Java/Kotlin artifacts.
 - Uses a `Makefile` for compiling Proto files and generating Go code.
 
-## IntelliJ and protobuf plugin quirks
+## IntelliJ and Protobuf plugin configuration
 
-In order for IntelliJ to work correctly with the proto files, you need to ensure:
-- that the `protos` directory is marked as sources root
-- that you add the jar that contains the `google/api` proto definitions to the Proto plugin configuration (Languages and Frameworks -> Protocol Buffers)
-  - disable `Configure automatically`
-  - add a line to a random directory (as you cannot create an empty line ¯\_(ツ)_/¯)
-  - modify the line to point to the common protos jar: `jar:///<PATH_TO_M2>/.m2/repository/com/google/api/grpc/proto-google-common-protos/2.1.0/proto-google-common-protos-2.1.0.jar!/`
+Run `./setup-ide-protobuf-plugins.sh` to configure the following Protobuf plugins:
+- [Protocol Buffers (official)](https://plugins.jetbrains.com/plugin/14004-protocol-buffers): works fine for basic usage
+- [Protobuf (non official)](https://plugins.jetbrains.com/plugin/16422-protobuf): has more functionality than the official plugin
