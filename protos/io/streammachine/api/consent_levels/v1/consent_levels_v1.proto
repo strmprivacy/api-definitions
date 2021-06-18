@@ -1,10 +1,10 @@
 syntax = "proto3";
 
 package io.streammachine.api.consent_levels.v1;
-option go_package = "streammachine.io/api/consent_levels/v1;consent_levels";
 
 import "io/streammachine/api/entities/v1/entities_v1.proto";
 
+option go_package = "streammachine.io/api/consent_levels/v1;consent_levels";
 option java_multiple_files = true;
 
 service ConsentLevelMappingsService {
@@ -21,7 +21,11 @@ message ListConsentLevelMappingsResponse {
   repeated io.streammachine.api.entities.v1.ConsentLevelMapping consent_level_mappings = 1;
 }
 
+// (-- api-linter: core::0135::request-name-required=disabled
+//     aip.dev/not-precedent: A consent-level has no name, but a level. --)
 message DeleteConsentLevelMappingRequest {
+  // (-- api-linter: core::0135::request-unknown-fields=disabled
+  //     aip.dev/not-precedent: A consent-level has no name, but a level. --)
   int32 level = 1;
 }
 

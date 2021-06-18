@@ -1,6 +1,5 @@
----
 - included_paths:
-    - 'protos/**/*.proto'
+    - '**/*.proto'
   disabled_rules:
     # Comments are sometimes so trivial, we'd rather omit them
     - 'core::0192::has-comments'
@@ -27,6 +26,7 @@
     - 'core::0131::request-name-reference'
     - 'core::0133::method-signature'
     - 'core::0133::response-message-name'
+    - 'core::0134::method-signature'
     - 'core::0135::request-name-reference'
     - 'core::0135::response-message-name'
     - 'core::0135::method-signature'
@@ -48,14 +48,14 @@
     - 'core::0133::request-resource-behavior'
 
 - included_paths:
-    - 'protos/**/consent_levels_*.proto'
+    - '**/consent_levels_*.proto'
   disabled_rules:
     # The unique identifier for consent levels is the level
     - 'core::0135::request-unknown-fields'
     - 'core::0135::request-name-required'
 
 - included_paths:
-    - 'protos/**/credentials_*.proto'
+    - '**/credentials_*.proto'
   disabled_rules:
     # The unique identifier for consent levels is the level
     - 'core::0133::request-unknown-fields'
@@ -63,7 +63,7 @@
     - 'core::0135::request-unknown-fields'
 
 - included_paths:
-    - 'protos/**/entities_*.proto'
+    - '**/entities_*.proto'
   disabled_rules:
     # The unique identifier for consent levels is the level
     - 'core::0122::name-suffix'

@@ -1,9 +1,9 @@
 syntax = "proto3";
-
 package io.streammachine.api.entities.v1;
 
-import "google/protobuf/duration.proto";
+import "google/api/field_behavior.proto";
 import "google/protobuf/timestamp.proto";
+import "google/protobuf/duration.proto";
 
 option go_package = "streammachine.io/api/entities/v1;entities";
 option java_multiple_files = true;
@@ -18,8 +18,7 @@ option java_multiple_files = true;
 message Stream {
   // (-- TODO: I think we should use StreamRef here instead of these 2 properties (billing_id + name) --)
   string billing_id = 1;
-  // (-- TODO add f i e l d b e h a v i o r for all non-optional fields --)
-  string name = 2;
+  string name = 2 [(google.api.field_behavior) = REQUIRED];
   // customer's description for this Stream.
   string description = 3;
   // consent levels for derived streams
@@ -78,6 +77,8 @@ message Sink {
   string billing_id = 1;
   string name = 2;
   SinkType sink_type = 3;
+  // (-- api-linter: core::0122::name-suffix=disabled
+  //     aip.dev/not-precedent: We refer to a bucket name. --)
   string bucket_name = 4;
   // The credentials that are to be used to access the sink target (e.g. S3 or Google Cloud Storage)
   string credentials = 5;
@@ -92,6 +93,8 @@ message BatchExporter {
   StreamRef stream_ref = 3;
   // granularity of seconds, nanos is unused
   google.protobuf.Duration interval = 4;
+  // (-- api-linter: core::0122::name-suffix=disabled
+  //     aip.dev/not-precedent: We refer to the sink by name. --)
   string sink_name = 5;
   string path_prefix = 6;
 }
@@ -146,13 +149,19 @@ kafka cluster.
 message KafkaUser {
   string billing_id = 1;
   string name = 2;
+  // (-- api-linter: core::0122::name-suffix=disabled
+  //     aip.dev/not-precedent: We refer to the kafka exporter by name. --)
   string kafka_exporter_name = 3;
   string topic = 4;
   string client_id = 5;
   string client_secret = 6;
   // (-- TODO should we even include this in our api at the moment? What is the probability of a customer wanting to cross produce to another customer's cluster? --)
   string cluster_billing_id = 7;
+  // (-- api-linter: core::0122::name-suffix=disabled
+  //     aip.dev/not-precedent: We refer to the cluster by name. --)
   string cluster_name = 8;
+  // (-- api-linter: core::0122::name-suffix=disabled
+  //     aip.dev/not-precedent: We refer to the stream by name. --)
   string stream_name = 9;
 }
 

@@ -25,7 +25,9 @@ message ListSinksResponse {
 
 message DeleteSinkRequest {
   string name = 1 [(google.api.field_behavior) = REQUIRED];
-  bool recursive = 2;
+  // (-- api-linter: core::0135::request-unknown-fields=disabled
+  //     aip.dev/not-precedent: We really need this field. --)
+  bool recursive = 2 [(google.api.field_behavior) = REQUIRED];
 }
 
 message DeleteSinkResponse {
@@ -42,8 +44,8 @@ message CreateSinkResponse {
 }
 
 message GetSinkRequest {
-  string name = 1;
-  bool recursive = 2;
+  string name = 1 [(google.api.field_behavior) = REQUIRED];
+  bool recursive = 2 [(google.api.field_behavior) = REQUIRED];
 }
 
 message GetSinkResponse {

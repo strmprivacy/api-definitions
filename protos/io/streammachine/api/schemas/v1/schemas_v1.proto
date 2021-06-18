@@ -1,10 +1,10 @@
 syntax = "proto3";
 
 package io.streammachine.api.schemas.v1;
-option go_package = "streammachine.io/api/schemas/v1;schemas";
 
 import "io/streammachine/api/entities/v1/entities_v1.proto";
 
+option go_package = "streammachine.io/api/schemas/v1;schemas";
 option java_multiple_files = true;
 
 service SchemasService {
