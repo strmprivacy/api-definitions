@@ -22,7 +22,9 @@
     - 'core::0133::request-parent-required'
 
     # Google APIs specific, seems to be focused on mapping gRPC to REST
+    - 'core::0123::resource-annotation'
     - 'core::0131::method-signature'
+    - 'core::0131::request-name-reference'
     - 'core::0133::method-signature'
     - 'core::0133::response-message-name'
     - 'core::0135::request-name-reference'
@@ -40,12 +42,28 @@
     # Get RPCs do not always have a name as a unique identifier
     - 'core::0131::request-unknown-fields'
     - 'core::0131::request-name-required'
+    - 'core::0132::request-unknown-fields'
 
     # Temporarily disabled
     - 'core::0133::request-resource-behavior'
+
 - included_paths:
     - 'protos/**/consent_levels_*.proto'
   disabled_rules:
     # The unique identifier for consent levels is the level
     - 'core::0135::request-unknown-fields'
     - 'core::0135::request-name-required'
+
+- included_paths:
+    - 'protos/**/credentials_*.proto'
+  disabled_rules:
+    # The unique identifier for consent levels is the level
+    - 'core::0133::request-unknown-fields'
+    - 'core::0135::request-name-required'
+    - 'core::0135::request-unknown-fields'
+
+- included_paths:
+    - 'protos/**/entities_*.proto'
+  disabled_rules:
+    # The unique identifier for consent levels is the level
+    - 'core::0122::name-suffix'

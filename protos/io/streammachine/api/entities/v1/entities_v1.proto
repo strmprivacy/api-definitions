@@ -7,43 +7,35 @@ option java_multiple_files = true;
 import "google/protobuf/timestamp.proto";
 import "google/protobuf/duration.proto";
 
-// See our attribute spreadsheet for the initial fields version
-// https://docs.google.com/spreadsheets/d/12dooxWXRQjEKhZxS_Bpa4fXpDpaEbPu9JorxOo_BElQ
+// (-- See our attribute spreadsheet for the initial fields version
+//     https://docs.google.com/spreadsheets/d/12dooxWXRQjEKhZxS_Bpa4fXpDpaEbPu9JorxOo_BElQ --)
 
 /*
   Streams are source or derived streams depending on whether or not linked_stream is null.
   Key streams are a separate entity in the api.
  */
 message Stream {
-  // -- TODO: I think we should use StreamRef here instead of these 2 properties (billing_id + name) --
-  // -- TODO add field_behavior for all non-optional fields
-  string billing_id = 1 ;
+  // (-- TODO: I think we should use StreamRef here instead of these 2 properties (billing_id + name) --)
+  string billing_id = 1;
+  // (-- TODO add f i e l d b e h a v i o r for all non-optional fields --)
   string name = 2;
-  string description = 3; // customer purpose.
-  repeated int32 consent_levels = 4; // consent levels for derived streams
-  ConsentLevelType consent_level_type = 5; // how event consent-levels are interpreted by decrypters.
-  bool enabled = 6; // whether or not this stream is enabled.
-  float rate_limit = 7; // filled in from customer profile
-  int64 event_ct_limit = 8; // filled in from customer profile
-  string linked_stream = 9; // null for source streams
-  repeated string tags = 10; // customer purposes.
-  string status = 11; // engineering status message. Add enum when we know more.
-  repeated Credentials credentials = 12;
-}
-
-/*
-Consent level is meant to interpret the consent-levels of an event for decryption purposes only.
-
-Cumulative means that the highest consent-level in an event must be greater than or equal to the single requested level
-for the decrypted stream.
-
-Granular means that the set of consent-levels in an event must enclose the set of requested event levels for the
-decrypted stream.
- */
-enum ConsentLevelType {
-  CONSENT_LEVEL_TYPE_UNSPECIFIED = 0;
-  CUMULATIVE = 1;
-  GRANULAR = 2;
+  // customer's description for this Stream.
+  string description = 3;
+  // consent levels for derived streams
+  repeated int32 consent_levels = 4;
+  // how event consent-levels are interpreted by decrypters.
+  ConsentLevelType consent_level_type = 5;
+  // whether or not this stream is enabled.
+  bool enabled = 6;
+  // filled in from customer profile
+  float rate_limit = 7;
+  // filled in from customer profile
+  int64 event_ct_limit = 8;
+  // null for source streams
+  string linked_stream = 9;
+  // customer purposes.
+  repeated string tags = 10;
+  repeated Credentials credentials = 11;
 }
 
 /*
@@ -54,7 +46,8 @@ with the same `name`.
  */
 message KeyStream {
   string billing_id = 1;
-  string name = 2; // identical to the source stream
+  // identical to the source stream
+  string name = 2;
   string status = 5;
 }
 
@@ -62,9 +55,11 @@ message KeyStream {
  */
 message StreamRef  {
   string billing_id = 1;
-  string stream_name = 2;
-  // TODO: Can't we do this in another way than with a boolean flag?
-  bool key_stream = 3; // whether we refer to the source stream or its corresponding keys stream.
+  // the name of the stream
+  string name = 2;
+  // (-- TODO: Can't we do this in another way than with a boolean flag? --)
+  // whether we refer to the source stream or its corresponding keys stream.
+  bool key_stream = 3;
 }
 
 /*
@@ -87,12 +82,6 @@ message Sink {
   string credentials = 5;
 }
 
-enum SinkType {
-  SINK_TYPE_UNSPECIFIED = 0;
-  S3 = 1;
-  GCLOUD = 2;
-}
-
 /*
 A batch exporter.
  */
@@ -100,7 +89,8 @@ message BatchExporter {
   string billing_id = 1;
   string name = 2;
   StreamRef stream_ref = 3;
-  google.protobuf.Duration interval = 4; // granularity of seconds, nanos is unused
+  // granularity of seconds, nanos is unused
+  google.protobuf.Duration interval = 4;
   string sink_name = 5;
   string path_prefix = 6;
 }
@@ -113,34 +103,37 @@ message KafkaCluster {
   string bootstrap_servers = 2;
   AuthMechanism auth_mechanism = 3;
   string token_uri = 4;
-  bool owned = 5; // TODO define what this means
+  // (-- TODO define what this means --)
+  bool owned = 5;
 }
 
 /*
 How to refer to a certain Kafka cluster.
  */
 message KafkaClusterRef {
-  string billing_id = 1; // streammachine
-  string name = 2; // shared export
-}
-
-// -- TODO align values with JAAS. see https://docs.confluent.io/platform/current/kafka/overview-authentication-methods.html --
-// -- also see the Kafka exporter to determine the correct terminology here --
-// -- SASL_SSL should probably be SASL_OAUTHBEARER --
-enum AuthMechanism {
-  AUTH_MECHANISM_UNSPECIFIED = 0;
-  SASL_PLAIN = 1;
-  SASL_SSL = 2;
+  // (-- streammachine for the default export cluster --)
+  string billing_id = 1;
+  // (-- shared export --)
+  string name = 2;
 }
 
 message KafkaExporter  {
-  string name = 1; // typically default  <cluster-name>-<stream-name>
-  StreamRef stream_ref = 2; // what stream
-  KafkaClusterRef cluster_ref = 3; // what cluster to produce to.
-  string produce_to_topic = 4; // the topic this exporter produces to
-  string client_id = 5; // how to produce to the cluster.
-  string client_secret = 6; // how to produce to the cluster.
-  repeated KafkaUser users = 7;
+  // default value  <cluster-name>-<stream-name>
+  string name = 1;
+  StreamRef stream_ref = 2;
+  KafkaExporterTarget target = 3;
+  repeated KafkaUser users = 4;
+}
+
+message KafkaExporterTarget {
+  // what cluster to produce to
+  KafkaClusterRef cluster_ref = 1;
+  // the topic this exporter produces to
+  string topic = 2;
+  // client id in case of OAuth based authentication
+  string client_id = 3;
+  // client secret in case of OAuth based authentication
+  string client_secret = 4;
 }
 
 /*
@@ -156,7 +149,7 @@ message KafkaUser {
   string topic = 4;
   string client_id = 5;
   string client_secret = 6;
-  // -- TODO should we even include this in our api at the moment? What is the probability of a customer wanting to cross produce to another customer's cluster? --
+  // (-- TODO should we even include this in our api at the moment? What is the probability of a customer wanting to cross produce to another customer's cluster? --)
   string cluster_billing_id = 7;
   string cluster_name = 8;
   string stream_name = 9;
@@ -167,8 +160,10 @@ for descriptive purposes only.
  */
 message ConsentLevelMapping {
   string billing_id = 1;
-  string name = 2; // some text like 'analytics'
-  int32 value = 3; // the typically small integer value that we use in the events.
+  // some text like 'analytics'
+  string name = 2;
+  // the typically small integer value that we use in the events.
+  int32 value = 3;
 }
 
 message WindowedEventCount {
@@ -183,27 +178,13 @@ message SchemaRef {
   string version = 3;
 }
 
-enum Status {
-  STATUS_UNSPECIFIED = 0;
-  PENDING = 1;
-  IN_REVIEW = 2;
-  REJECTED = 3;
-  ACTIVE = 4;
-  DELETED = 5;
-}
-
 message Schema {
   SchemaRef ref = 1;
   SchemaType type = 2;
-  bool is_public = 3; // -- 'is' is intentional here (see https://google.aip.dev/140#booleans) --
+  // (-- 'is' is intentional here (see https://google.aip.dev/140#booleans) --)
+  bool is_public = 3;
   string definition = 4;
-  Status status = 5;
-}
-
-enum SchemaType {
-  SCHEMA_TYPE_UNSPECIFIED = 0 ;
-  AVRO = 1;
-  JSONSCHEMA = 2;
+  State state = 5;
 }
 
 message EventContractRef {
@@ -214,9 +195,10 @@ message EventContractRef {
 
 message EventContract {
   EventContractRef ref = 1;
-  Status status = 2;
+  State state = 2;
   SchemaRef schema_ref = 3;
-  bool is_public = 4; // -- 'is' is intentional here (see https://google.aip.dev/140#booleans) --
+  // (-- 'is' is intentional here (see https://google.aip.dev/140#booleans) --)
+  bool is_public = 4;
   string key_field = 5;
   map<string, int32> pii_fields = 6;
   repeated Validation validations = 7;
@@ -239,4 +221,49 @@ message StreamTree {
 message SinkTree {
   Sink sink = 1;
   repeated BatchExporter batch_exporters = 2;
+}
+
+/*
+Consent level is meant to interpret the consent-levels of an event for decryption purposes only.
+
+Cumulative means that the highest consent-level in an event must be greater than or equal to the single requested level
+for the decrypted stream.
+
+Granular means that the set of consent-levels in an event must enclose the set of requested event levels for the
+decrypted stream.
+ */
+enum ConsentLevelType {
+  CONSENT_LEVEL_TYPE_UNSPECIFIED = 0;
+  CUMULATIVE = 1;
+  GRANULAR = 2;
+}
+
+enum SinkType {
+  SINK_TYPE_UNSPECIFIED = 0;
+  S3 = 1;
+  GCLOUD = 2;
+}
+
+// (-- TODO align values with JAAS. see https://docs.confluent.io/platform/current/kafka/overview-authentication-methods.html --)
+//     also see the Kafka exporter to determine the correct terminology here
+//     SASL_SSL should probably be SASL_OAUTHBEARER --)
+enum AuthMechanism {
+  AUTH_MECHANISM_UNSPECIFIED = 0;
+  SASL_PLAIN = 1;
+  SASL_SSL = 2;
+}
+
+enum State {
+  STATE_UNSPECIFIED = 0;
+  PENDING = 1;
+  IN_REVIEW = 2;
+  REJECTED = 3;
+  ACTIVE = 4;
+  DELETED = 5;
+}
+
+enum SchemaType {
+  SCHEMA_TYPE_UNSPECIFIED = 0 ;
+  AVRO = 1;
+  JSONSCHEMA = 2;
 }

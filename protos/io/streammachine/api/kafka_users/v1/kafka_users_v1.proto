@@ -1,10 +1,11 @@
 syntax = "proto3";
 
 package io.streammachine.api.kafka_users.v1;
-option go_package = "streammachine.io/api/kafka_users/v1;kafka_users";
 
 import "io/streammachine/api/entities/v1/entities_v1.proto";
+import "google/api/field_behavior.proto";
 
+option go_package = "streammachine.io/api/kafka_users/v1;kafka_users";
 option java_multiple_files = true;
 
 service KafkaUsersService {
@@ -15,6 +16,8 @@ service KafkaUsersService {
 }
 
 message ListKafkaUsersRequest {
+  // (-- api-linter: core::0122::name-suffix=disabled
+  //     aip.dev/not-precedent: Stream name is a better name than stream --)
   string stream_name = 1;
 }
 
@@ -23,7 +26,7 @@ message ListKafkaUsersResponse {
 }
 
 message DeleteKafkaUserRequest {
-  string name = 1;
+  string name = 1 [(google.api.field_behavior) = REQUIRED];
 }
 
 message DeleteKafkaUserResponse {
@@ -40,7 +43,7 @@ message CreateKafkaUserResponse {
 }
 
 message GetKafkaUserRequest {
-  string name = 1;
+  string name = 1 [(google.api.field_behavior) = REQUIRED];
 }
 
 message GetKafkaUserResponse {

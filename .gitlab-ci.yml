@@ -7,12 +7,12 @@ include:
     file: '/common/semantic-release.yml'
 
 stages:
-  - buf
+  - lint
+  - breaking-change
   - release
   - publish
 
 .buf:
-  stage: buf
   image: bufbuild/buf:latest
   except: # Do not run for tag pipelines and also do not run for master pipelines when it's a release commit
     variables:
@@ -20,11 +20,19 @@ stages:
 
 lint:
   extends: .buf
+  stage: lint
   script:
     - buf lint
 
+aip-guidelines-lint:
+  stage: lint
+  image: eu.gcr.io/stream-machine-development/google/api-linter:latest
+  script:
+    - ./api-linter.sh
+
 breaking:
  extends: .buf
+ stage: breaking-change
  script:
    - export LATEST_TAG=$(git tag -l | sort -V | tail -n 1)
    - echo "Latest tag = $LATEST_TAG"

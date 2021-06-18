@@ -1,10 +1,11 @@
 syntax = "proto3";
 
 package io.streammachine.api.kafka_clusters.v1;
-option go_package = "streammachine.io/api/kafka_clusters/v1;kafka_clusters";
 
 import "io/streammachine/api/entities/v1/entities_v1.proto";
+import "google/api/field_behavior.proto";
 
+option go_package = "streammachine.io/api/kafka_clusters/v1;kafka_clusters";
 option java_multiple_files = true;
 
 service KafkaClustersService {
@@ -22,7 +23,7 @@ message ListKafkaClustersResponse {
 }
 
 message DeleteKafkaClusterRequest {
-  string name = 1;
+  string name = 1 [(google.api.field_behavior) = REQUIRED];
 }
 
 message DeleteKafkaClusterResponse {
@@ -39,7 +40,7 @@ message CreateKafkaClusterResponse {
 }
 
 message GetKafkaClusterRequest {
-  string name = 1;
+  string name = 1 [(google.api.field_behavior) = REQUIRED];
 }
 
 message GetKafkaClusterResponse {
