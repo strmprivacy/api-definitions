@@ -13,7 +13,11 @@ build:
 lint:
   use:
     - DEFAULT
+  except:
+    # We prefer the Google approach, where you only have to prefix the UNSPECIFIED enum value with the enum name.
+    - ENUM_VALUE_PREFIX
   ignore:
+    # We shouldn't lint Google proto files
     - google
 breaking:
   use:
