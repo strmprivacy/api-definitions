@@ -9,7 +9,6 @@ option java_multiple_files = true;
 
 service InternalSchemasService {
   rpc GetSchemaDefinition (GetSchemaDefinitionRequest) returns (GetSchemaDefinitionResponse);
-  rpc GetCombined (GetCombinedRequest) returns (GetCombinedResponse);
   rpc DeleteSchema (DeleteSchemaRequest) returns (DeleteSchemaResponse);
 }
 
@@ -19,16 +18,6 @@ message GetSchemaDefinitionRequest {
 
 message GetSchemaDefinitionResponse {
   string definition = 1;
-}
-
-message GetCombinedRequest {
-  io.streammachine.api.entities.v1.EventContractRef ref = 1;
-}
-
-message GetCombinedResponse {
-  io.streammachine.api.entities.v1.Schema schema = 1;
-  io.streammachine.api.entities.v1.EventContract event_contract = 2;
-  int32 confluent_id = 3;
 }
 
 // (-- api-linter: core::0135::request-name-required=disabled

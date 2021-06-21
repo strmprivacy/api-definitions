@@ -8,7 +8,18 @@ option go_package = "streammachine.io/api/internal_api/event_contracts/v1;event_
 option java_multiple_files = true;
 
 service InternalEventContractsService {
+  rpc GetEventContractAndSchema (GetEventContractAndSchemaRequest) returns (GetEventContractAndSchemaResponse);
   rpc DeleteEventContract (DeleteEventContractRequest) returns (DeleteEventContractResponse);
+}
+
+message GetEventContractAndSchemaRequest {
+  io.streammachine.api.entities.v1.EventContractRef ref = 1;
+}
+
+message GetEventContractAndSchemaResponse {
+  io.streammachine.api.entities.v1.EventContract event_contract = 1;
+  io.streammachine.api.entities.v1.Schema schema = 2;
+  int32 confluent_id = 3;
 }
 
 // (-- api-linter: core::0135::request-name-required=disabled
