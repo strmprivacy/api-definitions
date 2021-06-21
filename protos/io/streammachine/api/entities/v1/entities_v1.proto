@@ -49,6 +49,7 @@ message KeyStream {
   string billing_id = 1 [(google.api.field_behavior) = OUTPUT_ONLY];
   // identical to the source stream
   string name = 2 [(google.api.field_behavior) = REQUIRED];
+  // -- TODO: this field is not used --
   string status = 3 [(google.api.field_behavior) = OUTPUT_ONLY];
 }
 
