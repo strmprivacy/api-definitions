@@ -1,3 +1,10 @@
+# [1.6.0](https://gitlab.com/stream-machine/api-definitions/compare/v1.5.0...v1.6.0) (2021-06-21)
+
+
+### Features
+
+* **apis:** move and renamed combined rpc ([c86b351](https://gitlab.com/stream-machine/api-definitions/commit/c86b35185f01a1fb2e4aae7561a86959bc7128cc))
+
 # [1.5.0](https://gitlab.com/stream-machine/api-definitions/compare/v1.4.0...v1.5.0) (2021-06-18)
 
 
