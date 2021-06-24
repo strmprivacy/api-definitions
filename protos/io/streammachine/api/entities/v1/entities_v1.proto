@@ -175,7 +175,7 @@ message ConsentLevelMapping {
   // some text like 'analytics'
   string name = 2 [(google.api.field_behavior) = REQUIRED];
   // the typically small integer value that we use in the events.
-  int32 value = 3 [(google.api.field_behavior) = REQUIRED];
+  int32 level = 3 [(google.api.field_behavior) = REQUIRED];
 }
 
 message WindowedEventCount {
