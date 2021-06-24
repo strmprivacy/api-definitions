@@ -1,3 +1,10 @@
+# [1.7.0](https://gitlab.com/stream-machine/api-definitions/compare/v1.6.0...v1.7.0) (2021-06-24)
+
+
+### Features
+
+* rename value to level for consistency ([1c3b1d2](https://gitlab.com/stream-machine/api-definitions/commit/1c3b1d209529c8163e7f1772bc9d0ad030dc5458))
+
 # [1.6.0](https://gitlab.com/stream-machine/api-definitions/compare/v1.5.0...v1.6.0) (2021-06-21)
 
 
