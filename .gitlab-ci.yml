@@ -35,7 +35,7 @@ aip-guidelines-lint:
     variables:
       - ($CI_BUILD_REF_NAME == "master" && $CI_COMMIT_MESSAGE =~ /.*chore\(release\).*/) || $CI_COMMIT_TAG
 
-breaking:
+.breaking:
   extends: .buf
   stage: breaking-change
   script:

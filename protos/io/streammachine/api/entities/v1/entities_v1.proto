@@ -28,15 +28,20 @@ message Stream {
   ConsentLevelType consent_level_type = 5;
   // whether or not this stream is enabled.
   bool enabled = 6 [(google.api.field_behavior) = OUTPUT_ONLY];
-  // filled in from customer profile
-  float rate_limit = 7 [(google.api.field_behavior) = OUTPUT_ONLY];
-  // filled in from customer profile
-  int64 event_ct_limit = 8 [(google.api.field_behavior) = OUTPUT_ONLY];
+  // stream limits
+  Limits limits = 7 [(google.api.field_behavior) = OUTPUT_ONLY];
   // null for source streams
-  string linked_stream = 9;
+  string linked_stream = 8;
   // customer purposes.
-  repeated string tags = 10;
-  repeated Credentials credentials = 11 [(google.api.field_behavior) = OUTPUT_ONLY];
+  repeated string tags = 9;
+  repeated Credentials credentials = 10 [(google.api.field_behavior) = OUTPUT_ONLY];
+}
+
+message Limits {
+  // filled in from customer profile
+  int64 event_rate = 1 [(google.api.field_behavior) = OUTPUT_ONLY];
+  // filled in from customer profile
+  int64 event_count = 2 [(google.api.field_behavior) = OUTPUT_ONLY];
 }
 
 /*
