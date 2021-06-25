@@ -1,3 +1,15 @@
+# [1.8.0](https://gitlab.com/stream-machine/api-definitions/compare/v1.7.0...v1.8.0) (2021-06-25)
+
+
+### Features
+
+* combined all stream limits into a limit message ([aba8db4](https://gitlab.com/stream-machine/api-definitions/commit/aba8db4aa0bb76cc68df54c2b644e5f64659b2b0))
+
+
+### Reverts
+
+* revert disable buf breaking ([55ae741](https://gitlab.com/stream-machine/api-definitions/commit/55ae74138b153fcc85062299116613a41080bcfc))
+
 # [1.7.0](https://gitlab.com/stream-machine/api-definitions/compare/v1.6.0...v1.7.0) (2021-06-24)
 
 
