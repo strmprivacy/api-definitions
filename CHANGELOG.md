@@ -1,3 +1,10 @@
+# [1.10.0](https://gitlab.com/stream-machine/api-definitions/compare/v1.9.0...v1.10.0) (2021-06-28)
+
+
+### Features
+
+* **apis:** renamed batch_sink to sink ([ba7b5e7](https://gitlab.com/stream-machine/api-definitions/commit/ba7b5e72206c713fb0d098e462e083d4ecffd133))
+
 # [1.9.0](https://gitlab.com/stream-machine/api-definitions/compare/v1.8.0...v1.9.0) (2021-06-28)
 
 
