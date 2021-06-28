@@ -17,24 +17,22 @@ option java_multiple_files = true;
   Key streams are a separate entity in the api.
  */
 message Stream {
-  // (-- TODO: I think we should use StreamRef here instead of these 2 properties (billing_id + name) --)
-  string billing_id = 1 [(google.api.field_behavior) = OUTPUT_ONLY];
-  string name = 2 [(google.api.field_behavior) = REQUIRED];
+  StreamRef ref = 1 [(google.api.field_behavior) = REQUIRED];
   // customer's description for this Stream.
-  string description = 3;
+  string description = 2;
   // consent levels for derived streams
-  repeated int32 consent_levels = 4;
+  repeated int32 consent_levels = 3;
   // how event consent-levels are interpreted by decrypters.
-  ConsentLevelType consent_level_type = 5;
+  ConsentLevelType consent_level_type = 4;
   // whether or not this stream is enabled.
-  bool enabled = 6 [(google.api.field_behavior) = OUTPUT_ONLY];
+  bool enabled = 5 [(google.api.field_behavior) = OUTPUT_ONLY];
   // stream limits
-  Limits limits = 7 [(google.api.field_behavior) = OUTPUT_ONLY];
+  Limits limits = 6 [(google.api.field_behavior) = OUTPUT_ONLY];
   // null for source streams
-  string linked_stream = 8;
+  string linked_stream = 7;
   // customer purposes.
-  repeated string tags = 9;
-  repeated Credentials credentials = 10 [(google.api.field_behavior) = OUTPUT_ONLY];
+  repeated string tags = 8;
+  repeated Credentials credentials = 9 [(google.api.field_behavior) = OUTPUT_ONLY];
 }
 
 message Limits {
@@ -47,26 +45,27 @@ message Limits {
 /*
 A Stream of key-link, encryption-key messages created from a source stream
 with the same `name`.
- * -- TODO should key stream be a separate resource? --
- * -- TODO key stream (also on SOS database level) should be named export_keys, which is a property on a Stream (a source stream)?
  */
 message KeyStream {
-  string billing_id = 1 [(google.api.field_behavior) = OUTPUT_ONLY];
-  // identical to the source stream
-  string name = 2 [(google.api.field_behavior) = REQUIRED];
+  KeyStreamRef ref = 1 [(google.api.field_behavior) = REQUIRED];
   // -- TODO: this field is not used --
-  string status = 3 [(google.api.field_behavior) = OUTPUT_ONLY];
+  string status = 2 [(google.api.field_behavior) = OUTPUT_ONLY];
 }
 
-/* refers to a stream or key stream.
+/* refers to a event stream.
  */
 message StreamRef {
   string billing_id = 1 [(google.api.field_behavior) = OUTPUT_ONLY];
   // the name of the stream
   string name = 2 [(google.api.field_behavior) = REQUIRED];
-  // (-- TODO: Can't we do this in another way than with a boolean flag? --)
-  // whether we refer to the source stream or its corresponding keys stream.
-  bool key_stream = 3;
+}
+
+/* refers to a key stream.
+ */
+message KeyStreamRef {
+  string billing_id = 1 [(google.api.field_behavior) = OUTPUT_ONLY];
+  // the name of the stream
+  string name = 2 [(google.api.field_behavior) = REQUIRED];
 }
 
 /*
@@ -81,29 +80,46 @@ message Credentials {
 
 /* the sink configuration used by the batch exporters. */
 message Sink {
-  string billing_id = 1 [(google.api.field_behavior) = OUTPUT_ONLY];
+  SinkRef ref = 1 [(google.api.field_behavior) = REQUIRED];
+  SinkType sink_type = 2 [(google.api.field_behavior) = REQUIRED];
+  oneof config {
+    BucketConfig bucket = 4;
+  }
+}
+
+message SinkRef {
+  string billing_id = 1 [(google.api.field_behavior) = REQUIRED];
   string name = 2 [(google.api.field_behavior) = REQUIRED];
-  SinkType sink_type = 3 [(google.api.field_behavior) = REQUIRED];
+}
+
+message BucketConfig {
   // (-- api-linter: core::0122::name-suffix=disabled
   //     aip.dev/not-precedent: We refer to a bucket name. --)
   string bucket_name = 4 [(google.api.field_behavior) = REQUIRED];
   // The credentials that are to be used to access the sink target (e.g. S3 or Google Cloud Storage)
-  string bucket_credentials = 5 [(google.api.field_behavior) = REQUIRED];
+  string credentials = 5 [(google.api.field_behavior) = REQUIRED];
 }
 
 /*
 A batch exporter.
  */
 message BatchExporter {
-  string billing_id = 1 [(google.api.field_behavior) = OUTPUT_ONLY];
-  string name = 2 [(google.api.field_behavior) = REQUIRED];
-  StreamRef stream_ref = 3 [(google.api.field_behavior) = REQUIRED];
+  BatchExporterRef ref = 1 [(google.api.field_behavior) = REQUIRED];
+  oneof stream_or_key_stream_ref {
+    StreamRef stream_ref = 2 [(google.api.field_behavior) = REQUIRED];
+    KeyStreamRef key_stream_ref = 3 [(google.api.field_behavior) = REQUIRED];
+  }
   // granularity of seconds, nanos is unused
   google.protobuf.Duration interval = 4 [(google.api.field_behavior) = REQUIRED];
   // (-- api-linter: core::0122::name-suffix=disabled
   //     aip.dev/not-precedent: We refer to the sink by name. --)
   string sink_name = 5 [(google.api.field_behavior) = REQUIRED];
   string path_prefix = 6;
+}
+
+message BatchExporterRef {
+  string billing_id = 1 [(google.api.field_behavior) = OUTPUT_ONLY];
+  string name = 2 [(google.api.field_behavior) = REQUIRED];
 }
 
 /*
@@ -114,8 +130,6 @@ message KafkaCluster {
   string bootstrap_servers = 2 [(google.api.field_behavior) = REQUIRED];
   AuthMechanism auth_mechanism = 3 [(google.api.field_behavior) = REQUIRED];
   string token_uri = 4;
-  // (-- TODO define what this means --)
-  bool owned = 5;
 }
 
 /*
@@ -129,11 +143,16 @@ message KafkaClusterRef {
 }
 
 message KafkaExporter {
-  // default value  <cluster-name>-<stream-name>
-  string name = 1 [(google.api.field_behavior) = REQUIRED];
+  KafkaExporterRef ref = 1 [(google.api.field_behavior) = REQUIRED];
   StreamRef stream_ref = 2 [(google.api.field_behavior) = REQUIRED];
   KafkaExporterTarget target = 3 [(google.api.field_behavior) = REQUIRED];
   repeated KafkaUser users = 4;
+}
+
+message KafkaExporterRef {
+  string billing_id = 1 [(google.api.field_behavior) = REQUIRED];
+  // default value  <cluster-name>-<stream-name>
+  string name = 2 [(google.api.field_behavior) = REQUIRED];
 }
 
 message KafkaExporterTarget {
@@ -154,33 +173,34 @@ The kafka exporter is linked to a certain cluster, so this entity is bound to a 
 kafka cluster.
  */
 message KafkaUser {
-  string billing_id = 1 [(google.api.field_behavior) = OUTPUT_ONLY];
-  string name = 2 [(google.api.field_behavior) = OUTPUT_ONLY];
+  KafkaUserRef ref = 1 [(google.api.field_behavior) = REQUIRED];
   // (-- api-linter: core::0122::name-suffix=disabled
   //     aip.dev/not-precedent: We refer to the kafka exporter by name. --)
   string kafka_exporter_name = 3 [(google.api.field_behavior) = OUTPUT_ONLY];
   string topic = 4 [(google.api.field_behavior) = OUTPUT_ONLY];
   string client_id = 5 [(google.api.field_behavior) = OUTPUT_ONLY];
   string client_secret = 6 [(google.api.field_behavior) = OUTPUT_ONLY];
-  // (-- TODO should we even include this in our api at the moment? What is the probability of a customer wanting to cross produce to another customer's cluster? --)
-  string cluster_billing_id = 7 [(google.api.field_behavior) = OUTPUT_ONLY];
-  // (-- api-linter: core::0122::name-suffix=disabled
-  //     aip.dev/not-precedent: We refer to the cluster by name. --)
-  string cluster_name = 8 [(google.api.field_behavior) = OUTPUT_ONLY];
-  // (-- api-linter: core::0122::name-suffix=disabled
-  //     aip.dev/not-precedent: We refer to the stream by name. --)
-  string stream_name = 9 [(google.api.field_behavior) = REQUIRED];
+  KafkaClusterRef cluster_ref = 7 [(google.api.field_behavior) = OUTPUT_ONLY];
+}
+
+message KafkaUserRef {
+  string billing_id = 1 [(google.api.field_behavior) = OUTPUT_ONLY];
+  string name = 2 [(google.api.field_behavior) = OUTPUT_ONLY];
 }
 
 /*
 for descriptive purposes only.
  */
 message ConsentLevelMapping {
-  string billing_id = 1 [(google.api.field_behavior) = OUTPUT_ONLY];
+  ConsentLevelMappingRef ref = 1 [(google.api.field_behavior) = REQUIRED];
   // some text like 'analytics'
   string name = 2 [(google.api.field_behavior) = REQUIRED];
+}
+
+message ConsentLevelMappingRef {
+  string billing_id = 1 [(google.api.field_behavior) = OUTPUT_ONLY];
   // the typically small integer value that we use in the events.
-  int32 level = 3 [(google.api.field_behavior) = REQUIRED];
+  int32 level = 2 [(google.api.field_behavior) = REQUIRED];
 }
 
 message WindowedEventCount {
@@ -193,7 +213,7 @@ message SchemaRef {
   string handle = 1 [(google.api.field_behavior) = REQUIRED];
   string name = 2 [(google.api.field_behavior) = REQUIRED];
   string version = 3 [(google.api.field_behavior) = REQUIRED];
-  SchemaType schema_type = 4 [(google.api.field_behavior) = REQUIRED];
+  SchemaType schema_type = 4;
 }
 
 message Schema {
@@ -213,10 +233,10 @@ message EventContractRef {
 message EventContract {
   EventContractRef ref = 1 [(google.api.field_behavior) = REQUIRED];
   State state = 2 [(google.api.field_behavior) = OUTPUT_ONLY];
-  SchemaRef schema_ref = 3[(google.api.field_behavior) = REQUIRED];
+  SchemaRef schema_ref = 3 [(google.api.field_behavior) = REQUIRED];
   // (-- 'is' is intentional here (see https://google.aip.dev/140#booleans) --)
   bool is_public = 4;
-  string key_field = 5[(google.api.field_behavior) = REQUIRED];
+  string key_field = 5 [(google.api.field_behavior) = REQUIRED];
   map<string, int32> pii_fields = 6;
   repeated Validation validations = 7;
 }

@@ -14,6 +14,7 @@ service KeyStreamsService {
 }
 
 message ListKeyStreamsRequest {
+  string billing_id = 1 [(google.api.field_behavior) = OUTPUT_ONLY];
 }
 
 message ListKeyStreamsResponse {
@@ -21,7 +22,7 @@ message ListKeyStreamsResponse {
 }
 
 message GetKeyStreamRequest {
-  string name = 1 [(google.api.field_behavior) = REQUIRED];
+  entities.v1.KeyStreamRef ref = 1 [(google.api.field_behavior) = REQUIRED];
 }
 
 message GetKeyStreamResponse {

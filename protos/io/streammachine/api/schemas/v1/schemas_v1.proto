@@ -10,12 +10,12 @@ option java_multiple_files = true;
 service SchemasService {
   rpc ListSchemas (ListSchemasRequest) returns (ListSchemasResponse);
   rpc GetSchema (GetSchemaRequest) returns (GetSchemaResponse);
-  rpc GetSchemaDefinition (GetSchemaDefinitionRequest) returns (GetSchemaDefinitionResponse);
   rpc CreateSchema (CreateSchemaRequest) returns (CreateSchemaResponse);
 }
 
 message ListSchemasRequest {
-  string filter = 1;
+  string billing_id = 1;
+  string filter = 2;
 }
 
 // (-- api-linter: core::0158::response-plural-first-field=disabled
@@ -25,9 +25,8 @@ message ListSchemasResponse {
 }
 
 message CreateSchemaRequest {
-  /* not all fields are used, and if you fill them in, they'll be overwritten
-   * by the api gateway (like status, the limits etc...) */
-  io.streammachine.api.entities.v1.Schema schema = 1;
+  string billing_id = 1;
+  io.streammachine.api.entities.v1.Schema schema = 2;
 }
 
 message CreateSchemaResponse {
@@ -35,18 +34,10 @@ message CreateSchemaResponse {
 }
 
 message GetSchemaRequest {
-  io.streammachine.api.entities.v1.SchemaRef ref = 1;
+  string billing_id = 1;
+  io.streammachine.api.entities.v1.SchemaRef ref = 2;
 }
 
 message GetSchemaResponse {
   io.streammachine.api.entities.v1.Schema schema = 1;
-}
-
-message GetSchemaDefinitionRequest {
-  int64 fingerprint = 1;
-}
-
-message GetSchemaDefinitionResponse {
-  io.streammachine.api.entities.v1.SchemaType type = 1;
-  string definition = 2;
 }

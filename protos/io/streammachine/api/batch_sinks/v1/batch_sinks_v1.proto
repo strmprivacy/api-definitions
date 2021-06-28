@@ -1,11 +1,11 @@
 syntax = "proto3";
 
-package io.streammachine.api.sinks.v1;
+package io.streammachine.api.batch_sinks.v1;
 
 import "google/api/field_behavior.proto";
 import "io/streammachine/api/entities/v1/entities_v1.proto";
 
-option go_package = "streammachine.io/api/sinks/v1;sinks";
+option go_package = "streammachine.io/api/batch_sinks/v1;batch_sinks";
 option java_multiple_files = true;
 
 service SinksService {
@@ -16,7 +16,8 @@ service SinksService {
 }
 
 message ListSinksRequest {
-  bool recursive = 1;
+  string billing_id = 1 [(google.api.field_behavior) = OUTPUT_ONLY];
+  bool recursive = 2;
 }
 
 message ListSinksResponse {
@@ -24,7 +25,7 @@ message ListSinksResponse {
 }
 
 message DeleteSinkRequest {
-  string name = 1 [(google.api.field_behavior) = REQUIRED];
+  entities.v1.SinkRef ref = 1 [(google.api.field_behavior) = REQUIRED];
   // (-- api-linter: core::0135::request-unknown-fields=disabled
   //     aip.dev/not-precedent: We really need this field. --)
   bool recursive = 2 [(google.api.field_behavior) = REQUIRED];
@@ -34,8 +35,6 @@ message DeleteSinkResponse {
 }
 
 message CreateSinkRequest {
-  /* not all fields are used, and if you fill them in, they'll be overwritten
-   * by the api gateway (like status, the limits etc...) */
   io.streammachine.api.entities.v1.Sink sink = 1;
 }
 
@@ -44,7 +43,7 @@ message CreateSinkResponse {
 }
 
 message GetSinkRequest {
-  string name = 1 [(google.api.field_behavior) = REQUIRED];
+  entities.v1.SinkRef ref = 1 [(google.api.field_behavior) = REQUIRED];
   bool recursive = 2 [(google.api.field_behavior) = REQUIRED];
 }
 

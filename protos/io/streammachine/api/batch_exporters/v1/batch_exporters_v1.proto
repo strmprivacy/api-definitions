@@ -16,6 +16,7 @@ service BatchExportersService {
 }
 
 message ListBatchExportersRequest {
+  string billing_id = 1;
 }
 
 message ListBatchExportersResponse {
@@ -23,17 +24,13 @@ message ListBatchExportersResponse {
 }
 
 message DeleteBatchExporterRequest {
-  string name = 1 [(google.api.field_behavior) = REQUIRED];
+  entities.v1.BatchExporterRef ref = 1 [(google.api.field_behavior) = REQUIRED];
 }
 
 message DeleteBatchExporterResponse {
 }
 
 message CreateBatchExporterRequest {
-  /*
-   not all fields are used, and if you fill them in, they'll be overwritten
-   by the api gateway (like status, ...)
-   */
   io.streammachine.api.entities.v1.BatchExporter batch_exporter = 1;
 }
 
@@ -42,7 +39,7 @@ message CreateBatchExporterResponse {
 }
 
 message GetBatchExporterRequest {
-  string name = 1 [(google.api.field_behavior) = REQUIRED];
+  entities.v1.BatchExporterRef ref = 1 [(google.api.field_behavior) = REQUIRED];
 }
 
 message GetBatchExporterResponse {

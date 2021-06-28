@@ -16,7 +16,8 @@ service StreamsService {
 }
 
 message ListStreamsRequest {
-  bool recursive = 1;
+  string billing_id = 1;
+  bool recursive = 2;
 }
 
 message ListStreamsResponse {
@@ -24,7 +25,7 @@ message ListStreamsResponse {
 }
 
 message DeleteStreamRequest {
-  string name = 1 [(google.api.field_behavior) = REQUIRED];
+  entities.v1.StreamRef ref = 1 [(google.api.field_behavior) = REQUIRED];
   // (-- api-linter: core::0135::request-unknown-fields=disabled
   //     aip.dev/not-precedent: We really need this field. --)
   bool recursive = 2 [(google.api.field_behavior) = REQUIRED];
@@ -34,8 +35,6 @@ message DeleteStreamResponse {
 }
 
 message CreateStreamRequest {
-  /* not all fields are used, and if you fill them in, they'll be overwritten
-   * by the api gateway (like status, the limits etc...) */
   io.streammachine.api.entities.v1.Stream stream = 1 [(google.api.field_behavior) = REQUIRED];
 }
 
@@ -44,7 +43,7 @@ message CreateStreamResponse {
 }
 
 message GetStreamRequest {
-  string name = 1 [(google.api.field_behavior) = REQUIRED];
+  entities.v1.StreamRef ref = 1 [(google.api.field_behavior) = REQUIRED];
   bool recursive = 2 [(google.api.field_behavior) = REQUIRED];
 }
 

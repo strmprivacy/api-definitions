@@ -16,6 +16,7 @@ service KafkaExportersService {
 }
 
 message ListKafkaExportersRequest {
+  string billing_id = 1 [(google.api.field_behavior) = OUTPUT_ONLY];
 }
 
 message ListKafkaExportersResponse {
@@ -23,7 +24,7 @@ message ListKafkaExportersResponse {
 }
 
 message DeleteKafkaExporterRequest {
-  string name = 1 [(google.api.field_behavior) = REQUIRED];
+  entities.v1.KafkaExporterRef ref = 1 [(google.api.field_behavior) = REQUIRED];
   // (-- api-linter: core::0135::request-unknown-fields=disabled
   //     aip.dev/not-precedent: We really need this field. --)
   bool recursive = 2 [(google.api.field_behavior) = REQUIRED];
@@ -33,8 +34,6 @@ message DeleteKafkaExporterResponse {
 }
 
 message CreateKafkaExporterRequest {
-  /* not all fields are used, and if you fill them in, they'll be overwritten
-   * by the api gateway (like status, ...) */
   io.streammachine.api.entities.v1.KafkaExporter kafka_exporter = 1 [(google.api.field_behavior) = REQUIRED];
 }
 
@@ -43,7 +42,7 @@ message CreateKafkaExporterResponse {
 }
 
 message GetKafkaExporterRequest {
-  string name = 1 [(google.api.field_behavior) = REQUIRED];
+  entities.v1.KafkaExporterRef ref = 1 [(google.api.field_behavior) = REQUIRED];
 }
 
 message GetKafkaExporterResponse {

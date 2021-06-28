@@ -30,6 +30,8 @@
     - 'core::0135::request-name-reference'
     - 'core::0135::response-message-name'
     - 'core::0135::method-signature'
+    - 'core::0135::request-unknown-fields'
+    - 'core::0135::request-name-required'
 
     # We don't need gRPC to REST transcoding yet, so we disable it for now
     - 'core::0127::http-annotation'
@@ -43,6 +45,7 @@
     - 'core::0131::request-unknown-fields'
     - 'core::0131::request-name-required'
     - 'core::0132::request-unknown-fields'
+    - 'core::0133::request-unknown-fields'
 
     # Temporarily disabled
     - 'core::0133::request-resource-behavior'
