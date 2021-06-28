@@ -1,3 +1,10 @@
+# [1.9.0](https://gitlab.com/stream-machine/api-definitions/compare/v1.8.0...v1.9.0) (2021-06-28)
+
+
+### Features
+
+* introduce ref everywhere; misc ([c8a0fa6](https://gitlab.com/stream-machine/api-definitions/commit/c8a0fa68750d7dc7b273a654a740fc9d2a3703ac))
+
 # [1.8.0](https://gitlab.com/stream-machine/api-definitions/compare/v1.7.0...v1.8.0) (2021-06-25)
 
 
