@@ -79,20 +79,20 @@ message Credentials {
 }
 
 /* the sink configuration used by the batch exporters. */
-message BatchSink {
-  BatchSinkRef ref = 1 [(google.api.field_behavior) = REQUIRED];
+message Sink {
+  SinkRef ref = 1 [(google.api.field_behavior) = REQUIRED];
   SinkType sink_type = 2 [(google.api.field_behavior) = REQUIRED];
-  oneof Configuration {
-    BucketExportConfiguration bucket_export_configuration = 4;
+  oneof config {
+    BucketConfig bucket = 4;
   }
 }
 
-message BatchSinkRef {
+message SinkRef {
   string billing_id = 1 [(google.api.field_behavior) = REQUIRED];
   string name = 2 [(google.api.field_behavior) = REQUIRED];
 }
 
-message BucketExportConfiguration {
+message BucketConfig {
   // (-- api-linter: core::0122::name-suffix=disabled
   //     aip.dev/not-precedent: We refer to a bucket name. --)
   string bucket_name = 4 [(google.api.field_behavior) = REQUIRED];
@@ -105,7 +105,7 @@ A batch exporter.
  */
 message BatchExporter {
   BatchExporterRef ref = 1 [(google.api.field_behavior) = REQUIRED];
-  oneof StreamOrKeyStreamRef {
+  oneof stream_or_key_stream_ref {
     StreamRef stream_ref = 2 [(google.api.field_behavior) = REQUIRED];
     KeyStreamRef key_stream_ref = 3 [(google.api.field_behavior) = REQUIRED];
   }
@@ -256,7 +256,7 @@ message StreamTree {
 }
 
 message SinkTree {
-  BatchSink sink = 1 [(google.api.field_behavior) = REQUIRED];
+  Sink sink = 1 [(google.api.field_behavior) = REQUIRED];
   repeated BatchExporter batch_exporters = 2;
 }
 

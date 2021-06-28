@@ -2,7 +2,7 @@
 
 proto_files=$(find protos -name '*.proto')
 
-declare -i EXIT_STATUS_CODE=0
+declare -i EXIT_SUM=0
 
 for file in $proto_files; do
   api-linter \
@@ -11,8 +11,10 @@ for file in $proto_files; do
     -I /included-protos/ \
     -I protos \
     "$file"
-  EXIT_STATUS_CODE+=$?
+  EXIT_SUM+=$?
 done
 
-echo "API Linting done. Exit code: $EXIT_STATUS_CODE"
-exit $EXIT_STATUS_CODE
+EXIT_CODE=$(( EXIT_SUM>=1 ? 1 : 0))
+
+echo "API Linting done. Exit code: $EXIT_CODE"
+exit $EXIT_CODE
