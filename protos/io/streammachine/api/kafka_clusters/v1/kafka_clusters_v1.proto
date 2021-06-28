@@ -16,6 +16,7 @@ service KafkaClustersService {
 }
 
 message ListKafkaClustersRequest {
+  string billing_id = 1 [(google.api.field_behavior) = OUTPUT_ONLY];
 }
 
 message ListKafkaClustersResponse {
@@ -23,15 +24,14 @@ message ListKafkaClustersResponse {
 }
 
 message DeleteKafkaClusterRequest {
-  string name = 1 [(google.api.field_behavior) = REQUIRED];
+  string billing_id = 1 [(google.api.field_behavior) = OUTPUT_ONLY];
+  entities.v1.KafkaClusterRef ref = 2 [(google.api.field_behavior) = REQUIRED];
 }
 
 message DeleteKafkaClusterResponse {
 }
 
 message CreateKafkaClusterRequest {
-  /* not all fields are used, and if you fill them in,
-   * they'll be overwritten by the api gateway (like status, the limits etc...) */
   io.streammachine.api.entities.v1.KafkaCluster kafka_cluster = 1;
 }
 
@@ -40,7 +40,8 @@ message CreateKafkaClusterResponse {
 }
 
 message GetKafkaClusterRequest {
-  string name = 1 [(google.api.field_behavior) = REQUIRED];
+  string billing_id = 1 [(google.api.field_behavior) = OUTPUT_ONLY];
+  entities.v1.KafkaClusterRef ref = 2 [(google.api.field_behavior) = REQUIRED];
 }
 
 message GetKafkaClusterResponse {

@@ -2,6 +2,7 @@ syntax = "proto3";
 
 package io.streammachine.api.consent_levels.v1;
 
+import "google/api/field_behavior.proto";
 import "io/streammachine/api/entities/v1/entities_v1.proto";
 
 option go_package = "streammachine.io/api/consent_levels/v1;consent_levels";
@@ -15,6 +16,7 @@ service ConsentLevelMappingsService {
 }
 
 message ListConsentLevelMappingsRequest {
+  string billing_id = 1;
 }
 
 message ListConsentLevelMappingsResponse {
@@ -26,7 +28,7 @@ message ListConsentLevelMappingsResponse {
 message DeleteConsentLevelMappingRequest {
   // (-- api-linter: core::0135::request-unknown-fields=disabled
   //     aip.dev/not-precedent: A consent-level has no name, but a level. --)
-  int32 level = 1;
+  entities.v1.ConsentLevelMappingRef ref = 1 [(google.api.field_behavior) = REQUIRED];
 }
 
 message DeleteConsentLevelMappingResponse {
@@ -41,7 +43,7 @@ message CreateConsentLevelMappingResponse {
 }
 
 message GetConsentLevelMappingRequest {
-  int32 level = 1;
+  entities.v1.ConsentLevelMappingRef ref = 1 [(google.api.field_behavior) = REQUIRED];
 }
 
 message GetConsentLevelMappingResponse {

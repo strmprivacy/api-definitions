@@ -16,7 +16,8 @@ service SinksService {
 }
 
 message ListSinksRequest {
-  bool recursive = 1;
+  string billing_id = 1 [(google.api.field_behavior) = OUTPUT_ONLY];
+  bool recursive = 2;
 }
 
 message ListSinksResponse {
@@ -24,7 +25,7 @@ message ListSinksResponse {
 }
 
 message DeleteSinkRequest {
-  string name = 1 [(google.api.field_behavior) = REQUIRED];
+  entities.v1.BatchSinkRef ref = 1 [(google.api.field_behavior) = REQUIRED];
   // (-- api-linter: core::0135::request-unknown-fields=disabled
   //     aip.dev/not-precedent: We really need this field. --)
   bool recursive = 2 [(google.api.field_behavior) = REQUIRED];
@@ -34,17 +35,15 @@ message DeleteSinkResponse {
 }
 
 message CreateSinkRequest {
-  /* not all fields are used, and if you fill them in, they'll be overwritten
-   * by the api gateway (like status, the limits etc...) */
-  io.streammachine.api.entities.v1.Sink sink = 1;
+  io.streammachine.api.entities.v1.BatchSink sink = 1;
 }
 
 message CreateSinkResponse {
-  io.streammachine.api.entities.v1.Sink sink = 1;
+  io.streammachine.api.entities.v1.BatchSink sink = 1;
 }
 
 message GetSinkRequest {
-  string name = 1 [(google.api.field_behavior) = REQUIRED];
+  entities.v1.BatchSinkRef ref = 1 [(google.api.field_behavior) = REQUIRED];
   bool recursive = 2 [(google.api.field_behavior) = REQUIRED];
 }
 
