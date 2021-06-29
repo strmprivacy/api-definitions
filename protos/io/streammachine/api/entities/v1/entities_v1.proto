@@ -236,6 +236,7 @@ message EventContract {
   SchemaRef schema_ref = 3 [(google.api.field_behavior) = REQUIRED];
   // (-- 'is' is intentional here (see https://google.aip.dev/140#booleans) --)
   bool is_public = 4;
+  // FIXME rename key_field to event_sequence_field
   string key_field = 5 [(google.api.field_behavior) = REQUIRED];
   map<string, int32> pii_fields = 6;
   repeated Validation validations = 7;
