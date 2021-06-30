@@ -1,6 +1,6 @@
 #!/bin/bash
 
-proto_files=$(find protos -name '*.proto')
+proto_files=$(find protos/io/streammachine -name '*.proto')
 
 declare -i EXIT_SUM=0
 
