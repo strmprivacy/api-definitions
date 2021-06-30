@@ -47,7 +47,7 @@ plugins {
     id("java-library")
     id("com.google.cloud.artifactregistry.gradle-plugin") version ("2.1.1")
     id("maven-publish")
-    kotlin("jvm") version "1.4.30"
+    kotlin("jvm") version "1.5.10"
     id("com.google.protobuf") version "0.8.16"
     id("org.ajoberstar.grgit") version ("4.1.0")
 }
@@ -60,6 +60,9 @@ dependencies {
     compileOnly("javax.annotation:javax.annotation-api:1.3.2")
     implementation("io.grpc:grpc-kotlin-stub:${rootProject.ext["grpcKotlinVersion"]}")
     implementation("io.grpc:grpc-protobuf:${rootProject.ext["grpcVersion"]}")
+
+    // Coroutines are used in the health service, since it streams data
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.0")
 }
 
 java.sourceCompatibility = JavaVersion.VERSION_14
