@@ -19,6 +19,7 @@ lint:
   ignore:
     # We shouldn't lint Google proto files
     - google
+    - grpc
 breaking:
   use:
     - FILE
