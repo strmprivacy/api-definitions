@@ -13,6 +13,10 @@ ij_formatter_tags_enabled = false
 ij_smart_tabs = false
 ij_wrap_on_typing = false
 
+[Makefile]
+indent_size = 4
+indent_style = tab
+
 [*.css]
 ij_css_align_closing_brace_with_properties = false
 ij_css_blank_lines_around_nested_selector = 1
