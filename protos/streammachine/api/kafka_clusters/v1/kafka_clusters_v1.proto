@@ -1,0 +1,49 @@
+syntax = "proto3";
+
+package streammachine.api.kafka_clusters.v1;
+
+import "google/api/field_behavior.proto";
+import "streammachine/api/entities/v1/entities_v1.proto";
+
+option go_package = "streammachine.io/api/kafka_clusters/v1;kafka_clusters";
+option java_multiple_files = true;
+
+service KafkaClustersService {
+  rpc ListKafkaClusters (ListKafkaClustersRequest) returns (ListKafkaClustersResponse);
+  rpc GetKafkaCluster (GetKafkaClusterRequest) returns (GetKafkaClusterResponse);
+  rpc DeleteKafkaCluster (DeleteKafkaClusterRequest) returns (DeleteKafkaClusterResponse);
+  rpc CreateKafkaCluster (CreateKafkaClusterRequest) returns (CreateKafkaClusterResponse);
+}
+
+message ListKafkaClustersRequest {
+  string billing_id = 1 [(google.api.field_behavior) = OUTPUT_ONLY];
+}
+
+message ListKafkaClustersResponse {
+  repeated streammachine.api.entities.v1.KafkaCluster kafka_clusters = 1;
+}
+
+message DeleteKafkaClusterRequest {
+  string billing_id = 1 [(google.api.field_behavior) = OUTPUT_ONLY];
+  entities.v1.KafkaClusterRef ref = 2 [(google.api.field_behavior) = REQUIRED];
+}
+
+message DeleteKafkaClusterResponse {
+}
+
+message CreateKafkaClusterRequest {
+  streammachine.api.entities.v1.KafkaCluster kafka_cluster = 1;
+}
+
+message CreateKafkaClusterResponse {
+  streammachine.api.entities.v1.KafkaCluster kafka_cluster = 1;
+}
+
+message GetKafkaClusterRequest {
+  string billing_id = 1 [(google.api.field_behavior) = OUTPUT_ONLY];
+  entities.v1.KafkaClusterRef ref = 2 [(google.api.field_behavior) = REQUIRED];
+}
+
+message GetKafkaClusterResponse {
+  streammachine.api.entities.v1.KafkaCluster kafka_cluster = 1;
+}

@@ -1,7 +1,17 @@
+# IDE
 /.idea/
-.gradle
-node_modules
-/build/
-.google-common-protos/
 
-lang/**/src
+# Semantic release
+node_modules
+
+# Common
+.envrc
+.common-protos/
+
+# JVM
+.gradle
+lang/jvm/gradle.properties
+lang/jvm/build
+
+# Golang
+lang/go/pkg

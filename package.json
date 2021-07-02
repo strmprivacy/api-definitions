@@ -14,9 +14,7 @@
   },
   "scripts": {
     "postinstall": "husky install",
-    "semantic-release": "semantic-release",
-    "buf-lint": "buf lint",
-    "buf-breaking": "buf breaking --against \".git#tag=$(git tag -l | sort -V | tail -n 1)\""
+    "semantic-release": "semantic-release"
   },
   "release": {
     "branches": [
@@ -32,13 +30,29 @@
           "replacements": [
             {
               "files": [
-                "gradle.properties"
+                "Makefile"
               ],
               "from": "version = .*",
               "to": "version = ${nextRelease.version}",
               "results": [
                 {
-                  "file": "lang/jvm/gradle.properties",
+                  "file": "Makefile",
+                  "hasChanged": true,
+                  "numMatches": 1,
+                  "numReplacements": 1
+                }
+              ],
+              "countMatches": true
+            },
+            {
+              "files": [
+                "lang/python/setup.py"
+              ],
+              "from": "version='.*'",
+              "to": "version='${nextRelease.version}'",
+              "results": [
+                {
+                  "file": "lang/python/setup.py",
                   "hasChanged": true,
                   "numMatches": 1,
                   "numReplacements": 1

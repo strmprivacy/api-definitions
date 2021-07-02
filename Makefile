@@ -1,48 +1,95 @@
-.PHONY: buf-breaking go clean mvn publish
+.PHONY: intellij clean build publish
 
-proto_files := $(shell find protos -name *.proto)
-google_proto := .google-common-protos/.touch
+# =======================
+# Variables
+# =======================
 pwd := $(shell pwd)
+protos_dir := ${CURDIR}/protos
+proto_files := $(shell find "${pwd}/protos" -name *.proto)
+proto_files_python := $(shell find "${pwd}/protos" -name *.proto)
+common_protos := ${CURDIR}/lang/.common-protos
+
+export
+
+# =======================
+# Versions and dependencies
+# =======================
+streammachine_api_version := 1.10.0
+
+grpc_version := 1.38.1
+protobuf_version := 3.17.3
+google_common_protos_version := 2.3.2
+
+# google/protobuf dependencies (predefined Protos for e.g. Timestamp, Duration, etc)
+${common_protos}/protobuf-java.jar:
+	curl "https://repo1.maven.org/maven2/com/google/protobuf/protobuf-java/${protobuf_version}/protobuf-java-${protobuf_version}.jar" --create-dirs -o "${common_protos}/protobuf-java.jar"
+
+# google/api dependencies (Common Google Protos, such as field_behavior)
+${common_protos}/proto-google-common-protos.jar:
+	curl "https://repo1.maven.org/maven2/com/google/api/grpc/proto-google-common-protos/${google_common_protos_version}/proto-google-common-protos-${google_common_protos_version}.jar" --create-dirs -o "${common_protos}/proto-google-common-protos.jar"
+
+# To ensure that we use the same Google Common Protobuf files in all languages, we extract them from the jar
+${common_protos}/google: ${common_protos}/proto-google-common-protos.jar
+	unzip -d ${common_protos} $< "google/**/*.proto" && \
+	touch $@
+
+
+# =======================
+# Miscellaneous
+# =======================
+intellij: ${common_protos}/protobuf-java.jar ${common_protos}/proto-google-common-protos.jar
+	./scripts/setup-ide-protobuf-plugins.sh
 
 buf-breaking:
 	bash buf-breaking.sh
 
-install:
-	pip install grpcio-tools
-
 api-lint:
 	docker run --rm -v "${pwd}:/workspace" eu.gcr.io/stream-machine-development/google/api-linter:1.25.0 ./api-linter.sh
 
-clean:
-	rm -rf build/go/* ${google_proto}
-
-.idea/proto-google-common-protos.jar:
-	./setup-ide-protobuf-plugins.sh
-
-${google_proto}: .idea/proto-google-common-protos.jar
-	unzip -d .google-common-protos $< "google/**/*.proto" && \
-	touch $@
-
-build-jvm:
-	make -C lang/jvm build
-
-publish-jvm:
-	make -C lang/jvm publish
-
-
+# =======================
+# Build and publish tasks
+# =======================
+clean: clean-jvm clean-go
+build: build-jvm build-python build-go
 publish: publish-jvm publish-python
 
+# -----------------
+# JVM
+# -----------------
+clean-jvm:
+	make -C lang/jvm clean
 
-python: clean ${google_proto}
-	python -m grpc_tools.protoc ${proto_files} --proto_path=protos \
-		--proto_path=.google-common-protos\
-		--python_out=build/python --grpc_python_out=build/python
+lang/jvm/gradle.properties:
+	echo "version = ${streammachine_api_version}" > $@ && \
+	echo "googleCommonProtosVersion = ${google_common_protos_version}" >> $@ && \
+	echo "protobufVersion = ${protobuf_version}" >> $@ && \
+	echo "grpcVersion = ${grpc_version}" >> $@
 
-go: clean ${google_proto}
-	protoc ${proto_files} --proto_path=protos \
-		--proto_path=.google-common-protos\
-		--go_out=module=streammachine.io/api:build/go --go-grpc_out=module=streammachine.io/api:build/go && \
-	cd build/go && \
-	go mod init streammachine.io/api && \
-	go mod tidy
+
+build-jvm: lang/jvm/gradle.properties
+	make -C lang/jvm build
+
+publish-jvm: lang/jvm/gradle.properties
+	make -C lang/jvm publish
+
+# -----------------
+# Python
+# -----------------
+lang/python/VERSION: Makefile
+	echo ${streammachine_api_version} > $@
+
+build-python: ${common_protos}/google
+	make -C lang/python build
+
+publish-python: ${common_protos}/google
+	make -C lang/python publish
+
+# -----------------
+# Golang
+# -----------------
+build-go: ${common_protos}/google
+	make -C lang/go build
+
+clean-go:
+	make -C lang/go clean
 

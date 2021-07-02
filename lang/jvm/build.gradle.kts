@@ -5,13 +5,10 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 group = "io.streammachine.api"
 description = "Internal APIs for Stream Machine"
-buildDir = File("build/jvm")
 
-ext["grpcVersion"] = "1.37.1"
 ext["grpcKotlinVersion"] = "1.1.0"
-ext["protobufVersion"] = "3.13.0"
 
-val branch = System.getenv("CI_COMMIT_REF_NAME") ?: Grgit.open(mapOf("dir" to project.file("."))).branch.current().name
+val branch = System.getenv("CI_COMMIT_REF_NAME") ?: Grgit.open(mapOf("dir" to project.file("../../."))).branch.current().name
 val tag = System.getenv("CI_COMMIT_TAG")
 
 rootProject.version = if (tag != null || branch == "master") project.version else "${project.version}-SNAPSHOT"
@@ -54,7 +51,7 @@ plugins {
 
 dependencies {
     // To include common Google Proto dependencies, such as annotations.proto
-    implementation("com.google.api.grpc:proto-google-common-protos:2.1.0")
+    implementation("com.google.api.grpc:proto-google-common-protos:${rootProject.ext["googleCommonProtosVersion"]}")
 
     // Grpc and Protobuf
     compileOnly("javax.annotation:javax.annotation-api:1.3.2")
@@ -77,14 +74,14 @@ tasks.withType<KotlinCompile> {
 
 sourceSets["main"].apply {
     proto {
-        srcDir("protos")
+        srcDir("../../protos")
     }
 }
 
 java {
     sourceSets["main"].apply {
         java.srcDir(layout.buildDirectory.dir("generated/proto/main/java").get())
-        java.srcDir("protos")
+        java.srcDir("../../protos")
     }
 }
 

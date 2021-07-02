@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+package streammachine.internal_api.schemas.v1;
+
+import "streammachine/api/entities/v1/entities_v1.proto";
+
+option go_package = "streammachine.io/api/internal_api/schemas/v1;schemas";
+option java_multiple_files = true;
+
+service InternalSchemasService {
+  rpc GetSchemaDefinition (GetSchemaDefinitionRequest) returns (GetSchemaDefinitionResponse);
+  rpc DeleteSchema (DeleteSchemaRequest) returns (DeleteSchemaResponse);
+}
+
+message GetSchemaDefinitionRequest {
+  int32 confluent_id = 1;
+}
+
+message GetSchemaDefinitionResponse {
+  string definition = 1;
+}
+
+// (-- api-linter: core::0135::request-name-required=disabled
+//     aip.dev/not-precedent: Schema's have no name, but a ref. --)
+message DeleteSchemaRequest {
+  // (-- api-linter: core::0135::request-unknown-fields=disabled
+  //     aip.dev/not-precedent: Schema's have no name, but a ref. --)
+  streammachine.api.entities.v1.SchemaRef ref = 1;
+}
+
+message DeleteSchemaResponse {
+}
