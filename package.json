@@ -38,7 +38,7 @@
               "to": "version = ${nextRelease.version}",
               "results": [
                 {
-                  "file": "gradle.properties",
+                  "file": "lang/jvm/gradle.properties",
                   "hasChanged": true,
                   "numMatches": 1,
                   "numReplacements": 1
