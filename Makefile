@@ -33,7 +33,6 @@ ${common_protos}/google: ${common_protos}/proto-google-common-protos.jar
 	unzip -d ${common_protos} $< "google/**/*.proto" && \
 	touch $@
 
-
 # =======================
 # Miscellaneous
 # =======================
@@ -49,7 +48,7 @@ api-lint:
 # =======================
 # Build and publish tasks
 # =======================
-clean: clean-jvm clean-go
+clean: clean-jvm clean-python clean-go
 build: build-jvm build-python build-go
 publish: publish-jvm publish-python
 
@@ -59,24 +58,17 @@ publish: publish-jvm publish-python
 clean-jvm:
 	make -C lang/jvm clean
 
-lang/jvm/gradle.properties:
-	echo "version = ${streammachine_api_version}" > $@ && \
-	echo "googleCommonProtosVersion = ${google_common_protos_version}" >> $@ && \
-	echo "protobufVersion = ${protobuf_version}" >> $@ && \
-	echo "grpcVersion = ${grpc_version}" >> $@
-
-
-build-jvm: lang/jvm/gradle.properties
+build-jvm:
 	make -C lang/jvm build
 
-publish-jvm: lang/jvm/gradle.properties
+publish-jvm:
 	make -C lang/jvm publish
 
 # -----------------
 # Python
 # -----------------
-lang/python/VERSION: Makefile
-	echo ${streammachine_api_version} > $@
+clean-python:
+	make -C lang/python clean
 
 build-python: ${common_protos}/google
 	make -C lang/python build

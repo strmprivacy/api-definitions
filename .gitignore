@@ -14,4 +14,12 @@ lang/jvm/gradle.properties
 lang/jvm/build
 
 # Golang
-lang/go/pkg
+lang/go/build
+
+# Python
+lang/python/VERSION
+lang/python/requirements.txt
+lang/python/requirements-dev.txt
+lang/python/build
+lang/python/dist
+lang/python/*.egg-info

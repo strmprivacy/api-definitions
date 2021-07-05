@@ -6,6 +6,7 @@ import "streammachine/api/entities/v1/entities_v1.proto";
 import "streammachine/internal_api/entities/v1/entities_v1.proto";
 
 option go_package = "streammachine.io/api/internal_api/streams/v1;streams";
+option java_package = "io.streammachine.internal_api.streams.v1";
 option java_multiple_files = true;
 
 // (-- api-linter: core::0136::prepositions=disabled

@@ -6,6 +6,7 @@ import "google/api/field_behavior.proto";
 import "streammachine/api/entities/v1/entities_v1.proto";
 
 option go_package = "streammachine.io/api/kafka_users/v1;kafka_users";
+option java_package = "io.streammachine.api.kafka_users.v1";
 option java_multiple_files = true;
 
 service KafkaUsersService {

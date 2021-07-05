@@ -1,8 +1,17 @@
 #!/usr/bin/env python
 from setuptools import setup, find_packages
+import pathlib
+import pkg_resources
 
-with open('VERSION') as version:
-    readme = version.read()
+with pathlib.Path('requirements.txt').open() as requirements_txt:
+    install_requires = [
+        str(requirement)
+        for requirement
+        in pkg_resources.parse_requirements(requirements_txt)
+    ]
+
+with open('VERSION') as version_file:
+    version = version_file.read()
 
 setup(
     author="Stream Machine B.V.",
@@ -18,9 +27,7 @@ setup(
         'Topic :: Internet :: WWW/HTTP',
     ],
     description="Stream Machine API definitions",
-    install_requires=[
-        "grpcio==1.38.1"
-    ],
+    install_requires=install_requires,
     include_package_data=True,
     keywords='streammachine api definitions',
     name='streammachine-api-definitions',
