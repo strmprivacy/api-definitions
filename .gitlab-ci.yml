@@ -92,19 +92,30 @@ python-artifact-release:
     - make publish-python-release
 
 # ======= Golang Releases =======
+.go:
+  variables:
+    CI_PROJECT_PATH: "stream-machine/api-definitions-go"
+
+
 go-repo-update:
   stage: publish
-  extends: .go-repo-update
+  extends:
+    - .go
+    - .go-repo-update
   dependencies:
     - generate-go
   script:
+    - export VERSION=$(cat lang/go/VERSION)
     - make setup-go
 
 go-repo-update-and-tag:
   stage: publish
-  extends: .go-repo-update-and-tag
+  extends:
+    - .go
+    - .go-repo-update-and-tag
   dependencies:
     - generate-go
   script:
+    - export VERSION=$(cat lang/go/VERSION)
     - make setup-go
 
