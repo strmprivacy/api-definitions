@@ -51,10 +51,10 @@ artifact-snapshot:
   stage: publish
   extends: .jar-snapshot-template
   script:
-    - ./gradlew --build-cache publish
+    - make publish-jvm
 
 artifact-release:
   stage: publish
   extends: .jar-release-template
   script:
-    - ./gradlew --build-cache publish
+    - make publish-jvm
