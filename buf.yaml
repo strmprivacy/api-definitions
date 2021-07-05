@@ -10,6 +10,7 @@ build:
   roots:
     - protos
     - google-api-linter/included-protos
+    - lang/.common-protos
 lint:
   use:
     - DEFAULT

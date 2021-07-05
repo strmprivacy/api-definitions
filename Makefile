@@ -1,4 +1,4 @@
-.PHONY: intellij clean build publish
+.PHONY: intellij clean build publish buf-breaking buf-lint api-lint
 
 # =======================
 # Variables
@@ -40,10 +40,13 @@ intellij: ${common_protos}/protobuf-java.jar ${common_protos}/proto-google-commo
 	./scripts/setup-ide-protobuf-plugins.sh
 
 buf-breaking:
-	bash buf-breaking.sh
+	bash ./scripts/buf-breaking.sh
+
+buf-lint: ${common_protos}/google
+	buf lint
 
 api-lint:
-	docker run --rm -v "${pwd}:/workspace" eu.gcr.io/stream-machine-development/google/api-linter:1.25.0 ./api-linter.sh
+	docker run --rm -v "${pwd}:/workspace" eu.gcr.io/stream-machine-development/google/api-linter:1.25.0 ./scripts/api-linter.sh
 
 # =======================
 # Build and publish tasks
