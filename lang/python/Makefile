@@ -1,10 +1,11 @@
-.PHONY: clean development build
+.PHONY: clean development build banaan
 
 build_dir := build
 python_version_files := VERSION requirements.txt requirements-dev.txt
 
 VERSION: ../../Makefile
-	echo ${streammachine_api_version} > $@
+	GIT_BRANCH="$${CI_COMMIT_REF_NAME:-${git_branch}}" && \
+	if [ -n "$$CI_COMMIT_TAG" ] || [ "$$GIT_BRANCH" = "master" ]; then echo ${streammachine_api_version} > $@; else echo "${streammachine_api_version}-${git_sha}" > $@; fi
 
 requirements.txt: ../../Makefile
 	echo "grpcio==${grpc_version}" > $@

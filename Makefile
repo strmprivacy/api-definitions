@@ -8,6 +8,8 @@ protos_dir := ${CURDIR}/protos
 proto_files := $(shell find "${pwd}/protos" -name *.proto)
 proto_files_python := $(shell find "${pwd}/protos" -name *.proto)
 common_protos := ${CURDIR}/lang/.common-protos
+git_sha := $(shell git rev-parse --short HEAD)
+git_branch := $(shell git rev-parse --abbrev-ref HEAD)
 
 export
 
@@ -90,4 +92,3 @@ build-go: ${common_protos}/google
 
 clean-go:
 	make -C lang/go clean
-
