@@ -53,13 +53,13 @@ jvm-artifact-snapshot:
   stage: publish
   extends: .jar-snapshot-template
   script:
-    - cd lang/jvm; ./gradlew publish
+    - make publish-jvm
 
 jvm-artifact-release:
   stage: publish
   extends: .jar-release-template
   script:
-    - cd lang/jvm; ./gradlew publish
+    - make publish-jvm
 
 python-artifact-test:
   stage: publish
