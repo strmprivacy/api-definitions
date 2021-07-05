@@ -96,7 +96,6 @@ python-artifact-release:
   variables:
     CI_PROJECT_PATH: "stream-machine/api-definitions-go"
 
-
 go-repo-update:
   stage: publish
   extends:
@@ -107,6 +106,7 @@ go-repo-update:
   script:
     - export VERSION=$(cat lang/go/VERSION)
     - make setup-go
+    - mv lang/go/build/* "${CI_COMMIT_SHA}"
 
 go-repo-update-and-tag:
   stage: publish
@@ -118,4 +118,5 @@ go-repo-update-and-tag:
   script:
     - export VERSION=$(cat lang/go/VERSION)
     - make setup-go
+    - mv lang/go/build/* "${CI_COMMIT_SHA}"
 
