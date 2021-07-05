@@ -1,12 +1,11 @@
-.PHONY: intellij clean build publish buf-breaking buf-lint api-lint
+.PHONY: intellij clean build publish buf-breaking buf-lint api-lint default-protobuf-dependencies
 
 # =======================
 # Variables
 # =======================
 pwd := $(shell pwd)
 protos_dir := ${CURDIR}/protos
-proto_files := $(shell find "${pwd}/protos" -name *.proto)
-proto_files_python := $(shell find "${pwd}/protos" -name *.proto)
+proto_files := $(shell find "${pwd}/protos/streammachine" -name *.proto)
 common_protos := ${CURDIR}/lang/.common-protos
 git_sha := $(shell git rev-parse --short HEAD)
 git_branch := $(shell git rev-parse --abbrev-ref HEAD)
@@ -34,6 +33,9 @@ ${common_protos}/proto-google-common-protos.jar:
 ${common_protos}/google: ${common_protos}/proto-google-common-protos.jar
 	unzip -d ${common_protos} $< "google/**/*.proto" && \
 	touch $@
+
+default-protobuf-dependencies: ${common_protos}/protobuf-java.jar
+	unzip -d ${common_protos} $< "google/**/*.proto"
 
 # =======================
 # Miscellaneous
@@ -87,6 +89,12 @@ publish-python-release: ${common_protos}/google
 # -----------------
 # Golang
 # -----------------
+generate-go: ${common_protos}/google
+	make -C lang/go generate
+
+setup-go:
+	make -C lang/go setup
+
 build-go: ${common_protos}/google
 	make -C lang/go build
 

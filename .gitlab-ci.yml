@@ -7,10 +7,13 @@ include:
     file: '/common/semantic-release.yml'
   - project: 'stream-machine/tools-and-utilities/ci-templates'
     file: '/python/publish.yml'
+  - project: 'stream-machine/tools-and-utilities/ci-templates'
+    file: '/go/publish.yml'
 
 stages:
   - lint
   - breaking-change
+  - generate
   - release
   - publish
 
@@ -45,10 +48,24 @@ aip-guidelines-lint:
     - echo "Latest tag = $LATEST_TAG"
     - if [ ! -z "$LATEST_TAG" ] ; then buf breaking --against ".git#tag=$LATEST_TAG"; fi
 
+generate-go:
+  stage: generate
+  image: namely/protoc-all:latest
+  before_script:
+    - apt-get install -y make unzip
+    # Ensure that the protoc compiler has the Google protos
+    - make default-protobuf-dependencies
+  script:
+    - make generate-go
+  artifacts:
+    paths:
+      - lang/go/build
+
 release:
   stage: release
   extends: .semantic-release
 
+# ======= JVM Releases =======
 jvm-artifact-snapshot:
   stage: publish
   extends: .jar-snapshot-template
@@ -61,6 +78,7 @@ jvm-artifact-release:
   script:
     - make publish-jvm
 
+# ======= Python Releases =======
 python-artifact-test:
   stage: publish
   extends: .python-artifact-test
@@ -72,3 +90,21 @@ python-artifact-release:
   extends: .python-artifact-release
   script:
     - make publish-python-release
+
+# ======= Golang Releases =======
+go-repo-update:
+  stage: publish
+  extends: .go-repo-update
+  dependencies:
+    - generate-go
+  script:
+    - make setup-go
+
+go-repo-update-and-tag:
+  stage: publish
+  extends: .go-repo-update-and-tag
+  dependencies:
+    - generate-go
+  script:
+    - make setup-go
+

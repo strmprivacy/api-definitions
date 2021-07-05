@@ -15,6 +15,7 @@ lang/jvm/build
 
 # Golang
 lang/go/build
+lang/go/VERSION
 
 # Python
 lang/python/VERSION
