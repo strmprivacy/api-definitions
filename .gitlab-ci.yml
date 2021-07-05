@@ -5,6 +5,8 @@ include:
     file: '/gradle/jar-publish.yml'
   - project: 'stream-machine/tools-and-utilities/ci-templates'
     file: '/common/semantic-release.yml'
+  - project: 'stream-machine/tools-and-utilities/ci-templates'
+    file: '/python/publish.yml'
 
 stages:
   - lint
@@ -47,14 +49,26 @@ release:
   stage: release
   extends: .semantic-release
 
-artifact-snapshot:
+jvm-artifact-snapshot:
   stage: publish
   extends: .jar-snapshot-template
   script:
     - make publish-jvm
 
-artifact-release:
+jvm-artifact-release:
   stage: publish
   extends: .jar-release-template
   script:
     - make publish-jvm
+
+python-artifact-test:
+  stage: publish
+  extends: .python-artifact-test
+  script:
+    - make publish-python-test
+
+python-artifact-release:
+  stage: publish
+  extends: .python-artifact-release
+  script:
+    - make publish-python-release

@@ -76,7 +76,10 @@ clean-python:
 build-python: ${common_protos}/google
 	make -C lang/python build
 
-publish-python: ${common_protos}/google
+publish-python-test: ${common_protos}/google
+	make -C lang/python publish-test
+
+publish-python-release: ${common_protos}/google
 	make -C lang/python publish
 
 # -----------------

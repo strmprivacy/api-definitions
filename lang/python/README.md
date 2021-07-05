@@ -1,1 +1,0 @@
-# Stream Machine API Definitions

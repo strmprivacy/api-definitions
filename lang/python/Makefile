@@ -45,6 +45,9 @@ build: clean development
 	python setup.py bdist_wheel
 	ls -l dist
 
+publish-test: build
+	twine upload --repository-url "https://europe-west4-python.pkg.dev/stream-machine-development/python-test/" dist/*
+
 publish: build
 	twine upload --repository-url "https://europe-west4-python.pkg.dev/stream-machine-development/python/" dist/*
 
