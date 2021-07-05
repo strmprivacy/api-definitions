@@ -54,10 +54,12 @@ IML_FILE=$(find "$IDEA_DIR" -name '*.iml')
 
 if [ -f "$IML_FILE" ]; then
   if [[ "$OSTYPE" == "darwin"* ]]; then
-    gsed -i 's|<content url="file://$MODULE_DIR$" />|<content url="file://$MODULE_DIR$"><sourceFolder url="file://$MODULE_DIR$/protos" isTestSource="false" /></content>|g' "$IML_FILE"
+    SED=gsed
   else
-    sed -i 's|<content url="file://$MODULE_DIR$" />|<content url="file://$MODULE_DIR$"><sourceFolder url="file://$MODULE_DIR$/protos" isTestSource="false" /></content>|g' "$IML_FILE"
+    SED=sed
   fi
+
+  $SED -i 's|<content url="file://$MODULE_DIR$" />|<content url="file://$MODULE_DIR$"><sourceFolder url="file://$MODULE_DIR$/protos" isTestSource="false" /></content>|g' "$IML_FILE"
 else
 cat <<-EOF > "$IML_FILE"
 <?xml version="1.0" encoding="UTF-8"?>
