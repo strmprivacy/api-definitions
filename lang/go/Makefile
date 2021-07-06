@@ -9,7 +9,7 @@ clean:
 VERSION: ../../Makefile ../../VERSION.env
 	source ../../VERSION.env && echo "$$VERSION" > $@
 
-generate:
+generate: VERSION
 	mkdir ${build_dir} && \
 	protoc ${proto_files} \
 		--proto_path=${protos_dir} \
