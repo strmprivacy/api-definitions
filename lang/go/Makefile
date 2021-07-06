@@ -7,7 +7,7 @@ clean:
 	rm -f VERSION
 
 VERSION: ../../Makefile ../../VERSION.env
-	source ../../VERSION.env && echo "$$VERSION" > $@
+	. ./../../VERSION.env && echo "$$VERSION" > $@
 
 generate: VERSION
 	mkdir ${build_dir} && \

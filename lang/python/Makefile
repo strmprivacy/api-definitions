@@ -4,7 +4,7 @@ build_dir := build
 python_version_files := VERSION requirements.txt requirements-dev.txt
 
 VERSION: ../../Makefile ../../VERSION.env
-	source ../../VERSION.env && echo "$$VERSION" > $@
+	. ./../../VERSION.env && echo "$$VERSION" > $@
 
 requirements.txt: ../../Makefile
 	echo "grpcio==${grpc_version}" > $@
