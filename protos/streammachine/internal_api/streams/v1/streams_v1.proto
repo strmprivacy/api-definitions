@@ -5,7 +5,7 @@ package streammachine.internal_api.streams.v1;
 import "streammachine/api/entities/v1/entities_v1.proto";
 import "streammachine/internal_api/entities/v1/entities_v1.proto";
 
-option go_package = "streammachineio/api-definitions-go/internal_api/streams/v1;streams";
+option go_package = "github.com/streammachineio/api-definitions-go/internal_api/streams/v1;streams";
 option java_package = "io.streammachine.internal_api.streams.v1";
 option java_multiple_files = true;
 

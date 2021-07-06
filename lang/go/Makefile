@@ -14,8 +14,8 @@ generate: VERSION
 	protoc ${public_proto_files} \
 		--proto_path=${protos_dir} \
 		--proto_path=${common_protos} \
-		--go_out=module=streammachineio/api-definitions-go:${build_dir} \
-		--go-grpc_out=module=streammachineio/api-definitions-go:${build_dir}
+		--go_out=module=github.com/streammachineio/api-definitions-go:${build_dir} \
+		--go-grpc_out=module=github.com/streammachineio/api-definitions-go:${build_dir}
 
 setup:
 	cd ${build_dir} && \
