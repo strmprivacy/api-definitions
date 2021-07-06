@@ -17,5 +17,5 @@ the [Google API Linter](https://github.com/googleapis/api-linter) for checking t
 ## IntelliJ and Protobuf plugin configuration
 
 Run `./setup-ide-protobuf-plugins.sh` to configure the following Protobuf plugins:
-- [Protocol Buffers (official)](https://plugins.jetbrains.com/plugin/14004-protocol-buffers): works fine for basic usage
-- [Protobuf (non official)](https://plugins.jetbrains.com/plugin/16422-protobuf): has more functionality than the official plugin
+- [Protocol Buffers (official)](https://plugins.jetbrains.com/plugin/14004-protocol-buffers): works fine for basic usage.
+- [Protobuf (non official)](https://plugins.jetbrains.com/plugin/16422-protobuf): has more functionality than the official plugin.
