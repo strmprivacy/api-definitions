@@ -16,7 +16,7 @@ export
 # =======================
 # Versions and dependencies
 # =======================
-streammachine_api_version := 1.11.0
+streammachine_api_version := 1.12.0
 
 grpc_version := 1.38.1
 protobuf_version := 3.17.3

@@ -1,3 +1,10 @@
+# [1.12.0](https://gitlab.com/stream-machine/api-definitions/compare/v1.11.0...v1.12.0) (2021-07-06)
+
+
+### Features
+
+* trigger a pipeline ([d35fb85](https://gitlab.com/stream-machine/api-definitions/commit/d35fb85dde6665cbd9ea714243335f5718035b4e))
+
 # [1.11.0](https://gitlab.com/stream-machine/api-definitions/compare/v1.10.0...v1.11.0) (2021-07-06)
 
 
