@@ -11,7 +11,7 @@ VERSION: ../../Makefile ../../VERSION.env
 
 generate: VERSION
 	mkdir ${build_dir} && \
-	protoc ${proto_files} \
+	protoc ${public_proto_files} \
 		--proto_path=${protos_dir} \
 		--proto_path=${common_protos} \
 		--go_out=module=streammachine.io/api:${build_dir} \

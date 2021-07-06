@@ -97,7 +97,7 @@ python-artifact-release:
 # ======= Golang Releases =======
 .go:
   variables:
-    CI_PROJECT_PATH: "stream-machine/api-definitions-go"
+    REPOSITORY_URL: "https://git:${GITHUB_TOKEN}@github.com/streammachineio/api-definitions-go.git"
 
 go-repo-update:
   stage: publish
@@ -108,7 +108,7 @@ go-repo-update:
     - generate-go
   script:
     - make setup-go
-    - cp -f -r lang/go/build/* lang/go/README.md lang/go/VERSION "${CI_COMMIT_SHA}"
+    - cp -f -r lang/go/build/* lang/go/README.md lang/go/VERSION lang/go/LICENSE "${CI_COMMIT_SHA}"
 
 go-repo-update-and-tag:
   stage: publish
@@ -119,5 +119,5 @@ go-repo-update-and-tag:
     - generate-go
   script:
     - make setup-go
-    - cp -f -r lang/go/build/* lang/go/README.md lang/go/VERSION "${CI_COMMIT_SHA}"
+    - cp -f -r lang/go/build/* lang/go/README.md lang/go/VERSION lang/go/LICENSE "${CI_COMMIT_SHA}"
 

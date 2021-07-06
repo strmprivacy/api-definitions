@@ -6,6 +6,7 @@
 pwd := $(shell pwd)
 protos_dir := ${CURDIR}/protos
 proto_files := $(shell find "${pwd}/protos/streammachine" -name *.proto)
+public_proto_files := $(shell find "${pwd}/protos/streammachine/api" -name *.proto)
 common_protos := ${CURDIR}/lang/.common-protos
 git_sha := $(shell git rev-parse --short HEAD)
 git_branch := $(shell git rev-parse --abbrev-ref HEAD)
