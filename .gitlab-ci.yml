@@ -60,6 +60,7 @@ generate-go:
   artifacts:
     paths:
       - lang/go/build
+      - lang/go/VERSION
     reports:
       dotenv: VERSION.env
 
