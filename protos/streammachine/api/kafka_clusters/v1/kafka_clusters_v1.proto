@@ -5,7 +5,7 @@ package streammachine.api.kafka_clusters.v1;
 import "google/api/field_behavior.proto";
 import "streammachine/api/entities/v1/entities_v1.proto";
 
-option go_package = "streammachineio/api-definitions-go/kafka_clusters/v1;kafka_clusters";
+option go_package = "streammachineio/api-definitions-go/api/kafka_clusters/v1;kafka_clusters";
 option java_package = "io.streammachine.api.kafka_clusters.v1";
 option java_multiple_files = true;
 

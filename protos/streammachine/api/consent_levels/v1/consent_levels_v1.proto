@@ -5,7 +5,7 @@ package streammachine.api.consent_levels.v1;
 import "google/api/field_behavior.proto";
 import "streammachine/api/entities/v1/entities_v1.proto";
 
-option go_package = "streammachineio/api-definitions-go/consent_levels/v1;consent_levels";
+option go_package = "streammachineio/api-definitions-go/api/consent_levels/v1;consent_levels";
 option java_package = "io.streammachine.api.consent_levels.v1";
 option java_multiple_files = true;
 

@@ -4,7 +4,7 @@ package streammachine.api.schemas.v1;
 
 import "streammachine/api/entities/v1/entities_v1.proto";
 
-option go_package = "streammachineio/api-definitions-go/schemas/v1;schemas";
+option go_package = "streammachineio/api-definitions-go/api/schemas/v1;schemas";
 option java_package = "io.streammachine.api.schemas.v1";
 option java_multiple_files = true;
 

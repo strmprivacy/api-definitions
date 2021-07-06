@@ -5,7 +5,7 @@ package streammachine.api.streams.v1;
 import "google/api/field_behavior.proto";
 import "streammachine/api/entities/v1/entities_v1.proto";
 
-option go_package = "streammachineio/api-definitions-go/streams/v1;streams";
+option go_package = "streammachineio/api-definitions-go/api/streams/v1;streams";
 option java_package = "io.streammachine.api.streams.v1";
 option java_multiple_files = true;
 
