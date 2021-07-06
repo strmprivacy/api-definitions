@@ -6,6 +6,9 @@ clean:
 	rm -rf ${build_dir} && \
 	rm -f VERSION
 
+VERSION: ../../Makefile ../../VERSION.env
+	source ../../VERSION.env && echo "$$VERSION" > $@
+
 generate:
 	mkdir ${build_dir} && \
 	protoc ${proto_files} \

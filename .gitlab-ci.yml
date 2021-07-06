@@ -107,7 +107,7 @@ go-repo-update:
     - generate-go
   script:
     - make setup-go
-    - cp -f -r lang/go/build/* lang/go/README.md "${CI_COMMIT_SHA}"
+    - cp -f -r lang/go/build/* lang/go/README.md lang/go/VERSION "${CI_COMMIT_SHA}"
 
 go-repo-update-and-tag:
   stage: publish
@@ -118,5 +118,5 @@ go-repo-update-and-tag:
     - generate-go
   script:
     - make setup-go
-    - cp -f -r lang/go/build/* lang/go/README.md "${CI_COMMIT_SHA}"
+    - cp -f -r lang/go/build/* lang/go/README.md lang/go/VERSION "${CI_COMMIT_SHA}"
 
