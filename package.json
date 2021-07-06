@@ -32,27 +32,11 @@
               "files": [
                 "Makefile"
               ],
-              "from": "version = .*",
-              "to": "version = ${nextRelease.version}",
+              "from": "streammachine_api_version := .*",
+              "to": "streammachine_api_version := ${nextRelease.version}",
               "results": [
                 {
                   "file": "Makefile",
-                  "hasChanged": true,
-                  "numMatches": 1,
-                  "numReplacements": 1
-                }
-              ],
-              "countMatches": true
-            },
-            {
-              "files": [
-                "lang/python/setup.py"
-              ],
-              "from": "version='.*'",
-              "to": "version='${nextRelease.version}'",
-              "results": [
-                {
-                  "file": "lang/python/setup.py",
                   "hasChanged": true,
                   "numMatches": 1,
                   "numReplacements": 1
@@ -68,7 +52,7 @@
         {
           "message": "chore(release): ${nextRelease.version}\n\n${nextRelease.notes}",
           "assets": [
-            "gradle.properties",
+            "Makefile",
             "CHANGELOG.md"
           ]
         }
