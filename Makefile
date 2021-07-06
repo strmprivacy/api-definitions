@@ -37,6 +37,10 @@ ${common_protos}/google: ${common_protos}/proto-google-common-protos.jar
 default-protobuf-dependencies: ${common_protos}/protobuf-java.jar
 	unzip -d ${common_protos} $< "google/**/*.proto"
 
+VERSION.env: Makefile
+	GIT_BRANCH="$${CI_COMMIT_REF_NAME:-${git_branch}}" && \
+	if [ -n "$$CI_COMMIT_TAG" ] || [ "$$GIT_BRANCH" = "master" ]; then echo "VERSION=${streammachine_api_version}" > $@; else echo "VERSION=${streammachine_api_version}-${git_sha}" > $@; fi
+
 # =======================
 # Miscellaneous
 # =======================
@@ -89,7 +93,7 @@ publish-python-release: ${common_protos}/google
 # -----------------
 # Golang
 # -----------------
-generate-go: ${common_protos}/google
+generate-go: ${common_protos}/google VERSION.env
 	make -C lang/go generate
 
 setup-go:

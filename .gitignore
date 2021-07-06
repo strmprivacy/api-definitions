@@ -7,6 +7,7 @@ node_modules
 # Common
 .envrc
 .common-protos/
+VERSION.env
 
 # JVM
 .gradle

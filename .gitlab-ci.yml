@@ -60,6 +60,8 @@ generate-go:
   artifacts:
     paths:
       - lang/go/build
+    reports:
+      dotenv: VERSION.env
 
 release:
   stage: release
@@ -116,7 +118,6 @@ go-repo-update-and-tag:
   dependencies:
     - generate-go
   script:
-    - export VERSION=$(cat lang/go/VERSION)
     - make setup-go
     - mv lang/go/build/* "${CI_COMMIT_SHA}"
 
