@@ -39,7 +39,7 @@ default-protobuf-dependencies: ${common_protos}/protobuf-java.jar
 
 VERSION.env: Makefile
 	GIT_BRANCH="$${CI_COMMIT_REF_NAME:-${git_branch}}" && \
-	if [ -n "$$CI_COMMIT_TAG" ] || [ "$$GIT_BRANCH" = "master" ]; then echo "VERSION=${streammachine_api_version}" > $@; else echo "VERSION=${streammachine_api_version}-${git_sha}" > $@; fi
+	if [ -n "$$CI_COMMIT_TAG" ] || [ "$$GIT_BRANCH" = "master" ]; then echo "VERSION=${streammachine_api_version}" > $@; else echo "VERSION=${streammachine_api_version}-$${CI_COMMIT_SHORT_SHA:-${git_sha}}" > $@; fi
 
 # =======================
 # Miscellaneous
@@ -81,13 +81,13 @@ publish-jvm:
 clean-python:
 	make -C lang/python clean
 
-build-python: ${common_protos}/google
+build-python: ${common_protos}/google VERSION.env
 	make -C lang/python build
 
-publish-python-test: ${common_protos}/google
+publish-python-test: ${common_protos}/google VERSION.env
 	make -C lang/python publish-test
 
-publish-python-release: ${common_protos}/google
+publish-python-release: ${common_protos}/google VERSION.env
 	make -C lang/python publish
 
 # -----------------
@@ -99,7 +99,7 @@ generate-go: ${common_protos}/google VERSION.env
 setup-go:
 	make -C lang/go setup
 
-build-go: ${common_protos}/google
+build-go: ${common_protos}/google VERSION.env
 	make -C lang/go build
 
 clean-go:
