@@ -40,7 +40,7 @@ aip-guidelines-lint:
     variables:
       - ($CI_BUILD_REF_NAME == "master" && $CI_COMMIT_MESSAGE =~ /.*chore\(release\).*/) || $CI_COMMIT_TAG
 
-.breaking:
+breaking:
   extends: .buf
   stage: breaking-change
   script:
@@ -99,6 +99,8 @@ python-artifact-release:
 # ======= Golang Releases =======
 .go:
   variables:
+    GIT_USER_EMAIL: "apis@streammachine.io"
+    GIT_USER_NAME: "streammachineio-org"
     REPOSITORY_URL: "https://git:${GITHUB_TOKEN}@github.com/streammachineio/api-definitions-go.git"
 
 go-repo-update:
