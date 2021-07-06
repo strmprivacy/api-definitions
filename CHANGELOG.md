@@ -1,3 +1,25 @@
+# [1.11.0](https://gitlab.com/stream-machine/api-definitions/compare/v1.10.0...v1.11.0) (2021-07-06)
+
+
+### Bug Fixes
+
+* golang package path stuff ([d15fb13](https://gitlab.com/stream-machine/api-definitions/commit/d15fb13c28d943f79ccc20e04198a2192487a4df))
+* **go:** fix go_package path ([e61bcdc](https://gitlab.com/stream-machine/api-definitions/commit/e61bcdccc9340c546266b791c4564b0ea112ecdc))
+* fix go_package module for proto ([f20b122](https://gitlab.com/stream-machine/api-definitions/commit/f20b12252d1717095fa62e3bcfacbe52ef493a1a))
+
+
+### Features
+
+* create a version env file top level ([c74d801](https://gitlab.com/stream-machine/api-definitions/commit/c74d801f66e783038edd9a1b1eed172d31ed2c4e))
+* **ci:** add python publish tasks in CI ([53f1320](https://gitlab.com/stream-machine/api-definitions/commit/53f1320f7a549e9e099c7c1c74c650d1a47d4f81))
+* **python:** python code gen works and is published to GAR ([7e41cf0](https://gitlab.com/stream-machine/api-definitions/commit/7e41cf0fd18a6d2f21b2e5217c906c2bb44bffbd))
+* introduce multi language; makefiles to generate all ([9f6072f](https://gitlab.com/stream-machine/api-definitions/commit/9f6072f2908ec2ce84aad2c7558b44bd568fae08))
+* **go:** make go ([36ed301](https://gitlab.com/stream-machine/api-definitions/commit/36ed301102d4ffee31d52bbadd01b014b2d3db33))
+* **health:** add gRPChealth check ([6c0a211](https://gitlab.com/stream-machine/api-definitions/commit/6c0a21140a7689b98c185923d430d3ff5af089a5))
+* **health:** add gRPChealth check ([d2b92d4](https://gitlab.com/stream-machine/api-definitions/commit/d2b92d40206d8b09e22523e49f72cb609b3b6457))
+* **health:** add gRPChealth check ([1c7f895](https://gitlab.com/stream-machine/api-definitions/commit/1c7f895a7adffb315473fa682b04554236401b8c))
+* **health:** add gRPChealth check ([3e9b23e](https://gitlab.com/stream-machine/api-definitions/commit/3e9b23e6aa38d8d16f001c79a9ce1fcafb0c2858))
+
 # [1.10.0](https://gitlab.com/stream-machine/api-definitions/compare/v1.9.0...v1.10.0) (2021-06-28)
 
 
