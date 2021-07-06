@@ -1,4 +1,27 @@
+# IDE
 /.idea/
-.gradle
+
+# Semantic release
 node_modules
-/build/
+
+# Common
+.envrc
+.common-protos/
+VERSION.env
+
+# JVM
+.gradle
+lang/jvm/gradle.properties
+lang/jvm/build
+
+# Golang
+lang/go/build
+lang/go/VERSION
+
+# Python
+lang/python/VERSION
+lang/python/requirements.txt
+lang/python/requirements-dev.txt
+lang/python/build
+lang/python/dist
+lang/python/*.egg-info

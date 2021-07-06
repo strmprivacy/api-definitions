@@ -10,6 +10,7 @@ build:
   roots:
     - protos
     - google-api-linter/included-protos
+    - lang/.common-protos
 lint:
   use:
     - DEFAULT
@@ -19,6 +20,7 @@ lint:
   ignore:
     # We shouldn't lint Google proto files
     - google
+    - grpc
 breaking:
   use:
     - FILE

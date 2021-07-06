@@ -1,20 +1,107 @@
-.PHONY: buf-breaking go clean mvn
+.PHONY: intellij clean build publish buf-breaking buf-lint api-lint default-protobuf-dependencies
 
-proto_files := $(shell find protos -name *.proto)
+# =======================
+# Variables
+# =======================
 pwd := $(shell pwd)
+protos_dir := ${CURDIR}/protos
+proto_files := $(shell find "${pwd}/protos/streammachine" -name *.proto)
+public_proto_files := $(shell find "${pwd}/protos/streammachine/api" -name *.proto)
+common_protos := ${CURDIR}/lang/.common-protos
+git_sha := $(shell git rev-parse --short HEAD)
+git_branch := $(shell git rev-parse --abbrev-ref HEAD)
+
+export
+
+# =======================
+# Versions and dependencies
+# =======================
+streammachine_api_version := 1.10.0
+
+grpc_version := 1.38.1
+protobuf_version := 3.17.3
+google_common_protos_version := 2.3.2
+
+# google/protobuf dependencies (predefined Protos for e.g. Timestamp, Duration, etc)
+${common_protos}/protobuf-java.jar:
+	curl "https://repo1.maven.org/maven2/com/google/protobuf/protobuf-java/${protobuf_version}/protobuf-java-${protobuf_version}.jar" --create-dirs -o "${common_protos}/protobuf-java.jar"
+
+# google/api dependencies (Common Google Protos, such as field_behavior)
+${common_protos}/proto-google-common-protos.jar:
+	curl "https://repo1.maven.org/maven2/com/google/api/grpc/proto-google-common-protos/${google_common_protos_version}/proto-google-common-protos-${google_common_protos_version}.jar" --create-dirs -o "${common_protos}/proto-google-common-protos.jar"
+
+# To ensure that we use the same Google Common Protobuf files in all languages, we extract them from the jar
+${common_protos}/google: ${common_protos}/proto-google-common-protos.jar
+	unzip -d ${common_protos} $< "google/**/*.proto" && \
+	touch $@
+
+default-protobuf-dependencies: ${common_protos}/protobuf-java.jar
+	unzip -d ${common_protos} $< "google/**/*.proto"
+
+VERSION.env: Makefile
+	GIT_BRANCH="$${CI_COMMIT_REF_NAME:-${git_branch}}" && \
+	if [ -n "$$CI_COMMIT_TAG" ] || [ "$$GIT_BRANCH" = "master" ]; then echo "VERSION=${streammachine_api_version}" > $@; else echo "VERSION=${streammachine_api_version}-$${CI_COMMIT_SHORT_SHA:-${git_sha}}" > $@; fi
+
+# =======================
+# Miscellaneous
+# =======================
+intellij: ${common_protos}/protobuf-java.jar ${common_protos}/proto-google-common-protos.jar
+	./scripts/setup-ide-protobuf-plugins.sh
 
 buf-breaking:
-	bash buf-breaking.sh
+	bash ./scripts/buf-breaking.sh
+
+buf-lint: ${common_protos}/google
+	buf lint
 
 api-lint:
-	docker run --rm -v "${pwd}:/workspace" eu.gcr.io/stream-machine-development/google/api-linter:1.25.0 ./api-linter.sh
+	docker run --rm -v "${pwd}:/workspace" eu.gcr.io/stream-machine-development/google/api-linter:1.25.0 ./scripts/api-linter.sh
 
-clean:
-	rm -rf build/go/*
+# =======================
+# Build and publish tasks
+# =======================
+clean: clean-jvm clean-python clean-go
+build: build-jvm build-python build-go
+publish: publish-jvm publish-python
 
-go: clean
-	protoc ${proto_files} --proto_path=protos --go_out=module=streammachine.io/api:build/go --go-grpc_out=module=streammachine.io/api:build/go && \
-	cd build/go && \
-	go mod init streammachine.io/api && \
-	go mod tidy
+# -----------------
+# JVM
+# -----------------
+clean-jvm:
+	make -C lang/jvm clean
 
+build-jvm:
+	make -C lang/jvm build
+
+publish-jvm:
+	make -C lang/jvm publish
+
+# -----------------
+# Python
+# -----------------
+clean-python:
+	make -C lang/python clean
+
+build-python: ${common_protos}/google VERSION.env
+	make -C lang/python build
+
+publish-python-test: ${common_protos}/google VERSION.env
+	make -C lang/python publish-test
+
+publish-python-release: ${common_protos}/google VERSION.env
+	make -C lang/python publish
+
+# -----------------
+# Golang
+# -----------------
+generate-go: ${common_protos}/google VERSION.env
+	make -C lang/go generate
+
+setup-go:
+	make -C lang/go setup
+
+build-go: ${common_protos}/google VERSION.env
+	make -C lang/go build
+
+clean-go:
+	make -C lang/go clean
