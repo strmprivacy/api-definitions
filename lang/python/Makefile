@@ -1,6 +1,6 @@
 .PHONY: clean development build banaan
 
-build_dir := build
+top_level_package_name := streammachine
 python_version_files := VERSION requirements.txt requirements-dev.txt
 
 VERSION: ../../Makefile ../../VERSION.env
@@ -19,7 +19,7 @@ clean: clean-build clean-pyc
 
 clean-build:
 	rm -f ${python_version_files}
-	rm -fr ${build_dir}
+	rm -fr ${top_level_package_name}
 	rm -fr dist/
 	rm -fr .eggs/
 	find . -name '*.egg-info' -exec rm -fr {} +
@@ -34,13 +34,15 @@ clean-pyc:
 development: ${python_version_files}
 	python -m pip install -r requirements-dev.txt
 
-build: clean development
-	mkdir ${build_dir} && \
-	python -m grpc_tools.protoc ${proto_files} \
+generate: clean development
+		python -m grpc_tools.protoc ${proto_files} \
 		--proto_path=${protos_dir} \
 		--proto_path=${common_protos} \
-		--python_out=${build_dir} \
-		--grpc_python_out=${build_dir} && \
+		--python_out=. \
+		--grpc_python_out=. && \
+	find ${top_level_package_name} -type d -exec touch "{}/__init__.py" \;
+
+build: generate
 	python setup.py sdist
 	python setup.py bdist_wheel
 	ls -l dist
