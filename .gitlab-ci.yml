@@ -63,6 +63,8 @@ generate-go:
       - lang/go/VERSION
     reports:
       dotenv: VERSION.env
+  except:
+    - master
 
 release:
   stage: release
