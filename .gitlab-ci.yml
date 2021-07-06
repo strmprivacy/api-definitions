@@ -106,9 +106,8 @@ go-repo-update:
   dependencies:
     - generate-go
   script:
-    - export VERSION=$(cat lang/go/VERSION)
     - make setup-go
-    - mv lang/go/build/* "${CI_COMMIT_SHA}"
+    - cp -f -r lang/go/build/* "${CI_COMMIT_SHA}"
 
 go-repo-update-and-tag:
   stage: publish
