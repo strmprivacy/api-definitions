@@ -11,7 +11,7 @@ with pathlib.Path('requirements.txt').open() as requirements_txt:
     ]
 
 with open('VERSION') as version_file:
-    version = version_file.read()
+    version = version_file.read().rstrip()
 
 setup(
     author="Stream Machine B.V.",
