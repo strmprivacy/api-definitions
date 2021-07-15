@@ -1,3 +1,15 @@
+# [1.14.0](https://gitlab.com/stream-machine/api-definitions/compare/v1.13.0...v1.14.0) (2021-07-15)
+
+
+### Bug Fixes
+
+* **python:** force commit to pypi ([4d97f6a](https://gitlab.com/stream-machine/api-definitions/commit/4d97f6aed360bd650b69cef41bdfb17f70eb943b))
+
+
+### Features
+
+* **python:** add steps to publish public api definitions for python to pypi ([2dc2b94](https://gitlab.com/stream-machine/api-definitions/commit/2dc2b942bb92c07218706e39fe808ed239e80341))
+
 # [1.13.0](https://gitlab.com/stream-machine/api-definitions/compare/v1.12.0...v1.13.0) (2021-07-15)
 
 
