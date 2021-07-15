@@ -15,6 +15,7 @@ service InternalSchemasService {
 
 message GetSchemaDefinitionRequest {
   int32 confluent_id = 1;
+  streammachine.api.entities.v1.KafkaClusterRef cluster_ref = 2;
 }
 
 message GetSchemaDefinitionResponse {

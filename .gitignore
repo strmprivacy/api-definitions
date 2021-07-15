@@ -26,3 +26,4 @@ lang/python/streammachine
 lang/python/build
 lang/python/dist
 lang/python/*.egg-info
+.google-common-protos/

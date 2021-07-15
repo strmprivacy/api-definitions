@@ -28,6 +28,7 @@ message ListSchemasResponse {
 message CreateSchemaRequest {
   string billing_id = 1;
   streammachine.api.entities.v1.Schema schema = 2;
+
 }
 
 message CreateSchemaResponse {
@@ -37,8 +38,10 @@ message CreateSchemaResponse {
 message GetSchemaRequest {
   string billing_id = 1;
   streammachine.api.entities.v1.SchemaRef ref = 2;
+  streammachine.api.entities.v1.KafkaClusterRef cluster_ref = 3;
 }
 
 message GetSchemaResponse {
   streammachine.api.entities.v1.Schema schema = 1;
+  int32 confluent_id = 2 ;
 }
