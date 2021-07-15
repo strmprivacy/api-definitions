@@ -42,16 +42,30 @@ generate: clean development
 		--grpc_python_out=. && \
 	find ${top_level_package_name} -type d -exec touch "{}/__init__.py" \;
 
-build: generate
+generate-public: clean development
+		python -m grpc_tools.protoc ${public_proto_files} \
+		--proto_path=${protos_dir} \
+		--proto_path=${common_protos} \
+		--python_out=. \
+		--grpc_python_out=. && \
+	find ${top_level_package_name} -type d -exec touch "{}/__init__.py" \;
+
+build:
 	python setup.py sdist
 	python setup.py bdist_wheel
 	ls -l dist
 
-publish-test: build
+publish-test: generate build
 	twine upload --repository-url "https://europe-west4-python.pkg.dev/stream-machine-development/python-test/" dist/*
 
-publish: build
+publish: generate build
 	twine upload --repository-url "https://europe-west4-python.pkg.dev/stream-machine-development/python/" dist/*
 
-install: clean build ## install the package to the active Python's site-packages
+publish-public-test: generate-public build
+	twine upload --repository testpypi dist/*
+
+publish-public: generate-public build
+	twine upload dist/*
+
+install: generate build ## install the package to the active Python's site-packages
 	python setup.py install

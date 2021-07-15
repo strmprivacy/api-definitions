@@ -96,6 +96,18 @@ python-artifact-release:
   script:
     - make publish-python-release
 
+python-public-artifact-test:
+  stage: publish
+  extends: .python-artifact-test
+  script:
+    - make publish-public-python-test
+
+python-public-artifact-release:
+  stage: publish
+  extends: .python-artifact-release
+  script:
+    - make publish-public-python-release
+
 # ======= Golang Releases =======
 .go:
   variables:

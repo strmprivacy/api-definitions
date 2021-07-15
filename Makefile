@@ -62,7 +62,6 @@ api-lint:
 # =======================
 clean: clean-jvm clean-python clean-go
 build: build-jvm build-python build-go
-publish: publish-jvm publish-python
 
 # -----------------
 # JVM
@@ -83,13 +82,22 @@ clean-python:
 	make -C lang/python clean
 
 build-python: ${common_protos}/google VERSION.env
-	make -C lang/python build
+	make -C lang/python generate build
+
+build-public-python: ${common_protos}/google VERSION.env
+	make -C lang/python generate-public build
 
 publish-python-test: ${common_protos}/google VERSION.env
 	make -C lang/python publish-test
 
 publish-python-release: ${common_protos}/google VERSION.env
 	make -C lang/python publish
+
+publish-public-python-test: ${common_protos}/google VERSION.env
+	make -C lang/python publish-public-test
+
+publish-public-python-release: ${common_protos}/google VERSION.env
+	make -C lang/python publish-public
 
 # -----------------
 # Golang
