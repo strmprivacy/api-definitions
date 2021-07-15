@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 import pathlib
 import pkg_resources
+from datetime import datetime
 from setuptools import setup, find_packages
 
 with pathlib.Path('requirements.txt').open() as requirements_txt:
@@ -11,7 +12,14 @@ with pathlib.Path('requirements.txt').open() as requirements_txt:
     ]
 
 with open('VERSION') as version_file:
-    version = version_file.read().rstrip()
+    parts = version_file.read().rstrip().split('-')
+
+    if len(parts) > 1:
+        # take version without git sha, because that's not allowed due to PEP440
+        raw_version = parts[0]
+        version = f'{raw_version}-dev{datetime.now().strftime("%d%m%Y%H%M")}'
+    else:
+        version = parts[0]
 
 setup(
     author="Stream Machine B.V.",
