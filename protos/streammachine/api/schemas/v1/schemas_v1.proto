@@ -28,7 +28,6 @@ message ListSchemasResponse {
 message CreateSchemaRequest {
   string billing_id = 1;
   streammachine.api.entities.v1.Schema schema = 2;
-
 }
 
 message CreateSchemaResponse {
