@@ -17,7 +17,7 @@ with open('VERSION') as version_file:
     if len(parts) > 1:
         # take version without git sha, because that's not allowed due to PEP440
         raw_version = parts[0]
-        version = f'{raw_version}-dev{datetime.now().strftime("%d%m%Y%H%M")}'
+        version = f'{raw_version}-dev{datetime.now().strftime("%Y%m%d%H%M")}'
     else:
         version = parts[0]
 
