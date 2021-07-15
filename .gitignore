@@ -27,3 +27,5 @@ lang/python/build
 lang/python/dist
 lang/python/*.egg-info
 .google-common-protos/
+image.bin
+google-api-linter
