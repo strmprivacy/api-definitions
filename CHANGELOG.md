@@ -1,3 +1,15 @@
+# [1.13.0](https://gitlab.com/stream-machine/api-definitions/compare/v1.12.0...v1.13.0) (2021-07-15)
+
+
+### Bug Fixes
+
+* buf breaking disabled ([32f752f](https://gitlab.com/stream-machine/api-definitions/commit/32f752f72d2c14d743ba7d63a4be89679a71988a))
+
+
+### Features
+
+* **schemas:** return confluent_id in schemas/get ([c008b4c](https://gitlab.com/stream-machine/api-definitions/commit/c008b4caab8c6a096407fb03123353c2ebee1cef))
+
 # [1.12.0](https://gitlab.com/stream-machine/api-definitions/compare/v1.11.0...v1.12.0) (2021-07-06)
 
 
