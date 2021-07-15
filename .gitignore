@@ -8,6 +8,7 @@ node_modules
 .envrc
 .common-protos/
 VERSION.env
+prev-api-definitions/
 
 # JVM
 .gradle

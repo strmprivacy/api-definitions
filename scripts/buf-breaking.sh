@@ -20,3 +20,10 @@ cd ..
 
 # Finally, compare the current API against the previous master API.
 buf breaking --against prev-api-definitions/image.bin
+exit_code=$?
+
+# Clean up generated files afterwards
+rm -rf google-api-linter
+rm -rf prev-api-definitions
+
+exit $exit_code
