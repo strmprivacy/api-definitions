@@ -223,6 +223,7 @@ message Schema {
   // (-- 'is' is intentional here (see https://google.aip.dev/140#booleans) --)
   bool is_public = 3;
   string definition = 4 [(google.api.field_behavior) = REQUIRED];
+  string fingerprint = 5 [(google.api.field_behavior) = OUTPUT_ONLY];
 }
 
 message EventContractRef {
