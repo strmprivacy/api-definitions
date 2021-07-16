@@ -1,3 +1,10 @@
+# [1.15.0](https://gitlab.com/stream-machine/api-definitions/compare/v1.14.0...v1.15.0) (2021-07-16)
+
+
+### Features
+
+* **schema:** added fingerprint ([95ce382](https://gitlab.com/stream-machine/api-definitions/commit/95ce382da10ba99a4c0452fd007d233cb75b780a))
+
 # [1.14.0](https://gitlab.com/stream-machine/api-definitions/compare/v1.13.0...v1.14.0) (2021-07-15)
 
 
