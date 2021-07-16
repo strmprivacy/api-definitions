@@ -1,4 +1,4 @@
-.PHONY: intellij clean build publish buf-breaking buf-lint api-lint default-protobuf-dependencies
+.PHONY: intellij clean build publish buf-breaking buf-lint api-lint default-protobuf-dependencies docs clean-docs
 
 # =======================
 # Variables
@@ -7,6 +7,7 @@ pwd := $(shell pwd)
 protos_dir := ${CURDIR}/protos
 proto_files := $(shell find "${pwd}/protos/streammachine" -name *.proto)
 public_proto_files := $(shell find "${pwd}/protos/streammachine/api" -name *.proto)
+relative_proto_files := $(shell find "protos/streammachine" -name *.proto)
 common_protos := ${CURDIR}/lang/.common-protos
 git_sha := $(shell git rev-parse --short HEAD)
 git_branch := $(shell git rev-parse --abbrev-ref HEAD)
@@ -56,6 +57,12 @@ buf-lint: ${common_protos}/google
 
 api-lint:
 	docker run --rm -v "${pwd}:/workspace" eu.gcr.io/stream-machine-development/google/api-linter:1.25.0 ./scripts/api-linter.sh
+
+clean-docs:
+	rm -rf docs
+
+docs: clean-docs
+	docker run --rm -v "$(pwd)/docs:/out" -v "$(pwd)/protos:/protos" -v "$(pwd)/lang:/lang" pseudomuto/protoc-gen-doc ${relative_proto_files} --proto_path=lang/.common-protos --doc_opt=html,index.html
 
 # =======================
 # Build and publish tasks

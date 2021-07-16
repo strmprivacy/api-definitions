@@ -9,6 +9,7 @@ node_modules
 .common-protos/
 VERSION.env
 prev-api-definitions/
+docs/
 
 # JVM
 .gradle
