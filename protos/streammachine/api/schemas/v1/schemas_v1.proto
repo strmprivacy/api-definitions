@@ -12,6 +12,7 @@ service SchemasService {
   rpc ListSchemas (ListSchemasRequest) returns (ListSchemasResponse);
   rpc GetSchema (GetSchemaRequest) returns (GetSchemaResponse);
   rpc CreateSchema (CreateSchemaRequest) returns (CreateSchemaResponse);
+  rpc GetSchemaCode (GetSchemaCodeRequest) returns (GetSchemaCodeResponse);
 }
 
 message ListSchemasRequest {
@@ -43,4 +44,16 @@ message GetSchemaRequest {
 message GetSchemaResponse {
   streammachine.api.entities.v1.Schema schema = 1;
   int32 confluent_id = 2 ;
+}
+
+message GetSchemaCodeRequest {
+  string billing_id = 1;
+  streammachine.api.entities.v1.SchemaRef ref = 2;
+  streammachine.api.entities.v1.SchemaType type = 3;
+}
+
+message GetSchemaCodeResponse {
+  string filename = 1;
+  int64 data_size = 2;
+  bytes data = 3;
 }
