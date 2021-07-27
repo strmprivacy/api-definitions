@@ -214,7 +214,7 @@ message SchemaRef {
   string handle = 1 [(google.api.field_behavior) = REQUIRED];
   string name = 2 [(google.api.field_behavior) = REQUIRED];
   string version = 3 [(google.api.field_behavior) = REQUIRED];
-  SchemaType schema_type = 4;
+  SchemaType schema_type = 4 [deprecated = true];
 }
 
 message Schema {
