@@ -1,3 +1,17 @@
+# [1.16.0](https://gitlab.com/stream-machine/api-definitions/compare/v1.15.0...v1.16.0) (2021-07-29)
+
+
+### Bug Fixes
+
+* add deprecated to schema_type in SchemaRef ([42b6450](https://gitlab.com/stream-machine/api-definitions/commit/42b6450a1be668e1f6bde181b826ffd487daf5cc))
+* add programming language to GetSchemaCodeRequest ([d9666de](https://gitlab.com/stream-machine/api-definitions/commit/d9666de8283cd335efb03cdefb69612bcba58b51))
+* removed schema_type as this can be resolved internally ([d2c9af6](https://gitlab.com/stream-machine/api-definitions/commit/d2c9af6cb55af572764e58a7ab8c8353a260a020))
+
+
+### Features
+
+* add GetSchemaCode RPC ([baff7d8](https://gitlab.com/stream-machine/api-definitions/commit/baff7d8e69254d3607cdc8a886c7f1a240d633fe))
+
 # [1.15.0](https://gitlab.com/stream-machine/api-definitions/compare/v1.14.0...v1.15.0) (2021-07-16)
 
 
