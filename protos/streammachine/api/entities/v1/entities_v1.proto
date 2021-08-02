@@ -224,6 +224,16 @@ message Schema {
   bool is_public = 3;
   string definition = 4 [(google.api.field_behavior) = REQUIRED];
   string fingerprint = 5 [(google.api.field_behavior) = OUTPUT_ONLY];
+  SchemaMetadata metadata = 6;
+}
+
+message SchemaMetadata {
+  // The human readable title of this Schema. Used in the Portal. Defaults to the Schema name. This field can be modified.
+  string title = 1 [(google.api.field_behavior) = OPTIONAL];
+  // The (optional) description of this Schema. Used in the Portal. Markdown syntax is supported. This field can be modified.
+  string description = 2 [(google.api.field_behavior) = OPTIONAL];
+  // Generic (key/value) Metadata for this Schema.
+  repeated Metadata metadata = 3 [(google.api.field_behavior) = REQUIRED];
 }
 
 message EventContractRef {
@@ -242,6 +252,25 @@ message EventContract {
   string key_field = 5 [(google.api.field_behavior) = REQUIRED];
   map<string, int32> pii_fields = 6;
   repeated Validation validations = 7;
+  EventContractMetadata metadata = 8;
+}
+
+message EventContractMetadata {
+  // The human readable title of this Event Contract. Used in the Portal. Defaults to the Event Contract name. This field can be modified.
+  string title = 1 [(google.api.field_behavior) = OPTIONAL];
+  // The (optional) description of this Event Contract. Used in the Portal. Markdown syntax is supported. This field can be modified.
+  string description = 2 [(google.api.field_behavior) = OPTIONAL];
+  // Generic (key/value) Metadata for this Event Contract.
+  repeated Metadata metadata = 3 [(google.api.field_behavior) = REQUIRED];
+}
+
+message Metadata {
+  // The key of the metadata.
+  string key = 1 [(google.api.field_behavior) = REQUIRED];
+  // The (optional) value of the metadata.
+  string value = 2 [(google.api.field_behavior) = OPTIONAL];
+  // The category of the metadata. In the portal we use the values "tag" and "vertical" for Schemas and Event Contracts.
+  string category = 3 [(google.api.field_behavior) = REQUIRED];
 }
 
 message Validation {
