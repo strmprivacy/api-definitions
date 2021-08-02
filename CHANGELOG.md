@@ -1,3 +1,10 @@
+# [1.17.0](https://gitlab.com/stream-machine/api-definitions/compare/v1.16.0...v1.17.0) (2021-08-02)
+
+
+### Features
+
+* added metadata for schemas and event contracts for use in portal ([e3ee7b1](https://gitlab.com/stream-machine/api-definitions/commit/e3ee7b177aad7952447007559e1a1a182c62029d))
+
 # [1.16.0](https://gitlab.com/stream-machine/api-definitions/compare/v1.15.0...v1.16.0) (2021-07-29)
 
 
