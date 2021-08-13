@@ -58,6 +58,8 @@ dependencies {
     implementation("io.grpc:grpc-kotlin-stub:${rootProject.ext["grpcKotlinVersion"]}")
     implementation("io.grpc:grpc-protobuf:${rootProject.ext["grpcVersion"]}")
 
+    api("com.google.protobuf:protobuf-java-util:${rootProject.ext["protobufVersion"]}")
+
     // Coroutines are used in the health service, since it streams data
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.0")
 }
