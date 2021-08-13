@@ -1,3 +1,10 @@
+# [1.18.0](https://gitlab.com/stream-machine/api-definitions/compare/v1.17.0...v1.18.0) (2021-08-13)
+
+
+### Features
+
+* **jvm:** add proto tools to Kotlin api definitions artifact ([b920020](https://gitlab.com/stream-machine/api-definitions/commit/b92002051654b27cdef7b844d11b9f6a6e3f1498))
+
 # [1.17.0](https://gitlab.com/stream-machine/api-definitions/compare/v1.16.0...v1.17.0) (2021-08-02)
 
 
