@@ -2,11 +2,8 @@ import com.google.protobuf.gradle.*
 import org.ajoberstar.grgit.Grgit
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
-
 group = "io.streammachine.api"
 description = "Internal APIs for Stream Machine"
-
-ext["grpcKotlinVersion"] = "1.1.0"
 
 val branch = System.getenv("CI_COMMIT_REF_NAME") ?: Grgit.open(mapOf("dir" to project.file("../../."))).branch.current().name
 val tag = System.getenv("CI_COMMIT_TAG")
@@ -14,14 +11,6 @@ val tag = System.getenv("CI_COMMIT_TAG")
 rootProject.version = if (tag != null || branch == "master") project.version else "${project.version}-SNAPSHOT"
 
 buildscript {
-    dependencies {
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.4.30")
-    }
-
-    repositories {
-        mavenCentral()
-    }
-
     tasks.named<Wrapper>("wrapper") {
         gradleVersion = "6.8.2"
         distributionType = Wrapper.DistributionType.ALL
@@ -31,10 +20,6 @@ buildscript {
 repositories {
     mavenLocal()
     mavenCentral()
-    google()
-    maven("https://kotlin.bintray.com/kotlinx")
-    maven("https://dl.bintray.com/jetbrains/kotlin-native-dependencies")
-    maven("https://dl.bintray.com/kotlin/kotlin-dev")
 
     maven("artifactregistry://europe-west4-maven.pkg.dev/stream-machine-development/snapshot")
     maven("artifactregistry://europe-west4-maven.pkg.dev/stream-machine-development/release")
@@ -42,11 +27,11 @@ repositories {
 
 plugins {
     id("java-library")
-    id("com.google.cloud.artifactregistry.gradle-plugin") version ("2.1.1")
     id("maven-publish")
-    kotlin("jvm") version "1.5.10"
-    id("com.google.protobuf") version "0.8.16"
-    id("org.ajoberstar.grgit") version ("4.1.0")
+    id("org.jetbrains.kotlin.jvm")
+    id("com.google.cloud.artifactregistry.gradle-plugin")
+    id("com.google.protobuf")
+    id("org.ajoberstar.grgit")
 }
 
 dependencies {
@@ -54,14 +39,14 @@ dependencies {
     implementation("com.google.api.grpc:proto-google-common-protos:${rootProject.ext["googleCommonProtosVersion"]}")
 
     // Grpc and Protobuf
-    compileOnly("javax.annotation:javax.annotation-api:1.3.2")
+    compileOnly("javax.annotation:javax.annotation-api:${rootProject.ext["javaXVersion"]}")
     implementation("io.grpc:grpc-kotlin-stub:${rootProject.ext["grpcKotlinVersion"]}")
     implementation("io.grpc:grpc-protobuf:${rootProject.ext["grpcVersion"]}")
 
     api("com.google.protobuf:protobuf-java-util:${rootProject.ext["protobufVersion"]}")
 
     // Coroutines are used in the health service, since it streams data
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.0")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:${rootProject.ext["kotlinXVersion"]}")
 }
 
 java.sourceCompatibility = JavaVersion.VERSION_14
