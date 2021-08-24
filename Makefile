@@ -82,6 +82,9 @@ build-jvm:
 publish-jvm:
 	make -C lang/jvm publish
 
+publish-local-jvm:
+	make -C lang/jvm publish-local
+
 # -----------------
 # Python
 # -----------------

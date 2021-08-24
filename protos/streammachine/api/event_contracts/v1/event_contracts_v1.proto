@@ -2,6 +2,8 @@ syntax = "proto3";
 
 package streammachine.api.event_contracts.v1;
 
+import "google/api/field_behavior.proto";
+import "google/protobuf/field_mask.proto";
 import "streammachine/api/entities/v1/entities_v1.proto";
 
 option go_package = "github.com/streammachineio/api-definitions-go/api/event_contracts/v1;event_contracts";
@@ -12,24 +14,43 @@ service EventContractsService {
   rpc ListEventContracts (ListEventContractsRequest) returns (ListEventContractsResponse);
   rpc GetEventContract (GetEventContractRequest) returns (GetEventContractResponse);
   rpc CreateEventContract (CreateEventContractRequest) returns (CreateEventContractResponse);
+  rpc UpdateEventContract (UpdateEventContractRequest) returns (UpdateEventContractResponse);
 }
 
+// List Event Contracts, with optional filters. All filters behave as AND conditions. OR is not possible.
 message ListEventContractsRequest {
-  string billing_id = 1;
-  string filter = 2;
+  // The billing_id, used for authentication.
+  // If absent, only public Event Contracts can be returned. If present, public and owned private Event Contracts can be returned.
+  string billing_id = 1 [(google.api.field_behavior) = OPTIONAL];
+
+  // Filter on a string to do a full-text search.
+  string filter = 2 [(google.api.field_behavior) = OPTIONAL];
+
+  // Filter on a given handle.
+  string handle = 3 [(google.api.field_behavior) = OPTIONAL];
+
+  // Filter on a given name.
+  string name = 4 [(google.api.field_behavior) = OPTIONAL];
+
+  // Filter public/private Event Contracts.
+  streammachine.api.entities.v1.FilterPublicPrivate public_private = 5 [(google.api.field_behavior) = OPTIONAL];
+
+  // Filter based on Schema Ref to find all Event Contracts that depend on a Schema.
+  streammachine.api.entities.v1.SchemaRef schema_ref = 6 [(google.api.field_behavior) = OPTIONAL];
+
+  // Filter based on labels. It is possible to skip the label value.
+  // In that case, the filter only filters on the key.
+  repeated streammachine.api.entities.v1.Label labels = 7 [(google.api.field_behavior) = OPTIONAL];
+
+  // Filter on domains.
+  repeated string domains = 8 [(google.api.field_behavior) = OPTIONAL];
+
+  // Filter on industries.
+  repeated string industries = 9 [(google.api.field_behavior) = OPTIONAL];
 }
 
 message ListEventContractsResponse {
   repeated streammachine.api.entities.v1.EventContract event_contracts = 1;
-}
-
-message CreateEventContractRequest {
-  string billing_id = 1;
-  streammachine.api.entities.v1.EventContract event_contract = 2;
-}
-
-message CreateEventContractResponse {
-  streammachine.api.entities.v1.EventContract event_contract = 1;
 }
 
 message GetEventContractRequest {
@@ -39,4 +60,28 @@ message GetEventContractRequest {
 
 message GetEventContractResponse {
   streammachine.api.entities.v1.EventContract event_contract = 1;
+  string checksum = 2 [(google.api.field_behavior) = REQUIRED];
+}
+
+message CreateEventContractRequest {
+  string billing_id = 1;
+  streammachine.api.entities.v1.EventContract event_contract = 2;
+}
+
+message CreateEventContractResponse {
+  streammachine.api.entities.v1.EventContract event_contract = 1;
+  string checksum = 2 [(google.api.field_behavior) = OUTPUT_ONLY];
+}
+
+message UpdateEventContractRequest {
+  string billing_id = 1 [(google.api.field_behavior) = REQUIRED];
+  streammachine.api.entities.v1.EventContract event_contract = 2 [(google.api.field_behavior) = REQUIRED];
+  string checksum = 3 [(google.api.field_behavior) = REQUIRED];
+  // The fields to update.
+  google.protobuf.FieldMask update_mask = 4 [(google.api.field_behavior) = REQUIRED];
+}
+
+message UpdateEventContractResponse {
+  streammachine.api.entities.v1.EventContract event_contract = 1;
+  string checksum = 2 [(google.api.field_behavior) = OUTPUT_ONLY];
 }

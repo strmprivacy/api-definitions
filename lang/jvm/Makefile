@@ -16,3 +16,6 @@ build: gradle.properties
 
 publish: gradle.properties
 	./gradlew publish
+
+publish-local: gradle.properties
+	./gradlew publishToMavenLocal

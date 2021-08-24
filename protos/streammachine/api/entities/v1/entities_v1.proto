@@ -214,7 +214,7 @@ message SchemaRef {
   string handle = 1 [(google.api.field_behavior) = REQUIRED];
   string name = 2 [(google.api.field_behavior) = REQUIRED];
   string version = 3 [(google.api.field_behavior) = REQUIRED];
-  SchemaType schema_type = 4 [deprecated = true];
+  SchemaType schema_type = 4 [(google.api.field_behavior) = OUTPUT_ONLY];
 }
 
 message Schema {
@@ -232,8 +232,14 @@ message SchemaMetadata {
   string title = 1 [(google.api.field_behavior) = OPTIONAL];
   // The (optional) description of this Schema. Used in the Portal. Markdown syntax is supported. This field can be modified.
   string description = 2 [(google.api.field_behavior) = OPTIONAL];
-  // Generic (key/value) Metadata for this Schema.
-  repeated Metadata metadata = 3 [(google.api.field_behavior) = REQUIRED];
+  // The timestamp when this Schema was created.
+  google.protobuf.Timestamp create_time = 3 [(google.api.field_behavior) = OUTPUT_ONLY];
+  // The (optional) URI to the icon used with this Schema. This always an absolute URI, with the https scheme. Used in the Portal.
+  string icon_uri = 4 [(google.api.field_behavior) = OPTIONAL];
+  // Generic (key/value) labels for this Schema.
+  repeated Label labels = 5 [(google.api.field_behavior) = OPTIONAL];
+  repeated string domains = 6 [(google.api.field_behavior) = OPTIONAL];
+  repeated string industries = 7 [(google.api.field_behavior) = OPTIONAL];
 }
 
 message EventContractRef {
@@ -260,17 +266,21 @@ message EventContractMetadata {
   string title = 1 [(google.api.field_behavior) = OPTIONAL];
   // The (optional) description of this Event Contract. Used in the Portal. Markdown syntax is supported. This field can be modified.
   string description = 2 [(google.api.field_behavior) = OPTIONAL];
-  // Generic (key/value) Metadata for this Event Contract.
-  repeated Metadata metadata = 3 [(google.api.field_behavior) = REQUIRED];
+  // The timestamp when this Event Contract was created.
+  google.protobuf.Timestamp create_time = 3 [(google.api.field_behavior) = OUTPUT_ONLY];
+  // The (optional) URI to the icon used with this Event Contract. This always an absolute URI, with the https scheme. Used in the Portal.
+  string icon_uri = 4 [(google.api.field_behavior) = OPTIONAL];
+  // Generic (key/value) labels for this Event Contract.
+  repeated Label labels = 5 [(google.api.field_behavior) = OPTIONAL];
+  repeated string domains = 6 [(google.api.field_behavior) = OPTIONAL];
+  repeated string industries = 7 [(google.api.field_behavior) = OPTIONAL];
 }
 
-message Metadata {
-  // The key of the metadata.
+message Label {
+  // The key of the label.
   string key = 1 [(google.api.field_behavior) = REQUIRED];
-  // The (optional) value of the metadata.
+  // The (optional) value of the label. An empty string means there is no value.
   string value = 2 [(google.api.field_behavior) = OPTIONAL];
-  // The category of the metadata. In the portal we use the values "tag" and "vertical" for Schemas and Event Contracts.
-  string category = 3 [(google.api.field_behavior) = REQUIRED];
 }
 
 message Validation {
@@ -335,4 +345,10 @@ enum SchemaType {
   SCHEMA_TYPE_UNSPECIFIED = 0 ;
   AVRO = 1;
   JSONSCHEMA = 2;
+}
+
+enum FilterPublicPrivate {
+  FILTER_PUBLIC_PRIVATE_UNSPECIFIED = 0;
+  ONLY_PUBLIC = 1;
+  ONLY_PRIVATE = 2;
 }
