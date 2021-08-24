@@ -1,3 +1,10 @@
+# [1.19.0](https://gitlab.com/stream-machine/api-definitions/compare/v1.18.0...v1.19.0) (2021-08-24)
+
+
+### Features
+
+* add metadata and search to Schemas and EventContracts ([86233f3](https://gitlab.com/stream-machine/api-definitions/commit/86233f3d918df4db8405448360c9476007a06805))
+
 # [1.18.0](https://gitlab.com/stream-machine/api-definitions/compare/v1.17.0...v1.18.0) (2021-08-13)
 
 
