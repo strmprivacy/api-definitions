@@ -1,3 +1,10 @@
+# [1.21.0](https://gitlab.com/stream-machine/api-definitions/compare/v1.20.0...v1.21.0) (2021-09-20)
+
+
+### Features
+
+* add billing_id to AccountService requests ([ab9c663](https://gitlab.com/stream-machine/api-definitions/commit/ab9c6630ff232437a12b3c066b3e81cbdd162ffe))
+
 # [1.20.0](https://gitlab.com/stream-machine/api-definitions/compare/v1.19.0...v1.20.0) (2021-09-20)
 
 
