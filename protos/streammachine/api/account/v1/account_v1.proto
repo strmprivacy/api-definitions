@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+package streammachine.api.account.v1;
+
+import "google/api/field_behavior.proto";
+
+option go_package = "github.com/streammachineio/api-definitions-go/api/account/v1;account";
+option java_package = "io.streammachine.api.account.v1";
+option java_multiple_files = true;
+
+service AccountService {
+  rpc GetAccountDetails (GetAccountDetailsRequest) returns (GetAccountDetailsResponse);
+  rpc CreateAccountHandle (CreateAccountHandleRequest) returns (CreateAccountHandleResponse);
+}
+
+message GetAccountDetailsRequest {
+}
+
+message GetAccountDetailsResponse {
+  string billing_id = 1 [(google.api.field_behavior) = REQUIRED];
+  int32 max_input_streams = 2 [(google.api.field_behavior) = REQUIRED];
+  string handle = 3 [(google.api.field_behavior) = OPTIONAL];
+}
+
+// (-- api-linter: core::0133::request-resource-field=disabled
+//     aip.dev/not-precedent: Handle is just a string. --)
+message CreateAccountHandleRequest {
+  string handle = 1 [(google.api.field_behavior) = REQUIRED];
+}
+
+message CreateAccountHandleResponse {
+  string handle = 1 [(google.api.field_behavior) = REQUIRED];
+}
