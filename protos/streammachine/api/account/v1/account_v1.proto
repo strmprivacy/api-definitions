@@ -14,6 +14,7 @@ service AccountService {
 }
 
 message GetAccountDetailsRequest {
+  string billing_id = 1 [(google.api.field_behavior) = REQUIRED];
 }
 
 message GetAccountDetailsResponse {
@@ -25,7 +26,8 @@ message GetAccountDetailsResponse {
 // (-- api-linter: core::0133::request-resource-field=disabled
 //     aip.dev/not-precedent: Handle is just a string. --)
 message CreateAccountHandleRequest {
-  string handle = 1 [(google.api.field_behavior) = REQUIRED];
+  string billing_id = 1 [(google.api.field_behavior) = REQUIRED];
+  string handle = 2 [(google.api.field_behavior) = REQUIRED];
 }
 
 message CreateAccountHandleResponse {
