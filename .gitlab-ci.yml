@@ -12,7 +12,7 @@ include:
 
 stages:
   - lint
-#  - breaking-change
+  - breaking-change
   - generate
   - release
   - publish
