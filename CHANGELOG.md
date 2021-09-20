@@ -1,3 +1,10 @@
+# [1.20.0](https://gitlab.com/stream-machine/api-definitions/compare/v1.19.0...v1.20.0) (2021-09-20)
+
+
+### Features
+
+* added account service ([4d56622](https://gitlab.com/stream-machine/api-definitions/commit/4d56622893c0306c3a7112dfdbdb5d903eacbe01))
+
 # [1.19.0](https://gitlab.com/stream-machine/api-definitions/compare/v1.18.0...v1.19.0) (2021-08-24)
 
 
