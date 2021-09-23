@@ -1,3 +1,10 @@
+# [1.22.0](https://gitlab.com/stream-machine/api-definitions/compare/v1.21.0...v1.22.0) (2021-09-23)
+
+
+### Features
+
+* **account:** add legacy billing id rpc ([b84bca6](https://gitlab.com/stream-machine/api-definitions/commit/b84bca664cadd94800bd16179ab7aa784c3ff47a))
+
 # [1.21.0](https://gitlab.com/stream-machine/api-definitions/compare/v1.20.0...v1.21.0) (2021-09-20)
 
 
