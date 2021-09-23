@@ -3,7 +3,6 @@ syntax = "proto3";
 package streammachine.api.metrics.v1;
 
 import "google/api/field_behavior.proto";
-import "streammachine/api/entities/v1/entities_v1.proto";
 
 option go_package = "github.com/streammachineio/api-definitions-go/api/metrics/v1;metrics";
 option java_package = "io.streammachine.api.metrics.v1";

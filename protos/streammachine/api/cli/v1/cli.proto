@@ -3,7 +3,6 @@ syntax = "proto3";
 package streammachine.api.cli.v1;
 
 import "google/api/field_behavior.proto";
-import "streammachine/api/entities/v1/entities_v1.proto";
 import "google/protobuf/timestamp.proto";
 
 option go_package = "github.com/streammachineio/api-definitions-go/api/cli/v1;cli";

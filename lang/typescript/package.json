@@ -1,0 +1,24 @@
+{
+  "name": "api-definitions",
+  "version": "1.21.0",
+  "main": "build/index.ts",
+  "devDependencies": {
+    "@types/google-protobuf": "~3.7.0",
+    "@types/jquery": "~3.3.6",
+    "@types/node": "~10.17.0",
+    "barrelsby": "^2.2.0",
+    "ts-loader": "^9.2.6",
+    "webpack": "^5.53.0",
+    "webpack-cli": "^4.8.0",
+    "webpack-node-externals": "^3.0.0"
+  },
+  "dependencies": {
+    "google-protobuf": "~3.14.0",
+    "grpc-web": "~1.2.1"
+  },
+  "scripts": {
+    "generate-barrels": "barrelsby --delete --directory build --exclude google",
+    "build": "webpack --config webpack.config.js",
+    "dist": "npm run generate-barrels && npm run build"
+  }
+}

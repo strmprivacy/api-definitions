@@ -9,6 +9,7 @@ proto_files := $(shell find "${pwd}/protos/streammachine" -name *.proto)
 public_proto_files := $(shell find "${pwd}/protos/streammachine/api" -name *.proto)
 relative_proto_files := $(shell find "protos/streammachine" -name *.proto)
 common_protos := ${CURDIR}/lang/.common-protos
+common_proto_files := $(shell find "${common_protos}" -name *.proto)
 git_sha := $(shell git rev-parse --short HEAD)
 git_branch := $(shell git rev-parse --abbrev-ref HEAD)
 
@@ -123,3 +124,18 @@ build-go: ${common_protos}/google VERSION.env
 
 clean-go:
 	make -C lang/go clean
+
+# -----------------
+# TypeScript
+# -----------------
+clean-typescript:
+	make -C lang/typescript clean
+
+build-typescript:
+	make -C lang/typescript build
+
+publish-typescript:
+	make -C lang/typescript publish
+
+publish-local-typescript:
+	make -C lang/typescript publish-local
