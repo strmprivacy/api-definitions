@@ -10,6 +10,7 @@ option java_multiple_files = true;
 
 service AccountService {
   rpc GetAccountDetails (GetAccountDetailsRequest) returns (GetAccountDetailsResponse);
+  rpc GetLegacyBillingId (GetLegacyBillingIdRequest) returns (GetLegacyBillingIdResponse);
   rpc CreateAccountHandle (CreateAccountHandleRequest) returns (CreateAccountHandleResponse);
 }
 
@@ -21,6 +22,13 @@ message GetAccountDetailsResponse {
   string billing_id = 1 [(google.api.field_behavior) = REQUIRED];
   int32 max_input_streams = 2 [(google.api.field_behavior) = REQUIRED];
   string handle = 3 [(google.api.field_behavior) = OPTIONAL];
+}
+
+message GetLegacyBillingIdRequest {
+}
+
+message GetLegacyBillingIdResponse {
+  string billing_id = 1 [(google.api.field_behavior) = REQUIRED];
 }
 
 // (-- api-linter: core::0133::request-resource-field=disabled
