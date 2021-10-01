@@ -27,7 +27,6 @@
   "scripts": {
     "get-version": "printf $npm_package_version",
     "authenticate": "cp .npmrc_template .npmrc && npx google-artifactregistry-auth .npmrc",
-    "preinstall": "npm run authenticate",
     "generate-barrels": "barrelsby --delete --directory build --exclude google --exclude internal_api",
     "build": "webpack --config webpack.config.js",
     "dist": "npm run generate-barrels && npm run build"
