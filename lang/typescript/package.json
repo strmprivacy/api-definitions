@@ -1,6 +1,5 @@
 {
   "name": "@streammachine.io-internal/api-definitions",
-  "repository": "git@gitlab.com:stream-machine/api-definitions.git",
   "version": "1.21.3",
   "main": "build/index.ts",
   "files": [
