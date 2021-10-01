@@ -9,6 +9,7 @@ proto_files := $(shell find "${pwd}/protos/streammachine" -name *.proto)
 public_proto_files := $(shell find "${pwd}/protos/streammachine/api" -name *.proto)
 relative_proto_files := $(shell find "protos/streammachine" -name *.proto)
 common_protos := ${CURDIR}/lang/.common-protos
+common_proto_files := $(shell find "${common_protos}" -name *.proto)
 git_sha := $(shell git rev-parse --short HEAD)
 git_branch := $(shell git rev-parse --abbrev-ref HEAD)
 
@@ -31,13 +32,14 @@ ${common_protos}/protobuf-java.jar:
 ${common_protos}/proto-google-common-protos.jar:
 	curl "https://repo1.maven.org/maven2/com/google/api/grpc/proto-google-common-protos/${google_common_protos_version}/proto-google-common-protos-${google_common_protos_version}.jar" --create-dirs -o "${common_protos}/proto-google-common-protos.jar"
 
-# To ensure that we use the same Google Common Protobuf files in all languages, we extract them from the jar
-${common_protos}/google: ${common_protos}/proto-google-common-protos.jar
-	unzip -d ${common_protos} $< "google/**/*.proto" && \
-	touch $@
-
-default-protobuf-dependencies: ${common_protos}/protobuf-java.jar
+${common_protos}/google/protobuf: ${common_protos}/protobuf-java.jar
 	unzip -d ${common_protos} $< "google/**/*.proto"
+
+${common_protos}/google/api: ${common_protos}/proto-google-common-protos.jar
+	unzip -d ${common_protos} $< "google/**/*.proto"
+
+# To ensure that we use the same Google Common Protobuf files in all languages, we extract them from the jar
+default-google-dependencies: ${common_protos}/google/protobuf ${common_protos}/google/api
 
 VERSION.env: Makefile
 	GIT_BRANCH="$${CI_COMMIT_REF_NAME:-${git_branch}}" && \
@@ -52,7 +54,7 @@ intellij: ${common_protos}/protobuf-java.jar ${common_protos}/proto-google-commo
 buf-breaking:
 	bash ./scripts/buf-breaking.sh
 
-buf-lint: ${common_protos}/google
+buf-lint: ${common_protos}/google/api ${common_protos}/google/protobuf
 	buf lint
 
 api-lint:
@@ -91,35 +93,55 @@ publish-local-jvm:
 clean-python:
 	make -C lang/python clean
 
-build-python: ${common_protos}/google VERSION.env
+build-python: ${common_protos}/google/api ${common_protos}/google/protobuf VERSION.env
 	make -C lang/python generate build
 
-build-public-python: ${common_protos}/google VERSION.env
+build-public-python: ${common_protos}/google/api ${common_protos}/google/protobuf VERSION.env
 	make -C lang/python generate-public build
 
-publish-python-test: ${common_protos}/google VERSION.env
+publish-python-test: ${common_protos}/google/api ${common_protos}/google/protobuf VERSION.env
 	make -C lang/python publish-test
 
-publish-python-release: ${common_protos}/google VERSION.env
+publish-python-release: ${common_protos}/google/api ${common_protos}/google/protobuf VERSION.env
 	make -C lang/python publish
 
-publish-public-python-test: ${common_protos}/google VERSION.env
+publish-public-python-test: ${common_protos}/google/api ${common_protos}/google/protobuf VERSION.env
 	make -C lang/python publish-public-test
 
-publish-public-python-release: ${common_protos}/google VERSION.env
+publish-public-python-release: ${common_protos}/google/api ${common_protos}/google/protobuf VERSION.env
 	make -C lang/python publish-public
 
 # -----------------
 # Golang
 # -----------------
-generate-go: ${common_protos}/google VERSION.env
+generate-go: ${common_protos}/google/api ${common_protos}/google/protobuf VERSION.env
 	make -C lang/go generate
 
 setup-go:
 	make -C lang/go setup
 
-build-go: ${common_protos}/google VERSION.env
+build-go: ${common_protos}/google/api ${common_protos}/google/protobuf VERSION.env
 	make -C lang/go build
 
 clean-go:
 	make -C lang/go clean
+
+# -----------------
+# TypeScript
+# -----------------
+clean-typescript:
+	make -C lang/typescript clean
+
+generate-typescript: ${common_protos}/google/api ${common_protos}/google/protobuf
+	apt-get install -y tree
+	tree ${common_protos}
+	make -C lang/typescript generate
+
+build-typescript:
+	make -C lang/typescript build
+
+publish-typescript-release:
+	make -C lang/typescript publish
+
+publish-typescript-snapshot:
+	make -C lang/typescript publish-snapshot

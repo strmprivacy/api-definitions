@@ -31,3 +31,7 @@ lang/python/*.egg-info
 .google-common-protos/
 image.bin
 google-api-linter
+
+# TypeScript
+lang/typescript/build
+lang/typescript/dist

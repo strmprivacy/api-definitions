@@ -1,0 +1,43 @@
+include:
+  - project: 'stream-machine/tools-and-utilities/ci-templates'
+    file: '/nodejs/publish.yml'
+
+generate-typescript:
+  stage: generate
+  image: namely/protoc-all:latest
+  before_script:
+    - apt-get install -y make unzip
+    # Ensure that the protoc compiler has the Google protos
+    - make default-google-dependencies
+  script:
+    - make generate-typescript
+  artifacts:
+    paths:
+      - lang/typescript
+  needs:
+    - buf-lint
+    - aip-guidelines-lint
+    - breaking
+  except:
+    - master
+
+.typescript-needs:
+  stage: publish
+  needs:
+    - generate-typescript
+  dependencies:
+    - generate-typescript
+
+typescript-artifact-snapshot:
+  extends:
+    - .typescript-needs
+    - .nodejs-artifact-snapshot
+  script:
+    - make publish-typescript-snapshot
+
+typescript-artifact-release:
+  extends:
+    - .typescript-needs
+    - .nodejs-artifact-release
+  script:
+    - make publish-typescript-release

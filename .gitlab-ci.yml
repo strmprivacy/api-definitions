@@ -1,139 +1,18 @@
 include:
   - project: 'stream-machine/tools-and-utilities/ci-templates'
-    file: '/gradle/build-and-test.yml'
-  - project: 'stream-machine/tools-and-utilities/ci-templates'
-    file: '/gradle/jar-publish.yml'
-  - project: 'stream-machine/tools-and-utilities/ci-templates'
     file: '/common/semantic-release.yml'
-  - project: 'stream-machine/tools-and-utilities/ci-templates'
-    file: '/python/publish.yml'
-  - project: 'stream-machine/tools-and-utilities/ci-templates'
-    file: '/go/publish.yml'
+  - local: '.gitlab/go.yml'
+  - local: '.gitlab/jvm.yml'
+  - local: '.gitlab/lint-and-breaking.yml'
+  - local: '.gitlab/python.yml'
+  - local: '.gitlab/typescript.yml'
 
 stages:
-  - lint
-  - breaking-change
+  - lint-and-breaking
   - generate
   - release
   - publish
 
-.buf:
-  image: bufbuild/buf:latest
-  before_script:
-    - git clone https://gitlab-ci-token:${CI_JOB_TOKEN}@gitlab.com/stream-machine/tools-and-utilities/google-api-linter.git
-  except: # Do not run for tag pipelines and also do not run for master pipelines when it's a release commit
-    variables:
-      - ($CI_BUILD_REF_NAME == "master" && $CI_COMMIT_MESSAGE =~ /.*chore\(release\).*/) || $CI_COMMIT_TAG
-
-buf-lint:
-  extends: .buf
-  stage: lint
-  script:
-    - buf lint
-
-aip-guidelines-lint:
-  stage: lint
-  image: eu.gcr.io/stream-machine-development/google/api-linter:1.25.0
-  script:
-    - ./scripts/api-linter.sh
-  except: # Do not run for tag pipelines and also do not run for master pipelines when it's a release commit
-    variables:
-      - ($CI_BUILD_REF_NAME == "master" && $CI_COMMIT_MESSAGE =~ /.*chore\(release\).*/) || $CI_COMMIT_TAG
-
-.breaking:
-  extends: .buf
-  stage: breaking-change
-  script:
-    - export LATEST_TAG=$(git tag -l | sort -V | tail -n 1)
-    - echo "Latest tag = $LATEST_TAG"
-    - if [ ! -z "$LATEST_TAG" ] ; then ./scripts/buf-breaking.sh; fi
-
-generate-go:
-  stage: generate
-  image: namely/protoc-all:latest
-  before_script:
-    - apt-get install -y make unzip
-    # Ensure that the protoc compiler has the Google protos
-    - make default-protobuf-dependencies
-  script:
-    - make generate-go
-  artifacts:
-    paths:
-      - lang/go/build
-      - lang/go/VERSION
-    reports:
-      dotenv: VERSION.env
-  except:
-    - master
-
 release:
   stage: release
   extends: .semantic-release
-
-# ======= JVM Releases =======
-jvm-artifact-snapshot:
-  stage: publish
-  extends: .jar-snapshot-template
-  script:
-    - make publish-jvm
-
-jvm-artifact-release:
-  stage: publish
-  extends: .jar-release-template
-  script:
-    - make publish-jvm
-
-# ======= Python Releases =======
-python-artifact-test:
-  stage: publish
-  extends: .python-artifact-test
-  script:
-    - make publish-python-test
-
-python-artifact-release:
-  stage: publish
-  extends: .python-artifact-release
-  script:
-    - make publish-python-release
-
-python-public-artifact-test:
-  stage: publish
-  extends: .python-public-artifact-test
-  script:
-    - make publish-public-python-test
-
-python-public-artifact-release:
-  stage: publish
-  extends: .python-public-artifact-release
-  script:
-    - make publish-public-python-release
-
-# ======= Golang Releases =======
-.go:
-  variables:
-    GIT_USER_EMAIL: "apis@streammachine.io"
-    GIT_USER_NAME: "streammachineio-org"
-    REPOSITORY_URL: "https://git:${GITHUB_TOKEN}@github.com/streammachineio/api-definitions-go.git"
-
-go-repo-update:
-  stage: publish
-  extends:
-    - .go
-    - .go-repo-update
-  dependencies:
-    - generate-go
-  script:
-    - make setup-go
-    - cp -f -r lang/go/build/* lang/go/README.md lang/go/VERSION lang/go/LICENSE "${CI_COMMIT_SHA}"
-
-go-repo-update-and-tag:
-  stage: publish
-  extends:
-    - .go
-    - .go-repo-update-and-tag
-  dependencies:
-    - generate-go
-  script:
-    - make setup-go
-    - cp -f -r lang/go/build/* lang/go/README.md lang/go/VERSION lang/go/LICENSE "${CI_COMMIT_SHA}"
-

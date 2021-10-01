@@ -1,0 +1,52 @@
+include:
+  - project: 'stream-machine/tools-and-utilities/ci-templates'
+    file: '/go/publish.yml'
+
+generate-go:
+  stage: generate
+  image: namely/protoc-all:latest
+  before_script:
+    - apt-get install -y make unzip
+    # Ensure that the protoc compiler has the Google protos
+    - make default-google-dependencies
+  script:
+    - make generate-go
+  artifacts:
+    paths:
+      - lang/go/build
+      - lang/go/VERSION
+    reports:
+      dotenv: VERSION.env
+  needs:
+    - buf-lint
+    - aip-guidelines-lint
+    - breaking
+  except:
+    - master
+
+.go-needs:
+  stage: publish
+  variables:
+    GIT_USER_EMAIL: "apis@streammachine.io"
+    GIT_USER_NAME: "streammachineio-org"
+    REPOSITORY_URL: "https://git:${GITHUB_TOKEN}@github.com/streammachineio/api-definitions-go.git"
+  dependencies:
+    - generate-go
+  needs:
+    - generate-go
+
+go-repo-update:
+  extends:
+    - .go-needs
+    - .go-repo-update
+  script:
+    - make setup-go
+    - cp -f -r lang/go/build/* lang/go/README.md lang/go/VERSION lang/go/LICENSE "${CI_COMMIT_SHA}"
+
+go-repo-update-and-tag:
+  extends:
+    - .go-needs
+    - .go-repo-update-and-tag
+  script:
+    - make setup-go
+    - cp -f -r lang/go/build/* lang/go/README.md lang/go/VERSION lang/go/LICENSE "${CI_COMMIT_SHA}"
