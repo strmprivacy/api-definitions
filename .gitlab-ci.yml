@@ -140,6 +140,8 @@ go-repo-update:
     - .go-repo-update
   dependencies:
     - generate-go
+  needs:
+    - generate-go
   script:
     - make setup-go
     - cp -f -r lang/go/build/* lang/go/README.md lang/go/VERSION lang/go/LICENSE "${CI_COMMIT_SHA}"
@@ -151,6 +153,8 @@ go-repo-update-and-tag:
     - .go-repo-update-and-tag
   dependencies:
     - generate-go
+  needs:
+    - generate-go
   script:
     - make setup-go
     - cp -f -r lang/go/build/* lang/go/README.md lang/go/VERSION lang/go/LICENSE "${CI_COMMIT_SHA}"
@@ -161,6 +165,8 @@ typescript-artifact-snapshot:
   extends: .nodejs-artifact-snapshot
   dependencies:
     - generate-typescript
+  needs:
+    - generate-typescript
   script:
     - make publish-typescript-snapshot
 
@@ -168,6 +174,8 @@ typescript-artifact-release:
   stage: publish
   extends: .nodejs-artifact-release
   dependencies:
+    - generate-typescript
+  needs:
     - generate-typescript
   script:
     - make publish-typescript-release
