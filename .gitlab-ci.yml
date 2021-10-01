@@ -14,8 +14,8 @@ include:
     ref: 'nodejs'
 
 stages:
-  - lint
-  - breaking-change
+#  - lint
+#  - breaking-change
   - generate
   - release
   - publish
