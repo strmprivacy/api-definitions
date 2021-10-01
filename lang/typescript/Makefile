@@ -20,5 +20,8 @@ build:
 	npm run dist
 
 publish:
-
+	npm run authenticate
+	npm publish
 publish-local:
+	npm run authenticate
+	npm link
