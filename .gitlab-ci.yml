@@ -8,8 +8,7 @@ include:
   - local: '.gitlab/typescript.yml'
 
 stages:
-  - lint
-  - breaking-change
+  - lint-and-breaking
   - generate
   - release
   - publish

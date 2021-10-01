@@ -14,25 +14,30 @@ generate-typescript:
   artifacts:
     paths:
       - lang/typescript
+  needs:
+    - buf-lint
+    - aip-guidelines-lint
+    - breaking
   except:
     - master
 
-typescript-artifact-snapshot:
+.typescript-needs:
   stage: publish
-  extends: .nodejs-artifact-snapshot
-  dependencies:
-    - generate-typescript
   needs:
     - generate-typescript
+  dependencies:
+    - generate-typescript
+
+typescript-artifact-snapshot:
+  extends:
+    - .typescript-needs
+    - .nodejs-artifact-snapshot
   script:
     - make publish-typescript-snapshot
 
 typescript-artifact-release:
-  stage: publish
-  extends: .nodejs-artifact-release
-  dependencies:
-    - generate-typescript
-  needs:
-    - generate-typescript
+  extends:
+    - .typescript-needs
+    - .nodejs-artifact-release
   script:
     - make publish-typescript-release

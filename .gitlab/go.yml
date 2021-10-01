@@ -17,37 +17,36 @@ generate-go:
       - lang/go/VERSION
     reports:
       dotenv: VERSION.env
+  needs:
+    - buf-lint
+    - aip-guidelines-lint
+    - breaking
   except:
     - master
 
-.go:
+.go-needs:
+  stage: publish
   variables:
     GIT_USER_EMAIL: "apis@streammachine.io"
     GIT_USER_NAME: "streammachineio-org"
     REPOSITORY_URL: "https://git:${GITHUB_TOKEN}@github.com/streammachineio/api-definitions-go.git"
-
-go-repo-update:
-  stage: publish
-  extends:
-    - .go
-    - .go-repo-update
   dependencies:
     - generate-go
   needs:
     - generate-go
+
+go-repo-update:
+  extends:
+    - .go-needs
+    - .go-repo-update
   script:
     - make setup-go
     - cp -f -r lang/go/build/* lang/go/README.md lang/go/VERSION lang/go/LICENSE "${CI_COMMIT_SHA}"
 
 go-repo-update-and-tag:
-  stage: publish
   extends:
-    - .go
+    - .go-needs
     - .go-repo-update-and-tag
-  dependencies:
-    - generate-go
-  needs:
-    - generate-go
   script:
     - make setup-go
     - cp -f -r lang/go/build/* lang/go/README.md lang/go/VERSION lang/go/LICENSE "${CI_COMMIT_SHA}"

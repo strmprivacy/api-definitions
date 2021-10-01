@@ -4,19 +4,23 @@ include:
   - project: 'stream-machine/tools-and-utilities/ci-templates'
     file: '/gradle/jar-publish.yml'
 
-# ======= JVM Releases =======
-jvm-artifact-snapshot:
+.jvm-needs:
   stage: publish
-  extends: .jar-snapshot-template
   needs:
+    - buf-lint
+    - aip-guidelines-lint
     - breaking
+
+jvm-artifact-snapshot:
+  extends:
+    - .jvm-needs
+    - .jar-snapshot-template
   script:
     - make publish-jvm
 
 jvm-artifact-release:
-  stage: publish
-  extends: .jar-release-template
-  needs:
-    - breaking
+  extends:
+    - .jvm-needs
+    - .jar-release-template
   script:
     - make publish-jvm

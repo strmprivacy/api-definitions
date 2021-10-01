@@ -1,5 +1,6 @@
 .buf:
   image: bufbuild/buf:latest
+  stage: lint-and-breaking
   before_script:
     - git clone https://gitlab-ci-token:${CI_JOB_TOKEN}@gitlab.com/stream-machine/tools-and-utilities/google-api-linter.git
   except: # Do not run for tag pipelines and also do not run for master pipelines when it's a release commit
@@ -8,12 +9,11 @@
 
 buf-lint:
   extends: .buf
-  stage: lint
   script:
     - buf lint
 
 aip-guidelines-lint:
-  stage: lint
+  stage: lint-and-breaking
   image: eu.gcr.io/stream-machine-development/google/api-linter:1.25.0
   script:
     - ./scripts/api-linter.sh
@@ -23,7 +23,6 @@ aip-guidelines-lint:
 
 breaking:
   extends: .buf
-  stage: breaking-change
   script:
     - export LATEST_TAG=$(git tag -l | sort -V | tail -n 1)
     - echo "Latest tag = $LATEST_TAG"
