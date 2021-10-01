@@ -131,6 +131,9 @@ clean-go:
 clean-typescript:
 	make -C lang/typescript clean
 
+generate-typescript:
+	make -C lang/typescript generate
+
 build-typescript:
 	make -C lang/typescript build
 
@@ -139,6 +142,3 @@ publish-typescript-release:
 
 publish-typescript-snapshot:
 	make -C lang/typescript publish-snapshot
-
-publish-local-typescript:
-	make -C lang/typescript publish-local

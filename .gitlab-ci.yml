@@ -69,6 +69,21 @@ generate-go:
   except:
     - master
 
+generate-typescript:
+  stage: generate
+  image: namely/protoc-all:latest
+  before_script:
+    - apt-get install -y make unzip
+    # Ensure that the protoc compiler has the Google protos
+    - make default-protobuf-dependencies
+  script:
+    - make generate-typescript
+  artifacts:
+    paths:
+      - lang/typescript
+  except:
+    - master
+
 release:
   stage: release
   extends: .semantic-release
@@ -144,11 +159,15 @@ go-repo-update-and-tag:
 typescript-artifact-snapshot:
   stage: publish
   extends: .nodejs-artifact-snapshot
+  dependencies:
+    - generate-typescript
   script:
     - make publish-typescript-snapshot
 
 typescript-artifact-release:
   stage: publish
   extends: .nodejs-artifact-release
+  dependencies:
+    - generate-typescript
   script:
     - make publish-typescript-release
