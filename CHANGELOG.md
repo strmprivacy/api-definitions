@@ -1,3 +1,10 @@
+# [1.23.0](https://gitlab.com/stream-machine/api-definitions/compare/v1.22.0...v1.23.0) (2021-10-01)
+
+
+### Features
+
+* added grpc-web with typescript ([fffbbe5](https://gitlab.com/stream-machine/api-definitions/commit/fffbbe5fb47ef7bfda27538f7c95d7fcca441fd4))
+
 # [1.22.0](https://gitlab.com/stream-machine/api-definitions/compare/v1.21.0...v1.22.0) (2021-09-23)
 
 
