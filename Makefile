@@ -131,7 +131,7 @@ clean-go:
 clean-typescript:
 	make -C lang/typescript clean
 
-generate-typescript:
+generate-typescript: ${common_protos}/google
 	make -C lang/typescript generate
 
 build-typescript:
