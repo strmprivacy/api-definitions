@@ -57,7 +57,7 @@ stages:
 #  before_script:
 #    - apt-get install -y make unzip
 #    # Ensure that the protoc compiler has the Google protos
-#    - make default-protobuf-dependencies
+#    - make default-google-dependencies
 #  script:
 #    - make generate-go
 #  artifacts:
@@ -75,7 +75,7 @@ generate-typescript:
   before_script:
     - apt-get install -y make unzip
     # Ensure that the protoc compiler has the Google protos
-    - make default-protobuf-dependencies
+    - make default-google-dependencies
   script:
     - make generate-typescript
   artifacts:
