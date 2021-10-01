@@ -19,11 +19,11 @@ build:
 	npm install
 	npm run dist
 
-publish:
+publish: build
 	npm run authenticate
 	npm publish
 
-publish-snapshot:
+publish-snapshot: build
 	npm version "$$(npm run get-version --silent)-$$CI_PIPELINE_ID"
 	npm run authenticate
 	npm publish
