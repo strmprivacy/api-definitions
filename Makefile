@@ -132,7 +132,7 @@ clean-typescript:
 	make -C lang/typescript clean
 
 generate-typescript: ${common_protos}/google
-	apt-get tree
+	apt-get install -y tree
 	tree ${common_protos}
 	make -C lang/typescript generate
 
