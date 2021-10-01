@@ -9,6 +9,9 @@ include:
     file: '/python/publish.yml'
   - project: 'stream-machine/tools-and-utilities/ci-templates'
     file: '/go/publish.yml'
+  - project: 'stream-machine/tools-and-utilities/ci-templates'
+    file: '/nodejs/publish.yml'
+    ref: 'nodejs'
 
 stages:
   - lint
@@ -137,3 +140,9 @@ go-repo-update-and-tag:
     - make setup-go
     - cp -f -r lang/go/build/* lang/go/README.md lang/go/VERSION lang/go/LICENSE "${CI_COMMIT_SHA}"
 
+# ======= Typescript Releases =======
+typescript-artifact-release:
+  stage: publish
+  extends: .nodejs-artifact-release
+  script:
+    - make publish-typescript
