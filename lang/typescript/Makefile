@@ -22,6 +22,12 @@ build:
 publish:
 	npm run authenticate
 	npm publish
+
+publish-snapshot:
+	npm version "$$(npm run get-version --silent)-$$CI_PIPELINE_ID"
+	npm run authenticate
+	npm publish
+
 publish-local:
 	npm run authenticate
 	npm link
