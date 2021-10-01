@@ -134,8 +134,11 @@ clean-typescript:
 build-typescript:
 	make -C lang/typescript build
 
-publish-typescript:
+publish-typescript-release:
 	make -C lang/typescript publish
+
+publish-typescript-snapshot:
+	make -C lang/typescript publish-snapshot
 
 publish-local-typescript:
 	make -C lang/typescript publish-local

@@ -141,8 +141,14 @@ go-repo-update-and-tag:
     - cp -f -r lang/go/build/* lang/go/README.md lang/go/VERSION lang/go/LICENSE "${CI_COMMIT_SHA}"
 
 # ======= Typescript Releases =======
+typescript-artifact-snapshot:
+  stage: publish
+  extends: .nodejs-artifact-snapshot
+  script:
+    - make publish-typescript-snapshot
+
 typescript-artifact-release:
   stage: publish
   extends: .nodejs-artifact-release
   script:
-    - make publish-typescript
+    - make publish-typescript-release
