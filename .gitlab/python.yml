@@ -1,0 +1,35 @@
+include:
+  - project: 'stream-machine/tools-and-utilities/ci-templates'
+    file: '/python/publish.yml'
+
+python-artifact-test:
+  stage: publish
+  extends: .python-artifact-test
+  needs:
+    - breaking
+  script:
+    - make publish-python-test
+
+python-artifact-release:
+  stage: publish
+  extends: .python-artifact-release
+  needs:
+    - breaking
+  script:
+    - make publish-python-release
+
+python-public-artifact-test:
+  stage: publish
+  extends: .python-public-artifact-test
+  needs:
+    - breaking
+  script:
+    - make publish-public-python-test
+
+python-public-artifact-release:
+  stage: publish
+  extends: .python-public-artifact-release
+  needs:
+    - breaking
+  script:
+    - make publish-public-python-release

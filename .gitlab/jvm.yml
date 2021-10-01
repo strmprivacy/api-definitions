@@ -1,0 +1,22 @@
+include:
+  - project: 'stream-machine/tools-and-utilities/ci-templates'
+    file: '/gradle/build-and-test.yml'
+  - project: 'stream-machine/tools-and-utilities/ci-templates'
+    file: '/gradle/jar-publish.yml'
+
+# ======= JVM Releases =======
+jvm-artifact-snapshot:
+  stage: publish
+  extends: .jar-snapshot-template
+  needs:
+    - breaking
+  script:
+    - make publish-jvm
+
+jvm-artifact-release:
+  stage: publish
+  extends: .jar-release-template
+  needs:
+    - breaking
+  script:
+    - make publish-jvm
