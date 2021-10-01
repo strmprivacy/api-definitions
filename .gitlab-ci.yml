@@ -93,8 +93,7 @@ jvm-artifact-snapshot:
   stage: publish
   extends: .jar-snapshot-template
   needs:
-    - buf-lint
-    - aip-guidelines-lint
+    - breaking
   script:
     - make publish-jvm
 
@@ -102,8 +101,7 @@ jvm-artifact-release:
   stage: publish
   extends: .jar-release-template
   needs:
-    - buf-lint
-    - aip-guidelines-lint
+    - breaking
   script:
     - make publish-jvm
 
@@ -112,8 +110,7 @@ python-artifact-test:
   stage: publish
   extends: .python-artifact-test
   needs:
-    - buf-lint
-    - aip-guidelines-lint
+    - breaking
   script:
     - make publish-python-test
 
@@ -121,8 +118,7 @@ python-artifact-release:
   stage: publish
   extends: .python-artifact-release
   needs:
-    - buf-lint
-    - aip-guidelines-lint
+    - breaking
   script:
     - make publish-python-release
 
@@ -130,8 +126,7 @@ python-public-artifact-test:
   stage: publish
   extends: .python-public-artifact-test
   needs:
-    - buf-lint
-    - aip-guidelines-lint
+    - breaking
   script:
     - make publish-public-python-test
 
@@ -139,8 +134,7 @@ python-public-artifact-release:
   stage: publish
   extends: .python-public-artifact-release
   needs:
-    - buf-lint
-    - aip-guidelines-lint
+    - breaking
   script:
     - make publish-public-python-release
 
