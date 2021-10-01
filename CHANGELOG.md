@@ -1,3 +1,36 @@
+# [1.23.0](https://gitlab.com/stream-machine/api-definitions/compare/v1.22.0...v1.23.0) (2021-10-01)
+
+
+### Bug Fixes
+
+* build ([b9720f7](https://gitlab.com/stream-machine/api-definitions/commit/b9720f72a18696e0448067871b50ac66bffd752f))
+* build ([c0741ca](https://gitlab.com/stream-machine/api-definitions/commit/c0741ca57d49e20b1687bef1b9db63a1af07f824))
+* build ([23bda01](https://gitlab.com/stream-machine/api-definitions/commit/23bda0137dd34b7f123df2e3e34bcba0cb5668f6))
+* build ([6bbe1f4](https://gitlab.com/stream-machine/api-definitions/commit/6bbe1f4c8e1b3a3e57b686c027c44e5a1e55521d))
+* build ([abd75cb](https://gitlab.com/stream-machine/api-definitions/commit/abd75cbe0a43ff12c264d16572683d34e9166000))
+* build ([af6300a](https://gitlab.com/stream-machine/api-definitions/commit/af6300aab1ee0a6802763300ff90012e6911fdb3))
+* build ([6446816](https://gitlab.com/stream-machine/api-definitions/commit/6446816d955860f017386cd7307c73231466b18d))
+* needs ([c2719a3](https://gitlab.com/stream-machine/api-definitions/commit/c2719a3b5845447a950a584f2b96811c94d0ec15))
+* needs ([37cde49](https://gitlab.com/stream-machine/api-definitions/commit/37cde49e03fb7f46b4cd799c4e9949f8717de7fb))
+* needs ([e80cf1a](https://gitlab.com/stream-machine/api-definitions/commit/e80cf1aba2e8fdd5cbd6e835ba38a171b6834749))
+* needs ([5280ba6](https://gitlab.com/stream-machine/api-definitions/commit/5280ba6f35e05321a441350ab5cf8ba9ae9d755b))
+* needs ([6eafec1](https://gitlab.com/stream-machine/api-definitions/commit/6eafec12d8cee692a640170a1f2c01756e02072e))
+* needs ([ef3e9d4](https://gitlab.com/stream-machine/api-definitions/commit/ef3e9d4ed853ff18807af7526c497d74c419a604))
+* only ts ([6fad8da](https://gitlab.com/stream-machine/api-definitions/commit/6fad8dac896e0995e66471ff7a8e0005694b5727))
+* only ts ([5efad18](https://gitlab.com/stream-machine/api-definitions/commit/5efad189a900435a68742685399d4e4ae3ea5c23))
+* only ts ([6430263](https://gitlab.com/stream-machine/api-definitions/commit/64302639ebe15e510c746abd3824721b1419b6d3))
+* only ts ([73ce508](https://gitlab.com/stream-machine/api-definitions/commit/73ce508751d406a696f56c9e4d5010241383873f))
+* small tweaks ([937c76f](https://gitlab.com/stream-machine/api-definitions/commit/937c76f9381fd42db7b5a3166b2768beed15aa32))
+* small tweaks ([5119224](https://gitlab.com/stream-machine/api-definitions/commit/511922423c309704c5693961a66c3aa4cd4d3744))
+* small tweaks ([bb34d4c](https://gitlab.com/stream-machine/api-definitions/commit/bb34d4cbb721cd1cdd029e37816823b92d67c38b))
+* workaround ([8caa433](https://gitlab.com/stream-machine/api-definitions/commit/8caa433d90dfacc8d164616010655bdfb59e3770))
+
+
+### Features
+
+* added grpc-web with typescript ([fffbbe5](https://gitlab.com/stream-machine/api-definitions/commit/fffbbe5fb47ef7bfda27538f7c95d7fcca441fd4))
+* added grpc-web with typescript ([136d919](https://gitlab.com/stream-machine/api-definitions/commit/136d919617b7f833b91371f06f2a246157a1dd40))
+
 # [1.22.0](https://gitlab.com/stream-machine/api-definitions/compare/v1.21.0...v1.22.0) (2021-09-23)
 
 
