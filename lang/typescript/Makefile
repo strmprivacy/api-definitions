@@ -1,4 +1,4 @@
-.PHONY: clean build publish
+.PHONY: clean build publish publish-snapshot
 
 build_dir := build
 dist_dir := dist
