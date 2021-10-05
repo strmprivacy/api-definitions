@@ -28,7 +28,7 @@ repositories {
 plugins {
     id("java-library")
     id("maven-publish")
-    id("org.jetbrains.kotlin.jvm")
+    kotlin("jvm")
     id("com.google.cloud.artifactregistry.gradle-plugin")
     id("com.google.protobuf")
     id("org.ajoberstar.grgit")
@@ -44,9 +44,13 @@ dependencies {
     implementation("io.grpc:grpc-protobuf:${rootProject.ext["grpcVersion"]}")
 
     api("com.google.protobuf:protobuf-java-util:${rootProject.ext["protobufVersion"]}")
+    implementation("com.google.protobuf:protobuf-kotlin:${rootProject.ext["protobufVersion"]}")
 
     // Coroutines are used in the health service, since it streams data
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:${rootProject.ext["kotlinXVersion"]}")
+
+    implementation(kotlin("stdlib-jdk8"))
+    testRuntimeOnly("io.grpc:grpc-netty-shaded:${rootProject.ext["grpcVersion"]}")
 }
 
 java.sourceCompatibility = JavaVersion.VERSION_14
@@ -59,6 +63,7 @@ tasks.withType<JavaCompile> {
 tasks.withType<KotlinCompile> {
     kotlinOptions {
         jvmTarget = "14"
+        freeCompilerArgs = listOf("-Xopt-in=kotlin.RequiresOptIn")
     }
 }
 
@@ -97,6 +102,9 @@ protobuf {
     }
     generateProtoTasks {
         all().forEach {
+            it.builtins.register("kotlin") {
+                outputSubDir = "java"
+            }
 
             it.plugins {
                 id("grpc") {
