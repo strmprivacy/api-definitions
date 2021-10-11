@@ -13,7 +13,7 @@ service InternalQuotasService {
 }
 
 message GetQuotasRequest {
-  string external_user_id = 1 [(google.api.field_behavior) = REQUIRED];
+  string legacy_billing_id = 1 [(google.api.field_behavior) = REQUIRED];
 }
 
 message GetQuotasResponse {
