@@ -19,6 +19,8 @@ message GetQuotasRequest {
 message GetQuotasResponse {
   int32 max_streams = 1 [(google.api.field_behavior) = REQUIRED];
   int64 max_events_per_month = 2 [(google.api.field_behavior) = REQUIRED];
+  // (-- api-linter: core::0142::time-field-type=disabled
+  //     aip.dev/not-precedent: This is not a timestamp Google. AIP guidelines sees this as a timestamp. --)
   int64 max_events_per_sec = 3 [(google.api.field_behavior) = REQUIRED];
   bool key_streams = 4 [(google.api.field_behavior) = REQUIRED];
 }
