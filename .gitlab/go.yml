@@ -10,7 +10,7 @@ generate-go:
     # Ensure that the protoc compiler has the Google protos
     - make default-google-dependencies
   script:
-    - make generate-go
+    - make go-generate
   artifacts:
     paths:
       - lang/go/build
@@ -40,7 +40,7 @@ go-repo-update:
     - .go-needs
     - .go-repo-update
   script:
-    - make setup-go
+    - make go-setup
     - cp -f -r lang/go/build/* lang/go/README.md lang/go/VERSION lang/go/LICENSE "${CI_COMMIT_SHA}"
 
 go-repo-update-and-tag:
@@ -48,5 +48,5 @@ go-repo-update-and-tag:
     - .go-needs
     - .go-repo-update-and-tag
   script:
-    - make setup-go
+    - make go-setup
     - cp -f -r lang/go/build/* lang/go/README.md lang/go/VERSION lang/go/LICENSE "${CI_COMMIT_SHA}"

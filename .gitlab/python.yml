@@ -14,21 +14,21 @@ python-artifact-test:
     - .python-needs
     - .python-artifact-test
   script:
-    - make publish-python-test
+    - make python-publish-test
 
 python-artifact-release:
   extends:
     - .python-needs
     - .python-artifact-release
   script:
-    - make publish-python-release
+    - make python-publish-release
 
 python-public-artifact-test:
   extends:
     - .python-needs
     - .python-public-artifact-test
   script:
-    - make publish-public-python-test
+    - make python-publish-public-test
 
 python-public-artifact-release:
   stage: publish
@@ -36,4 +36,4 @@ python-public-artifact-release:
     - .python-needs
     - .python-public-artifact-release
   script:
-    - make publish-public-python-release
+    - make python-publish-public-release

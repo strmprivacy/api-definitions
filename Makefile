@@ -60,88 +60,88 @@ buf-lint: ${common_protos}/google/api ${common_protos}/google/protobuf
 api-lint:
 	docker run --rm -v "${pwd}:/workspace" eu.gcr.io/stream-machine-development/google/api-linter:1.25.0 ./scripts/api-linter.sh
 
-clean-docs:
+docs-clean:
 	rm -rf docs
 
-docs: clean-docs
+docs: docs-clean
 	docker run --rm -v "$(pwd)/docs:/out" -v "$(pwd)/protos:/protos" -v "$(pwd)/lang:/lang" pseudomuto/protoc-gen-doc ${relative_proto_files} --proto_path=lang/.common-protos --doc_opt=html,index.html
 
 # =======================
 # Build and publish tasks
 # =======================
-clean: clean-jvm clean-python clean-go
-build: build-jvm build-python build-go
+clean: jvm-clean python-clean go-clean
+build: jvm-build python-build go-build
 
 # -----------------
 # JVM
 # -----------------
-clean-jvm:
+jvm-clean:
 	make -C lang/jvm clean
 
-build-jvm:
+jvm-build:
 	make -C lang/jvm build
 
-publish-jvm:
+jvm-publish:
 	make -C lang/jvm publish
 
-publish-local-jvm:
+jvm-publish-local:
 	make -C lang/jvm publish-local
 
 # -----------------
 # Python
 # -----------------
-clean-python:
+python-clean:
 	make -C lang/python clean
 
-build-python: ${common_protos}/google/api ${common_protos}/google/protobuf VERSION.env
+python-build: ${common_protos}/google/api ${common_protos}/google/protobuf VERSION.env
 	make -C lang/python generate build
 
-build-public-python: ${common_protos}/google/api ${common_protos}/google/protobuf VERSION.env
+python-build-public: ${common_protos}/google/api ${common_protos}/google/protobuf VERSION.env
 	make -C lang/python generate-public build
 
-publish-python-test: ${common_protos}/google/api ${common_protos}/google/protobuf VERSION.env
+python-publish-test: ${common_protos}/google/api ${common_protos}/google/protobuf VERSION.env
 	make -C lang/python publish-test
 
-publish-python-release: ${common_protos}/google/api ${common_protos}/google/protobuf VERSION.env
+python-publish-release: ${common_protos}/google/api ${common_protos}/google/protobuf VERSION.env
 	make -C lang/python publish
 
-publish-public-python-test: ${common_protos}/google/api ${common_protos}/google/protobuf VERSION.env
+python-publish-public-test: ${common_protos}/google/api ${common_protos}/google/protobuf VERSION.env
 	make -C lang/python publish-public-test
 
-publish-public-python-release: ${common_protos}/google/api ${common_protos}/google/protobuf VERSION.env
+python-publish-public-release: ${common_protos}/google/api ${common_protos}/google/protobuf VERSION.env
 	make -C lang/python publish-public
 
 # -----------------
 # Golang
 # -----------------
-generate-go: ${common_protos}/google/api ${common_protos}/google/protobuf VERSION.env
+go-generate: ${common_protos}/google/api ${common_protos}/google/protobuf VERSION.env
 	make -C lang/go generate
 
-setup-go:
+go-setup:
 	make -C lang/go setup
 
-build-go: ${common_protos}/google/api ${common_protos}/google/protobuf VERSION.env
+go-build: ${common_protos}/google/api ${common_protos}/google/protobuf VERSION.env
 	make -C lang/go build
 
-clean-go:
+go-clean:
 	make -C lang/go clean
 
 # -----------------
 # TypeScript
 # -----------------
-clean-typescript:
+typescript-clean:
 	make -C lang/typescript clean
 
-generate-typescript: ${common_protos}/google/api ${common_protos}/google/protobuf
+typescript-generate: ${common_protos}/google/api ${common_protos}/google/protobuf
 	apt-get install -y tree
 	tree ${common_protos}
 	make -C lang/typescript generate
 
-build-typescript:
+typescript-build:
 	make -C lang/typescript build
 
-publish-typescript-release:
+typescript-publish-release:
 	make -C lang/typescript publish
 
-publish-typescript-snapshot:
+typescript-publish-snapshot:
 	make -C lang/typescript publish-snapshot

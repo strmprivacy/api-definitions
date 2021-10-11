@@ -16,11 +16,11 @@ jvm-artifact-snapshot:
     - .jvm-needs
     - .jar-snapshot-template
   script:
-    - make publish-jvm
+    - make jvm-publish
 
 jvm-artifact-release:
   extends:
     - .jvm-needs
     - .jar-release-template
   script:
-    - make publish-jvm
+    - make jvm-publish

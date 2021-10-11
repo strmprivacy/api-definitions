@@ -10,7 +10,7 @@ generate-typescript:
     # Ensure that the protoc compiler has the Google protos
     - make default-google-dependencies
   script:
-    - make generate-typescript
+    - make typescript-generate
   artifacts:
     paths:
       - lang/typescript
@@ -33,11 +33,11 @@ typescript-artifact-snapshot:
     - .typescript-needs
     - .nodejs-artifact-snapshot
   script:
-    - make publish-typescript-snapshot
+    - make typescript-publish-snapshot
 
 typescript-artifact-release:
   extends:
     - .typescript-needs
     - .nodejs-artifact-release
   script:
-    - make publish-typescript-release
+    - make typescript-publish-release
