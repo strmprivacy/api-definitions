@@ -1,3 +1,14 @@
+# [1.24.0](https://gitlab.com/stream-machine/api-definitions/compare/v1.23.0...v1.24.0) (2021-10-12)
+
+
+### Features
+
+* **quotas-api:** rename key_streams to encryption_key_streams_allowed ([fadee51](https://gitlab.com/stream-machine/api-definitions/commit/fadee51c9cb82050d75867bcb07559da2002d9b6))
+* **quotas-api:** use legacy billing id for now, as we don't have external user id everywhere ([5f5d26e](https://gitlab.com/stream-machine/api-definitions/commit/5f5d26e0cb877defab283f34633602265cb7956e))
+* rename max_total_events to be clear about timeframe ([7b8f822](https://gitlab.com/stream-machine/api-definitions/commit/7b8f82251fc5aa5507d9f9b8178c1a64d895b12b))
+* **quotas-api:** modify the response message ([241902a](https://gitlab.com/stream-machine/api-definitions/commit/241902a00a0ce62dfd8c3b1b112e8348b4ffb6ae))
+* add quotas api ([9a291a4](https://gitlab.com/stream-machine/api-definitions/commit/9a291a4fcebb068d90d70b7acb9dada589eea16c))
+
 # [1.23.0](https://gitlab.com/stream-machine/api-definitions/compare/v1.22.0...v1.23.0) (2021-10-01)
 
 
