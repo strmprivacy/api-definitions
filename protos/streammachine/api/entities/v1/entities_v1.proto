@@ -99,6 +99,11 @@ message BucketConfig {
   string bucket_name = 4 [(google.api.field_behavior) = REQUIRED];
   // The credentials that are to be used to access the sink target (e.g. S3 or Google Cloud Storage)
   string credentials = 5 [(google.api.field_behavior) = REQUIRED];
+  /* The ARN of the role to assume.
+     If present, start an AssumeRole flow to get temporary credentials in another AWS account.
+     This is used when the customer has a separate users account.
+     Default there is no assumed role. */
+  string assume_role_arn = 6;
 }
 
 /*
