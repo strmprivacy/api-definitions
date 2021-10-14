@@ -1,3 +1,10 @@
+# [1.25.0](https://gitlab.com/stream-machine/api-definitions/compare/v1.24.0...v1.25.0) (2021-10-14)
+
+
+### Features
+
+* add assume_role_arn for AWS multi-account setups ([f464ac8](https://gitlab.com/stream-machine/api-definitions/commit/f464ac80839288bda9eda7481ca2a179d0c8d096))
+
 # [1.24.0](https://gitlab.com/stream-machine/api-definitions/compare/v1.23.0...v1.24.0) (2021-10-12)
 
 
