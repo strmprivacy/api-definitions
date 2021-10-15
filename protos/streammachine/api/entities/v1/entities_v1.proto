@@ -34,6 +34,23 @@ message Stream {
   // customer purposes.
   repeated string tags = 8;
   repeated Credentials credentials = 9 [(google.api.field_behavior) = OUTPUT_ONLY];
+
+  // event contract ref
+  map<string, MaskedFields> masked_fields = 10;
+}
+
+message MaskedFields {
+  repeated MaskedField masked_fields = 1;
+}
+message MaskedField {
+  string field_path = 1;
+  string hash_type = 2 ; // default Murmurhash3
+  int32  seed_rotation_period = 3;
+  int32  seed_rotation_moment = 4 ; //
+  string stream_timezone = 5 ;
+
+
+
 }
 
 message Limits {
