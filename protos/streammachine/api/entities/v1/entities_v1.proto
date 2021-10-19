@@ -35,22 +35,21 @@ message Stream {
   repeated string tags = 8;
   repeated Credentials credentials = 9 [(google.api.field_behavior) = OUTPUT_ONLY];
 
-  // event contract ref
+  /* field masking is defined per OUTPUT stream and event-contract ref. combination
+
+  The default empty map means no masking. Otherwise, the algorithm in the decrypter is as follows.
+
+  * A source stream is (partially) decrypted, and events that don't have enough permissions are dropped.
+  * the event contract ref string is used to find a MaskedFields instance.
+  * if present, for all field patterns in the MaskedFields instance, the hash with the specified seed is applied.
+   */
   map<string, MaskedFields> masked_fields = 10;
 }
 
 message MaskedFields {
-  repeated MaskedField masked_fields = 1;
-}
-message MaskedField {
-  string field_path = 1;
-  string hash_type = 2 ; // default Murmurhash3
-  int32  seed_rotation_period = 3;
-  int32  seed_rotation_moment = 4 ; //
-  string stream_timezone = 5 ;
-
-
-
+  string hash_type = 1 ; // default Murmurhash3 for empty string
+  string seed = 2; // hashing seed
+  repeated string field_patterns = 3; // list of field patterns
 }
 
 message Limits {

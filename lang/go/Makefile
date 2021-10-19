@@ -10,7 +10,7 @@ VERSION: ../../Makefile ../../VERSION.env
 	. ./../../VERSION.env && echo "$$VERSION" > $@
 
 generate: VERSION
-	mkdir ${build_dir} && \
+	mkdir -p ${build_dir} && \
 	protoc ${public_proto_files} \
 		--proto_path=${protos_dir} \
 		--proto_path=${common_protos} \
