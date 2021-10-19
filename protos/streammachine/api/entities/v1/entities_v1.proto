@@ -47,9 +47,12 @@ message Stream {
 }
 
 message MaskedFields {
-  string hash_type = 1 ; // default Murmurhash3 for empty string
-  string seed = 2; // hashing seed
-  repeated string field_patterns = 3; // list of field patterns
+  // default Murmurhash3 for empty string
+  string hash_type = 1 ;
+  // hashing seed
+  string seed = 2;
+  // list of field patterns
+  repeated string field_patterns = 3;
 }
 
 message Limits {
