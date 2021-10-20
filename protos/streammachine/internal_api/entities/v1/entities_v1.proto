@@ -16,3 +16,9 @@ message ExtendedStream {
    * So when this flag is true, there are TWO topics associated with this stream. */
   bool key_stream = 4;
 }
+
+// used for configuring decrypters
+message ExtendedStreamGroup {
+  ExtendedStream source_stream = 1;
+  repeated ExtendedStream derived_streams = 2;
+}
