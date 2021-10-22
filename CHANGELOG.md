@@ -1,3 +1,18 @@
+# [1.26.0](https://gitlab.com/stream-machine/api-definitions/compare/v1.25.0...v1.26.0) (2021-10-22)
+
+
+### Bug Fixes
+
+* **ORB-231:** fix linter issue around proto docs ([97f8055](https://gitlab.com/stream-machine/api-definitions/commit/97f80558ea5088612c8c3ad0e7370689a9e43b43))
+* **ORB-231:** single MaskedField message for json serialization ([bdfe713](https://gitlab.com/stream-machine/api-definitions/commit/bdfe7131938f20f3b2b7596a34597c0fcc4a4620))
+
+
+### Features
+
+* **ORB-231:** added masked_fields attribute to Stream entity ([e7b3392](https://gitlab.com/stream-machine/api-definitions/commit/e7b33929b482f39329248ed23dae2e1b8b5733ab))
+* **ORB-231:** extended stream group added ([36e5d99](https://gitlab.com/stream-machine/api-definitions/commit/36e5d992dac85294aba8c08b8dfb194dbf27177e))
+* **streams:** added masked_fields attribute ([0c750d7](https://gitlab.com/stream-machine/api-definitions/commit/0c750d7366d22c77c7138fff3671916123f56c71))
+
 # [1.25.0](https://gitlab.com/stream-machine/api-definitions/compare/v1.24.0...v1.25.0) (2021-10-14)
 
 
