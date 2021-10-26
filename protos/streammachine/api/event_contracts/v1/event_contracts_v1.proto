@@ -15,6 +15,7 @@ service EventContractsService {
   rpc GetEventContract (GetEventContractRequest) returns (GetEventContractResponse);
   rpc CreateEventContract (CreateEventContractRequest) returns (CreateEventContractResponse);
   rpc UpdateEventContract (UpdateEventContractRequest) returns (UpdateEventContractResponse);
+  rpc ValidateMaskedFields (ValidateMaskedFieldsRequest) returns (ValidateMaskedFieldsResponse);
 }
 
 // List Event Contracts, with optional filters. All filters behave as AND conditions. OR is not possible.
@@ -84,4 +85,29 @@ message UpdateEventContractRequest {
 message UpdateEventContractResponse {
   streammachine.api.entities.v1.EventContract event_contract = 1;
   string checksum = 2 [(google.api.field_behavior) = OUTPUT_ONLY];
+}
+
+
+message ValidateMaskedFieldsRequest{
+  string billing_id = 1 [(google.api.field_behavior) = REQUIRED];
+  entities.v1.MaskedFields maskedFields = 2;
+}
+
+message ValidateMaskedFieldsResponse{
+  // any errors. When empty, all ok.
+  repeated Error errors = 1;
+
+  message Error {
+    // the event contract that were giving errors
+    entities.v1.EventContractRef eventContractRef = 1;
+    // for non field related errors (such as no event contract, or not allowed)
+    string message = 2;
+    // list of errors per field
+    repeated FieldError errors = 3;
+    message FieldError {
+      string fieldPattern = 1;
+      string fieldType = 2;
+      string message = 3;
+    }
+  }
 }
