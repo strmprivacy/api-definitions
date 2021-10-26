@@ -90,7 +90,7 @@ message UpdateEventContractResponse {
 
 message ValidateMaskedFieldsRequest{
   string billing_id = 1 [(google.api.field_behavior) = REQUIRED];
-  entities.v1.MaskedFields maskedFields = 2;
+  entities.v1.MaskedFields masked_fields = 2;
 }
 
 message ValidateMaskedFieldsResponse{
@@ -99,14 +99,14 @@ message ValidateMaskedFieldsResponse{
 
   message Error {
     // the event contract that were giving errors
-    entities.v1.EventContractRef eventContractRef = 1;
+    entities.v1.EventContractRef event_contract_ref = 1;
     // for non field related errors (such as no event contract, or not allowed)
     string message = 2;
     // list of errors per field
     repeated FieldError errors = 3;
     message FieldError {
-      string fieldPattern = 1;
-      string fieldType = 2;
+      string field_pattern = 1;
+      string field_type = 2;
       string message = 3;
     }
   }
