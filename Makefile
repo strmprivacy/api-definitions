@@ -18,7 +18,7 @@ export
 # =======================
 # Versions and dependencies
 # =======================
-streammachine_api_version := 1.26.0
+streammachine_api_version := 1.27.0
 
 grpc_version := 1.38.1
 protobuf_version := 3.17.3# make sure to update schema-tools as well

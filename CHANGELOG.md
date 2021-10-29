@@ -1,3 +1,11 @@
+# [1.27.0](https://gitlab.com/stream-machine/api-definitions/compare/v1.26.0...v1.27.0) (2021-10-29)
+
+
+### Features
+
+* api-linter ([8b00895](https://gitlab.com/stream-machine/api-definitions/commit/8b00895b1eaf9a79868f6ef378b4410e5b19f478))
+* **masked-fields:** added ValidateMaskedFields to event contract service ([1d6d1b2](https://gitlab.com/stream-machine/api-definitions/commit/1d6d1b2f7d36534fc3cd7739abc564c420ef0f79))
+
 # [1.26.0](https://gitlab.com/stream-machine/api-definitions/compare/v1.25.0...v1.26.0) (2021-10-22)
 
 
