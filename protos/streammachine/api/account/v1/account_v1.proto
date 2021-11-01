@@ -12,6 +12,13 @@ service AccountService {
   rpc GetAccountDetails (GetAccountDetailsRequest) returns (GetAccountDetailsResponse);
   rpc GetLegacyBillingId (GetLegacyBillingIdRequest) returns (GetLegacyBillingIdResponse);
   rpc CreateAccountHandle (CreateAccountHandleRequest) returns (CreateAccountHandleResponse);
+  rpc InitializeCheckout (InitializeCheckoutRequest) returns (InitializeCheckoutResponse);
+  rpc GetCheckoutStatus (GetCheckoutStatusRequest) returns (GetCheckoutStatusResponse);
+  rpc InitializeCustomerPortal (InitializeCustomerPortalRequest) returns (InitializeCustomerPortalResponse);
+
+  // (-- api-linter: core::0134::synonyms=disabled
+  //     aip.dev/not-precedent: We're not updating a Checkout here. --)
+  rpc SetCheckoutCancelled (SetCheckoutCancelledRequest) returns (SetCheckoutCancelledResponse);
 }
 
 message GetAccountDetailsRequest {
@@ -22,6 +29,7 @@ message GetAccountDetailsResponse {
   string billing_id = 1 [(google.api.field_behavior) = REQUIRED];
   int32 max_input_streams = 2 [(google.api.field_behavior) = REQUIRED];
   string handle = 3 [(google.api.field_behavior) = OPTIONAL];
+  string subscription = 4 [(google.api.field_behavior) = REQUIRED];
 }
 
 message GetLegacyBillingIdRequest {
@@ -40,4 +48,38 @@ message CreateAccountHandleRequest {
 
 message CreateAccountHandleResponse {
   string handle = 1 [(google.api.field_behavior) = REQUIRED];
+}
+
+message InitializeCheckoutRequest {
+  string plan_id = 1 [(google.api.field_behavior) = REQUIRED];
+  string user_id = 2;
+}
+
+message InitializeCheckoutResponse {
+  string checkout_uri = 1 [(google.api.field_behavior) = REQUIRED];
+}
+
+message GetCheckoutStatusRequest {
+  string user_id = 1 [(google.api.field_behavior) = REQUIRED];
+  string checkout_session_id = 2 [(google.api.field_behavior) = REQUIRED];
+}
+
+message GetCheckoutStatusResponse {
+  string status = 1;
+}
+
+message SetCheckoutCancelledRequest {
+  string user_id = 1 [(google.api.field_behavior) = REQUIRED];
+  string checkout_session_id = 2 [(google.api.field_behavior) = REQUIRED];
+}
+
+message SetCheckoutCancelledResponse {
+}
+
+message InitializeCustomerPortalRequest {
+  string user_id = 1 [(google.api.field_behavior) = REQUIRED];
+}
+
+message InitializeCustomerPortalResponse {
+  string customer_portal_uri = 1 [(google.api.field_behavior) = REQUIRED];
 }

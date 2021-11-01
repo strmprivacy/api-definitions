@@ -133,8 +133,6 @@ typescript-clean:
 	make -C lang/typescript clean
 
 typescript-generate: ${common_protos}/google/api ${common_protos}/google/protobuf
-	apt-get install -y tree
-	tree ${common_protos}
 	make -C lang/typescript generate
 
 typescript-build:

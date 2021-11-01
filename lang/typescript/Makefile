@@ -10,8 +10,6 @@ clean:
 generate:
 	mkdir -p ${build_dir}
 	mkdir -p ${dist_dir}
-	echo ${proto_files}
-	echo ${common_proto_files}
 	protoc ${proto_files} ${common_proto_files} \
 		--proto_path=${protos_dir} \
 		--proto_path=${common_protos} \
@@ -20,7 +18,7 @@ generate:
 
 build:
 	npm run authenticate
-	npm version "${streammachine_api_version}"
+	npm version "${streammachine_api_version}" --allow-same-version --no-commit-hooks --no-git-tag-version
 	npm install
 	npm run dist
 

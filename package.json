@@ -72,5 +72,6 @@
     "extends": [
       "@commitlint/config-conventional"
     ]
-  }
+  },
+  "version": "1.23.0"
 }

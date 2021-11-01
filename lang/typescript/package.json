@@ -1,6 +1,6 @@
 {
   "name": "@streammachine.io-internal/api-definitions",
-  "version": "1.22.0",
+  "version": "1.25.0",
   "main": "build/index.ts",
   "files": [
     "/build",
