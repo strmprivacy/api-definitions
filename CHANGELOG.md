@@ -1,3 +1,10 @@
+# [1.28.0](https://gitlab.com/stream-machine/api-definitions/compare/v1.27.0...v1.28.0) (2021-11-01)
+
+
+### Features
+
+* billing with Stripe ([1e239ca](https://gitlab.com/stream-machine/api-definitions/commit/1e239ca972eadb9fbb9381b507b6ce890350aade))
+
 # [1.27.0](https://gitlab.com/stream-machine/api-definitions/compare/v1.26.0...v1.27.0) (2021-10-29)
 
 
