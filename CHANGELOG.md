@@ -1,3 +1,10 @@
+# [1.29.0](https://gitlab.com/stream-machine/api-definitions/compare/v1.28.0...v1.29.0) (2021-11-04)
+
+
+### Features
+
+* kotlin DSL ([3706de1](https://gitlab.com/stream-machine/api-definitions/commit/3706de1da504e89cfd8234148d04f30e97cc1e92))
+
 # [1.28.0](https://gitlab.com/stream-machine/api-definitions/compare/v1.27.0...v1.28.0) (2021-11-01)
 
 
