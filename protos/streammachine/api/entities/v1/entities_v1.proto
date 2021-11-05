@@ -252,7 +252,26 @@ message Schema {
   string definition = 4 [(google.api.field_behavior) = REQUIRED];
   string fingerprint = 5 [(google.api.field_behavior) = OUTPUT_ONLY];
   SchemaMetadata metadata = 6;
+  SimpleSchemaDefinition simple_schema = 7;
+
+  message SimpleSchemaDefinition {
+    string name = 1;
+    string namespace = 2;
+    string doc = 3;
+    repeated SimpleSchemaNode nodes = 4;
+  }
 }
+
+message SimpleSchemaNode {
+  SimpleSchemaNodeType type = 1;
+  string name = 2;
+  bool repeated = 3;
+  bool required = 4;
+  repeated SimpleSchemaNode nodes = 5;
+  string doc = 6;
+
+}
+
 
 message SchemaMetadata {
   // The human readable title of this Schema. Used in the Portal. Defaults to the Schema name. This field can be modified.
@@ -267,7 +286,7 @@ message SchemaMetadata {
   repeated Label labels = 5 [(google.api.field_behavior) = OPTIONAL];
   repeated string domains = 6 [(google.api.field_behavior) = OPTIONAL];
   repeated string industries = 7 [(google.api.field_behavior) = OPTIONAL];
-}
+  }
 
 message EventContractRef {
   string handle = 1 [(google.api.field_behavior) = REQUIRED];
@@ -372,6 +391,16 @@ enum SchemaType {
   SCHEMA_TYPE_UNSPECIFIED = 0 ;
   AVRO = 1;
   JSONSCHEMA = 2;
+}
+
+enum SimpleSchemaNodeType {
+  SIMPLE_SCHEMA_NODE_TYPE_UNSPECIFIED = 0;
+  STRING = 1;
+  BOOLEAN = 2;
+  FLOAT  = 3;
+  INTEGER = 4;
+  LONG = 5;
+  NODE = 10;
 }
 
 enum FilterPublicPrivate {
