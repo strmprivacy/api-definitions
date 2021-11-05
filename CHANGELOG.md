@@ -1,3 +1,10 @@
+# [1.30.0](https://gitlab.com/stream-machine/api-definitions/compare/v1.29.0...v1.30.0) (2021-11-05)
+
+
+### Features
+
+* simple schema definition ([84a081a](https://gitlab.com/stream-machine/api-definitions/commit/84a081af63b2e3bdd9df0b0d1481a9c00663e27b))
+
 # [1.29.0](https://gitlab.com/stream-machine/api-definitions/compare/v1.28.0...v1.29.0) (2021-11-04)
 
 
