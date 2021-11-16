@@ -1,3 +1,11 @@
+## [2.0.1](https://gitlab.com/stream-machine/api-definitions/compare/v2.0.0...v2.0.1) (2021-11-16)
+
+
+### Bug Fixes
+
+* add version.env to top level makefile ([6dc261d](https://gitlab.com/stream-machine/api-definitions/commit/6dc261dcbed78b381d3f26f96bbf750854147bda))
+* set major version for go mod ([a535402](https://gitlab.com/stream-machine/api-definitions/commit/a535402516de53832139ef452fcf781fab905753))
+
 # [2.0.0](https://gitlab.com/stream-machine/api-definitions/compare/v1.31.0...v2.0.0) (2021-11-16)
 
 
