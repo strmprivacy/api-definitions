@@ -6,7 +6,7 @@ import "google/protobuf/duration.proto";
 import "google/protobuf/timestamp.proto";
 import "strmprivacy/api/entities/v1/entities_v1.proto";
 
-option go_package = "github.com/strmprivacy/api-definitions-go/api/usage/v1;usage";
+option go_package = "github.com/strmprivacy/api-definitions-go/v2/api/usage/v1;usage";
 option java_package = "io.strmprivacy.api.usage.v1";
 option java_multiple_files = true;
 

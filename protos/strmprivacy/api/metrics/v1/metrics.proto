@@ -4,7 +4,7 @@ package strmprivacy.api.metrics.v1;
 
 import "google/api/field_behavior.proto";
 
-option go_package = "github.com/strmprivacy/api-definitions-go/api/metrics/v1;metrics";
+option go_package = "github.com/strmprivacy/api-definitions-go/v2/api/metrics/v1;metrics";
 option java_package = "io.strmprivacy.api.metrics.v1";
 option java_multiple_files = true;
 

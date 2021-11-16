@@ -5,7 +5,7 @@ package strmprivacy.api.batch_exporters.v1;
 import "google/api/field_behavior.proto";
 import "strmprivacy/api/entities/v1/entities_v1.proto";
 
-option go_package = "github.com/strmprivacy/api-definitions-go/api/batch_exporters/v1;batch_exporters";
+option go_package = "github.com/strmprivacy/api-definitions-go/v2/api/batch_exporters/v1;batch_exporters";
 option java_package = "io.strmprivacy.api.batch_exporters.v1";
 option java_multiple_files = true;
 

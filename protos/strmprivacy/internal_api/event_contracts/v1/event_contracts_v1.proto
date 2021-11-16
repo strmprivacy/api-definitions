@@ -4,7 +4,7 @@ package strmprivacy.internal_api.event_contracts.v1;
 
 import "strmprivacy/api/entities/v1/entities_v1.proto";
 
-option go_package = "github.com/strmprivacy/api-definitions-go/internal_api/event_contracts/v1;event_contracts";
+option go_package = "github.com/strmprivacy/api-definitions-go/v2/internal_api/event_contracts/v1;event_contracts";
 option java_package = "io.strmprivacy.internal_api.event_contracts.v1";
 option java_multiple_files = true;
 

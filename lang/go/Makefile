@@ -11,11 +11,12 @@ VERSION: ../../Makefile ../../VERSION.env
 
 generate: VERSION
 	mkdir -p ${build_dir} && \
+	MAJOR_VERSION=$$(cat VERSION | cut -d"." -f1) && \
 	protoc ${public_proto_files} \
 		--proto_path=${protos_dir} \
 		--proto_path=${common_protos} \
-		--go_out=module=github.com/strmprivacy/api-definitions-go:${build_dir} \
-		--go-grpc_out=module=github.com/strmprivacy/api-definitions-go:${build_dir}
+		--go_out=module=github.com/strmprivacy/api-definitions-go/v$${MAJOR_VERSION}:${build_dir} \
+		--go-grpc_out=module=github.com/strmprivacy/api-definitions-go/v$${MAJOR_VERSION}:${build_dir}
 
 setup: VERSION
 	cd ${build_dir} && \
