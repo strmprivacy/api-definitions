@@ -1,3 +1,10 @@
+# [1.31.0](https://gitlab.com/stream-machine/api-definitions/compare/v1.30.0...v1.31.0) (2021-11-16)
+
+
+### Features
+
+* **go:** rename github group to strmprivacy ([fb41bbc](https://gitlab.com/stream-machine/api-definitions/commit/fb41bbceada7497a23e02b3e12f767745e2045ba))
+
 # [1.30.0](https://gitlab.com/stream-machine/api-definitions/compare/v1.29.0...v1.30.0) (2021-11-05)
 
 
