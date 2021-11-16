@@ -1,6 +1,6 @@
 .PHONY: clean development build banaan
 
-top_level_package_name := streammachine
+top_level_package_name := strmprivacy
 python_version_files := VERSION requirements.txt requirements-dev.txt
 
 VERSION: ../../Makefile ../../VERSION.env

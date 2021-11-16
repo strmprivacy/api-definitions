@@ -1,0 +1,34 @@
+syntax = "proto3";
+
+package strmprivacy.internal_api.schemas.v1;
+
+import "strmprivacy/api/entities/v1/entities_v1.proto";
+
+option go_package = "github.com/strmprivacy/api-definitions-go/internal_api/schemas/v1;schemas";
+option java_package = "io.strmprivacy.internal_api.schemas.v1";
+option java_multiple_files = true;
+
+service InternalSchemasService {
+  rpc GetSchemaDefinition (GetSchemaDefinitionRequest) returns (GetSchemaDefinitionResponse);
+  rpc DeleteSchema (DeleteSchemaRequest) returns (DeleteSchemaResponse);
+}
+
+message GetSchemaDefinitionRequest {
+  int32 confluent_id = 1;
+  strmprivacy.api.entities.v1.KafkaClusterRef cluster_ref = 2;
+}
+
+message GetSchemaDefinitionResponse {
+  string definition = 1;
+}
+
+// (-- api-linter: core::0135::request-name-required=disabled
+//     aip.dev/not-precedent: Schema's have no name, but a ref. --)
+message DeleteSchemaRequest {
+  // (-- api-linter: core::0135::request-unknown-fields=disabled
+  //     aip.dev/not-precedent: Schema's have no name, but a ref. --)
+  strmprivacy.api.entities.v1.SchemaRef ref = 1;
+}
+
+message DeleteSchemaResponse {
+}

@@ -2,8 +2,8 @@ import com.google.protobuf.gradle.*
 import org.ajoberstar.grgit.Grgit
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
-group = "io.streammachine.api"
-description = "Internal APIs for Stream Machine"
+group = "io.strmprivacy.api"
+description = "Internal APIs for STRM Privacy"
 
 val branch = System.getenv("CI_COMMIT_REF_NAME") ?: Grgit.open(mapOf("dir" to project.file("../../."))).branch.current().name
 val tag = System.getenv("CI_COMMIT_TAG")

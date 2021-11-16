@@ -24,7 +24,7 @@ lang/go/VERSION
 lang/python/VERSION
 lang/python/requirements.txt
 lang/python/requirements-dev.txt
-lang/python/streammachine
+lang/python/strmprivacy
 lang/python/build
 lang/python/dist
 lang/python/*.egg-info

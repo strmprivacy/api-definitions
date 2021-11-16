@@ -1,0 +1,52 @@
+syntax = "proto3";
+
+package strmprivacy.api.consent_levels.v1;
+
+import "google/api/field_behavior.proto";
+import "strmprivacy/api/entities/v1/entities_v1.proto";
+
+option go_package = "github.com/strmprivacy/api-definitions-go/api/consent_levels/v1;consent_levels";
+option java_package = "io.strmprivacy.api.consent_levels.v1";
+option java_multiple_files = true;
+
+service ConsentLevelMappingsService {
+  rpc ListConsentLevelMappings (ListConsentLevelMappingsRequest) returns (ListConsentLevelMappingsResponse);
+  rpc GetConsentLevelMapping (GetConsentLevelMappingRequest) returns (GetConsentLevelMappingResponse);
+  rpc DeleteConsentLevelMapping (DeleteConsentLevelMappingRequest) returns (DeleteConsentLevelMappingResponse);
+  rpc CreateConsentLevelMapping (CreateConsentLevelMappingRequest) returns (CreateConsentLevelMappingResponse);
+}
+
+message ListConsentLevelMappingsRequest {
+  string billing_id = 1;
+}
+
+message ListConsentLevelMappingsResponse {
+  repeated strmprivacy.api.entities.v1.ConsentLevelMapping consent_level_mappings = 1;
+}
+
+// (-- api-linter: core::0135::request-name-required=disabled
+//     aip.dev/not-precedent: A consent-level has no name, but a level. --)
+message DeleteConsentLevelMappingRequest {
+  // (-- api-linter: core::0135::request-unknown-fields=disabled
+  //     aip.dev/not-precedent: A consent-level has no name, but a level. --)
+  entities.v1.ConsentLevelMappingRef ref = 1 [(google.api.field_behavior) = REQUIRED];
+}
+
+message DeleteConsentLevelMappingResponse {
+}
+
+message CreateConsentLevelMappingRequest {
+  strmprivacy.api.entities.v1.ConsentLevelMapping consent_level_mapping = 1;
+}
+
+message CreateConsentLevelMappingResponse {
+  strmprivacy.api.entities.v1.ConsentLevelMapping consent_level_mapping = 1;
+}
+
+message GetConsentLevelMappingRequest {
+  entities.v1.ConsentLevelMappingRef ref = 1 [(google.api.field_behavior) = REQUIRED];
+}
+
+message GetConsentLevelMappingResponse {
+  strmprivacy.api.entities.v1.ConsentLevelMapping consent_level_mapping = 1;
+}

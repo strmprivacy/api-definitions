@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+package strmprivacy.api.cli.v1;
+
+import "google/api/field_behavior.proto";
+import "google/protobuf/timestamp.proto";
+
+option go_package = "github.com/strmprivacy/api-definitions-go/api/cli/v1;cli";
+option java_package = "io.strmprivacy.api.cli.v1";
+option java_multiple_files = true;
+
+service CliService {
+  rpc GetRelease(GetReleaseRequest) returns (GetReleaseResponse);
+}
+
+message GetReleaseRequest {
+  // The CLI version, get the latest version if unspecified.
+  string version = 1 [(google.api.field_behavior) = OPTIONAL];
+}
+
+message GetReleaseResponse {
+  CliRelease release = 1 [(google.api.field_behavior) = OUTPUT_ONLY];
+}
+
+message CliRelease {
+  // The version string for this CLI release.
+  string version = 1 [(google.api.field_behavior) = OUTPUT_ONLY];
+  google.protobuf.Timestamp release_time = 2 [(google.api.field_behavior) = OUTPUT_ONLY];
+  // The absolute URL to the release page in GitHub.
+  string source_uri = 3 [(google.api.field_behavior) = OUTPUT_ONLY];
+  // The release notes in Markdown format.
+  string release_notes = 4 [(google.api.field_behavior) = OUTPUT_ONLY];
+}

@@ -6,7 +6,7 @@ clean:
 
 gradle.properties: ../../Makefile
 	cat gradle-template.properties > $@ && \
-	echo "version = ${streammachine_api_version}" >> $@ && \
+	echo "version = ${strmprivacy_api_version}" >> $@ && \
 	echo "googleCommonProtosVersion = ${google_common_protos_version}" >> $@ && \
 	echo "protobufVersion = ${protobuf_version}" >> $@ && \
 	echo "grpcVersion = ${grpc_version}" >> $@

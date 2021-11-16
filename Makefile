@@ -5,9 +5,9 @@
 # =======================
 pwd := $(shell pwd)
 protos_dir := ${CURDIR}/protos
-proto_files := $(shell find "${pwd}/protos/streammachine" -name *.proto)
-public_proto_files := $(shell find "${pwd}/protos/streammachine/api" -name *.proto)
-relative_proto_files := $(shell find "protos/streammachine" -name *.proto)
+proto_files := $(shell find "${pwd}/protos/strmprivacy" -name *.proto)
+public_proto_files := $(shell find "${pwd}/protos/strmprivacy/api" -name *.proto)
+relative_proto_files := $(shell find "protos/strmprivacy" -name *.proto)
 common_protos := ${CURDIR}/lang/.common-protos
 common_proto_files := $(shell find "${common_protos}" -name *.proto)
 git_sha := $(shell git rev-parse --short HEAD)
@@ -18,7 +18,7 @@ export
 # =======================
 # Versions and dependencies
 # =======================
-streammachine_api_version := 1.31.0
+strmprivacy_api_version := 1.31.0
 
 grpc_version := 1.38.1
 protobuf_version := 3.17.3# make sure to update schema-tools as well
@@ -43,7 +43,7 @@ default-google-dependencies: ${common_protos}/google/protobuf ${common_protos}/g
 
 VERSION.env: Makefile
 	GIT_BRANCH="$${CI_COMMIT_REF_NAME:-${git_branch}}" && \
-	if [ -n "$$CI_COMMIT_TAG" ] || [ "$$GIT_BRANCH" = "master" ]; then echo "VERSION=${streammachine_api_version}" > $@; else echo "VERSION=${streammachine_api_version}-$${CI_COMMIT_SHORT_SHA:-${git_sha}}" > $@; fi
+	if [ -n "$$CI_COMMIT_TAG" ] || [ "$$GIT_BRANCH" = "master" ]; then echo "VERSION=${strmprivacy_api_version}" > $@; else echo "VERSION=${strmprivacy_api_version}-$${CI_COMMIT_SHORT_SHA:-${git_sha}}" > $@; fi
 
 # =======================
 # Miscellaneous
@@ -135,7 +135,10 @@ typescript-clean:
 typescript-generate: ${common_protos}/google/api ${common_protos}/google/protobuf
 	make -C lang/typescript generate
 
-typescript-build:
+lang/typescript/build/.timestamp: typescript-generate
+	touch lang/typescript/build/.timestamp
+
+typescript-build: lang/typescript/build/.timestamp
 	make -C lang/typescript build
 
 typescript-publish-release:

@@ -32,8 +32,8 @@
               "files": [
                 "Makefile"
               ],
-              "from": "streammachine_api_version := .*",
-              "to": "streammachine_api_version := ${nextRelease.version}",
+              "from": "strmprivacy_api_version := .*",
+              "to": "strmprivacy_api_version := ${nextRelease.version}",
               "results": [
                 {
                   "file": "Makefile",

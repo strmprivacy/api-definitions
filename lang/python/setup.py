@@ -23,7 +23,7 @@ with open('VERSION') as version_file:
 
 setup(
     author="Stream Machine B.V.",
-    author_email='apis@streammachine.io',
+    author_email='apis@strmprivacy.io',
     python_requires='>=3.6',
     classifiers=[
         'Programming Language :: Python :: 3.6',
@@ -34,11 +34,11 @@ setup(
         'Operating System :: OS Independent',
         'Topic :: Internet :: WWW/HTTP',
     ],
-    description="Stream Machine API definitions",
+    description="STRM Privacy API definitions",
     install_requires=install_requires,
     include_package_data=True,
-    keywords='streammachine api definitions',
-    name='streammachine-api-definitions',
+    keywords='strmprivacy api definitions',
+    name='strmprivacy-api-definitions',
     packages=find_packages(),
     setup_requires=[],
     version=version,

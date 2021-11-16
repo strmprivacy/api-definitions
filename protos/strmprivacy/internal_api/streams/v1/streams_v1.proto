@@ -1,0 +1,49 @@
+syntax = "proto3";
+
+package strmprivacy.internal_api.streams.v1;
+
+import "strmprivacy/api/entities/v1/entities_v1.proto";
+import "strmprivacy/internal_api/entities/v1/entities_v1.proto";
+
+option go_package = "github.com/strmprivacy/api-definitions-go/internal_api/streams/v1;streams";
+option java_package = "io.strmprivacy.internal_api.streams.v1";
+option java_multiple_files = true;
+
+// (-- api-linter: core::0136::prepositions=disabled
+//     aip.dev/not-precedent: This is an internal API and the alternative with oneof is good either. --)
+service InternalStreamsService {
+  rpc GetStreamsByClientIds(GetStreamsByClientIdsRequest) returns (GetStreamsByClientIdsResponse);
+  rpc GetStreamsByStreamRefs(GetStreamsByStreamRefsRequest) returns(GetStreamsByStreamRefsResponse);
+  // (-- api-linter: core::0134::response-message-name=disabled
+  //     aip.dev/not-precedent: We have standardized on always returning a "Response" message. --)
+  rpc UpdateStreamEnabled(UpdateStreamEnabledRequest) returns (UpdateStreamEnabledResponse);
+}
+
+message GetStreamsByClientIdsRequest {
+  repeated string client_ids = 1;
+}
+
+message GetStreamsByClientIdsResponse {
+  repeated strmprivacy.internal_api.entities.v1.ExtendedStream extended_streams = 1;
+}
+
+message GetStreamsByStreamRefsRequest {
+  repeated strmprivacy.api.entities.v1.StreamRef refs = 1;
+}
+
+message GetStreamsByStreamRefsResponse {
+  repeated strmprivacy.internal_api.entities.v1.ExtendedStream extended_streams = 1;
+}
+
+// (-- api-linter: core::0134::request-mask-required=disabled
+//     aip.dev/not-precedent: This method only updates the enabled field. --)
+// (-- api-linter: core::0134::request-resource-required=disabled
+//     aip.dev/not-precedent: This method only updates the enabled field. --)
+// (-- api-linter: core::0134::request-unknown-fields=disabled
+//     aip.dev/not-precedent: This method only updates the enabled field. --)
+message UpdateStreamEnabledRequest {
+  strmprivacy.api.entities.v1.StreamRef ref = 1;
+  bool enabled = 2;
+}
+
+message UpdateStreamEnabledResponse {}

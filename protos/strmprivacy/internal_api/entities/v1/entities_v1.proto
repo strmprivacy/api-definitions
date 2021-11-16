@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package strmprivacy.internal_api.entities.v1;
+
+import "strmprivacy/api/entities/v1/entities_v1.proto";
+
+option go_package = "github.com/strmprivacy/api-definitions-go/internal_api/entities/v1;entities";
+option java_package = "io.strmprivacy.internal_api.entities.v1";
+option java_multiple_files = true;
+
+message ExtendedStream {
+  strmprivacy.api.entities.v1.Stream stream = 1;
+  string topic = 2;
+  string uuid = 3;
+  /* whether or not a key stream EXISTS for this stream.
+   * So when this flag is true, there are TWO topics associated with this stream. */
+  bool key_stream = 4;
+}
+
+// used for configuring decrypters
+message ExtendedStreamGroup {
+  ExtendedStream source_stream = 1;
+  repeated ExtendedStream derived_streams = 2;
+}

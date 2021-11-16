@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+package strmprivacy.api.usage.v1;
+
+import "google/protobuf/duration.proto";
+import "google/protobuf/timestamp.proto";
+import "strmprivacy/api/entities/v1/entities_v1.proto";
+
+option go_package = "github.com/strmprivacy/api-definitions-go/api/usage/v1;usage";
+option java_package = "io.strmprivacy.api.usage.v1";
+option java_multiple_files = true;
+
+service UsageService {
+  rpc GetStreamEventUsage (GetStreamEventUsageRequest) returns (GetStreamEventUsageResponse);
+}
+
+message GetStreamEventUsageRequest {
+  strmprivacy.api.entities.v1.StreamRef ref = 1;
+  google.protobuf.Timestamp start_time = 2;
+  google.protobuf.Timestamp end_time = 3;
+  google.protobuf.Duration interval = 4;
+}
+
+message GetStreamEventUsageResponse {
+  strmprivacy.api.entities.v1.StreamRef ref = 1;
+  repeated strmprivacy.api.entities.v1.WindowedEventCount windows = 2;
+}

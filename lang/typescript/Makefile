@@ -18,7 +18,7 @@ generate:
 
 build:
 	npm run authenticate
-	npm version "${streammachine_api_version}" --allow-same-version --no-commit-hooks --no-git-tag-version
+	npm version "${strmprivacy_api_version}" --allow-same-version --no-commit-hooks --no-git-tag-version
 	npm install
 	npm run dist
 

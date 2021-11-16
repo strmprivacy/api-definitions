@@ -1,0 +1,410 @@
+syntax = "proto3";
+
+package strmprivacy.api.entities.v1;
+
+import "google/api/field_behavior.proto";
+import "google/protobuf/duration.proto";
+import "google/protobuf/timestamp.proto";
+
+option go_package = "github.com/strmprivacy/api-definitions-go/api/entities/v1;entities";
+option java_package = "io.strmprivacy.api.entities.v1";
+option java_multiple_files = true;
+
+// (-- See our attribute spreadsheet for the initial fields version
+//     https://docs.google.com/spreadsheets/d/12dooxWXRQjEKhZxS_Bpa4fXpDpaEbPu9JorxOo_BElQ --)
+
+/*
+  Streams are source or derived streams depending on whether or not linked_stream is null.
+  Key streams are a separate entity in the api.
+ */
+message Stream {
+  StreamRef ref = 1 [(google.api.field_behavior) = REQUIRED];
+  // customer's description for this Stream.
+  string description = 2;
+  // consent levels for derived streams
+  repeated int32 consent_levels = 3;
+  // how event consent-levels are interpreted by decrypters.
+  ConsentLevelType consent_level_type = 4;
+  // whether or not this stream is enabled.
+  bool enabled = 5 [(google.api.field_behavior) = OUTPUT_ONLY];
+  // stream limits
+  Limits limits = 6 [(google.api.field_behavior) = OUTPUT_ONLY];
+  // null for source streams
+  string linked_stream = 7;
+  // customer purposes.
+  repeated string tags = 8;
+  repeated Credentials credentials = 9 [(google.api.field_behavior) = OUTPUT_ONLY];
+
+  /* field masking is defined per OUTPUT stream and event-contract ref. combination
+
+  The default empty map means no masking. Otherwise, the algorithm in the decrypter is as follows.
+
+  * A source stream is (partially) decrypted, and events that don't have enough permissions are dropped.
+  * the event contract ref string is used to find a MaskedFields instance.
+  * if present, for all field patterns in the MaskedFields instance, the hash with the specified seed is applied.
+   */
+  MaskedFields masked_fields = 10;
+}
+
+message MaskedFields {
+  // default Murmurhash3 for empty string
+  string hash_type = 1 ;
+  // hashing seed
+  string seed = 2;
+  // map of event-contract-ref vs field patterns
+  map <string, PatternList> field_patterns = 3;
+  message PatternList {
+    repeated string field_patterns = 1;
+  }
+}
+
+message Limits {
+  // filled in from customer profile
+  int64 event_rate = 1 [(google.api.field_behavior) = OUTPUT_ONLY];
+  // filled in from customer profile
+  int64 event_count = 2 [(google.api.field_behavior) = OUTPUT_ONLY];
+}
+
+/*
+A Stream of key-link, encryption-key messages created from a source stream
+with the same `name`.
+ */
+message KeyStream {
+  KeyStreamRef ref = 1 [(google.api.field_behavior) = REQUIRED];
+  // -- TODO: this field is not used --
+  string status = 2 [(google.api.field_behavior) = OUTPUT_ONLY];
+}
+
+/* refers to a event stream.
+ */
+message StreamRef {
+  string billing_id = 1 [(google.api.field_behavior) = OUTPUT_ONLY];
+  // the name of the stream
+  string name = 2 [(google.api.field_behavior) = REQUIRED];
+}
+
+/* refers to a key stream.
+ */
+message KeyStreamRef {
+  string billing_id = 1 [(google.api.field_behavior) = OUTPUT_ONLY];
+  // the name of the stream
+  string name = 2 [(google.api.field_behavior) = REQUIRED];
+}
+
+/*
+Credentials to produce to the event-gateway, or to consume from egress.
+ */
+message Credentials {
+  string billing_id = 1 [(google.api.field_behavior) = OUTPUT_ONLY];
+  string client_id = 2 [(google.api.field_behavior) = OUTPUT_ONLY];
+  /* as this property is secret, it is not always returned */
+  string client_secret = 3 [(google.api.field_behavior) = OUTPUT_ONLY];
+}
+
+/* the sink configuration used by the batch exporters. */
+message Sink {
+  SinkRef ref = 1 [(google.api.field_behavior) = REQUIRED];
+  SinkType sink_type = 2 [(google.api.field_behavior) = REQUIRED];
+  oneof config {
+    BucketConfig bucket = 4;
+  }
+}
+
+message SinkRef {
+  string billing_id = 1 [(google.api.field_behavior) = REQUIRED];
+  string name = 2 [(google.api.field_behavior) = REQUIRED];
+}
+
+message BucketConfig {
+  // (-- api-linter: core::0122::name-suffix=disabled
+  //     aip.dev/not-precedent: We refer to a bucket name. --)
+  string bucket_name = 4 [(google.api.field_behavior) = REQUIRED];
+  // The credentials that are to be used to access the sink target (e.g. S3 or Google Cloud Storage)
+  string credentials = 5 [(google.api.field_behavior) = REQUIRED];
+  /* The ARN of the role to assume.
+     If present, start an AssumeRole flow to get temporary credentials in another AWS account.
+     This is used when the customer has a separate users account.
+     Default there is no assumed role. */
+  string assume_role_arn = 6;
+}
+
+/*
+A batch exporter.
+ */
+message BatchExporter {
+  BatchExporterRef ref = 1 [(google.api.field_behavior) = REQUIRED];
+  oneof stream_or_key_stream_ref {
+    StreamRef stream_ref = 2 [(google.api.field_behavior) = REQUIRED];
+    KeyStreamRef key_stream_ref = 3 [(google.api.field_behavior) = REQUIRED];
+  }
+  // granularity of seconds, nanos is unused
+  google.protobuf.Duration interval = 4 [(google.api.field_behavior) = REQUIRED];
+  // (-- api-linter: core::0122::name-suffix=disabled
+  //     aip.dev/not-precedent: We refer to the sink by name. --)
+  string sink_name = 5 [(google.api.field_behavior) = REQUIRED];
+  string path_prefix = 6;
+}
+
+message BatchExporterRef {
+  string billing_id = 1 [(google.api.field_behavior) = OUTPUT_ONLY];
+  string name = 2 [(google.api.field_behavior) = REQUIRED];
+}
+
+/*
+Currently only our internal shared export cluster.
+ */
+message KafkaCluster {
+  KafkaClusterRef ref = 1 [(google.api.field_behavior) = REQUIRED];
+  string bootstrap_servers = 2 [(google.api.field_behavior) = REQUIRED];
+  AuthMechanism auth_mechanism = 3 [(google.api.field_behavior) = REQUIRED];
+  string token_uri = 4;
+}
+
+/*
+How to refer to a certain Kafka cluster.
+ */
+message KafkaClusterRef {
+  // (-- streammachine for the default export cluster --)
+  string billing_id = 1 [(google.api.field_behavior) = REQUIRED];
+  // (-- shared export --)
+  string name = 2 [(google.api.field_behavior) = REQUIRED];
+}
+
+message KafkaExporter {
+  KafkaExporterRef ref = 1 [(google.api.field_behavior) = REQUIRED];
+  StreamRef stream_ref = 2 [(google.api.field_behavior) = REQUIRED];
+  KafkaExporterTarget target = 3 [(google.api.field_behavior) = REQUIRED];
+  repeated KafkaUser users = 4;
+}
+
+message KafkaExporterRef {
+  string billing_id = 1 [(google.api.field_behavior) = REQUIRED];
+  // default value  <cluster-name>-<stream-name>
+  string name = 2 [(google.api.field_behavior) = REQUIRED];
+}
+
+message KafkaExporterTarget {
+  // what cluster to produce to
+  KafkaClusterRef cluster_ref = 1 [(google.api.field_behavior) = REQUIRED];
+  // the topic this exporter produces to
+  string topic = 2 [(google.api.field_behavior) = REQUIRED];
+  // used to access the target Kafka Cluster in case of OAuth based authentication
+  string client_id = 3;
+  // used to access the target Kafka Cluster in case of OAuth based authentication
+  string client_secret = 4;
+}
+
+/*
+User credentials to consume from topic produced by Kafka Exporter.
+
+The kafka exporter is linked to a certain cluster, so this entity is bound to a certain
+kafka cluster.
+ */
+message KafkaUser {
+  KafkaUserRef ref = 1 [(google.api.field_behavior) = REQUIRED];
+  // (-- api-linter: core::0122::name-suffix=disabled
+  //     aip.dev/not-precedent: We refer to the kafka exporter by name. --)
+  string kafka_exporter_name = 3 [(google.api.field_behavior) = OUTPUT_ONLY];
+  string topic = 4 [(google.api.field_behavior) = OUTPUT_ONLY];
+  string client_id = 5 [(google.api.field_behavior) = OUTPUT_ONLY];
+  string client_secret = 6 [(google.api.field_behavior) = OUTPUT_ONLY];
+  KafkaClusterRef cluster_ref = 7 [(google.api.field_behavior) = OUTPUT_ONLY];
+}
+
+message KafkaUserRef {
+  string billing_id = 1 [(google.api.field_behavior) = OUTPUT_ONLY];
+  string name = 2 [(google.api.field_behavior) = OUTPUT_ONLY];
+}
+
+/*
+for descriptive purposes only.
+ */
+message ConsentLevelMapping {
+  ConsentLevelMappingRef ref = 1 [(google.api.field_behavior) = REQUIRED];
+  // some text like 'analytics'
+  string name = 2 [(google.api.field_behavior) = REQUIRED];
+}
+
+message ConsentLevelMappingRef {
+  string billing_id = 1 [(google.api.field_behavior) = OUTPUT_ONLY];
+  // the typically small integer value that we use in the events.
+  int32 level = 2 [(google.api.field_behavior) = REQUIRED];
+}
+
+message WindowedEventCount {
+  google.protobuf.Timestamp start_time = 1 [(google.api.field_behavior) = OUTPUT_ONLY];
+  google.protobuf.Timestamp end_time = 2 [(google.api.field_behavior) = OUTPUT_ONLY];
+  int64 event_count = 3 [(google.api.field_behavior) = OUTPUT_ONLY];
+}
+
+message SchemaRef {
+  string handle = 1 [(google.api.field_behavior) = REQUIRED];
+  string name = 2 [(google.api.field_behavior) = REQUIRED];
+  string version = 3 [(google.api.field_behavior) = REQUIRED];
+  SchemaType schema_type = 4 [(google.api.field_behavior) = OUTPUT_ONLY];
+}
+
+message Schema {
+  SchemaRef ref = 1 [(google.api.field_behavior) = REQUIRED];
+  State state = 2 [(google.api.field_behavior) = OUTPUT_ONLY];
+  // (-- 'is' is intentional here (see https://google.aip.dev/140#booleans) --)
+  bool is_public = 3;
+  string definition = 4 [(google.api.field_behavior) = REQUIRED];
+  string fingerprint = 5 [(google.api.field_behavior) = OUTPUT_ONLY];
+  SchemaMetadata metadata = 6;
+  SimpleSchemaDefinition simple_schema = 7;
+
+  message SimpleSchemaDefinition {
+    string name = 1;
+    string namespace = 2;
+    string doc = 3;
+    repeated SimpleSchemaNode nodes = 4;
+  }
+}
+
+message SimpleSchemaNode {
+  SimpleSchemaNodeType type = 1;
+  string name = 2;
+  bool repeated = 3;
+  bool required = 4;
+  repeated SimpleSchemaNode nodes = 5;
+  string doc = 6;
+
+}
+
+
+message SchemaMetadata {
+  // The human readable title of this Schema. Used in the Portal. Defaults to the Schema name. This field can be modified.
+  string title = 1 [(google.api.field_behavior) = OPTIONAL];
+  // The (optional) description of this Schema. Used in the Portal. Markdown syntax is supported. This field can be modified.
+  string description = 2 [(google.api.field_behavior) = OPTIONAL];
+  // The timestamp when this Schema was created.
+  google.protobuf.Timestamp create_time = 3 [(google.api.field_behavior) = OUTPUT_ONLY];
+  // The (optional) URI to the icon used with this Schema. This always an absolute URI, with the https scheme. Used in the Portal.
+  string icon_uri = 4 [(google.api.field_behavior) = OPTIONAL];
+  // Generic (key/value) labels for this Schema.
+  repeated Label labels = 5 [(google.api.field_behavior) = OPTIONAL];
+  repeated string domains = 6 [(google.api.field_behavior) = OPTIONAL];
+  repeated string industries = 7 [(google.api.field_behavior) = OPTIONAL];
+  }
+
+message EventContractRef {
+  string handle = 1 [(google.api.field_behavior) = REQUIRED];
+  string name = 2 [(google.api.field_behavior) = REQUIRED];
+  string version = 3 [(google.api.field_behavior) = REQUIRED];
+}
+
+message EventContract {
+  EventContractRef ref = 1 [(google.api.field_behavior) = REQUIRED];
+  State state = 2 [(google.api.field_behavior) = OUTPUT_ONLY];
+  SchemaRef schema_ref = 3 [(google.api.field_behavior) = REQUIRED];
+  // (-- 'is' is intentional here (see https://google.aip.dev/140#booleans) --)
+  bool is_public = 4;
+  // FIXME rename key_field to event_sequence_field
+  string key_field = 5 [(google.api.field_behavior) = REQUIRED];
+  map<string, int32> pii_fields = 6;
+  repeated Validation validations = 7;
+  EventContractMetadata metadata = 8;
+}
+
+message EventContractMetadata {
+  // The human readable title of this Event Contract. Used in the Portal. Defaults to the Event Contract name. This field can be modified.
+  string title = 1 [(google.api.field_behavior) = OPTIONAL];
+  // The (optional) description of this Event Contract. Used in the Portal. Markdown syntax is supported. This field can be modified.
+  string description = 2 [(google.api.field_behavior) = OPTIONAL];
+  // The timestamp when this Event Contract was created.
+  google.protobuf.Timestamp create_time = 3 [(google.api.field_behavior) = OUTPUT_ONLY];
+  // The (optional) URI to the icon used with this Event Contract. This always an absolute URI, with the https scheme. Used in the Portal.
+  string icon_uri = 4 [(google.api.field_behavior) = OPTIONAL];
+  // Generic (key/value) labels for this Event Contract.
+  repeated Label labels = 5 [(google.api.field_behavior) = OPTIONAL];
+  repeated string domains = 6 [(google.api.field_behavior) = OPTIONAL];
+  repeated string industries = 7 [(google.api.field_behavior) = OPTIONAL];
+}
+
+message Label {
+  // The key of the label.
+  string key = 1 [(google.api.field_behavior) = REQUIRED];
+  // The (optional) value of the label. An empty string means there is no value.
+  string value = 2 [(google.api.field_behavior) = OPTIONAL];
+}
+
+message Validation {
+  string field = 1 [(google.api.field_behavior) = REQUIRED];
+  string type = 2 [(google.api.field_behavior) = REQUIRED];
+  string value = 3 [(google.api.field_behavior) = REQUIRED];
+}
+
+message StreamTree {
+  Stream stream = 1 [(google.api.field_behavior) = REQUIRED];
+  KeyStream key_stream = 2;
+  repeated Stream derived = 3;
+  repeated BatchExporter batch_exporters = 4;
+  repeated KafkaExporter kafka_exporters = 5;
+}
+
+message SinkTree {
+  Sink sink = 1 [(google.api.field_behavior) = REQUIRED];
+  repeated BatchExporter batch_exporters = 2;
+}
+
+/*
+Consent level is meant to interpret the consent-levels of an event for decryption purposes only.
+
+Cumulative means that the highest consent-level in an event must be greater than or equal to the single requested level
+for the decrypted stream.
+
+Granular means that the set of consent-levels in an event must enclose the set of requested event levels for the
+decrypted stream.
+ */
+enum ConsentLevelType {
+  CONSENT_LEVEL_TYPE_UNSPECIFIED = 0;
+  CUMULATIVE = 1;
+  GRANULAR = 2;
+}
+
+enum SinkType {
+  SINK_TYPE_UNSPECIFIED = 0;
+  S3 = 1;
+  GCLOUD = 2;
+}
+
+// (-- TODO align values with JAAS. see https://docs.confluent.io/platform/current/kafka/overview-authentication-methods.html --)
+//     also see the Kafka exporter to determine the correct terminology here
+//     SASL_SSL should probably be SASL_OAUTHBEARER --)
+enum AuthMechanism {
+  AUTH_MECHANISM_UNSPECIFIED = 0;
+  SASL_PLAIN = 1;
+  SASL_SSL = 2;
+}
+
+enum State {
+  STATE_UNSPECIFIED = 0;
+  PENDING = 1;
+  IN_REVIEW = 2;
+  REJECTED = 3;
+  ACTIVE = 4;
+  DELETED = 5;
+}
+
+enum SchemaType {
+  SCHEMA_TYPE_UNSPECIFIED = 0 ;
+  AVRO = 1;
+  JSONSCHEMA = 2;
+}
+
+enum SimpleSchemaNodeType {
+  SIMPLE_SCHEMA_NODE_TYPE_UNSPECIFIED = 0;
+  STRING = 1;
+  BOOLEAN = 2;
+  FLOAT  = 3;
+  INTEGER = 4;
+  LONG = 5;
+  NODE = 10;
+}
+
+enum FilterPublicPrivate {
+  FILTER_PUBLIC_PRIVATE_UNSPECIFIED = 0;
+  ONLY_PUBLIC = 1;
+  ONLY_PRIVATE = 2;
+}

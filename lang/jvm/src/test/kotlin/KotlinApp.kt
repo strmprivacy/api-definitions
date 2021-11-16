@@ -1,12 +1,12 @@
 import io.grpc.*
-import io.streammachine.api.batch_exporters.v1.BatchExportersServiceGrpc
-import io.streammachine.api.batch_exporters.v1.listBatchExportersRequest
+import io.strmprivacy.api.batch_exporters.v1.BatchExportersServiceGrpc
+import io.strmprivacy.api.batch_exporters.v1.listBatchExportersRequest
 import kotlinx.coroutines.runBlocking
 import java.util.concurrent.Executor
 
 fun main() {
     val channel = ManagedChannelBuilder
-        .forAddress("apis.dev.streammachine.io", 443)
+        .forAddress("api.dev.strmprivacy.io", 443)
         .useTransportSecurity()
         .build()
 

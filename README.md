@@ -1,6 +1,6 @@
-# Stream Machine API definitions
+# STRM Privacy API definitions
 
-All `proto` file definitions for the Stream Machine APIs.
+All `proto` file definitions for the STRM Privacy APIs.
 
 ## gRPC Guidelines
 

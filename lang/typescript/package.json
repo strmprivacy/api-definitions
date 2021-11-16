@@ -1,13 +1,13 @@
 {
-  "name": "@streammachine.io-internal/api-definitions",
-  "version": "1.25.0",
+  "name": "@strmprivacy-internal/api-definitions",
+  "version": "1.31.0",
   "main": "build/index.ts",
   "files": [
     "/build",
     "/package.json"
   ],
   "publishConfig": {
-    "@streammachine.io:registry": " https://europe-west4-npm.pkg.dev/stream-machine-development/npm/"
+    "@strmprivacy:registry": " https://europe-west4-npm.pkg.dev/stream-machine-development/npm/"
   },
   "devDependencies": {
     "@types/google-protobuf": "~3.15.5",
@@ -27,7 +27,7 @@
   "scripts": {
     "get-version": "printf $npm_package_version",
     "authenticate": "cp .npmrc_template .npmrc && npx google-artifactregistry-auth .npmrc",
-    "generate-barrels": "barrelsby --delete --directory build --exclude google --exclude internal_api",
+    "generate-barrels": "mkdir -p build && barrelsby --delete --directory build --exclude google --exclude internal_api",
     "build": "webpack --config webpack.config.js",
     "dist": "npm run generate-barrels && npm run build"
   }
