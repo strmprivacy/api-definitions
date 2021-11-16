@@ -117,7 +117,7 @@ python-publish-public-release: ${common_protos}/google/api ${common_protos}/goog
 go-generate: ${common_protos}/google/api ${common_protos}/google/protobuf VERSION.env
 	make -C lang/go generate
 
-go-setup:
+go-setup: VERSION.env
 	make -C lang/go setup
 
 go-build: ${common_protos}/google/api ${common_protos}/google/protobuf VERSION.env
