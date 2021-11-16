@@ -1,3 +1,10 @@
+# [2.1.0](https://gitlab.com/stream-machine/api-definitions/compare/v2.0.1...v2.1.0) (2021-11-16)
+
+
+### Features
+
+* set major path to v2 for golang ([717d191](https://gitlab.com/stream-machine/api-definitions/commit/717d1919e1c7ec70fba4aaf604eb602ef5e9f342))
+
 ## [2.0.1](https://gitlab.com/stream-machine/api-definitions/compare/v2.0.0...v2.0.1) (2021-11-16)
 
 

@@ -18,7 +18,7 @@ export
 # =======================
 # Versions and dependencies
 # =======================
-strmprivacy_api_version := 2.0.1
+strmprivacy_api_version := 2.1.0
 
 grpc_version := 1.38.1
 protobuf_version := 3.17.3# make sure to update schema-tools as well
