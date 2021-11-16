@@ -17,9 +17,10 @@ generate: VERSION
 		--go_out=module=github.com/strmprivacy/api-definitions-go:${build_dir} \
 		--go-grpc_out=module=github.com/strmprivacy/api-definitions-go:${build_dir}
 
-setup:
+setup: VERSION
 	cd ${build_dir} && \
-	go mod init github.com/strmprivacy/api-definitions-go && \
+	MAJOR_VERSION=$$(cat ../VERSION | cut -d"." -f1) && \
+	go mod init github.com/strmprivacy/api-definitions-go/v$${MAJOR_VERSION} && \
 	go get google.golang.org/grpc@v${grpc_version} && \
 	go mod tidy
 
