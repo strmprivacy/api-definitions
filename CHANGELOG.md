@@ -1,3 +1,15 @@
+# [2.0.0](https://gitlab.com/stream-machine/api-definitions/compare/v1.31.0...v2.0.0) (2021-11-16)
+
+
+### Features
+
+* renamed to strmprivacy ([c621a64](https://gitlab.com/stream-machine/api-definitions/commit/c621a6475d3be8d988dae89d14a31bcf2006668c))
+
+
+### BREAKING CHANGES
+
+* all packages and type names have been renamed
+
 # [1.31.0](https://gitlab.com/stream-machine/api-definitions/compare/v1.30.0...v1.31.0) (2021-11-16)
 
 
