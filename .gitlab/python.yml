@@ -7,7 +7,7 @@ include:
   needs:
     - buf-lint
     - aip-guidelines-lint
-    - breaking
+#    - breaking
 
 python-artifact-test:
   extends:

@@ -4,7 +4,7 @@ package streammachine.internal_api.quotas.v1;
 
 import "google/api/field_behavior.proto";
 
-option go_package = "github.com/streammachineio/api-definitions-go/internal_api/quotas/v1;quotas";
+option go_package = "github.com/strmprivacy/api-definitions-go/internal_api/quotas/v1;quotas";
 option java_package = "io.streammachine.internal_api.quotas.v1";
 option java_multiple_files = true;
 

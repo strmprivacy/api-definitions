@@ -4,7 +4,7 @@ package streammachine.api.metrics.v1;
 
 import "google/api/field_behavior.proto";
 
-option go_package = "github.com/streammachineio/api-definitions-go/api/metrics/v1;metrics";
+option go_package = "github.com/strmprivacy/api-definitions-go/api/metrics/v1;metrics";
 option java_package = "io.streammachine.api.metrics.v1";
 option java_multiple_files = true;
 

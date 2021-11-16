@@ -69,8 +69,8 @@ docs: docs-clean
 # =======================
 # Build and publish tasks
 # =======================
-clean: jvm-clean python-clean go-clean
-build: jvm-build python-build go-build
+clean: jvm-clean python-clean go-clean typescript-clean
+build: jvm-build python-build go-build typescript-build
 
 # -----------------
 # JVM

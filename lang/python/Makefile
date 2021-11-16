@@ -21,6 +21,7 @@ clean-build:
 	rm -f ${python_version_files}
 	rm -fr ${top_level_package_name}
 	rm -fr dist/
+	rm -fr build/
 	rm -fr .eggs/
 	find . -name '*.egg-info' -exec rm -fr {} +
 	find . -name '*.egg' -exec rm -f {} +

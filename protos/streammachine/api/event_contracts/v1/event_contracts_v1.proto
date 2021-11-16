@@ -6,7 +6,7 @@ import "google/api/field_behavior.proto";
 import "google/protobuf/field_mask.proto";
 import "streammachine/api/entities/v1/entities_v1.proto";
 
-option go_package = "github.com/streammachineio/api-definitions-go/api/event_contracts/v1;event_contracts";
+option go_package = "github.com/strmprivacy/api-definitions-go/api/event_contracts/v1;event_contracts";
 option java_package = "io.streammachine.api.event_contracts.v1";
 option java_multiple_files = true;
 

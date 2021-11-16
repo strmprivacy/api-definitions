@@ -17,7 +17,7 @@ generate-typescript:
   needs:
     - buf-lint
     - aip-guidelines-lint
-    - breaking
+#    - breaking
   except:
     - master
 

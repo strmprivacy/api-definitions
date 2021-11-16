@@ -21,7 +21,7 @@ aip-guidelines-lint:
     variables:
       - $CI_BUILD_REF_NAME == "master" && $CI_COMMIT_MESSAGE =~ /.*chore\(release\).*/
 
-breaking:
+.breaking:
   extends: .buf
   script:
     - export LATEST_TAG=$(git tag -l | sort -V | tail -n 1)

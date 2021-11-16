@@ -20,7 +20,7 @@ generate-go:
   needs:
     - buf-lint
     - aip-guidelines-lint
-    - breaking
+#    - breaking
   except:
     - master
 
@@ -29,7 +29,7 @@ generate-go:
   variables:
     GIT_USER_EMAIL: "apis@streammachine.io"
     GIT_USER_NAME: "streammachineio-org"
-    REPOSITORY_URL: "https://git:${GITHUB_TOKEN}@github.com/streammachineio/api-definitions-go.git"
+    REPOSITORY_URL: "https://git:${GITHUB_TOKEN}@github.com/strmprivacy/api-definitions-go.git"
   dependencies:
     - generate-go
   needs:

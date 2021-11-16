@@ -9,7 +9,7 @@ include:
   needs:
     - buf-lint
     - aip-guidelines-lint
-    - breaking
+#    - breaking
 
 jvm-artifact-snapshot:
   extends:
