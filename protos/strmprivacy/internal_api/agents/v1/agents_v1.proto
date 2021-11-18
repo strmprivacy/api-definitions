@@ -1,0 +1,40 @@
+syntax = "proto3";
+
+package strmprivacy.internal_api.agents.v1;
+
+import "strmprivacy/api/entities/v1/entities_v1.proto";
+import "strmprivacy/internal_api/entities/v1/entities_v1.proto";
+
+option go_package = "github.com/strmprivacy/api-definitions-go/v2/internal_api/streams/v1;streams";
+option java_package = "io.strmprivacy.internal_api.streams.v1";
+option java_multiple_files = true;
+
+// (-- api-linter: core::0136::prepositions=disabled
+//     aip.dev/not-precedent: This is an internal API and the alternative with oneof is good either. --)
+service AgentsService {
+  rpc GetStreams(GetStreamsRequest) returns (GetStreamsResponse);
+  rpc UpdateStreamsStatus(UpdateStreamsStatusRequest) returns (UpdateStreamsStatusResponse);
+}
+
+message GetStreamsRequest {
+}
+
+message GetStreamsResponse {
+  // TODO probably move into ExtendedStream but lets do that later.
+  map<string,string> shared_config = 1;
+  repeated strmprivacy.internal_api.entities.v1.ExtendedStream extended_streams = 2;
+}
+
+// (-- api-linter: core::0134::request-mask-required=disabled
+//     aip.dev/not-precedent: We provide a specific list of statuses. --)
+message UpdateStreamsStatusRequest {
+  repeated Status statuses = 1;
+  message Status {
+    strmprivacy.api.entities.v1.StreamRef stream = 1;
+    string status = 2;
+  }
+}
+
+message UpdateStreamsStatusResponse {
+
+}
