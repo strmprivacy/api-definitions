@@ -156,9 +156,9 @@ publishing {
                 description.set(project.description)
 
                 scm {
-                    url.set("https://gitlab.com/stream-machine/api-definitions")
-                    connection.set("scm:git:git@gitlab.com:stream-machine/api-definitions.git")
-                    developerConnection.set("scm:git:git@gitlab.com:stream-machine/api-definitions.git")
+                    url.set("https://gitlab.com/strmprivacy/api-definitions")
+                    connection.set("scm:git:git@gitlab.com:strmprivacy/api-definitions.git")
+                    developerConnection.set("scm:git:git@gitlab.com:strmprivacy/api-definitions.git")
                 }
             }
         }

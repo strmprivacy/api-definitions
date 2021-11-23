@@ -7,7 +7,7 @@
 # which we generate here, based on the latest master revision.
 
 # Checkout the latest master revision in a subdirectory.
-git clone https://gitlab-ci-token:${CI_JOB_TOKEN}@gitlab.com/stream-machine/api-definitions.git prev-api-definitions
+git clone https://gitlab-ci-token:${CI_JOB_TOKEN}@gitlab.com/strmprivacy/api-definitions.git prev-api-definitions
 
 cd prev-api-definitions
 

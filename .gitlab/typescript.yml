@@ -1,5 +1,5 @@
 include:
-  - project: 'stream-machine/tools-and-utilities/ci-templates'
+  - project: 'strmprivacy/tools-and-utilities/ci-templates'
     file: '/nodejs/publish.yml'
 
 generate-typescript:

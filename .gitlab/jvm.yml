@@ -1,7 +1,7 @@
 include:
-  - project: 'stream-machine/tools-and-utilities/ci-templates'
+  - project: 'strmprivacy/tools-and-utilities/ci-templates'
     file: '/gradle/build-and-test.yml'
-  - project: 'stream-machine/tools-and-utilities/ci-templates'
+  - project: 'strmprivacy/tools-and-utilities/ci-templates'
     file: '/gradle/jar-publish.yml'
 
 .jvm-needs:

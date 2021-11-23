@@ -1,0 +1,5 @@
+{
+    "extends": [
+        "gitlab>strmprivacy/tools-and-utilities/renovate-runner:base-renovate-config"
+    ]
+}

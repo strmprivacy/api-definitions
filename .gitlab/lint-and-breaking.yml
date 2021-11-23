@@ -2,7 +2,7 @@
   image: bufbuild/buf:latest
   stage: lint-and-breaking
   before_script:
-    - git clone https://gitlab-ci-token:${CI_JOB_TOKEN}@gitlab.com/stream-machine/tools-and-utilities/google-api-linter.git
+    - git clone https://gitlab-ci-token:${CI_JOB_TOKEN}@gitlab.com/strmprivacy/tools-and-utilities/google-api-linter.git
   except: # Do not run for master pipelines when it's a release commit
     variables:
       - $CI_BUILD_REF_NAME == "master" && $CI_COMMIT_MESSAGE =~ /.*chore\(release\).*/
