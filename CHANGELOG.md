@@ -1,4 +1,13 @@
-# [2.1.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.0.1...v2.1.0) (2021-11-16)
+## [2.1.1](https://gitlab.com/strmprivacy/api-definitions/compare/v2.1.0...v2.1.1) (2021-11-29)
+
+
+### Bug Fixes
+
+* dummy patch version ([d634e6f](https://gitlab.com/strmprivacy/api-definitions/commit/d634e6f83321375ff468f667663ee2c5fe861b2c))
+* update to strmprivacy ([413acaa](https://gitlab.com/strmprivacy/api-definitions/commit/413acaaebd5fc0e773d7282b89b912074472c7ff))
+* wrong templates location ([811d8dc](https://gitlab.com/strmprivacy/api-definitions/commit/811d8dcc5c7a11f322446f42b2156ddbea5c0f30))
+
+# [2.1.0](https://gitlab.com/stream-machine/api-definitions/compare/v2.0.1...v2.1.0) (2021-11-16)
 
 
 ### Features
