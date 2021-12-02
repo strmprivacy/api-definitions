@@ -1,3 +1,18 @@
+# [2.2.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.1.1...v2.2.0) (2021-12-02)
+
+
+### Bug Fixes
+
+* conflict ([8f7b268](https://gitlab.com/strmprivacy/api-definitions/commit/8f7b268a2eb5111c16f9f5635b43080b0a39e7a7))
+* wrong java and go package ([7075471](https://gitlab.com/strmprivacy/api-definitions/commit/707547124153ecbd4fe9213493f041ba2a07dbc8))
+
+
+### Features
+
+* renamed to StreamsAgentService ([83e58c8](https://gitlab.com/strmprivacy/api-definitions/commit/83e58c86a1c3ea49565e82a378744f45cbd1f92b))
+* **strm-392:** rename to strmprivacy; add renovate ([0990869](https://gitlab.com/strmprivacy/api-definitions/commit/099086928c0e733a9951d39355d308e160382c56))
+* agents service added ([af29d93](https://gitlab.com/strmprivacy/api-definitions/commit/af29d93015ec36199b466e9253b20becd2ab1608))
+
 ## [2.1.1](https://gitlab.com/strmprivacy/api-definitions/compare/v2.1.0...v2.1.1) (2021-11-29)
 
 
