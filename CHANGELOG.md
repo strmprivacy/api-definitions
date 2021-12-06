@@ -1,3 +1,10 @@
+# [2.3.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.2.0...v2.3.0) (2021-12-06)
+
+
+### Features
+
+* **deps:** pin dependencies ([97048bb](https://gitlab.com/strmprivacy/api-definitions/commit/97048bb44c9eb6fa85bc64cfb5bf8def5b3f080a))
+
 # [2.2.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.1.1...v2.2.0) (2021-12-02)
 
 
