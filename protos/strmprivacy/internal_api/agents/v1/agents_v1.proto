@@ -20,4 +20,7 @@ message GetStreamsRequest {
 
 message GetStreamsResponse {
   repeated strmprivacy.internal_api.entities.v1.ExtendedStream extended_streams = 2;
+  // the full decrypter image for instance
+  // europe-west4-docker.pkg.dev/stream-machine-development/docker/events/decrypter:latest
+  string decrypter_image = 3;
 }
