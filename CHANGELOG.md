@@ -1,3 +1,10 @@
+# [2.4.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.3.0...v2.4.0) (2021-12-07)
+
+
+### Features
+
+* added decrypter_image to streams agent api ([1fd5497](https://gitlab.com/strmprivacy/api-definitions/commit/1fd5497e9fb5f85f9c7c9f0973b63faf7fc33b41))
+
 # [2.3.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.2.0...v2.3.0) (2021-12-06)
 
 
