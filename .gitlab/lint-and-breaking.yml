@@ -26,4 +26,5 @@ aip-guidelines-lint:
   script:
     - export LATEST_TAG=$(git tag -l | sort -V | tail -n 1)
     - echo "Latest tag = $LATEST_TAG"
-    - if [ ! -z "$LATEST_TAG" ] ; then ./scripts/buf-breaking.sh; fi
+# TODO Enable again when we've renamed agents_v1.proto
+#    - if [ ! -z "$LATEST_TAG" ] ; then ./scripts/buf-breaking.sh; fi

@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package strmprivacy.internal_api.agents.v1;
+
+import "strmprivacy/api/entities/v1/entities_v1.proto";
+import "strmprivacy/internal_api/entities/v1/entities_v1.proto";
+
+option go_package = "github.com/strmprivacy/api-definitions-go/v2/internal_api/agents/v1;agents";
+option java_package = "io.strmprivacy.internal_api.agents.v1";
+option java_multiple_files = true;
+
+service KafkaExportersAgentService {
+  rpc GetDesiredKafkaExportersState(GetDesiredKafkaExportersStateRequest) returns (GetDesiredKafkaExportersStateResponse);
+}
+
+message GetDesiredKafkaExportersStateRequest {
+}
+
+message GetDesiredKafkaExportersStateResponse {
+  string kafka_exporter_image = 1;
+  repeated strmprivacy.internal_api.entities.v1.ExtendedStream extended_streams = 2;
+}
