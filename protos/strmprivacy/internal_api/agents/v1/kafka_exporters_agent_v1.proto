@@ -18,5 +18,5 @@ message GetDesiredKafkaExportersStateRequest {
 
 message GetDesiredKafkaExportersStateResponse {
   string kafka_exporter_image = 1;
-  repeated strmprivacy.internal_api.entities.v1.ExtendedStream extended_streams = 2;
+  repeated strmprivacy.api.entities.v1.KafkaExporter kafka_exporters = 2;
 }
