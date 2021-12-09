@@ -10,13 +10,13 @@ option java_package = "io.strmprivacy.internal_api.agents.v1";
 option java_multiple_files = true;
 
 service KafkaExportersAgentService {
-  rpc GetDesiredKafkaExportersState(GetDesiredKafkaExportersStateRequest) returns (GetDesiredKafkaExportersStateResponse);
+  rpc GetDesiredKafkaExporters(GetDesiredKafkaExportersRequest) returns (GetDesiredKafkaExportersResponse);
 }
 
-message GetDesiredKafkaExportersStateRequest {
+message GetDesiredKafkaExportersRequest {
 }
 
-message GetDesiredKafkaExportersStateResponse {
+message GetDesiredKafkaExportersResponse {
   string kafka_exporter_image = 1;
   repeated strmprivacy.api.entities.v1.KafkaExporter kafka_exporters = 2;
 }
