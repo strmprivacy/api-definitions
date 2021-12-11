@@ -1,3 +1,16 @@
+# [2.5.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.4.0...v2.5.0) (2021-12-11)
+
+
+### Bug Fixes
+
+* use correct type in kafka exporter state response ([e909000](https://gitlab.com/strmprivacy/api-definitions/commit/e9090005182cfb7a16361cc3c524a67b0d2a53aa))
+
+
+### Features
+
+* remove 'State' from the KafkaExportersAgentApi ([7c5eaf1](https://gitlab.com/strmprivacy/api-definitions/commit/7c5eaf1f08dfd4c6d235a545ca21351ad03a8b26))
+* split agent protos into multiple files; add kafka_exporters_agent; fix buf breaking script ([ee379b0](https://gitlab.com/strmprivacy/api-definitions/commit/ee379b021d8d4ad7ff987681e81c1d368f82a7cf))
+
 # [2.4.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.3.0...v2.4.0) (2021-12-07)
 
 
