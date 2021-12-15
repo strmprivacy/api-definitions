@@ -1,5 +1,7 @@
 #!/bin/sh
 
+set -x
+
 # Unfortunately, when comparing with Git, Buf cannot resolve external proto's,
 # since these are not part of the repository. As far as I can see, it's impossible to
 # configure Git to use a local "protos root" directory when comparing with Git.
@@ -15,6 +17,8 @@ if [ -f "$CI_PROJECT_NAME" ]; then
     BUF_IMAGE_LOCATION="prev-api-definitions/image.bin"
     ENSURE_COMMON_PROTOS_COMMAND="cp -r ../lang/.common-protos lang/.common-protos"
 fi
+
+env
 
 # Checkout the latest master revision in a subdirectory.
 git clone "$CLONE_URL" prev-api-definitions
