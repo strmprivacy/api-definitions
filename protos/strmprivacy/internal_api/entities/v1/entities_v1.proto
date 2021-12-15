@@ -22,3 +22,8 @@ message ExtendedStreamGroup {
   ExtendedStream source_stream = 1;
   repeated ExtendedStream derived_streams = 2;
 }
+
+message ExtendedBatchExporter {
+  strmprivacy.api.entities.v1.BatchExporter exporter = 1;
+  string uuid = 2;
+}
