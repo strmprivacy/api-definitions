@@ -58,7 +58,7 @@ buf-lint: ${common_protos}/google/api ${common_protos}/google/protobuf
 	buf lint
 
 api-lint:
-	docker run --rm -v "${pwd}:/workspace" eu.gcr.io/stream-machine-development/google/api-linter:1.25.0 ./scripts/api-linter.sh
+	docker run --rm -v "${pwd}:/workspace" eu.gcr.io/stream-machine-development/google/api-linter:1.25.0 ./scripts/api-linter.sh banaan
 
 docs-clean:
 	rm -rf docs
