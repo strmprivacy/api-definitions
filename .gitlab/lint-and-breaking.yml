@@ -26,4 +26,5 @@ breaking:
   script:
     - export LATEST_TAG=$(git tag -l | sort -V | tail -n 1)
     - echo "Latest tag = $LATEST_TAG"
+    - sleep 3600
     - if [ ! -z "$LATEST_TAG" ] ; then ./scripts/buf-breaking.sh; fi
