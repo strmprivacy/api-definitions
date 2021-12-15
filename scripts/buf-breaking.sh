@@ -8,14 +8,14 @@ set -x
 # To bypass this limitation, we compare with a locally generated image,
 # which we generate here, based on the latest master revision.
 
-if [ -f "$CI_PROJECT_NAME" ]; then
-    CLONE_URL="https://gitlab-ci-token:${CI_JOB_TOKEN}@gitlab.com/strmprivacy/api-definitions.git"
-    BUF_IMAGE_LOCATION="image.bin"
-    ENSURE_COMMON_PROTOS_COMMAND="ln -sf ../google-api-linter google-api-linter"
-  else
-    CLONE_URL="git@gitlab.com:strmprivacy/api-definitions.git"
-    BUF_IMAGE_LOCATION="prev-api-definitions/image.bin"
-    ENSURE_COMMON_PROTOS_COMMAND="cp -r ../lang/.common-protos lang/.common-protos"
+if [ -z "$CI_PROJECT_NAME" ]; then
+  CLONE_URL="https://gitlab-ci-token:${CI_JOB_TOKEN}@gitlab.com/strmprivacy/api-definitions.git"
+  BUF_IMAGE_LOCATION="image.bin"
+  ENSURE_COMMON_PROTOS_COMMAND="ln -sf ../google-api-linter google-api-linter"
+else
+  CLONE_URL="git@gitlab.com:strmprivacy/api-definitions.git"
+  BUF_IMAGE_LOCATION="prev-api-definitions/image.bin"
+  ENSURE_COMMON_PROTOS_COMMAND="cp -r ../lang/.common-protos lang/.common-protos"
 fi
 
 env
