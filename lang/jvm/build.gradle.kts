@@ -12,7 +12,7 @@ rootProject.version = if (tag != null || branch == "master") project.version els
 
 buildscript {
     tasks.named<Wrapper>("wrapper") {
-        gradleVersion = "6.8.2"
+        gradleVersion = "7.3.1"
         distributionType = Wrapper.DistributionType.ALL
     }
 }
@@ -42,6 +42,7 @@ dependencies {
     compileOnly("javax.annotation:javax.annotation-api:${rootProject.ext["javaXVersion"]}")
     implementation("io.grpc:grpc-kotlin-stub:${rootProject.ext["grpcKotlinVersion"]}")
     implementation("io.grpc:grpc-protobuf:${rootProject.ext["grpcVersion"]}")
+    implementation("io.grpc:grpc-stub:${rootProject.ext["grpcVersion"]}")
 
     api("com.google.protobuf:protobuf-java-util:${rootProject.ext["protobufVersion"]}")
     implementation("com.google.protobuf:protobuf-kotlin:${rootProject.ext["protobufVersion"]}")

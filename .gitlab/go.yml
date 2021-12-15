@@ -4,7 +4,7 @@ include:
 
 generate-go:
   stage: generate
-  image: namely/protoc-all:latest
+  image: namely/protoc-all:latest # FIXME this should be updated by Renovate bot! and should be set to the grpc version
   before_script:
     - apt-get install -y make unzip
     # Ensure that the protoc compiler has the Google protos
@@ -20,7 +20,7 @@ generate-go:
   needs:
     - buf-lint
     - aip-guidelines-lint
-#    - breaking
+    - breaking
   except:
     - master
 

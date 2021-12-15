@@ -1,6 +1,6 @@
 {
   "name": "@strmprivacy-internal/api-definitions",
-  "version": "1.31.0",
+  "version": "2.5.0",
   "main": "build/index.ts",
   "files": [
     "/build",
