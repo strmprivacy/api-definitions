@@ -143,6 +143,7 @@ message BatchExporter {
   //     aip.dev/not-precedent: We refer to the sink by name. --)
   string sink_name = 5 [(google.api.field_behavior) = REQUIRED];
   string path_prefix = 6;
+  bool include_existing_events = 7;
 }
 
 message BatchExporterRef {
