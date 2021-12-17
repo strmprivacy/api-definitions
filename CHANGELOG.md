@@ -1,3 +1,10 @@
+# [2.7.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.6.0...v2.7.0) (2021-12-17)
+
+
+### Features
+
+* remove grpc health api (provided in grpc-services); provide jvm deps through lib ([0963f35](https://gitlab.com/strmprivacy/api-definitions/commit/0963f35da4ca0a456f51d88127d22dc04b2e2132))
+
 # [2.6.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.5.0...v2.6.0) (2021-12-17)
 
 
