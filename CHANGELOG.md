@@ -1,3 +1,10 @@
+# [2.6.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.5.0...v2.6.0) (2021-12-17)
+
+
+### Features
+
+* added include_existing_events to BatchExporter entity as optional boolean ([8d436d6](https://gitlab.com/strmprivacy/api-definitions/commit/8d436d6b786d01a7ce3ad6512869e27bdeb86877))
+
 # [2.5.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.4.0...v2.5.0) (2021-12-11)
 
 
