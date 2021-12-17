@@ -18,5 +18,5 @@ message GetDesiredBatchExportersRequest {
 
 message GetDesiredBatchExportersResponse {
   string batch_exporter_image = 1;
-  repeated strmprivacy.internal_api.entities.v1.ExtendedBatchExporter batch_exporters = 2;
+  repeated strmprivacy.internal_api.entities.v1.ExtendedBatchExporterAndSink exporter_and_sink = 2;
 }

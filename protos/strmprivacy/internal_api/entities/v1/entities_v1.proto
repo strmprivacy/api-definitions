@@ -24,6 +24,16 @@ message ExtendedStreamGroup {
 }
 
 message ExtendedBatchExporter {
-  strmprivacy.api.entities.v1.BatchExporter exporter = 1;
-  string uuid = 2;
+  string uuid = 1;
+  strmprivacy.api.entities.v1.BatchExporter exporter = 2;
+}
+
+message ExtendedSink {
+  string uuid = 1;
+  strmprivacy.api.entities.v1.Sink sink = 2;
+}
+
+message ExtendedBatchExporterAndSink {
+  ExtendedBatchExporter exporter = 1;
+  ExtendedSink sink = 2;
 }
