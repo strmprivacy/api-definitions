@@ -40,9 +40,11 @@ dependencies {
 
     // Grpc and Protobuf
     compileOnly("javax.annotation:javax.annotation-api:${rootProject.ext["javaXVersion"]}")
-    implementation("io.grpc:grpc-kotlin-stub:${rootProject.ext["grpcKotlinVersion"]}")
     implementation("io.grpc:grpc-protobuf:${rootProject.ext["grpcVersion"]}")
     implementation("io.grpc:grpc-stub:${rootProject.ext["grpcVersion"]}")
+    api("io.grpc:grpc-kotlin-stub:${rootProject.ext["grpcKotlinVersion"]}")
+    api("io.grpc:grpc-services:${rootProject.ext["grpcVersion"]}")
+    runtimeOnly("io.grpc:grpc-netty-shaded:${rootProject.ext["grpcVersion"]}")
 
     api("com.google.protobuf:protobuf-java-util:${rootProject.ext["protobufVersion"]}")
     implementation("com.google.protobuf:protobuf-kotlin:${rootProject.ext["protobufVersion"]}")
