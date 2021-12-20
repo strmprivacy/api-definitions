@@ -146,6 +146,9 @@ lang/typescript/build/.timestamp: typescript-generate
 typescript-build: lang/typescript/build/.timestamp
 	make -C lang/typescript build
 
+typescript-build-without-generate:
+	make -C lang/typescript build
+
 typescript-publish-release:
 	make -C lang/typescript publish
 

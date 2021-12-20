@@ -26,15 +26,6 @@ generate-go:
   except:
     - master
 
-go-build:
-  extends:
-    - .go-needs
-    - .go
-  script:
-    - make go-build
-  only:
-    - /^renovate\/build-only.*$/
-
 .go-needs:
   stage: publish
   variables:
@@ -45,6 +36,15 @@ go-build:
     - generate-go
   needs:
     - generate-go
+
+go-setup:
+  extends:
+    - .go-needs
+    - .go
+  script:
+    - make go-setup
+  only:
+    - /^renovate\/build-only.*$/
 
 go-repo-update:
   extends:
