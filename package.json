@@ -60,9 +60,6 @@
       "@semantic-release/gitlab"
     ]
   },
-  "engines": {
-    "node": "^12.12.0"
-  },
   "config": {
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
