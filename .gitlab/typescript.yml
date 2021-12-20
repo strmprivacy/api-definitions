@@ -4,7 +4,7 @@ include:
   - project: 'strmprivacy/tools-and-utilities/ci-templates'
     file: '/nodejs/publish.yml'
   - project: 'strmprivacy/tools-and-utilities/ci-templates'
-    file: '////common/google-application-credentials.yml'
+    file: '///common/google-application-credentials.yml'
 
 generate-typescript:
   stage: generate
