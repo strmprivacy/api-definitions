@@ -21,21 +21,20 @@ generate-typescript:
   except:
     - master
 
+typescript-artifact-build:
+  extends:
+    - generate-typescript
+  script:
+    - make typescript-build
+  only:
+    - /^renovate\/build-only.*$/
+
 .typescript-needs:
   stage: publish
   needs:
     - generate-typescript
   dependencies:
     - generate-typescript
-
-typescript-artifact-build:
-  extends:
-    - .typescript-needs
-    - .nodejs
-  script:
-    - make typescript-build
-  only:
-    - /^renovate\/build-only.*$/
 
 typescript-artifact-snapshot:
   extends:
