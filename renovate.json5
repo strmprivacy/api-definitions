@@ -11,7 +11,7 @@
                 "grpc_version\\s?:=\\s?(?<currentValue>[\\d.]*?)\\n"
             ],
             "depNameTemplate": "io.grpc:grpc-protobuf",
-            "datasourceTemplate": "gradle"
+            "datasourceTemplate": "maven"
         }
     ],
     gradle: {
