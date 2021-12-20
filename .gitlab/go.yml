@@ -29,7 +29,7 @@ generate-go:
 go-build:
   extends:
     - .go-needs
-    - .go-repo-update
+    - .go
   script:
     - make go-build
   only:

@@ -24,7 +24,7 @@ generate-typescript:
 typescript-artifact-build:
   extends:
     - .typescript-needs
-    - .nodejs-artifact-snapshot
+    - .nodejs
   script:
     - make typescript-build
   only:
