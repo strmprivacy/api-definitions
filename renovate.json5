@@ -2,18 +2,68 @@
     "extends": [
         "gitlab>strmprivacy/tools-and-utilities/renovate-runner//presets/base-renovate-config"
     ],
-    "regexManagers": [
-        {
-            "fileMatch": [
-                "Makefile$"
-            ],
-            "matchStrings": [
-                "grpc_version\\s?:=\\s?(?<currentValue>[\\d.]*?)\\n"
-            ],
-            "depNameTemplate": "io.grpc:grpc-protobuf",
-            "datasourceTemplate": "maven"
-        }
-    ],
+    regex: {
+        packageRules: [
+            {
+                matchPackagePatterns: [
+                    "*"
+                ],
+                matchUpdateTypes: [
+                    "minor",
+                    "patch"
+                ],
+                groupName: "grpc-protobuf dependencies",
+                groupSlug: "non-major-grpc-protobuf",
+                automerge: true,
+                platformAutomerge: true,
+                additionalBranchPrefix: "build-only/"
+            },
+            {
+                matchPackagePatterns: [
+                    "*"
+                ],
+                matchUpdateTypes: [
+                    "major"
+                ],
+                groupName: "grpc-protobuf major dependencies",
+                groupSlug: "grpc-protobuf",
+                automerge: false,
+                additionalBranchPrefix: "build-only/"
+            }
+        ],
+        "regexManagers": [
+            {
+                "fileMatch": [
+                    "Makefile$"
+                ],
+                "matchStrings": [
+                    "grpc_version\\s?:=\\s?(?<currentValue>[\\d.]*?)\\n"
+                ],
+                "depNameTemplate": "io.grpc:grpc-protobuf",
+                "datasourceTemplate": "maven"
+            },
+            {
+                "fileMatch": [
+                    "Makefile$"
+                ],
+                "matchStrings": [
+                    "protobuf_version\\s?:=\\s?(?<currentValue>[\\d.]*?)\\n"
+                ],
+                "depNameTemplate": "com.google.protobuf:protobuf-java",
+                "datasourceTemplate": "maven"
+            },
+            {
+                "fileMatch": [
+                    "Makefile$"
+                ],
+                "matchStrings": [
+                    "google_common_protos_version\\s?:=\\s?(?<currentValue>[\\d.]*?)\\n"
+                ],
+                "depNameTemplate": "com.google.api.grpc:proto-google-common-protos",
+                "datasourceTemplate": "maven"
+            }
+        ]
+    },
     gradle: {
         packageRules: [
             // The following packages are excluded from updates, as they are determined by the
