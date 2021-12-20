@@ -1,5 +1,7 @@
 include:
   - project: 'strmprivacy/tools-and-utilities/ci-templates'
+    file: '/python/base.yml'
+  - project: 'strmprivacy/tools-and-utilities/ci-templates'
     file: '/python/publish.yml'
 
 .python-needs:
@@ -8,6 +10,15 @@ include:
     - buf-lint
     - aip-guidelines-lint
     - breaking
+
+python-artifact-build:
+  extends:
+    - .python-needs
+    - .python
+  script:
+    - make python-build
+  only:
+    - /^renovate\/build-only.*$/
 
 python-artifact-test:
   extends:

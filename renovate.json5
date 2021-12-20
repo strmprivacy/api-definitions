@@ -2,9 +2,6 @@
     "extends": [
         "gitlab>strmprivacy/tools-and-utilities/renovate-runner//presets/base-renovate-config"
     ],
-    enabledManagers: [
-        "regex"
-    ],
     "regexManagers": [
         {
             "fileMatch": [
@@ -80,6 +77,19 @@
                     "io.grpc:grpc-stub",
                     "io.grpc:grpc-services",
                     "io.grpc:grpc-netty-shaded"
+                ],
+                enabled: false
+            }
+        ]
+    },
+    npm: {
+        packageRules: [
+            // The following packages are excluded from updates, as they are determined by the
+            // top level Makefile
+            {
+                excludePackageNames: [
+                    "@types/google-protobuf",
+                    "google-protobuf",
                 ],
                 enabled: false
             }

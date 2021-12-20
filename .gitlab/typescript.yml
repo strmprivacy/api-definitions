@@ -1,5 +1,7 @@
 include:
   - project: 'strmprivacy/tools-and-utilities/ci-templates'
+    file: '/nodejs/base.yml'
+  - project: 'strmprivacy/tools-and-utilities/ci-templates'
     file: '/nodejs/publish.yml'
 
 generate-typescript:
@@ -27,6 +29,15 @@ generate-typescript:
     - generate-typescript
   dependencies:
     - generate-typescript
+
+typescript-artifact-build:
+  extends:
+    - .typescript-needs
+    - .nodejs
+  script:
+    - make typescript-build
+  only:
+    - /^renovate\/build-only.*$/
 
 typescript-artifact-snapshot:
   extends:

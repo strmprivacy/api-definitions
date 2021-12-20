@@ -1,4 +1,4 @@
-.PHONY: intellij clean build publish buf-breaking buf-lint api-lint default-protobuf-dependencies docs clean-docs
+.PHONY: intellij clean build publish buf-breaking buf-lint api-lint default-protobuf-dependencies docs clean-docs clean-common-protos
 
 # =======================
 # Variables
@@ -20,7 +20,7 @@ export
 # =======================
 strmprivacy_api_version := 2.7.0
 
-grpc_version := 1.43.0
+grpc_version := 1.42.0
 protobuf_version := 3.19.1
 google_common_protos_version := 2.7.0
 
@@ -31,6 +31,11 @@ ${common_protos}/protobuf-java.jar:
 # google/api dependencies (Common Google Protos, such as field_behavior)
 ${common_protos}/proto-google-common-protos.jar:
 	curl "https://repo1.maven.org/maven2/com/google/api/grpc/proto-google-common-protos/${google_common_protos_version}/proto-google-common-protos-${google_common_protos_version}.jar" --create-dirs -o "${common_protos}/proto-google-common-protos.jar"
+
+${common_protos}: ${common_protos}/proto-google-common-protos.jar ${common_protos}/protobuf-java.jar
+
+clean-common-protos:
+	rm -rf ${common_protos}
 
 ${common_protos}/google/protobuf: ${common_protos}/protobuf-java.jar
 	unzip -d ${common_protos} $< "google/**/*.proto"
@@ -69,8 +74,8 @@ docs: docs-clean
 # =======================
 # Build and publish tasks
 # =======================
-clean: jvm-clean python-clean go-clean typescript-clean
-build: jvm-build python-build go-build typescript-build
+clean: clean-common-protos jvm-clean python-clean go-clean typescript-clean
+build: default-google-dependencies jvm-build python-build go-build typescript-build
 
 # -----------------
 # JVM

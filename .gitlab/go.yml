@@ -1,5 +1,7 @@
 include:
   - project: 'strmprivacy/tools-and-utilities/ci-templates'
+    file: '/go/base.yml'
+  - project: 'strmprivacy/tools-and-utilities/ci-templates'
     file: '/go/publish.yml'
 
 generate-go:
@@ -34,6 +36,15 @@ generate-go:
     - generate-go
   needs:
     - generate-go
+
+go-build:
+  extends:
+    - .go-needs
+    - .go
+  script:
+    - make go-build
+  only:
+    - /^renovate\/build-only.*$/
 
 go-repo-update:
   extends:

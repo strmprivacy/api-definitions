@@ -1,5 +1,7 @@
 include:
   - project: 'strmprivacy/tools-and-utilities/ci-templates'
+    file: '/gradle/base.yml'
+  - project: 'strmprivacy/tools-and-utilities/ci-templates'
     file: '/gradle/build-and-test.yml'
   - project: 'strmprivacy/tools-and-utilities/ci-templates'
     file: '/gradle/jar-publish.yml'
@@ -10,6 +12,15 @@ include:
     - buf-lint
     - aip-guidelines-lint
     - breaking
+
+jvm-artifact-build:
+  extends:
+    - .jvm-needs
+    - .gradle
+  script:
+    - make jvm-build
+  only:
+    - /^renovate\/build-only.*$/
 
 jvm-artifact-snapshot:
   extends:
