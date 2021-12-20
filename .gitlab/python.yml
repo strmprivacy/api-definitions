@@ -3,6 +3,8 @@ include:
     file: '/python/base.yml'
   - project: 'strmprivacy/tools-and-utilities/ci-templates'
     file: '/python/publish.yml'
+  - project: 'strmprivacy/tools-and-utilities/ci-templates'
+    file: '/////common/google-application-credentials.yml'
 
 .python-needs:
   stage: publish
@@ -14,7 +16,8 @@ include:
 python-artifact-build:
   extends:
     - .python-needs
-    - .python
+    - .python-without-artifact-registry-creds
+    - .google-artifact-registry-credentials
   script:
     - make python-build
   only:
