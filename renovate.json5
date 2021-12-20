@@ -2,6 +2,7 @@
     "extends": [
         "gitlab>strmprivacy/tools-and-utilities/renovate-runner//presets/base-renovate-config"
     ],
+    enabledManagers: ["regexManagers"],
     "regexManagers": [
         {
             "fileMatch": [
@@ -26,7 +27,7 @@
                     "io.grpc:grpc-protobuf",
                     "io.grpc:grpc-stub",
                     "io.grpc:grpc-services",
-                    "io.grpc:grpc-netty-shaded",
+                    "io.grpc:grpc-netty-shaded"
                 ],
                 enabled: false
             }
