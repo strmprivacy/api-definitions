@@ -3,6 +3,8 @@ include:
     file: '/nodejs/base.yml'
   - project: 'strmprivacy/tools-and-utilities/ci-templates'
     file: '/nodejs/publish.yml'
+  - project: 'strmprivacy/tools-and-utilities/ci-templates'
+    file: '////common/google-application-credentials.yml'
 
 generate-typescript:
   stage: generate
@@ -33,7 +35,8 @@ generate-typescript:
 typescript-artifact-build:
   extends:
     - .typescript-needs
-    - .nodejs
+    - .nodejs-without-artifact-registry-creds
+    - .google-artifact-registry-credentials
   script:
     - make typescript-build
   only:
