@@ -10,8 +10,23 @@ option go_package = "github.com/strmprivacy/api-definitions-go/v2/api/entities/v
 option java_package = "io.strmprivacy.api.entities.v1";
 option java_multiple_files = true;
 
-// (-- See our attribute spreadsheet for the initial fields version
-//     https://docs.google.com/spreadsheets/d/12dooxWXRQjEKhZxS_Bpa4fXpDpaEbPu9JorxOo_BElQ --)
+/*
+Most of our customer created entities have a name (exceptions are currently the KafkaUser and KafkaExporter).
+
+I'd like to add generic name constraints, so we don't have to define them for each entity separately. I think we have
+two options:
+
+* The Ascii subset: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#dns-subdomain-names
+* the internationalized version where we allow pretty much any unicode string, only limited to a certain size.
+
+Our codebase already handles of the Unicode names. The exception is where we have added an entity name
+(or something derived from it) as a k8s `label`. That leads to a non-deployable manifest. We see this with the Kafka-Exporter
+for instance.
+
+My preference is strongly for the second option. I think going with the ascii only option reflects poorly on the capabilities
+of this company, and will definitely hinder adoption in for instance Germany and France.
+
+*/
 
 /*
   Streams are source or derived streams depending on whether or not linked_stream is null.
@@ -20,8 +35,19 @@ option java_multiple_files = true;
 message Stream {
   StreamRef ref = 1 [(google.api.field_behavior) = REQUIRED];
   // customer's description for this Stream.
+  /*
+  constraints:
+  size < 5000
+   */
   string description = 2;
   // consent levels for derived streams
+  /*
+  constraints:
+  size < 50
+  if consent_level_type ==  CUMULATIVE then
+  size = 1
+  endif
+   */
   repeated int32 consent_levels = 3;
   // how event consent-levels are interpreted by decrypters.
   ConsentLevelType consent_level_type = 4;
@@ -30,8 +56,18 @@ message Stream {
   // stream limits
   Limits limits = 6 [(google.api.field_behavior) = OUTPUT_ONLY];
   // null for source streams
+  /*
+  constraints:
+  size < 1000
+   */
   string linked_stream = 7;
   // customer purposes.
+
+  /*
+  constraints:
+  size < 50
+  size per item < 1000
+   */
   repeated string tags = 8;
   repeated Credentials credentials = 9 [(google.api.field_behavior) = OUTPUT_ONLY];
 
@@ -50,8 +86,17 @@ message MaskedFields {
   // default Murmurhash3 for empty string
   string hash_type = 1 ;
   // hashing seed
+  /*
+  constraints:
+  size < 1000
+   */
   string seed = 2;
   // map of event-contract-ref vs field patterns
+  /* constraints:
+    * event-contract-refs should be existing event contracts
+    * field_patterns should be valid values (checked by event-core)
+    * the field_patterns list should have no duplicates.
+   */
   map <string, PatternList> field_patterns = 3;
   message PatternList {
     repeated string field_patterns = 1;
@@ -80,6 +125,7 @@ message KeyStream {
 message StreamRef {
   string billing_id = 1 [(google.api.field_behavior) = OUTPUT_ONLY];
   // the name of the stream
+  /* constraints: generic name */
   string name = 2 [(google.api.field_behavior) = REQUIRED];
 }
 
@@ -112,12 +158,14 @@ message Sink {
 
 message SinkRef {
   string billing_id = 1 [(google.api.field_behavior) = REQUIRED];
+  /* constraints: generic name */
   string name = 2 [(google.api.field_behavior) = REQUIRED];
 }
 
 message BucketConfig {
   // (-- api-linter: core::0122::name-suffix=disabled
   //     aip.dev/not-precedent: We refer to a bucket name. --)
+  /* constraints: validated via access check */
   string bucket_name = 4 [(google.api.field_behavior) = REQUIRED];
   // The credentials that are to be used to access the sink target (e.g. S3 or Google Cloud Storage)
   string credentials = 5 [(google.api.field_behavior) = REQUIRED];
@@ -138,16 +186,28 @@ message BatchExporter {
     KeyStreamRef key_stream_ref = 3 [(google.api.field_behavior) = REQUIRED];
   }
   // granularity of seconds, nanos is unused
+  /*
+  constraints:
+  interval > 30s
+  interval < TBD
+   */
   google.protobuf.Duration interval = 4 [(google.api.field_behavior) = REQUIRED];
   // (-- api-linter: core::0122::name-suffix=disabled
   //     aip.dev/not-precedent: We refer to the sink by name. --)
+  /* constraints: generic name constraints */
   string sink_name = 5 [(google.api.field_behavior) = REQUIRED];
+  /* constraints:
+  Total key size on S3 is 1024 unicode characters max. The export filenames are
+  created from the stream name suffixed with partition numbers and a timestamp.
+  Suggestion: size < 200, Unicode
+   */
   string path_prefix = 6;
   bool include_existing_events = 7;
 }
 
 message BatchExporterRef {
   string billing_id = 1 [(google.api.field_behavior) = OUTPUT_ONLY];
+  /* constraints: generic name constraint */
   string name = 2 [(google.api.field_behavior) = REQUIRED];
 }
 
@@ -168,6 +228,7 @@ message KafkaClusterRef {
   // (-- streammachine for the default export cluster --)
   string billing_id = 1 [(google.api.field_behavior) = REQUIRED];
   // (-- shared export --)
+  /* constraints: generic name constraint */
   string name = 2 [(google.api.field_behavior) = REQUIRED];
 }
 
@@ -181,6 +242,7 @@ message KafkaExporter {
 message KafkaExporterRef {
   string billing_id = 1 [(google.api.field_behavior) = REQUIRED];
   // default value  <cluster-name>-<stream-name>
+  /* constraints: generic name constraint */
   string name = 2 [(google.api.field_behavior) = REQUIRED];
 }
 
@@ -188,6 +250,7 @@ message KafkaExporterTarget {
   // what cluster to produce to
   KafkaClusterRef cluster_ref = 1 [(google.api.field_behavior) = REQUIRED];
   // the topic this exporter produces to
+  /* constraints: access checked on creation of kafka exporter */
   string topic = 2 [(google.api.field_behavior) = REQUIRED];
   // used to access the target Kafka Cluster in case of OAuth based authentication
   string client_id = 3;
@@ -214,6 +277,7 @@ message KafkaUser {
 
 message KafkaUserRef {
   string billing_id = 1 [(google.api.field_behavior) = OUTPUT_ONLY];
+  /* constraints: generic name constraint */
   string name = 2 [(google.api.field_behavior) = OUTPUT_ONLY];
 }
 
@@ -223,6 +287,7 @@ for descriptive purposes only.
 message ConsentLevelMapping {
   ConsentLevelMappingRef ref = 1 [(google.api.field_behavior) = REQUIRED];
   // some text like 'analytics'
+  /* constraints: generic name constraint */
   string name = 2 [(google.api.field_behavior) = REQUIRED];
 }
 
@@ -239,8 +304,11 @@ message WindowedEventCount {
 }
 
 message SchemaRef {
+  /* constraints: generic name constraint */
   string handle = 1 [(google.api.field_behavior) = REQUIRED];
+  /* constraints: generic name constraint */
   string name = 2 [(google.api.field_behavior) = REQUIRED];
+  /* constraints: `\d+\.\d+\.\d+ */
   string version = 3 [(google.api.field_behavior) = REQUIRED];
   SchemaType schema_type = 4 [(google.api.field_behavior) = OUTPUT_ONLY];
 }
@@ -250,14 +318,32 @@ message Schema {
   State state = 2 [(google.api.field_behavior) = OUTPUT_ONLY];
   // (-- 'is' is intentional here (see https://google.aip.dev/140#booleans) --)
   bool is_public = 3;
+  /*
+  constraints: is no longer required provided simple_schema is not empty.
+   */
   string definition = 4 [(google.api.field_behavior) = REQUIRED];
   string fingerprint = 5 [(google.api.field_behavior) = OUTPUT_ONLY];
   SchemaMetadata metadata = 6;
   SimpleSchemaDefinition simple_schema = 7;
 
+  /*
+  constraints: overall size < 100000 TBD
+   */
   message SimpleSchemaDefinition {
+    /* constraints:
+    https://avro.apache.org/docs/current/spec.html#names
+      start with [A-Za-z_]
+      subsequently contain only [A-Za-z0-9_]
+     */
     string name = 1;
+    /*
+    constraints:
+    dot separated sequence of name constraints
+     */
     string namespace = 2;
+    /* constraints:
+    size < 5000
+     */
     string doc = 3;
     repeated SimpleSchemaNode nodes = 4;
   }
@@ -265,19 +351,26 @@ message Schema {
 
 message SimpleSchemaNode {
   SimpleSchemaNodeType type = 1;
+  /*
+  constraints: same as SimpleSchemaDefinition
+   */
   string name = 2;
   bool repeated = 3;
   bool required = 4;
   repeated SimpleSchemaNode nodes = 5;
+  /* constraints:
+  size < 5000
+   */
   string doc = 6;
-
 }
 
 
 message SchemaMetadata {
   // The human readable title of this Schema. Used in the Portal. Defaults to the Schema name. This field can be modified.
+  /* constraints: size < 500 */
   string title = 1 [(google.api.field_behavior) = OPTIONAL];
   // The (optional) description of this Schema. Used in the Portal. Markdown syntax is supported. This field can be modified.
+  /* constraints: size < 5000 */
   string description = 2 [(google.api.field_behavior) = OPTIONAL];
   // The timestamp when this Schema was created.
   google.protobuf.Timestamp create_time = 3 [(google.api.field_behavior) = OUTPUT_ONLY];
@@ -290,8 +383,11 @@ message SchemaMetadata {
   }
 
 message EventContractRef {
+  /* constraints: generic name constraint */
   string handle = 1 [(google.api.field_behavior) = REQUIRED];
+  /* constraints: generic name constraint */
   string name = 2 [(google.api.field_behavior) = REQUIRED];
+  /* constraints: semantic version */
   string version = 3 [(google.api.field_behavior) = REQUIRED];
 }
 
