@@ -8,10 +8,10 @@
                 "Makefile$"
             ],
             "matchStrings": [
-                "grpc_version\s?:=\s?(?<currentValue>.*)\n"
+                "grpc_version\\s?:=\\s?(?<currentValue>[\\d.]*?)\\n"
             ],
             "depNameTemplate": "io.grpc:grpc-protobuf",
-            "datasourceTemplate": "maven"
+            "datasourceTemplate": "gradle"
         }
     ],
     gradle: {
