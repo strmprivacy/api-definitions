@@ -64,29 +64,29 @@
             }
         ]
     },
-//    gradle: {
-//        packageRules: [
-//            // The following packages are excluded from updates, as they are determined by the
-//            // top level Makefile
-//            {
-//                excludePackageNames: [
-//                    "com.google.api.grpc:proto-google-common-protos",
-//                    "com.google.protobuf:protobuf-java-util",
-//                    "com.google.protobuf:protobuf-kotlin",
-//                    "io.grpc:grpc-protobuf",
-//                    "io.grpc:grpc-stub",
-//                    "io.grpc:grpc-services",
-//                    "io.grpc:grpc-netty-shaded"
-//                ],
-//                matchUpdateTypes: [
-//                    "major",
-//                    "minor",
-//                    "patch"
-//                ],
-//                enabled: false
-//            }
-//        ]
-//    },
+    gradle: {
+        packageRules: [
+            // The following packages are excluded from updates, as they are determined by the
+            // top level Makefile
+            {
+                excludePackageNames: [
+                    "com.google.api.grpc:proto-google-common-protos",
+                    "com.google.protobuf:protobuf-java-util",
+                    "com.google.protobuf:protobuf-kotlin",
+                    "io.grpc:grpc-protobuf",
+                    "io.grpc:grpc-stub",
+                    "io.grpc:grpc-services",
+                    "io.grpc:grpc-netty-shaded"
+                ],
+                matchUpdateTypes: [
+                    "major",
+                    "minor",
+                    "patch"
+                ],
+                enabled: false
+            }
+        ]
+    },
 //    npm: {
 //        packageRules: [
 //            // The following packages are excluded from updates, as they are determined by the
