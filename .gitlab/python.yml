@@ -9,6 +9,15 @@ include:
     - aip-guidelines-lint
     - breaking
 
+python-artifact-build:
+  extends:
+    - .python-needs
+    - .python
+  script:
+    - make python-build
+  only:
+    - /^renovate\/build-only.*$/
+
 python-artifact-test:
   extends:
     - .python-needs
