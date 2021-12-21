@@ -10,23 +10,6 @@ option go_package = "github.com/strmprivacy/api-definitions-go/v2/api/entities/v
 option java_package = "io.strmprivacy.api.entities.v1";
 option java_multiple_files = true;
 
-/*
-Most of our customer created entities have a name (exceptions are currently the KafkaUser and KafkaExporter).
-
-I'd like to add generic name constraints, so we don't have to define them for each entity separately. I think we have
-two options:
-
-* The Ascii subset: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#dns-subdomain-names
-* the internationalized version where we allow pretty much any unicode string, only limited to a certain size.
-
-Our codebase already handles of the Unicode names. The exception is where we have added an entity name
-(or something derived from it) as a k8s `label`. That leads to a non-deployable manifest. We see this with the Kafka-Exporter
-for instance.
-
-My preference is strongly for the second option. I think going with the ascii only option reflects poorly on the capabilities
-of this company, and will definitely hinder adoption in for instance Germany and France.
-
-*/
 
 /*
   Streams are source or derived streams depending on whether or not linked_stream is null.
@@ -35,17 +18,13 @@ of this company, and will definitely hinder adoption in for instance Germany and
 message Stream {
   StreamRef ref = 1 [(google.api.field_behavior) = REQUIRED];
   // customer's description for this Stream.
-  /*
-  constraints:
-  size < 5000
-   */
   string description = 2;
   // consent levels for derived streams
   /*
   constraints:
   size < 50
   if consent_level_type ==  CUMULATIVE then
-  size = 1
+    size = 1
   endif
    */
   repeated int32 consent_levels = 3;
@@ -56,18 +35,10 @@ message Stream {
   // stream limits
   Limits limits = 6 [(google.api.field_behavior) = OUTPUT_ONLY];
   // null for source streams
-  /*
-  constraints:
-  size < 1000
-   */
+  /* constraints: general name constraint */
   string linked_stream = 7;
   // customer purposes.
 
-  /*
-  constraints:
-  size < 50
-  size per item < 1000
-   */
   repeated string tags = 8;
   repeated Credentials credentials = 9 [(google.api.field_behavior) = OUTPUT_ONLY];
 
@@ -86,10 +57,7 @@ message MaskedFields {
   // default Murmurhash3 for empty string
   string hash_type = 1 ;
   // hashing seed
-  /*
-  constraints:
-  size < 1000
-   */
+  /* constraints: size < 1000, unicode */
   string seed = 2;
   // map of event-contract-ref vs field patterns
   /* constraints:
@@ -199,7 +167,7 @@ message BatchExporter {
   /* constraints:
   Total key size on S3 is 1024 unicode characters max. The export filenames are
   created from the stream name suffixed with partition numbers and a timestamp.
-  Suggestion: size < 200, Unicode
+  Suggestion: generic name constraint
    */
   string path_prefix = 6;
   bool include_existing_events = 7;
@@ -383,7 +351,7 @@ message SchemaMetadata {
   }
 
 message EventContractRef {
-  /* constraints: generic name constraint */
+  /* constraints: generic name constraint, globally unique */
   string handle = 1 [(google.api.field_behavior) = REQUIRED];
   /* constraints: generic name constraint */
   string name = 2 [(google.api.field_behavior) = REQUIRED];
@@ -427,8 +395,11 @@ message Label {
 }
 
 message Validation {
+  /* constraint: valid field path, follows avro constraints + slashes */
   string field = 1 [(google.api.field_behavior) = REQUIRED];
+  /* constraint: one of the validator types. handled by code */
   string type = 2 [(google.api.field_behavior) = REQUIRED];
+  /* constraint: a type specific definition */
   string value = 3 [(google.api.field_behavior) = REQUIRED];
 }
 
