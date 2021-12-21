@@ -5,9 +5,9 @@ pluginManagement {
 
     plugins {
         id("org.jetbrains.kotlin.jvm") version kotlinVersion
-        id("com.google.cloud.artifactregistry.gradle-plugin") version "2.1.2"
-        id("org.ajoberstar.grgit") version "4.1.0"
-        id("com.google.protobuf") version "0.8.16"
+        id("com.google.cloud.artifactregistry.gradle-plugin") version "2.1.4"
+        id("org.ajoberstar.grgit") version "4.1.1"
+        id("com.google.protobuf") version "0.8.18"
     }
 }
 
