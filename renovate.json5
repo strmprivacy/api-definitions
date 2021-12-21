@@ -1,5 +1,108 @@
 {
     "extends": [
-        "gitlab>strmprivacy/tools-and-utilities/renovate-runner:base-renovate-config"
-    ]
+        "gitlab>strmprivacy/tools-and-utilities/renovate-runner//presets/base-renovate-config"
+    ],
+    "regexManagers": [
+        {
+            "fileMatch": [
+                "Makefile$"
+            ],
+            "matchStrings": [
+                "grpc_version\\s?:=\\s?(?<currentValue>[\\d.]*?)\\n"
+            ],
+            "depNameTemplate": "io.grpc:grpc-protobuf",
+            "datasourceTemplate": "maven"
+        },
+        {
+            "fileMatch": [
+                "Makefile$"
+            ],
+            "matchStrings": [
+                "protobuf_version\\s?:=\\s?(?<currentValue>[\\d.]*?)\\n"
+            ],
+            "depNameTemplate": "com.google.protobuf:protobuf-java",
+            "datasourceTemplate": "maven"
+        },
+        {
+            "fileMatch": [
+                "Makefile$"
+            ],
+            "matchStrings": [
+                "google_common_protos_version\\s?:=\\s?(?<currentValue>[\\d.]*?)\\n"
+            ],
+            "depNameTemplate": "com.google.api.grpc:proto-google-common-protos",
+            "datasourceTemplate": "maven"
+        }
+    ],
+    regex: {
+        packageRules: [
+            {
+                matchPackagePatterns: [
+                    "*"
+                ],
+                matchUpdateTypes: [
+                    "minor",
+                    "patch"
+                ],
+                groupName: "grpc-protobuf dependencies",
+                groupSlug: "non-major-grpc-protobuf",
+                automerge: true,
+                platformAutomerge: true,
+                additionalBranchPrefix: "build-only/"
+            },
+            {
+                matchPackagePatterns: [
+                    "*"
+                ],
+                matchUpdateTypes: [
+                    "major"
+                ],
+                groupName: "grpc-protobuf major dependencies",
+                groupSlug: "grpc-protobuf",
+                automerge: false,
+                additionalBranchPrefix: "build-only/"
+            }
+        ]
+    },
+    gradle: {
+        packageRules: [
+            // The following packages are excluded from updates, as they are determined by the
+            // top level Makefile
+            {
+                matchPackageNames: [
+                    "com.google.api.grpc:proto-google-common-protos",
+                    "com.google.protobuf:protobuf-java-util",
+                    "com.google.protobuf:protobuf-kotlin",
+                    "io.grpc:grpc-protobuf",
+                    "io.grpc:grpc-stub",
+                    "io.grpc:grpc-services",
+                    "io.grpc:grpc-netty-shaded"
+                ],
+                matchUpdateTypes: [
+                    "major",
+                    "minor",
+                    "patch"
+                ],
+                enabled: false
+            }
+        ]
+    },
+    npm: {
+        packageRules: [
+            // The following packages are excluded from updates, as they are determined by the
+            // top level Makefile
+            {
+                matchPackageNames: [
+                    "@types/google-protobuf",
+                    "google-protobuf",
+                ],
+                matchUpdateTypes: [
+                    "major",
+                    "minor",
+                    "patch"
+                ],
+                enabled: false
+            }
+        ]
+    }
 }

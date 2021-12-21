@@ -1,3 +1,24 @@
+# [2.8.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.7.0...v2.8.0) (2021-12-21)
+
+
+### Features
+
+* **deps:** update npm dev dependencies ([81b9b43](https://gitlab.com/strmprivacy/api-definitions/commit/81b9b430f955feafab35f9d3fa2936a0d1f86f94))
+
+# [2.7.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.6.0...v2.7.0) (2021-12-17)
+
+
+### Features
+
+* remove grpc health api (provided in grpc-services); provide jvm deps through lib ([0963f35](https://gitlab.com/strmprivacy/api-definitions/commit/0963f35da4ca0a456f51d88127d22dc04b2e2132))
+
+# [2.6.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.5.0...v2.6.0) (2021-12-17)
+
+
+### Features
+
+* added include_existing_events to BatchExporter entity as optional boolean ([8d436d6](https://gitlab.com/strmprivacy/api-definitions/commit/8d436d6b786d01a7ce3ad6512869e27bdeb86877))
+
 # [2.5.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.4.0...v2.5.0) (2021-12-11)
 
 

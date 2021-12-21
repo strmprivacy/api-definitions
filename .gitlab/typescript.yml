@@ -28,6 +28,15 @@ generate-typescript:
   dependencies:
     - generate-typescript
 
+typescript-artifact-build:
+  extends:
+    - .typescript-needs
+    - .nodejs
+  script:
+    - make typescript-build-without-generate
+  only:
+    - /^renovate\/build-only.*$/
+
 typescript-artifact-snapshot:
   extends:
     - .typescript-needs

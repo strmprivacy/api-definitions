@@ -19,12 +19,14 @@ generate:
 build:
 	npm run authenticate
 	npm version "${strmprivacy_api_version}" --allow-same-version --no-commit-hooks --no-git-tag-version
+	npm install "google-protobuf@${protobuf_version}"
 	npm install
 	npm run dist
 
 build-snapshot:
 	npm run authenticate
 	npm version "$$(npm run get-version --silent)-$$CI_PIPELINE_ID"
+	npm install "google-protobuf@${protobuf_version}"
 	npm install
 	npm run dist
 
