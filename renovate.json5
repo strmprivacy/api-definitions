@@ -87,22 +87,22 @@
             }
         ]
     },
-//    npm: {
-//        packageRules: [
-//            // The following packages are excluded from updates, as they are determined by the
-//            // top level Makefile
-//            {
-//                excludePackageNames: [
-//                    "@types/google-protobuf",
-//                    "google-protobuf",
-//                ],
-//                matchUpdateTypes: [
-//                    "major",
-//                    "minor",
-//                    "patch"
-//                ],
-//                enabled: false
-//            }
-//        ]
-//    }
+    npm: {
+        packageRules: [
+            // The following packages are excluded from updates, as they are determined by the
+            // top level Makefile
+            {
+                matchPackageNames: [
+                    "@types/google-protobuf",
+                    "google-protobuf",
+                ],
+                matchUpdateTypes: [
+                    "major",
+                    "minor",
+                    "patch"
+                ],
+                enabled: false
+            }
+        ]
+    }
 }
