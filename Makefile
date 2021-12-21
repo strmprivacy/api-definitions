@@ -20,7 +20,7 @@ export
 # =======================
 strmprivacy_api_version := 2.8.0
 
-grpc_version := 1.42.0
+grpc_version := 1.43.0
 protobuf_version := 3.19.1
 google_common_protos_version := 2.7.0
 
