@@ -78,12 +78,12 @@
                     "io.grpc:grpc-services",
                     "io.grpc:grpc-netty-shaded"
                 ],
+                matchUpdateTypes: [
+                    "major",
+                    "minor",
+                    "patch"
+                ],
                 enabled: false
-            },
-            {
-                "extends": [
-                    "gitlab>strmprivacy/tools-and-utilities/renovate-runner//presets/base-renovate-config"
-                ]
             }
         ]
     },
