@@ -1,3 +1,10 @@
+# [2.8.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.7.0...v2.8.0) (2021-12-21)
+
+
+### Features
+
+* **deps:** update npm dev dependencies ([81b9b43](https://gitlab.com/strmprivacy/api-definitions/commit/81b9b430f955feafab35f9d3fa2936a0d1f86f94))
+
 # [2.7.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.6.0...v2.7.0) (2021-12-17)
 
 
