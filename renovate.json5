@@ -69,7 +69,7 @@
             // The following packages are excluded from updates, as they are determined by the
             // top level Makefile
             {
-                excludePackageNames: [
+                matchPackageNames: [
                     "com.google.api.grpc:proto-google-common-protos",
                     "com.google.protobuf:protobuf-java-util",
                     "com.google.protobuf:protobuf-kotlin",
