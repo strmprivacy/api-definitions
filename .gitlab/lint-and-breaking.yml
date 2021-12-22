@@ -14,7 +14,7 @@ buf-lint:
 
 aip-guidelines-lint:
   stage: lint-and-breaking
-  image: eu.gcr.io/stream-machine-development/google/api-linter:1.25.0
+  image: europe-west4-docker.pkg.dev/stream-machine-development/docker/build/google-api-linter:1.29.2
   script:
     - ./scripts/api-linter.sh
   except: # Do not run for master pipelines when it's a release commit
