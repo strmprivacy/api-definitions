@@ -258,7 +258,7 @@ message Schema {
   message SimpleSchemaDefinition {
     string name = 1;
     // avro compatible name set by creator OR derived from name
-    string avroName = 5;
+    string avro_name = 5;
     // must be Avro compatible. When absent becomes <handle>.<name>.v<version>
     string namespace = 2;
     string doc = 3;
@@ -270,7 +270,7 @@ message SimpleSchemaNode {
   SimpleSchemaNodeType type = 1;
   string name = 2;
   // avro compatible name set by creator OR derived from name
-  string avroName = 7;
+  string avro_name = 7;
   bool repeated = 3;
   bool required = 4;
   repeated SimpleSchemaNode nodes = 5;
