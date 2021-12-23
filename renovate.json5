@@ -48,7 +48,8 @@
                 groupSlug: "non-major-grpc-protobuf",
                 automerge: true,
                 platformAutomerge: true,
-                additionalBranchPrefix: "build-only/"
+                additionalBranchPrefix: "build-only/",
+                addLabels: ["minor-patch", "grpc-protobuf"]
             },
             {
                 matchPackagePatterns: [
@@ -60,7 +61,8 @@
                 groupName: "grpc-protobuf major dependencies",
                 groupSlug: "grpc-protobuf",
                 automerge: false,
-                additionalBranchPrefix: "build-only/"
+                additionalBranchPrefix: "build-only/",
+                addLabels: ["major", "grpc-protobuf"]
             }
         ]
     },
