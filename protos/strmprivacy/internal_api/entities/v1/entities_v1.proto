@@ -35,6 +35,6 @@ message ExtendedSink {
 }
 
 message ExtendedBatchExporterAndSink {
-  ExtendedBatchExporter exporter = 1;
-  ExtendedSink sink = 2;
+  ExtendedBatchExporter extended_exporter = 1;
+  ExtendedSink extended_sink = 2;
 }
