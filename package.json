@@ -1,12 +1,12 @@
 {
   "devDependencies": {
-    "@commitlint/config-conventional": "15.0.0",
+    "@commitlint/config-conventional": "16.0.0",
     "@google/semantic-release-replace-plugin": "1.1.0",
     "@semantic-release/changelog": "6.0.1",
     "@semantic-release/exec": "6.0.3",
     "@semantic-release/git": "10.0.1",
     "@semantic-release/gitlab": "7.0.4",
-    "commitlint": "15.0.0",
+    "commitlint": "16.0.0",
     "conventional-changelog-conventionalcommits": "4.6.2",
     "cz-conventional-changelog": "3.3.0",
     "husky": "7.0.4",
