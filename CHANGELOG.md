@@ -1,3 +1,15 @@
+# [2.10.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.9.0...v2.10.0) (2021-12-28)
+
+
+### Bug Fixes
+
+* buf lint ([74627e3](https://gitlab.com/strmprivacy/api-definitions/commit/74627e3cbe0fb7421d468eb7f4a46312f469e75f))
+
+
+### Features
+
+* avroName in simple schema ([0d05120](https://gitlab.com/strmprivacy/api-definitions/commit/0d05120a768066048f7fa9d771150bba56eab5c9))
+
 # [2.9.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.8.0...v2.9.0) (2021-12-28)
 
 
