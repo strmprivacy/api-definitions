@@ -53,6 +53,9 @@
     # Temporarily disabled
     - 'core::0133::request-resource-behavior'
 
+    # Disable HTTP URI rules, as we do not have HTTP REST annotations on Proto messages yet
+    - 'core::0133::http-uri-parent'
+
 - included_paths:
     - '**/consent_levels_*.proto'
   disabled_rules:

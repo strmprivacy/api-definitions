@@ -1,3 +1,14 @@
+# [2.9.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.8.0...v2.9.0) (2021-12-28)
+
+
+### Features
+
+* add batch exporter agent service ([2b22d5a](https://gitlab.com/strmprivacy/api-definitions/commit/2b22d5a8f0540c45a6a49a847cf484ec6cfce1d3))
+* add GetDesiredSinks rpc ([d23d8a6](https://gitlab.com/strmprivacy/api-definitions/commit/d23d8a69a79af71877862a28c0cb9d25a5f8b305))
+* add topic to extended batch exporter message ([82ad3b4](https://gitlab.com/strmprivacy/api-definitions/commit/82ad3b4f41388847f3e0446f8b567d9363ce1fc4))
+* **jvm:** move dependencies from app to api definitions to centralize ([31c6b16](https://gitlab.com/strmprivacy/api-definitions/commit/31c6b164529b8cb0a8cc60ae354ea44a42c971ee))
+* work in progress for tuple of extendedsink and extendedbatchexporter ([b96928c](https://gitlab.com/strmprivacy/api-definitions/commit/b96928c6d88d80293cbaa15eeb8d17532f1f218c))
+
 # [2.8.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.7.0...v2.8.0) (2021-12-21)
 
 

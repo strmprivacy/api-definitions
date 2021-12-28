@@ -18,7 +18,7 @@ export
 # =======================
 # Versions and dependencies
 # =======================
-strmprivacy_api_version := 2.8.0
+strmprivacy_api_version := 2.9.0
 
 grpc_version := 1.43.0
 protobuf_version := 3.19.1
@@ -63,7 +63,7 @@ buf-lint: ${common_protos}/google/api ${common_protos}/google/protobuf
 	buf lint
 
 api-lint:
-	docker run --rm -v "${pwd}:/workspace" eu.gcr.io/stream-machine-development/google/api-linter:1.25.0 ./scripts/api-linter.sh
+	docker run --rm -v "${pwd}:/workspace" europe-west4-docker.pkg.dev/stream-machine-development/docker/build/google-api-linter:1.29.2 ./scripts/api-linter.sh
 
 docs-clean:
 	rm -rf docs
