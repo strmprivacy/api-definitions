@@ -1,6 +1,7 @@
 import com.google.protobuf.gradle.*
 import org.ajoberstar.grgit.Grgit
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import com.autonomousapps.tasks.BuildHealthTask
 
 group = "io.strmprivacy.api"
 description = "Internal APIs for STRM Privacy"
@@ -32,6 +33,24 @@ plugins {
     id("com.google.cloud.artifactregistry.gradle-plugin")
     id("com.google.protobuf")
     id("org.ajoberstar.grgit")
+    id("com.autonomousapps.dependency-analysis")
+}
+
+dependencyAnalysis {
+    strictMode(false)
+    issues {
+        all {
+            onUnusedDependencies { severity("fail") }
+            onUsedTransitiveDependencies { severity("ignore") }
+            onIncorrectConfiguration { severity("ignore") }
+            onUnusedAnnotationProcessors { severity("ignore") }
+            onRedundantPlugins { severity("ignore") }
+            onAny {
+                // This is exposed explicitly to align Protobuf versions in the API definitions
+                exclude("com.google.protobuf:protobuf-java-util")
+            }
+        }
+    }
 }
 
 dependencies {

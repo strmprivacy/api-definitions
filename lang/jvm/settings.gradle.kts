@@ -3,10 +3,16 @@ rootProject.name = "api-definitions"
 pluginManagement {
     val kotlinVersion: String by settings
 
+    repositories {
+        maven("https://plugins.gradle.org/m2/")
+        gradlePluginPortal()
+    }
+
     plugins {
         id("org.jetbrains.kotlin.jvm") version kotlinVersion
         id("com.google.cloud.artifactregistry.gradle-plugin") version "2.1.4"
         id("org.ajoberstar.grgit") version "4.1.1"
+        id("com.autonomousapps.dependency-analysis") version "0.79.0"
         id("com.google.protobuf") version "0.8.18"
     }
 }
