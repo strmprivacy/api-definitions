@@ -1,3 +1,10 @@
+## [2.10.1](https://gitlab.com/strmprivacy/api-definitions/compare/v2.10.0...v2.10.1) (2022-01-03)
+
+
+### Bug Fixes
+
+* update typescript namely/protoc-all image to try out the grpc-web 1.3.0 update ([a75387a](https://gitlab.com/strmprivacy/api-definitions/commit/a75387a97eedce4edfd0dea53dbe215fb30af5f9))
+
 # [2.10.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.9.0...v2.10.0) (2021-12-28)
 
 
