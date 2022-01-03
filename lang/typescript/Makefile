@@ -25,7 +25,7 @@ build:
 
 build-snapshot:
 	npm run authenticate
-	npm version "$$(npm run get-version --silent)-$$CI_PIPELINE_ID"
+	npm version "${strmprivacy_api_version}-$$CI_PIPELINE_ID"
 	npm install "google-protobuf@${protobuf_version}"
 	npm install
 	npm run dist

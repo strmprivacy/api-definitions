@@ -1,6 +1,6 @@
 {
   "name": "@strmprivacy-internal/api-definitions",
-  "version": "2.7.0",
+  "version": "0.1.0",
   "main": "build/index.ts",
   "files": [
     "/build",
@@ -26,7 +26,6 @@
     "grpc-web": "1.3.0"
   },
   "scripts": {
-    "get-version": "printf $npm_package_version",
     "authenticate": "cp .npmrc_template .npmrc && npm install google-artifactregistry-auth --save-dev && npx google-artifactregistry-auth .npmrc",
     "generate-barrels": "mkdir -p build && barrelsby --delete --directory build --exclude google --exclude internal_api",
     "build": "webpack --config webpack.config.js",
