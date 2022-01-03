@@ -4,7 +4,7 @@ include:
 
 generate-typescript:
   stage: generate
-  image: namely/protoc-all:latest
+  image: europe-west4-docker.pkg.dev/stream-machine-development/docker/build/namely/protoc-all:1.42_local
   before_script:
     - apt-get install -y make unzip
     # Ensure that the protoc compiler has the Google protos
