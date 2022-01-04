@@ -38,3 +38,8 @@ message ExtendedBatchExporterAndSink {
   ExtendedBatchExporter extended_exporter = 1;
   ExtendedSink extended_sink = 2;
 }
+
+message KubernetesDeployment {
+  string image = 1;
+  string name = 2;
+}

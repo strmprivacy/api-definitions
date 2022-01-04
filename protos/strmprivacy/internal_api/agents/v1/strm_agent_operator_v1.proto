@@ -2,6 +2,8 @@ syntax = "proto3";
 
 package strmprivacy.internal_api.agents.v1;
 
+import "strmprivacy/internal_api/entities/v1/entities_v1.proto";
+
 option go_package = "github.com/strmprivacy/api-definitions-go/v2/internal_api/agents/v1;agents";
 option java_package = "io.strmprivacy.internal_api.agents.v1";
 option java_multiple_files = true;
@@ -14,7 +16,7 @@ message GetAgentVersionsRequest {
 }
 
 message GetAgentVersionsResponse {
-  string batch_exporter_agent_image = 1;
-  string kafka_exporter_agent_image = 2;
-  string streams_agent_image = 3;
+  repeated strmprivacy.internal_api.entities.v1.KubernetesDeployment deployments = 1;
 }
+
+
