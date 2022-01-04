@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package strmprivacy.internal_api.agents.v1;
+
+option go_package = "github.com/strmprivacy/api-definitions-go/v2/internal_api/agents/v1;agents";
+option java_package = "io.strmprivacy.internal_api.agents.v1";
+option java_multiple_files = true;
+
+service StrmAgentOperatorService {
+  rpc GetAgentVersions(GetAgentVersionsRequest) returns (GetAgentVersionsResponse);
+}
+
+message GetAgentVersionsRequest {
+}
+
+message GetAgentVersionsResponse {
+  string batch_exporter_agent_image = 1;
+  string kafka_exporter_agent_image = 2;
+  string streams_agent_image = 3;
+}
