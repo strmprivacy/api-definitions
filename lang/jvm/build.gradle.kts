@@ -12,7 +12,7 @@ val tag = System.getenv("CI_COMMIT_TAG")
 rootProject.version = if (tag != null || branch == "master") {
     project.version
 } else {
-    "${branch.replace("[^A-Za-z0-9-]".toRegex(), "-")}-SNAPSHOT"
+    "${branch.replace("[^A-Za-z0-9]".toRegex(), "-")}-SNAPSHOT"
 }
 
 buildscript {
