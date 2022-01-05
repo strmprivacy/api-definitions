@@ -9,7 +9,11 @@ description = "Internal APIs for STRM Privacy"
 val branch = System.getenv("CI_COMMIT_REF_NAME") ?: Grgit.open(mapOf("dir" to project.file("../../."))).branch.current().name
 val tag = System.getenv("CI_COMMIT_TAG")
 
-rootProject.version = if (tag != null || branch == "master") project.version else "${project.version}-SNAPSHOT"
+rootProject.version = if (tag != null || branch == "master") {
+    project.version
+} else {
+    "${branch.replace("[^A-Za-z0-9-]".toRegex(), "-")}-SNAPSHOT"
+}
 
 buildscript {
     tasks.named<Wrapper>("wrapper") {
