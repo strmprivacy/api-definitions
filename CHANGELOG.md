@@ -1,3 +1,16 @@
+# [2.11.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.10.1...v2.11.0) (2022-01-07)
+
+
+### Bug Fixes
+
+* ensure we don't overwrite snapshot versions when we have multiple feature branches ([8efef53](https://gitlab.com/strmprivacy/api-definitions/commit/8efef532d10c182207f12e86f5a346b9a744c393))
+
+
+### Features
+
+* allow for more than the three deployments we currently know ([2220f45](https://gitlab.com/strmprivacy/api-definitions/commit/2220f45d8e205ca187bf6bef991f4656f2dd7019))
+* new api for strm agent operator ([b6ffb3b](https://gitlab.com/strmprivacy/api-definitions/commit/b6ffb3b46db35dc1253e9cfc83866c880f6bd4a6))
+
 ## [2.10.1](https://gitlab.com/strmprivacy/api-definitions/compare/v2.10.0...v2.10.1) (2022-01-03)
 
 
