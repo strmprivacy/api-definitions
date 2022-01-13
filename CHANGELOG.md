@@ -1,3 +1,10 @@
+# [2.13.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.12.0...v2.13.0) (2022-01-13)
+
+
+### Features
+
+* batch jobs agent api ([27d4e56](https://gitlab.com/strmprivacy/api-definitions/commit/27d4e5657d8b0adad5cda284be3323d905c37135))
+
 # [2.12.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.11.0...v2.12.0) (2022-01-13)
 
 
