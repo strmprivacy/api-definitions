@@ -101,7 +101,7 @@ message Credentials {
   string client_secret = 3 [(google.api.field_behavior) = OUTPUT_ONLY];
 }
 
-/* the sink configuration used by the batch exporters. */
+/* the sink config used by the batch exporters. */
 message Sink {
   SinkRef ref = 1 [(google.api.field_behavior) = REQUIRED];
   SinkType sink_type = 2 [(google.api.field_behavior) = REQUIRED];
@@ -217,6 +217,10 @@ message KafkaUserRef {
   string name = 2 [(google.api.field_behavior) = OUTPUT_ONLY];
 }
 
+message ConsentLevels {
+  repeated int32 consent_levels = 1;
+}
+
 /*
 for descriptive purposes only.
  */
@@ -292,7 +296,7 @@ message SchemaMetadata {
   repeated Label labels = 5 [(google.api.field_behavior) = OPTIONAL];
   repeated string domains = 6 [(google.api.field_behavior) = OPTIONAL];
   repeated string industries = 7 [(google.api.field_behavior) = OPTIONAL];
-  }
+}
 
 message EventContractRef {
   string handle = 1 [(google.api.field_behavior) = REQUIRED];
@@ -403,7 +407,7 @@ enum SimpleSchemaNodeType {
   SIMPLE_SCHEMA_NODE_TYPE_UNSPECIFIED = 0;
   STRING = 1;
   BOOLEAN = 2;
-  FLOAT  = 3;
+  FLOAT = 3;
   INTEGER = 4;
   LONG = 5;
   NODE = 10;
