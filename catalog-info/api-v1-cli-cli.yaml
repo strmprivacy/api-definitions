@@ -1,7 +1,7 @@
 apiVersion: backstage.io/v1alpha1
 kind: API
 metadata:
-  name: cli-api-cli
+  name: api-CliService-v1
   namespace: core
   title: "CliService v1"
   labels:

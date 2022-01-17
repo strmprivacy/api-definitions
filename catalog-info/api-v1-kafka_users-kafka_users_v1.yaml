@@ -1,7 +1,7 @@
 apiVersion: backstage.io/v1alpha1
 kind: API
 metadata:
-  name: kafka_users-api-kafka_users_v1
+  name: api-KafkaUsersService-v1
   namespace: core
   title: "KafkaUsersService v1"
   labels:

@@ -1,7 +1,7 @@
 apiVersion: backstage.io/v1alpha1
 kind: API
 metadata:
-  name: usage-api-usage_v1
+  name: api-UsageService-v1
   namespace: core
   title: "UsageService v1"
   labels:

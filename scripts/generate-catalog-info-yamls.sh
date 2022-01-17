@@ -52,7 +52,7 @@ for file in $proto_files; do
     proto_file_name=$(echo "$file" | awk -F'/' '{ print $NF }' | awk -F'.' '{ print $1 }')
     service_name=$(awk -F" " '$1=="service"{print $2;exit;}' "$file")
 
-    api_name="$api_component-$api_type-$proto_file_name"
+    api_name="$api_type-$service_name-$api_version"
     destination_file="$CATALOG_INFO_DIR/$api_type-$api_version-$api_component-$proto_file_name.yaml"
 
 cat << EOF > "$CATALOG_INFO_DIR_RELATIVE/$destination_file"

@@ -1,7 +1,7 @@
 apiVersion: backstage.io/v1alpha1
 kind: API
 metadata:
-  name: key_streams-api-key_streams
+  name: api-KeyStreamsService-v1
   namespace: core
   title: "KeyStreamsService v1"
   labels:

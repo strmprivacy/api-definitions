@@ -1,7 +1,7 @@
 apiVersion: backstage.io/v1alpha1
 kind: API
 metadata:
-  name: agents-internal_api-batch_jobs_agent_v1
+  name: internal_api-BatchJobsAgentService-v1
   namespace: core
   title: "BatchJobsAgentService v1"
   labels:

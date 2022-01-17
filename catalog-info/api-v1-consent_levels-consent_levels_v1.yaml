@@ -1,7 +1,7 @@
 apiVersion: backstage.io/v1alpha1
 kind: API
 metadata:
-  name: consent_levels-api-consent_levels_v1
+  name: api-ConsentLevelMappingsService-v1
   namespace: core
   title: "ConsentLevelMappingsService v1"
   labels:

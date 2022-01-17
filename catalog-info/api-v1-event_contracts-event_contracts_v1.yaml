@@ -1,7 +1,7 @@
 apiVersion: backstage.io/v1alpha1
 kind: API
 metadata:
-  name: event_contracts-api-event_contracts_v1
+  name: api-EventContractsService-v1
   namespace: core
   title: "EventContractsService v1"
   labels:

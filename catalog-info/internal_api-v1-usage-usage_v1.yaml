@@ -1,7 +1,7 @@
 apiVersion: backstage.io/v1alpha1
 kind: API
 metadata:
-  name: usage-internal_api-usage_v1
+  name: internal_api-InternalUsageService-v1
   namespace: core
   title: "InternalUsageService v1"
   labels:

@@ -1,7 +1,7 @@
 apiVersion: backstage.io/v1alpha1
 kind: API
 metadata:
-  name: agents-internal_api-batch_exporters_agent_v1
+  name: internal_api-BatchExportersAgentService-v1
   namespace: core
   title: "BatchExportersAgentService v1"
   labels:

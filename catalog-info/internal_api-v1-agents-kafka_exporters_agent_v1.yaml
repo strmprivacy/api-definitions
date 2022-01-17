@@ -1,7 +1,7 @@
 apiVersion: backstage.io/v1alpha1
 kind: API
 metadata:
-  name: agents-internal_api-kafka_exporters_agent_v1
+  name: internal_api-KafkaExportersAgentService-v1
   namespace: core
   title: "KafkaExportersAgentService v1"
   labels:

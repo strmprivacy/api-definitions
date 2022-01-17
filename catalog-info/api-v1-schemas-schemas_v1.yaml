@@ -1,7 +1,7 @@
 apiVersion: backstage.io/v1alpha1
 kind: API
 metadata:
-  name: schemas-api-schemas_v1
+  name: api-SchemasService-v1
   namespace: core
   title: "SchemasService v1"
   labels:

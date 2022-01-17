@@ -1,7 +1,7 @@
 apiVersion: backstage.io/v1alpha1
 kind: API
 metadata:
-  name: agents-internal_api-strm_agent_operator_v1
+  name: internal_api-StrmAgentOperatorService-v1
   namespace: core
   title: "StrmAgentOperatorService v1"
   labels:

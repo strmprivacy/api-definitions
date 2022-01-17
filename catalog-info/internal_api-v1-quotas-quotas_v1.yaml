@@ -1,7 +1,7 @@
 apiVersion: backstage.io/v1alpha1
 kind: API
 metadata:
-  name: quotas-internal_api-quotas_v1
+  name: internal_api-InternalQuotasService-v1
   namespace: core
   title: "InternalQuotasService v1"
   labels:
