@@ -19,7 +19,7 @@ metadata:
   description: STRM Privacy api definitions
 spec:
   targets:
-  - ./$CATALOG_INFO_DIR/_api=definitions.yaml
+  - ./$CATALOG_INFO_DIR/_api-definitions.yaml
 EOF
 
 for file in $proto_files; do
