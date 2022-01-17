@@ -1,0 +1,39 @@
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: quotas-quotas_v1
+  namespace: core
+  title: "InternalQuotasService v1"
+  labels:
+    api-type: "internal_api"
+spec:
+  type: grpc
+  lifecycle: production
+  owner: core-team
+  definition: |
+    syntax = "proto3";
+    
+    package strmprivacy.internal_api.quotas.v1;
+    
+    import "google/api/field_behavior.proto";
+    
+    option go_package = "github.com/strmprivacy/api-definitions-go/v2/internal_api/quotas/v1;quotas";
+    option java_package = "io.strmprivacy.internal_api.quotas.v1";
+    option java_multiple_files = true;
+    
+    service InternalQuotasService {
+      rpc GetQuotas(GetQuotasRequest) returns (GetQuotasResponse);
+    }
+    
+    message GetQuotasRequest {
+      string legacy_billing_id = 1 [(google.api.field_behavior) = REQUIRED];
+    }
+    
+    message GetQuotasResponse {
+      int32 max_streams = 1 [(google.api.field_behavior) = REQUIRED];
+      int64 max_events_per_month = 2 [(google.api.field_behavior) = REQUIRED];
+      // (-- api-linter: core::0142::time-field-type=disabled
+      //     aip.dev/not-precedent: This is not a timestamp Google. AIP guidelines sees this as a timestamp. --)
+      int64 max_events_per_sec = 3 [(google.api.field_behavior) = REQUIRED];
+      bool encryption_key_streams_allowed = 4 [(google.api.field_behavior) = REQUIRED];
+    }

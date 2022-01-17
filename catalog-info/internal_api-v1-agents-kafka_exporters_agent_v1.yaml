@@ -1,0 +1,35 @@
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: agents-kafka_exporters_agent_v1
+  namespace: core
+  title: "KafkaExportersAgentService v1"
+  labels:
+    api-type: "internal_api"
+spec:
+  type: grpc
+  lifecycle: production
+  owner: core-team
+  definition: |
+    syntax = "proto3";
+    
+    package strmprivacy.internal_api.agents.v1;
+    
+    import "strmprivacy/api/entities/v1/entities_v1.proto";
+    import "strmprivacy/internal_api/entities/v1/entities_v1.proto";
+    
+    option go_package = "github.com/strmprivacy/api-definitions-go/v2/internal_api/agents/v1;agents";
+    option java_package = "io.strmprivacy.internal_api.agents.v1";
+    option java_multiple_files = true;
+    
+    service KafkaExportersAgentService {
+      rpc GetDesiredKafkaExporters(GetDesiredKafkaExportersRequest) returns (GetDesiredKafkaExportersResponse);
+    }
+    
+    message GetDesiredKafkaExportersRequest {
+    }
+    
+    message GetDesiredKafkaExportersResponse {
+      string kafka_exporter_image = 1;
+      repeated strmprivacy.api.entities.v1.KafkaExporter kafka_exporters = 2;
+    }

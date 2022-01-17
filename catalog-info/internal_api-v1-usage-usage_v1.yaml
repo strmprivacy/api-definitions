@@ -1,0 +1,42 @@
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: usage-usage_v1
+  namespace: core
+  title: "InternalUsageService v1"
+  labels:
+    api-type: "internal_api"
+spec:
+  type: grpc
+  lifecycle: production
+  owner: core-team
+  definition: |
+    syntax = "proto3";
+    
+    package strmprivacy.internal_api.usage.v1;
+    
+    import "google/api/field_behavior.proto";
+    import "google/protobuf/timestamp.proto";
+    import "strmprivacy/api/entities/v1/entities_v1.proto";
+    
+    option go_package = "github.com/strmprivacy/api-definitions-go/v2/internal_api/usage/v1;usage";
+    option java_package = "io.strmprivacy.internal_api.usage.v1";
+    option java_multiple_files = true;
+    
+    service InternalUsageService {
+      rpc GetEventUsage(GetEventUsageRequest) returns (GetEventUsageResponse);
+    }
+    
+    message GetEventUsageRequest {
+      google.protobuf.Timestamp start_time = 1 [(google.api.field_behavior) = REQUIRED];
+      google.protobuf.Timestamp end_time = 2 [(google.api.field_behavior) = REQUIRED];
+    }
+    
+    message GetEventUsageResponse {
+      repeated EventUsage usage_record = 1;
+    }
+    
+    message EventUsage {
+      string billing_id = 1 [(google.api.field_behavior) = REQUIRED];
+      int64 event_count = 2 [(google.api.field_behavior) = REQUIRED];
+    }

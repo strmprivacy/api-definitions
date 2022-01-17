@@ -1,0 +1,48 @@
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: event_contracts-event_contracts_v1
+  namespace: core
+  title: "InternalEventContractsService v1"
+  labels:
+    api-type: "internal_api"
+spec:
+  type: grpc
+  lifecycle: production
+  owner: core-team
+  definition: |
+    syntax = "proto3";
+    
+    package strmprivacy.internal_api.event_contracts.v1;
+    
+    import "strmprivacy/api/entities/v1/entities_v1.proto";
+    
+    option go_package = "github.com/strmprivacy/api-definitions-go/v2/internal_api/event_contracts/v1;event_contracts";
+    option java_package = "io.strmprivacy.internal_api.event_contracts.v1";
+    option java_multiple_files = true;
+    
+    service InternalEventContractsService {
+      rpc GetEventContractAndSchema (GetEventContractAndSchemaRequest) returns (GetEventContractAndSchemaResponse);
+      rpc DeleteEventContract (DeleteEventContractRequest) returns (DeleteEventContractResponse);
+    }
+    
+    message GetEventContractAndSchemaRequest {
+      strmprivacy.api.entities.v1.EventContractRef ref = 1;
+    }
+    
+    message GetEventContractAndSchemaResponse {
+      strmprivacy.api.entities.v1.EventContract event_contract = 1;
+      strmprivacy.api.entities.v1.Schema schema = 2;
+      int32 confluent_id = 3;
+    }
+    
+    // (-- api-linter: core::0135::request-name-required=disabled
+    //     aip.dev/not-precedent: An event contract has no name, but a ref. --)
+    message DeleteEventContractRequest {
+      // (-- api-linter: core::0135::request-unknown-fields=disabled
+      //     aip.dev/not-precedent: An event contract has no name, but a ref. --)
+      strmprivacy.api.entities.v1.EventContractRef ref = 1;
+    }
+    
+    message DeleteEventContractResponse {
+    }

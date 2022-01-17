@@ -1,0 +1,34 @@
+apiVersion: backstage.io/v1alpha1
+kind: Location
+metadata:
+  name: api-definitions
+  description: STRM Privacy api definitions
+spec:
+  targets:
+  - ./catalog-info/internal_api-v1-quotas-quotas_v1.yaml
+  - ./catalog-info/internal_api-v1-streams-streams_v1.yaml
+  - ./catalog-info/internal_api-v1-agents-strm_agent_operator_v1.yaml
+  - ./catalog-info/internal_api-v1-agents-streams_agent_v1.yaml
+  - ./catalog-info/internal_api-v1-agents-batch_jobs_agent_v1.yaml
+  - ./catalog-info/internal_api-v1-agents-kafka_exporters_agent_v1.yaml
+  - ./catalog-info/internal_api-v1-agents-batch_exporters_agent_v1.yaml
+  - ./catalog-info/internal_api-v1-usage-usage_v1.yaml
+  - ./catalog-info/internal_api-v1-schemas-schemas_v1.yaml
+  - ./catalog-info/internal_api-v1-event_contracts-event_contracts_v1.yaml
+  - ./catalog-info/internal_api-v1-account-account_v1.yaml
+  - ./catalog-info/api-v1-metrics-metrics.yaml
+  - ./catalog-info/api-v1-kafka_exporters-kafka_exporters_v1.yaml
+  - ./catalog-info/api-v1-key_streams-key_streams.yaml
+  - ./catalog-info/api-v1-streams-streams_v1.yaml
+  - ./catalog-info/api-v1-sinks-sinks_v1.yaml
+  - ./catalog-info/api-v1-consent_levels-consent_levels_v1.yaml
+  - ./catalog-info/api-v1-batch_exporters-batch_exporters_v1.yaml
+  - ./catalog-info/api-v1-usage-usage_v1.yaml
+  - ./catalog-info/api-v1-cli-cli.yaml
+  - ./catalog-info/api-v1-schemas-schemas_v1.yaml
+  - ./catalog-info/api-v1-kafka_users-kafka_users_v1.yaml
+  - ./catalog-info/api-v1-event_contracts-event_contracts_v1.yaml
+  - ./catalog-info/api-v1-batch_jobs-batch_jobs_v1.yaml
+  - ./catalog-info/api-v1-account-account_v1.yaml
+  - ./catalog-info/api-v1-kafka_clusters-kafka_clusters_v1.yaml
+  - ./catalog-info/api-v1-credentials-credentials_v1.yaml
