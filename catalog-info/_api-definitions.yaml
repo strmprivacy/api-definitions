@@ -7,12 +7,39 @@ metadata:
   annotations:
     backstage.io/techdocs-ref: dir:.
   tags:
-    - kotlin
-    - java
-    - golang
-    - python
-    - typescript
+  - go
+  - jvm
+  - python
+  - typescript
 spec:
   type: app
   lifecycle: production
   owner: core-team
+  providesApis:
+  - core/quotas-internal_api-quotas_v1
+  - core/streams-internal_api-streams_v1
+  - core/agents-internal_api-strm_agent_operator_v1
+  - core/agents-internal_api-streams_agent_v1
+  - core/agents-internal_api-batch_jobs_agent_v1
+  - core/agents-internal_api-kafka_exporters_agent_v1
+  - core/agents-internal_api-batch_exporters_agent_v1
+  - core/usage-internal_api-usage_v1
+  - core/schemas-internal_api-schemas_v1
+  - core/event_contracts-internal_api-event_contracts_v1
+  - core/account-internal_api-account_v1
+  - core/metrics-api-metrics
+  - core/kafka_exporters-api-kafka_exporters_v1
+  - core/key_streams-api-key_streams
+  - core/streams-api-streams_v1
+  - core/sinks-api-sinks_v1
+  - core/consent_levels-api-consent_levels_v1
+  - core/batch_exporters-api-batch_exporters_v1
+  - core/usage-api-usage_v1
+  - core/cli-api-cli
+  - core/schemas-api-schemas_v1
+  - core/kafka_users-api-kafka_users_v1
+  - core/event_contracts-api-event_contracts_v1
+  - core/batch_jobs-api-batch_jobs_v1
+  - core/account-api-account_v1
+  - core/kafka_clusters-api-kafka_clusters_v1
+  - core/credentials-api-credentials_v1
