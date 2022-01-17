@@ -1,0 +1,18 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: api-definitions
+  namespace: core
+  description: Single source that contains all APIs, which are generated to various languages
+  annotations:
+    backstage.io/techdocs-ref: dir:.
+  tags:
+    - kotlin
+    - java
+    - golang
+    - python
+    - typescript
+spec:
+  type: app
+  lifecycle: production
+  owner: core-team

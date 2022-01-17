@@ -5,6 +5,7 @@ metadata:
   description: STRM Privacy api definitions
 spec:
   targets:
+  - ./catalog-info/_api=definitions.yaml
   - ./catalog-info/internal_api-v1-quotas-quotas_v1.yaml
   - ./catalog-info/internal_api-v1-streams-streams_v1.yaml
   - ./catalog-info/internal_api-v1-agents-strm_agent_operator_v1.yaml
