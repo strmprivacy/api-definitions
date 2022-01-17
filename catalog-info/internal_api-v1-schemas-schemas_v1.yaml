@@ -1,11 +1,13 @@
 apiVersion: backstage.io/v1alpha1
 kind: API
 metadata:
-  name: schemas-schemas_v1
+  name: schemas-internal_api-schemas_v1
   namespace: core
   title: "InternalSchemasService v1"
   labels:
     api-type: "internal_api"
+    api-version: "v1"
+    api-component: "schemas"
 spec:
   type: grpc
   lifecycle: production

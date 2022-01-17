@@ -1,11 +1,13 @@
 apiVersion: backstage.io/v1alpha1
 kind: API
 metadata:
-  name: kafka_exporters-kafka_exporters_v1
+  name: kafka_exporters-api-kafka_exporters_v1
   namespace: core
   title: "KafkaExportersService v1"
   labels:
     api-type: "api"
+    api-version: "v1"
+    api-component: "kafka_exporters"
 spec:
   type: grpc
   lifecycle: production

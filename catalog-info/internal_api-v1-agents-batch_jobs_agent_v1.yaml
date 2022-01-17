@@ -1,11 +1,13 @@
 apiVersion: backstage.io/v1alpha1
 kind: API
 metadata:
-  name: agents-batch_jobs_agent_v1
+  name: agents-internal_api-batch_jobs_agent_v1
   namespace: core
   title: "BatchJobsAgentService v1"
   labels:
     api-type: "internal_api"
+    api-version: "v1"
+    api-component: "agents"
 spec:
   type: grpc
   lifecycle: production

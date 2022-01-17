@@ -1,11 +1,13 @@
 apiVersion: backstage.io/v1alpha1
 kind: API
 metadata:
-  name: account-account_v1
+  name: account-api-account_v1
   namespace: core
   title: "AccountService v1"
   labels:
     api-type: "api"
+    api-version: "v1"
+    api-component: "account"
 spec:
   type: grpc
   lifecycle: production

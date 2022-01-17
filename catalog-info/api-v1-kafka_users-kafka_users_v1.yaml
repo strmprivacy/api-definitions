@@ -1,11 +1,13 @@
 apiVersion: backstage.io/v1alpha1
 kind: API
 metadata:
-  name: kafka_users-kafka_users_v1
+  name: kafka_users-api-kafka_users_v1
   namespace: core
   title: "KafkaUsersService v1"
   labels:
     api-type: "api"
+    api-version: "v1"
+    api-component: "kafka_users"
 spec:
   type: grpc
   lifecycle: production

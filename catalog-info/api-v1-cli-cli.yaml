@@ -1,11 +1,13 @@
 apiVersion: backstage.io/v1alpha1
 kind: API
 metadata:
-  name: cli-cli
+  name: cli-api-cli
   namespace: core
   title: "CliService v1"
   labels:
     api-type: "api"
+    api-version: "v1"
+    api-component: "cli"
 spec:
   type: grpc
   lifecycle: production

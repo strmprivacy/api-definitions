@@ -1,11 +1,13 @@
 apiVersion: backstage.io/v1alpha1
 kind: API
 metadata:
-  name: usage-usage_v1
+  name: usage-api-usage_v1
   namespace: core
   title: "UsageService v1"
   labels:
     api-type: "api"
+    api-version: "v1"
+    api-component: "usage"
 spec:
   type: grpc
   lifecycle: production

@@ -1,11 +1,13 @@
 apiVersion: backstage.io/v1alpha1
 kind: API
 metadata:
-  name: metrics-metrics
+  name: metrics-api-metrics
   namespace: core
   title: "MetricsService v1"
   labels:
     api-type: "api"
+    api-version: "v1"
+    api-component: "metrics"
 spec:
   type: grpc
   lifecycle: production

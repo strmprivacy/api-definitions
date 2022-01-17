@@ -1,11 +1,13 @@
 apiVersion: backstage.io/v1alpha1
 kind: API
 metadata:
-  name: sinks-sinks_v1
+  name: sinks-api-sinks_v1
   namespace: core
   title: "SinksService v1"
   labels:
     api-type: "api"
+    api-version: "v1"
+    api-component: "sinks"
 spec:
   type: grpc
   lifecycle: production

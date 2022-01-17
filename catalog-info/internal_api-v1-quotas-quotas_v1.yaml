@@ -1,11 +1,13 @@
 apiVersion: backstage.io/v1alpha1
 kind: API
 metadata:
-  name: quotas-quotas_v1
+  name: quotas-internal_api-quotas_v1
   namespace: core
   title: "InternalQuotasService v1"
   labels:
     api-type: "internal_api"
+    api-version: "v1"
+    api-component: "quotas"
 spec:
   type: grpc
   lifecycle: production

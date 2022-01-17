@@ -1,11 +1,13 @@
 apiVersion: backstage.io/v1alpha1
 kind: API
 metadata:
-  name: batch_exporters-batch_exporters_v1
+  name: batch_exporters-api-batch_exporters_v1
   namespace: core
   title: "BatchExportersService v1"
   labels:
     api-type: "api"
+    api-version: "v1"
+    api-component: "batch_exporters"
 spec:
   type: grpc
   lifecycle: production

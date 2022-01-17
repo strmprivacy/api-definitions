@@ -1,11 +1,13 @@
 apiVersion: backstage.io/v1alpha1
 kind: API
 metadata:
-  name: key_streams-key_streams
+  name: key_streams-api-key_streams
   namespace: core
   title: "KeyStreamsService v1"
   labels:
     api-type: "api"
+    api-version: "v1"
+    api-component: "key_streams"
 spec:
   type: grpc
   lifecycle: production

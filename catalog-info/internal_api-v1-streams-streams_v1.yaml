@@ -1,11 +1,13 @@
 apiVersion: backstage.io/v1alpha1
 kind: API
 metadata:
-  name: streams-streams_v1
+  name: streams-internal_api-streams_v1
   namespace: core
   title: "InternalStreamsService v1"
   labels:
     api-type: "internal_api"
+    api-version: "v1"
+    api-component: "streams"
 spec:
   type: grpc
   lifecycle: production

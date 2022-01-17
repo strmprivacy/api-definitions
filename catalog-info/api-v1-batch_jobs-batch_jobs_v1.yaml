@@ -1,11 +1,13 @@
 apiVersion: backstage.io/v1alpha1
 kind: API
 metadata:
-  name: batch_jobs-batch_jobs_v1
+  name: batch_jobs-api-batch_jobs_v1
   namespace: core
   title: "BatchJobsService v1"
   labels:
     api-type: "api"
+    api-version: "v1"
+    api-component: "batch_jobs"
 spec:
   type: grpc
   lifecycle: production
