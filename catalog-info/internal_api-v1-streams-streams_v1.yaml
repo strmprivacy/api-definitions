@@ -2,7 +2,6 @@ apiVersion: backstage.io/v1alpha1
 kind: API
 metadata:
   name: internal_api-InternalStreamsService-v1
-  namespace: core
   title: "InternalStreamsService v1"
   labels:
     api-type: "internal_api"
@@ -12,7 +11,7 @@ spec:
   type: grpc
   lifecycle: production
   owner: core-team
-  system: core/api-definitions
+  system: /api-definitions
   definition: |
     syntax = "proto3";
     

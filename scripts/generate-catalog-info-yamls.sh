@@ -8,8 +8,6 @@ CATALOG_INFO_DIR="$REPO_ROOT_DIR/catalog-info"
 CATALOG_INFO_LOCATION_FILE="$REPO_ROOT_DIR/catalog-info.yaml"
 CATALOG_INFO_SYSTEM_FILE="$CATALOG_INFO_DIR/_api-definitions.yaml"
 
-NAMESPACE="core"
-
 mkdir -p "$CATALOG_INFO_DIR"
 
 cat << EOF > "$CATALOG_INFO_LOCATION_FILE"
@@ -30,7 +28,6 @@ apiVersion: backstage.io/v1alpha1
 kind: System
 metadata:
   name: api-definitions
-  namespace: $NAMESPACE
   description: Single source that contains all APIs, which are generated to various languages
   annotations:
     backstage.io/techdocs-ref: dir:.
@@ -59,7 +56,6 @@ apiVersion: backstage.io/v1alpha1
 kind: API
 metadata:
   name: $api_name
-  namespace: $NAMESPACE
   title: "$service_name $api_version"
   labels:
     api-type: "$api_type"

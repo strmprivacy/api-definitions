@@ -2,7 +2,6 @@ apiVersion: backstage.io/v1alpha1
 kind: System
 metadata:
   name: api-definitions
-  namespace: core
   description: Single source that contains all APIs, which are generated to various languages
   annotations:
     backstage.io/techdocs-ref: dir:.
