@@ -6,9 +6,9 @@ proto_files=$(find protos -name '*.proto')
 
 CATALOG_INFO_DIR="$REPO_ROOT_DIR/catalog-info"
 CATALOG_INFO_LOCATION_FILE="$REPO_ROOT_DIR/catalog-info.yaml"
-CATALOG_INFO_COMPONENT_FILE="$CATALOG_INFO_DIR/_api-definitions.yaml"
+CATALOG_INFO_SYSTEM_FILE="$CATALOG_INFO_DIR/_api-definitions.yaml"
 
-COMPONENT_NAMESPACE="core"
+NAMESPACE="core"
 
 mkdir -p "$CATALOG_INFO_DIR"
 
@@ -20,17 +20,17 @@ metadata:
   description: STRM Privacy api definitions
 spec:
   targets:
-  - ./$(realpath --relative-to="$REPO_ROOT_DIR" "$CATALOG_INFO_COMPONENT_FILE")
+  - ./$(realpath --relative-to="$REPO_ROOT_DIR" "$CATALOG_INFO_SYSTEM_FILE")
 EOF
 
 languages=$(ls "$REPO_ROOT_DIR/lang" | awk '{print "  - " $0}')
 
-cat << EOF > "$CATALOG_INFO_COMPONENT_FILE"
+cat << EOF > "$CATALOG_INFO_SYSTEM_FILE"
 apiVersion: backstage.io/v1alpha1
-kind: Component
+kind: System
 metadata:
   name: api-definitions
-  namespace: $COMPONENT_NAMESPACE
+  namespace: $NAMESPACE
   description: Single source that contains all APIs, which are generated to various languages
   annotations:
     backstage.io/techdocs-ref: dir:.
@@ -59,7 +59,7 @@ apiVersion: backstage.io/v1alpha1
 kind: API
 metadata:
   name: $api_name
-  namespace: $COMPONENT_NAMESPACE
+  namespace: $NAMESPACE
   title: "$service_name $api_version"
   labels:
     api-type: "$api_type"
@@ -69,7 +69,7 @@ spec:
   type: grpc
   lifecycle: production
   owner: core-team
-  subcomponentOf: $COMPONENT_NAMESPACE/api-definitions
+  system: $NAMESPACE/api-definitions
   definition: |
 $(awk '{print "    " $0}' "$file")
 EOF
