@@ -36,7 +36,7 @@ $languages
 spec:
   type: app
   lifecycle: production
-  owner: core-team
+  owner: team-core
 EOF
 
 for file in $proto_files; do
@@ -64,7 +64,7 @@ metadata:
 spec:
   type: grpc
   lifecycle: production
-  owner: core-team
+  owner: team-core
   system: api-definitions
   definition: |
 $(awk '{print "    " $0}' "$file")

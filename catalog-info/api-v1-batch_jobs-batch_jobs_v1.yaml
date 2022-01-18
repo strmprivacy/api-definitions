@@ -10,7 +10,7 @@ metadata:
 spec:
   type: grpc
   lifecycle: production
-  owner: core-team
+  owner: team-core
   system: api-definitions
   definition: |
     syntax = "proto3";

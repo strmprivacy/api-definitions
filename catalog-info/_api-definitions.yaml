@@ -13,4 +13,4 @@ metadata:
 spec:
   type: app
   lifecycle: production
-  owner: core-team
+  owner: team-core
