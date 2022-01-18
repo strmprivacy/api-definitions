@@ -15,31 +15,3 @@ spec:
   type: app
   lifecycle: production
   owner: core-team
-  providesApis:
-  - core/internal_api-InternalQuotasService-v1
-  - core/internal_api-InternalStreamsService-v1
-  - core/internal_api-StrmAgentOperatorService-v1
-  - core/internal_api-StreamsAgentService-v1
-  - core/internal_api-BatchJobsAgentService-v1
-  - core/internal_api-KafkaExportersAgentService-v1
-  - core/internal_api-BatchExportersAgentService-v1
-  - core/internal_api-InternalUsageService-v1
-  - core/internal_api-InternalSchemasService-v1
-  - core/internal_api-InternalEventContractsService-v1
-  - core/internal_api-InternalAccountService-v1
-  - core/api-MetricsService-v1
-  - core/api-KafkaExportersService-v1
-  - core/api-KeyStreamsService-v1
-  - core/api-StreamsService-v1
-  - core/api-SinksService-v1
-  - core/api-ConsentLevelMappingsService-v1
-  - core/api-BatchExportersService-v1
-  - core/api-UsageService-v1
-  - core/api-CliService-v1
-  - core/api-SchemasService-v1
-  - core/api-KafkaUsersService-v1
-  - core/api-EventContractsService-v1
-  - core/api-BatchJobsService-v1
-  - core/api-AccountService-v1
-  - core/api-KafkaClustersService-v1
-  - core/api-CredentialsService-v1

@@ -40,7 +40,6 @@ spec:
   type: app
   lifecycle: production
   owner: core-team
-  providesApis:
 EOF
 
 for file in $proto_files; do
@@ -70,14 +69,12 @@ spec:
   type: grpc
   lifecycle: production
   owner: core-team
+  subcomponentOf: $COMPONENT_NAMESPACE/api-definitions
   definition: |
 $(awk '{print "    " $0}' "$file")
 EOF
 
     # Write API Component to Backstage YAML
     echo "  - ./$(realpath --relative-to="$REPO_ROOT_DIR" "$destination_file")" >> "$CATALOG_INFO_LOCATION_FILE"
-
-    # Append to provided apis in the API Definitions component Backstage YAML
-    echo "  - $COMPONENT_NAMESPACE/$api_name" >> "$CATALOG_INFO_COMPONENT_FILE"
   fi
 done
