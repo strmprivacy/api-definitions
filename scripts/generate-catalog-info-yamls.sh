@@ -65,7 +65,7 @@ spec:
   type: grpc
   lifecycle: production
   owner: core-team
-  system: $NAMESPACE/api-definitions
+  system: api-definitions
   definition: |
 $(awk '{print "    " $0}' "$file")
 EOF

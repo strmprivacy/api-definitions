@@ -11,7 +11,7 @@ spec:
   type: grpc
   lifecycle: production
   owner: core-team
-  system: /api-definitions
+  system: api-definitions
   definition: |
     syntax = "proto3";
     
