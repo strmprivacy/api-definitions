@@ -40,59 +40,59 @@ api-definitions
 
 Look at the tabs below to see what the purpose of each file is:
 
-=== "Makefile"
+1. `Makefile`
 
-Entrypoint for all tools involved in this repository. Contains commands to setup
+  Entrypoint for all tools involved in this repository. Contains commands to setup
 your IDE, running the proto compiler, generating code, building/compiling the
 code into artifacts, and more.
 
-=== "lang"
+2. `lang`
 
-Per language, a separate directory, with at least a `Makefile`. This `Makefile`
+  Per language, a separate directory, with at least a `Makefile`. This `Makefile`
 contains all details and commands required for generating and building/compiling
 generated code for this specific language.
 
-=== "protos"
+3. `protos`
 
-The protos directory contains all `.proto` files, defining `message`, `service`
+  The protos directory contains all `.proto` files, defining `message`, `service`
 and `rpc` elements that make up our APIs. The directory structure **must** be
 reflected in the package name at the top of a `.proto` file.
 
-=== "scripts"
+4. `scripts`
 
-Contains various shell scripts, used for setting up your IDE, or generating
+  Contains various shell scripts, used for setting up your IDE, or generating
 Backstage YAML files.
 
-=== "buf.yaml"
+5. `buf.yaml`
 
-[Buf](https://buf.build) aims to provide a unified toolset of Protocol buffers.
+  [Buf](https://buf.build) aims to provide a unified toolset of Protocol buffers.
 Read more about it on their site. We only use Buf for checking that no breaking
 changes are made to existing APIs.
 
-=== ".api-linter.yaml"
+6. `.api-linter.yaml`
 
-Contains the configuration (actually only exclusions)
+  Contains the configuration (actually only exclusions)
 for [Google's AIP (API Improvement Proposals)](https://google.aip.dev/general)
 linter. This is meant to keep our Proto messages and gRPC services + RPCs
 conform a specification in order to maintain consistency and prevent errors.
 
-=== "catalog-info and catalog-info.yaml"
-
-Contains all files for Backstage, generated from the proto files and defining
+7. `catalog-info and catalog-info.yaml`
+ 
+  Contains all files for Backstage, generated from the proto files and defining
 this repository as a system that contains the source of truth for our APIs.
 
-=== "docs and mkdocs.yml"
+8. `docs and mkdocs.yml`
 
-MkDocs documentation directory
+  MkDocs documentation directory
 
-=== "package.json"
+9. `package.json`
 
-Every project within STRM Privacy contains a `package.json`, which is used
+  Every project within STRM Privacy contains a `package.json`, which is used
 for [semantic-release](https://github.com/semantic-release/semantic-release).
 
-=== "renovate.json5"
+10. `renovate.json5`
 
-Renovate is used for automatic dependency upgrades, presented as Merge Requests
+  Renovate is used for automatic dependency upgrades, presented as Merge Requests
 on this repository. As the `Makefile` is the single source of truth of the used
 Protobuf and gRPC versions (these are propagated into every language in
 the `lang` directory), we have custom rules defined to ensure that only the
