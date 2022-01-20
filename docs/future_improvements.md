@@ -68,4 +68,4 @@ At Google Cloud, they have a preference of option 1. over option 2.
    configuration that is specific for AWS S3, which should be in a custom AWS S3
    message.
 
-[^1]:[Changes between Proto3 and Proto2](https://cloud.google.com/apis/design/proto3) 
+[^1]: [Changes between Proto3 and Proto2](https://cloud.google.com/apis/design/proto3) 
