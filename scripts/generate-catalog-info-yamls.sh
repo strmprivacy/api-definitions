@@ -30,7 +30,7 @@ metadata:
   name: api-definitions
   description: Single source that contains all APIs, which are generated to various languages
   annotations:
-    backstage.io/techdocs-ref: dir:.
+    backstage.io/techdocs-ref: dir:../
   tags:
 $languages
 spec:

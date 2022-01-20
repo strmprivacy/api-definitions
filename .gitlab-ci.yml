@@ -9,6 +9,7 @@ include:
 
 stages:
   - lint-and-breaking
+  - docs
   - generate
   - release
   - publish

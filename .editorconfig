@@ -823,3 +823,8 @@ ij_yaml_keep_line_breaks = true
 
 [*.proto]
 indent_size = 2
+
+[*.md]
+indent_size = 2
+tab_width = 2
+max_line_length = 80
