@@ -1,3 +1,10 @@
+# [2.14.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.13.0...v2.14.0) (2022-01-28)
+
+
+### Features
+
+* added Batch Jobs ([4d31ddf](https://gitlab.com/strmprivacy/api-definitions/commit/4d31ddf1a9bf5754a19368ffb7ff43182ae20945))
+
 # [2.13.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.12.0...v2.13.0) (2022-01-13)
 
 
