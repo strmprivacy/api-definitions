@@ -69,7 +69,7 @@ Currently we  only support:
 message BatchJob {
   BatchJobRef ref = 1 [(google.api.field_behavior) = REQUIRED];
   repeated BatchJobState states = 2 [(google.api.field_behavior) = OUTPUT_ONLY];
-  DataConnector source_data = 3 [(google.api.field_behavior) = REQUIRED];
+  DataConnectorAndType source_data = 3 [(google.api.field_behavior) = REQUIRED];
   ConsentConfig consent = 4 [(google.api.field_behavior) = REQUIRED];
   EncryptionConfig encryption = 5 [(google.api.field_behavior) = REQUIRED];
   strmprivacy.api.entities.v1.EventContractRef event_contract_ref = 6 [(google.api.field_behavior) = REQUIRED];
@@ -81,47 +81,23 @@ message BatchJob {
 message BatchJobRef {
   string billing_id = 1 [(google.api.field_behavior) = OUTPUT_ONLY];
   // the UUIDv4 of the job
-  string id = 2 [(google.api.field_behavior) = REQUIRED];
+  string id = 2 [(google.api.field_behavior) = OUTPUT_ONLY];
 }
 
 message BatchJobState {
   google.protobuf.Timestamp state_time = 1 [(google.api.field_behavior) = OUTPUT_ONLY];
   BatchJobStateType state = 2 [(google.api.field_behavior) = REQUIRED];
-  string error_message = 3 [(google.api.field_behavior) = OPTIONAL];
+  string message = 3 [(google.api.field_behavior) = OPTIONAL];
 }
 
-message DataConnector {
-  oneof location {
-    AwsS3BucketLocation s3_bucket = 1;
-  }
-  oneof data_type {
-    CsvConfig csv = 5;
-  }
-}
-
-message AwsS3BucketLocation {
-  // (-- api-linter: core::0122::name-suffix=disabled
-  //     aip.dev/not-precedent: We refer to a bucket name. --)
-  string bucket_name = 1 [(google.api.field_behavior) = REQUIRED];
-  // The credentials that are to be used to access the bucket.
-  string credentials = 2 [(google.api.field_behavior) = INPUT_ONLY];
-  /* The ARN of the role to assume.
-     If present, start an AssumeRole flow to get temporary credentials in another AWS account.
-     This is used when the customer has a separate users account.
-     Default there is no assumed role. */
-  string assume_role_arn = 3 [(google.api.field_behavior) = OPTIONAL];
+message DataConnectorAndType {
+  strmprivacy.api.entities.v1.DataConnectorRef data_connector_ref = 1 [(google.api.field_behavior) = REQUIRED];
   // If omitted, files are read from the root of the bucket.
-  string path_prefix = 4 [(google.api.field_behavior) = OPTIONAL];
+  string path_prefix = 2 [(google.api.field_behavior) = OPTIONAL];
   // (-- api-linter: core::0122::name-suffix=disabled
-  //     aip.dev/not-precedent: This is the object name without the path prefix. --)
-  // If omitted, all files in the specified path_prefix are read. In the case of writing, the output file names match
-  // the input file names, with a suffix indicating the type of data (encrypted, keys, decrypted-1-2-3).
-  // If present, this is the only file that is read. In the case of writing, this name is the explicit file name.
-  string file_name = 5 [(google.api.field_behavior) = OPTIONAL];
-}
-
-message CsvConfig {
-  string charset = 1;
+  //     aip.dev/not-precedent: We think file_name is a better name. --)
+  string file_name = 3 [(google.api.field_behavior) = OPTIONAL];
+  strmprivacy.api.entities.v1.DataType data_type = 4 [(google.api.field_behavior) = REQUIRED];
 }
 
 message ConsentConfig {
@@ -147,15 +123,15 @@ message TimestampConfig {
 }
 
 message EncryptedData {
-  DataConnector target = 1 [(google.api.field_behavior) = REQUIRED];
+  DataConnectorAndType target = 1 [(google.api.field_behavior) = REQUIRED];
 }
 
 message EncryptionKeysData {
-  DataConnector target = 1 [(google.api.field_behavior) = REQUIRED];
+  DataConnectorAndType target = 1 [(google.api.field_behavior) = REQUIRED];
 }
 
 message DerivedData {
-  DataConnector target = 1 [(google.api.field_behavior) = REQUIRED];
+  DataConnectorAndType target = 1 [(google.api.field_behavior) = REQUIRED];
   repeated int32 consent_levels = 2;
   strmprivacy.api.entities.v1.ConsentLevelType consent_level_type = 3;
   strmprivacy.api.entities.v1.MaskedFields masked_fields = 4;
