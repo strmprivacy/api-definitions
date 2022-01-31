@@ -1,3 +1,10 @@
+# [2.15.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.14.0...v2.15.0) (2022-01-31)
+
+
+### Features
+
+* renamed executor to runner ([c46b31d](https://gitlab.com/strmprivacy/api-definitions/commit/c46b31d9d46175423a8f63b03a8922fd7d53dccf))
+
 # [2.14.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.13.0...v2.14.0) (2022-01-28)
 
 
