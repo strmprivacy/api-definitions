@@ -17,7 +17,7 @@ message GetDesiredBatchJobsRequest {
 }
 
 message GetDesiredBatchJobsResponse {
-  string batch_job_executor_image = 1;
+  string batch_job_runner_image = 1;
   repeated strmprivacy.internal_api.entities.v1.ExtendedBatchJob extended_batch_jobs = 2;
   repeated strmprivacy.internal_api.entities.v1.ExtendedSink extended_sinks = 3;
 }
