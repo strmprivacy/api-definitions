@@ -1,0 +1,163 @@
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: api-BatchJobsService-v1
+  title: "BatchJobsService v1"
+  labels:
+    api-type: "api"
+    api-version: "v1"
+    api-component: "batch_jobs"
+spec:
+  type: grpc
+  lifecycle: production
+  owner: team-core
+  system: api-definitions
+  definition: |
+    syntax = "proto3";
+    
+    package strmprivacy.api.batch_jobs.v1;
+    
+    import "google/api/field_behavior.proto";
+    import "google/protobuf/timestamp.proto";
+    import "google/type/datetime.proto";
+    import "strmprivacy/api/entities/v1/entities_v1.proto";
+    
+    option go_package = "github.com/strmprivacy/api-definitions-go/v2/api/batch_jobs/v1;batch_jobs";
+    option java_package = "io.strmprivacy.api.batch_jobs.v1";
+    option java_multiple_files = true;
+    
+    service BatchJobsService {
+      rpc GetBatchJob(GetBatchJobRequest) returns (GetBatchJobResponse);
+      rpc ListBatchJobs(ListBatchJobsRequest) returns (ListBatchJobsResponse);
+      rpc CreateBatchJob(CreateBatchJobRequest) returns (CreateBatchJobResponse);
+      rpc DeleteBatchJob(DeleteBatchJobRequest) returns (DeleteBatchJobResponse);
+      rpc UpdateBatchJobState(UpdateBatchJobStateRequest) returns (UpdateBatchJobStateResponse);
+    }
+    
+    message GetBatchJobRequest {
+      BatchJobRef ref = 1 [(google.api.field_behavior) = REQUIRED];
+    }
+    
+    message GetBatchJobResponse {
+      BatchJob batch_job = 1 [(google.api.field_behavior) = REQUIRED];
+    }
+    
+    message ListBatchJobsRequest {
+      string billing_id = 1 [(google.api.field_behavior) = REQUIRED];
+    }
+    
+    message ListBatchJobsResponse {
+      repeated BatchJob batch_jobs = 1;
+    }
+    
+    message CreateBatchJobRequest {
+      BatchJob batch_job = 1 [(google.api.field_behavior) = REQUIRED];
+    }
+    
+    message CreateBatchJobResponse {
+      BatchJob batch_job = 1 [(google.api.field_behavior) = REQUIRED];
+    }
+    
+    message DeleteBatchJobRequest {
+      BatchJobRef ref = 1 [(google.api.field_behavior) = REQUIRED];
+    }
+    
+    message DeleteBatchJobResponse {
+    }
+    
+    // (-- api-linter: core::0134::request-mask-required=disabled
+    //     aip.dev/not-precedent: This RPC only updates one field. --)
+    message UpdateBatchJobStateRequest {
+      BatchJobRef ref = 1 [(google.api.field_behavior) = REQUIRED];
+      BatchJobState batch_job_state = 2 [(google.api.field_behavior) = REQUIRED];
+    }
+    
+    message UpdateBatchJobStateResponse {
+    }
+    
+    /* Batch Jobs
+    Currently we  only support:
+     - CSV as DataFormat type
+     - a clean database for every batch job
+     - CSV files with a header row, because the header is needed to get the field names
+     */
+    message BatchJob {
+      BatchJobRef ref = 1 [(google.api.field_behavior) = REQUIRED];
+      repeated BatchJobState states = 2 [(google.api.field_behavior) = OUTPUT_ONLY];
+      DataConnectorAndType source_data = 3 [(google.api.field_behavior) = REQUIRED];
+      ConsentConfig consent = 4 [(google.api.field_behavior) = REQUIRED];
+      EncryptionConfig encryption = 5 [(google.api.field_behavior) = REQUIRED];
+      strmprivacy.api.entities.v1.EventContractRef event_contract_ref = 6 [(google.api.field_behavior) = REQUIRED];
+      EncryptedData encrypted_data = 7 [(google.api.field_behavior) = REQUIRED];
+      EncryptionKeysData encryption_keys_data = 8 [(google.api.field_behavior) = REQUIRED];
+      repeated DerivedData derived_data = 9 [(google.api.field_behavior) = OPTIONAL];
+    }
+    
+    message BatchJobRef {
+      string billing_id = 1 [(google.api.field_behavior) = OUTPUT_ONLY];
+      // the UUIDv4 of the job
+      string id = 2 [(google.api.field_behavior) = OUTPUT_ONLY];
+    }
+    
+    message BatchJobState {
+      google.protobuf.Timestamp state_time = 1 [(google.api.field_behavior) = OUTPUT_ONLY];
+      BatchJobStateType state = 2 [(google.api.field_behavior) = REQUIRED];
+      string message = 3 [(google.api.field_behavior) = OPTIONAL];
+    }
+    
+    message DataConnectorAndType {
+      strmprivacy.api.entities.v1.DataConnectorRef data_connector_ref = 1 [(google.api.field_behavior) = REQUIRED];
+      // If omitted, files are read from the root of the bucket.
+      string path_prefix = 2 [(google.api.field_behavior) = OPTIONAL];
+      // (-- api-linter: core::0122::name-suffix=disabled
+      //     aip.dev/not-precedent: We think file_name is a better name. --)
+      string file_name = 3 [(google.api.field_behavior) = OPTIONAL];
+      strmprivacy.api.entities.v1.DataType data_type = 4 [(google.api.field_behavior) = REQUIRED];
+    }
+    
+    message ConsentConfig {
+      repeated int32 default_consent_levels = 1 [(google.api.field_behavior) = OPTIONAL];
+      ConsentLevelExtractor consent_level_extractor = 2 [(google.api.field_behavior) = OPTIONAL];
+    }
+    
+    message ConsentLevelExtractor {
+      string field = 1;
+      map<string, strmprivacy.api.entities.v1.ConsentLevels> field_patterns = 2;
+    }
+    
+    message EncryptionConfig {
+      TimestampConfig timestamp_config = 1 [(google.api.field_behavior) = REQUIRED];
+      string batch_job_group_id = 2 [(google.api.field_behavior) = REQUIRED];
+    }
+    
+    message TimestampConfig {
+      string field = 1 [(google.api.field_behavior) = REQUIRED];
+      // Java Time Format template, see https://docs.oracle.com/javase/8/docs/api/java/time/format/DateTimeFormatter.html
+      string format = 2 [(google.api.field_behavior) = REQUIRED];
+      google.type.TimeZone default_time_zone = 3 [(google.api.field_behavior) = OPTIONAL];
+    }
+    
+    message EncryptedData {
+      DataConnectorAndType target = 1 [(google.api.field_behavior) = REQUIRED];
+    }
+    
+    message EncryptionKeysData {
+      DataConnectorAndType target = 1 [(google.api.field_behavior) = REQUIRED];
+    }
+    
+    message DerivedData {
+      DataConnectorAndType target = 1 [(google.api.field_behavior) = REQUIRED];
+      repeated int32 consent_levels = 2;
+      strmprivacy.api.entities.v1.ConsentLevelType consent_level_type = 3;
+      strmprivacy.api.entities.v1.MaskedFields masked_fields = 4;
+    }
+    
+    enum BatchJobStateType {
+      BATCH_JOB_STATE_TYPE_UNSPECIFIED = 0;
+      PENDING = 1;
+      STARTED = 2;
+      ERROR_STARTING = 3;
+      RUNNING = 4;
+      FINISHED = 5;
+      ERROR = 6;
+    }

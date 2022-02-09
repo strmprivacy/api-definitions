@@ -1,15 +1,18 @@
 #!/bin/bash
 
-proto_files=$(find protos/strmprivacy -name '*.proto')
+PROTOS_DIR="protos"
+cd "$PROTOS_DIR" || exit
+
+proto_files=$(find strmprivacy -name '*.proto')
 
 declare -i EXIT_SUM=0
 
 for file in $proto_files; do
   api-linter \
     --set-exit-status \
-    --config .api-linter.yaml \
+    --config ../.api-linter.yaml \
     -I /included-protos/ \
-    -I protos \
+    -I . \
     "$file"
   EXIT_SUM+=$?
 done

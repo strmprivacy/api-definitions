@@ -4,7 +4,7 @@ include:
 
 generate-typescript:
   stage: generate
-  image: namely/protoc-all:latest
+  image: namely/protoc-all:1.42_1
   before_script:
     - apt-get install -y make unzip
     # Ensure that the protoc compiler has the Google protos

@@ -1,0 +1,71 @@
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: api-SinksService-v1
+  title: "SinksService v1"
+  labels:
+    api-type: "api"
+    api-version: "v1"
+    api-component: "sinks"
+spec:
+  type: grpc
+  lifecycle: production
+  owner: team-core
+  system: api-definitions
+  definition: |
+    syntax = "proto3";
+    
+    package strmprivacy.api.sinks.v1;
+    
+    import "google/api/field_behavior.proto";
+    import "strmprivacy/api/entities/v1/entities_v1.proto";
+    
+    option go_package = "github.com/strmprivacy/api-definitions-go/v2/api/sinks/v1;sinks";
+    option java_package = "io.strmprivacy.api.sinks.v1";
+    option java_multiple_files = true;
+    
+    service SinksService {
+      rpc ListSinks (ListSinksRequest) returns (ListSinksResponse);
+      rpc GetSink (GetSinkRequest) returns (GetSinkResponse);
+      rpc DeleteSink (DeleteSinkRequest) returns (DeleteSinkResponse);
+      rpc CreateSink (CreateSinkRequest) returns (CreateSinkResponse);
+    }
+    
+    message ListSinksRequest {
+      string billing_id = 1;
+      bool recursive = 2;
+      bool include_credentials = 3;
+    }
+    
+    message ListSinksResponse {
+      repeated strmprivacy.api.entities.v1.SinkTree sinks = 1;
+    }
+    
+    message DeleteSinkRequest {
+      entities.v1.SinkRef ref = 1 [(google.api.field_behavior) = REQUIRED];
+      // (-- api-linter: core::0135::request-unknown-fields=disabled
+      //     aip.dev/not-precedent: We really need this field. --)
+      bool recursive = 2;
+    }
+    
+    message DeleteSinkResponse {
+    }
+    
+    message CreateSinkRequest {
+      strmprivacy.api.entities.v1.Sink sink = 1 [(google.api.field_behavior) = REQUIRED];
+      bool include_credentials = 2;
+    }
+    
+    message CreateSinkResponse {
+      strmprivacy.api.entities.v1.Sink sink = 1;
+    }
+    
+    message GetSinkRequest {
+      entities.v1.SinkRef ref = 1 [(google.api.field_behavior) = REQUIRED];
+      bool recursive = 2;
+      bool include_credentials = 3;
+    }
+    
+    message GetSinkResponse {
+      strmprivacy.api.entities.v1.SinkTree sink_tree = 1;
+    }

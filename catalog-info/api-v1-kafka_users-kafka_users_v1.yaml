@@ -1,0 +1,65 @@
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: api-KafkaUsersService-v1
+  title: "KafkaUsersService v1"
+  labels:
+    api-type: "api"
+    api-version: "v1"
+    api-component: "kafka_users"
+spec:
+  type: grpc
+  lifecycle: production
+  owner: team-core
+  system: api-definitions
+  definition: |
+    syntax = "proto3";
+    
+    package strmprivacy.api.kafka_users.v1;
+    
+    import "google/api/field_behavior.proto";
+    import "strmprivacy/api/entities/v1/entities_v1.proto";
+    
+    option go_package = "github.com/strmprivacy/api-definitions-go/v2/api/kafka_users/v1;kafka_users";
+    option java_package = "io.strmprivacy.api.kafka_users.v1";
+    option java_multiple_files = true;
+    
+    service KafkaUsersService {
+      rpc ListKafkaUsers (ListKafkaUsersRequest) returns (ListKafkaUsersResponse);
+      rpc GetKafkaUser (GetKafkaUserRequest) returns (GetKafkaUserResponse);
+      rpc DeleteKafkaUser (DeleteKafkaUserRequest) returns (DeleteKafkaUserResponse);
+      rpc CreateKafkaUser (CreateKafkaUserRequest) returns (CreateKafkaUserResponse);
+    }
+    
+    message ListKafkaUsersRequest {
+      // (-- api-linter: core::0122::name-suffix=disabled
+      //     aip.dev/not-precedent: ref is a better name than Google suggests ¯\_(ツ)_/¯ --)
+      entities.v1.KafkaExporterRef ref = 1 [(google.api.field_behavior) = REQUIRED];
+    }
+    
+    message ListKafkaUsersResponse {
+      repeated strmprivacy.api.entities.v1.KafkaUser kafka_users = 1;
+    }
+    
+    message DeleteKafkaUserRequest {
+      entities.v1.KafkaUserRef ref = 1 [(google.api.field_behavior) = REQUIRED];
+    }
+    
+    message DeleteKafkaUserResponse {
+    }
+    
+    message CreateKafkaUserRequest {
+      strmprivacy.api.entities.v1.KafkaUser kafka_user = 1;
+    }
+    
+    message CreateKafkaUserResponse {
+      strmprivacy.api.entities.v1.KafkaUser kafka_user = 1;
+    }
+    
+    message GetKafkaUserRequest {
+      entities.v1.KafkaUserRef ref = 1 [(google.api.field_behavior) = REQUIRED];
+    }
+    
+    message GetKafkaUserResponse {
+      strmprivacy.api.entities.v1.KafkaUser kafka_user = 1;
+    }

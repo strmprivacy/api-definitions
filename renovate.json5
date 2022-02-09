@@ -34,75 +34,85 @@
             "datasourceTemplate": "maven"
         }
     ],
-    regex: {
-        packageRules: [
-            {
-                matchPackagePatterns: [
-                    "*"
-                ],
-                matchUpdateTypes: [
-                    "minor",
-                    "patch"
-                ],
-                groupName: "grpc-protobuf dependencies",
-                groupSlug: "non-major-grpc-protobuf",
-                automerge: true,
-                platformAutomerge: true,
-                additionalBranchPrefix: "build-only/"
-            },
-            {
-                matchPackagePatterns: [
-                    "*"
-                ],
-                matchUpdateTypes: [
-                    "major"
-                ],
-                groupName: "grpc-protobuf major dependencies",
-                groupSlug: "grpc-protobuf",
-                automerge: false,
-                additionalBranchPrefix: "build-only/"
-            }
-        ]
-    },
-    gradle: {
-        packageRules: [
-            // The following packages are excluded from updates, as they are determined by the
-            // top level Makefile
-            {
-                matchPackageNames: [
-                    "com.google.api.grpc:proto-google-common-protos",
-                    "com.google.protobuf:protobuf-java-util",
-                    "com.google.protobuf:protobuf-kotlin",
-                    "io.grpc:grpc-protobuf",
-                    "io.grpc:grpc-stub",
-                    "io.grpc:grpc-services",
-                    "io.grpc:grpc-netty-shaded"
-                ],
-                matchUpdateTypes: [
-                    "major",
-                    "minor",
-                    "patch"
-                ],
-                enabled: false
-            }
-        ]
-    },
-    npm: {
-        packageRules: [
-            // The following packages are excluded from updates, as they are determined by the
-            // top level Makefile
-            {
-                matchPackageNames: [
-                    "@types/google-protobuf",
-                    "google-protobuf",
-                ],
-                matchUpdateTypes: [
-                    "major",
-                    "minor",
-                    "patch"
-                ],
-                enabled: false
-            }
-        ]
-    }
+    packageRules: [
+        {
+            matchManagers: [
+                "regex"
+            ],
+            matchPackagePatterns: [
+                "*"
+            ],
+            matchUpdateTypes: [
+                "minor",
+                "patch"
+            ],
+            groupName: "grpc-protobuf dependencies",
+            groupSlug: "non-major-grpc-protobuf",
+            automerge: true,
+            platformAutomerge: true,
+            additionalBranchPrefix: "build-only/",
+            addLabels: [
+                "minor-patch",
+                "grpc-protobuf"
+            ]
+        },
+        {
+            matchManagers: [
+                "regex"
+            ],
+            matchPackagePatterns: [
+                "*"
+            ],
+            matchUpdateTypes: [
+                "major"
+            ],
+            groupName: "grpc-protobuf major dependencies",
+            groupSlug: "grpc-protobuf",
+            automerge: false,
+            additionalBranchPrefix: "build-only/",
+            addLabels: [
+                "major",
+                "grpc-protobuf"
+            ]
+        },
+        // The following packages are excluded from updates, as they are determined by the
+        // top level Makefile
+        {
+            matchManagers: [
+                "gradle"
+            ],
+            matchPackageNames: [
+                "com.google.api.grpc:proto-google-common-protos",
+                "com.google.protobuf:protobuf-java-util",
+                "com.google.protobuf:protobuf-kotlin",
+                "io.grpc:grpc-protobuf",
+                "io.grpc:grpc-stub",
+                "io.grpc:grpc-services",
+                "io.grpc:grpc-netty-shaded"
+            ],
+            matchUpdateTypes: [
+                "major",
+                "minor",
+                "patch"
+            ],
+            enabled: false
+        },
+        // The following packages are excluded from updates, as they are determined by the
+        // top level Makefile
+        {
+            matchManagers: [
+                "npm"
+            ],
+            matchPackageNames: [
+                "@types/google-protobuf",
+                "google-protobuf"
+            ],
+            matchUpdateTypes: [
+                "major",
+                "minor",
+                "patch"
+            ],
+            enabled: false
+        }
+    ]
 }

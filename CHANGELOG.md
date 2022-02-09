@@ -1,3 +1,88 @@
+# [2.16.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.15.0...v2.16.0) (2022-02-09)
+
+
+### Features
+
+* added google cloud bucket entity ([982daaa](https://gitlab.com/strmprivacy/api-definitions/commit/982daaac8dbbfd9bc28e8fd4cb4967f01b107dd2))
+
+# [2.15.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.14.0...v2.15.0) (2022-01-31)
+
+
+### Features
+
+* renamed executor to runner ([c46b31d](https://gitlab.com/strmprivacy/api-definitions/commit/c46b31d9d46175423a8f63b03a8922fd7d53dccf))
+
+# [2.14.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.13.0...v2.14.0) (2022-01-28)
+
+
+### Features
+
+* added Batch Jobs ([4d31ddf](https://gitlab.com/strmprivacy/api-definitions/commit/4d31ddf1a9bf5754a19368ffb7ff43182ae20945))
+
+# [2.13.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.12.0...v2.13.0) (2022-01-13)
+
+
+### Features
+
+* batch jobs agent api ([27d4e56](https://gitlab.com/strmprivacy/api-definitions/commit/27d4e5657d8b0adad5cda284be3323d905c37135))
+
+# [2.12.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.11.0...v2.12.0) (2022-01-13)
+
+
+### Features
+
+* batch jobs api ([9472ff9](https://gitlab.com/strmprivacy/api-definitions/commit/9472ff941318b873b39b313e0267b735c50de8d6))
+
+# [2.11.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.10.1...v2.11.0) (2022-01-07)
+
+
+### Bug Fixes
+
+* ensure we don't overwrite snapshot versions when we have multiple feature branches ([8efef53](https://gitlab.com/strmprivacy/api-definitions/commit/8efef532d10c182207f12e86f5a346b9a744c393))
+
+
+### Features
+
+* allow for more than the three deployments we currently know ([2220f45](https://gitlab.com/strmprivacy/api-definitions/commit/2220f45d8e205ca187bf6bef991f4656f2dd7019))
+* new api for strm agent operator ([b6ffb3b](https://gitlab.com/strmprivacy/api-definitions/commit/b6ffb3b46db35dc1253e9cfc83866c880f6bd4a6))
+
+## [2.10.1](https://gitlab.com/strmprivacy/api-definitions/compare/v2.10.0...v2.10.1) (2022-01-03)
+
+
+### Bug Fixes
+
+* update typescript namely/protoc-all image to try out the grpc-web 1.3.0 update ([a75387a](https://gitlab.com/strmprivacy/api-definitions/commit/a75387a97eedce4edfd0dea53dbe215fb30af5f9))
+
+# [2.10.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.9.0...v2.10.0) (2021-12-28)
+
+
+### Bug Fixes
+
+* buf lint ([74627e3](https://gitlab.com/strmprivacy/api-definitions/commit/74627e3cbe0fb7421d468eb7f4a46312f469e75f))
+
+
+### Features
+
+* avroName in simple schema ([0d05120](https://gitlab.com/strmprivacy/api-definitions/commit/0d05120a768066048f7fa9d771150bba56eab5c9))
+
+# [2.9.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.8.0...v2.9.0) (2021-12-28)
+
+
+### Features
+
+* add batch exporter agent service ([2b22d5a](https://gitlab.com/strmprivacy/api-definitions/commit/2b22d5a8f0540c45a6a49a847cf484ec6cfce1d3))
+* add GetDesiredSinks rpc ([d23d8a6](https://gitlab.com/strmprivacy/api-definitions/commit/d23d8a69a79af71877862a28c0cb9d25a5f8b305))
+* add topic to extended batch exporter message ([82ad3b4](https://gitlab.com/strmprivacy/api-definitions/commit/82ad3b4f41388847f3e0446f8b567d9363ce1fc4))
+* **jvm:** move dependencies from app to api definitions to centralize ([31c6b16](https://gitlab.com/strmprivacy/api-definitions/commit/31c6b164529b8cb0a8cc60ae354ea44a42c971ee))
+* work in progress for tuple of extendedsink and extendedbatchexporter ([b96928c](https://gitlab.com/strmprivacy/api-definitions/commit/b96928c6d88d80293cbaa15eeb8d17532f1f218c))
+
+# [2.8.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.7.0...v2.8.0) (2021-12-21)
+
+
+### Features
+
+* **deps:** update npm dev dependencies ([81b9b43](https://gitlab.com/strmprivacy/api-definitions/commit/81b9b430f955feafab35f9d3fa2936a0d1f86f94))
+
 # [2.7.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.6.0...v2.7.0) (2021-12-17)
 
 

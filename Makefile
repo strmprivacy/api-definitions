@@ -1,4 +1,4 @@
-.PHONY: intellij clean build publish buf-breaking buf-lint api-lint default-protobuf-dependencies docs clean-docs clean-common-protos
+.PHONY: intellij clean build publish buf-breaking buf-lint api-lint default-protobuf-dependencies protodocs protodocs-clean clean-common-protos
 
 # =======================
 # Variables
@@ -18,9 +18,9 @@ export
 # =======================
 # Versions and dependencies
 # =======================
-strmprivacy_api_version := 2.7.0
+strmprivacy_api_version := 2.16.0
 
-grpc_version := 1.42.0
+grpc_version := 1.43.0
 protobuf_version := 3.19.1
 google_common_protos_version := 2.7.0
 
@@ -63,13 +63,13 @@ buf-lint: ${common_protos}/google/api ${common_protos}/google/protobuf
 	buf lint
 
 api-lint:
-	docker run --rm -v "${pwd}:/workspace" eu.gcr.io/stream-machine-development/google/api-linter:1.25.0 ./scripts/api-linter.sh
+	docker run --rm -v "${pwd}:/workspace" europe-west4-docker.pkg.dev/stream-machine-development/docker/build/google-api-linter:1.29.3 ./scripts/api-linter.sh
 
-docs-clean:
-	rm -rf docs
+protodocs-clean:
+	rm -rf protodocs
 
-docs: docs-clean
-	docker run --rm -v "$(pwd)/docs:/out" -v "$(pwd)/protos:/protos" -v "$(pwd)/lang:/lang" pseudomuto/protoc-gen-doc ${relative_proto_files} --proto_path=lang/.common-protos --doc_opt=html,index.html
+protodocs: protodocs-clean
+	docker run --rm -v "$(pwd)/protodocs:/out" -v "$(pwd)/protos:/protos" -v "$(pwd)/lang:/lang" pseudomuto/protoc-gen-doc ${relative_proto_files} --proto_path=lang/.common-protos --doc_opt=html,index.html
 
 # =======================
 # Build and publish tasks

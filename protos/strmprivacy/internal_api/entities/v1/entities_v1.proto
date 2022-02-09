@@ -2,6 +2,7 @@ syntax = "proto3";
 
 package strmprivacy.internal_api.entities.v1;
 
+import "strmprivacy/api/batch_jobs/v1/batch_jobs_v1.proto";
 import "strmprivacy/api/entities/v1/entities_v1.proto";
 
 option go_package = "github.com/strmprivacy/api-definitions-go/v2/internal_api/entities/v1;entities";
@@ -21,4 +22,29 @@ message ExtendedStream {
 message ExtendedStreamGroup {
   ExtendedStream source_stream = 1;
   repeated ExtendedStream derived_streams = 2;
+}
+
+message ExtendedBatchExporter {
+  string uuid = 1;
+  string topic = 2;
+  strmprivacy.api.entities.v1.BatchExporter exporter = 3;
+}
+
+message ExtendedSink {
+  string uuid = 1;
+  strmprivacy.api.entities.v1.Sink sink = 2;
+}
+
+message ExtendedBatchExporterAndSink {
+  ExtendedBatchExporter extended_exporter = 1;
+  ExtendedSink extended_sink = 2;
+}
+
+message KubernetesDeployment {
+  string image = 1;
+  string name = 2;
+}
+
+message ExtendedBatchJob {
+  strmprivacy.api.batch_jobs.v1.BatchJob batch_job = 1;
 }

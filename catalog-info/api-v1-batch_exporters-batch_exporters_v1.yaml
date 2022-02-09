@@ -1,0 +1,63 @@
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: api-BatchExportersService-v1
+  title: "BatchExportersService v1"
+  labels:
+    api-type: "api"
+    api-version: "v1"
+    api-component: "batch_exporters"
+spec:
+  type: grpc
+  lifecycle: production
+  owner: team-core
+  system: api-definitions
+  definition: |
+    syntax = "proto3";
+    
+    package strmprivacy.api.batch_exporters.v1;
+    
+    import "google/api/field_behavior.proto";
+    import "strmprivacy/api/entities/v1/entities_v1.proto";
+    
+    option go_package = "github.com/strmprivacy/api-definitions-go/v2/api/batch_exporters/v1;batch_exporters";
+    option java_package = "io.strmprivacy.api.batch_exporters.v1";
+    option java_multiple_files = true;
+    
+    service BatchExportersService {
+      rpc ListBatchExporters (ListBatchExportersRequest) returns (ListBatchExportersResponse);
+      rpc GetBatchExporter (GetBatchExporterRequest) returns (GetBatchExporterResponse);
+      rpc DeleteBatchExporter (DeleteBatchExporterRequest) returns (DeleteBatchExporterResponse);
+      rpc CreateBatchExporter (CreateBatchExporterRequest) returns (CreateBatchExporterResponse);
+    }
+    
+    message ListBatchExportersRequest {
+      string billing_id = 1;
+    }
+    
+    message ListBatchExportersResponse {
+      repeated strmprivacy.api.entities.v1.BatchExporter batch_exporters = 1;
+    }
+    
+    message DeleteBatchExporterRequest {
+      entities.v1.BatchExporterRef ref = 1 [(google.api.field_behavior) = REQUIRED];
+    }
+    
+    message DeleteBatchExporterResponse {
+    }
+    
+    message CreateBatchExporterRequest {
+      strmprivacy.api.entities.v1.BatchExporter batch_exporter = 1;
+    }
+    
+    message CreateBatchExporterResponse {
+      strmprivacy.api.entities.v1.BatchExporter batch_exporter = 1;
+    }
+    
+    message GetBatchExporterRequest {
+      entities.v1.BatchExporterRef ref = 1 [(google.api.field_behavior) = REQUIRED];
+    }
+    
+    message GetBatchExporterResponse {
+      strmprivacy.api.entities.v1.BatchExporter batch_exporter = 1;
+    }

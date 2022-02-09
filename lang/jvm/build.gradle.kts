@@ -1,6 +1,7 @@
 import com.google.protobuf.gradle.*
 import org.ajoberstar.grgit.Grgit
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import com.autonomousapps.tasks.BuildHealthTask
 
 group = "io.strmprivacy.api"
 description = "Internal APIs for STRM Privacy"
@@ -8,7 +9,11 @@ description = "Internal APIs for STRM Privacy"
 val branch = System.getenv("CI_COMMIT_REF_NAME") ?: Grgit.open(mapOf("dir" to project.file("../../."))).branch.current().name
 val tag = System.getenv("CI_COMMIT_TAG")
 
-rootProject.version = if (tag != null || branch == "master") project.version else "${project.version}-SNAPSHOT"
+rootProject.version = if (tag != null || branch == "master") {
+    project.version
+} else {
+    "${branch.replace("[^A-Za-z0-9]".toRegex(), "-")}-SNAPSHOT"
+}
 
 buildscript {
     tasks.named<Wrapper>("wrapper") {
@@ -32,6 +37,24 @@ plugins {
     id("com.google.cloud.artifactregistry.gradle-plugin")
     id("com.google.protobuf")
     id("org.ajoberstar.grgit")
+    id("com.autonomousapps.dependency-analysis")
+}
+
+dependencyAnalysis {
+    strictMode(false)
+    issues {
+        all {
+            onUnusedDependencies { severity("fail") }
+            onUsedTransitiveDependencies { severity("ignore") }
+            onIncorrectConfiguration { severity("ignore") }
+            onUnusedAnnotationProcessors { severity("ignore") }
+            onRedundantPlugins { severity("ignore") }
+            onAny {
+                // This is exposed explicitly to align Protobuf versions in the API definitions
+                exclude("com.google.protobuf:protobuf-java-util")
+            }
+        }
+    }
 }
 
 dependencies {

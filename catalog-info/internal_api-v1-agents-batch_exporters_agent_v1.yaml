@@ -1,0 +1,45 @@
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: internal_api-BatchExportersAgentService-v1
+  title: "BatchExportersAgentService v1"
+  labels:
+    api-type: "internal_api"
+    api-version: "v1"
+    api-component: "agents"
+spec:
+  type: grpc
+  lifecycle: production
+  owner: team-core
+  system: api-definitions
+  definition: |
+    syntax = "proto3";
+    
+    package strmprivacy.internal_api.agents.v1;
+    
+    import "strmprivacy/api/entities/v1/entities_v1.proto";
+    import "strmprivacy/internal_api/entities/v1/entities_v1.proto";
+    
+    option go_package = "github.com/strmprivacy/api-definitions-go/v2/internal_api/agents/v1;agents";
+    option java_package = "io.strmprivacy.internal_api.agents.v1";
+    option java_multiple_files = true;
+    
+    service BatchExportersAgentService {
+      rpc GetDesiredBatchExporters(GetDesiredBatchExportersRequest) returns (GetDesiredBatchExportersResponse);
+      rpc GetDesiredSinks(GetDesiredSinksRequest) returns (GetDesiredSinksResponse);
+    }
+    
+    message GetDesiredBatchExportersRequest {
+    }
+    
+    message GetDesiredBatchExportersResponse {
+      string batch_exporter_image = 1;
+      repeated strmprivacy.internal_api.entities.v1.ExtendedBatchExporterAndSink exporter_and_sink = 2;
+    }
+    
+    message GetDesiredSinksRequest {
+    }
+    
+    message GetDesiredSinksResponse {
+      repeated strmprivacy.internal_api.entities.v1.ExtendedSink extended_sinks = 1;
+    }
