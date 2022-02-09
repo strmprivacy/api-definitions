@@ -19,8 +19,9 @@ message Stream {
   StreamRef ref = 1 [(google.api.field_behavior) = REQUIRED];
   // customer's description for this Stream.
   string description = 2;
-  // consent levels for derived streams
   /*
+  consent levels for derived streams
+
   constraints:
   size < 50
   if consent_level_type ==  CUMULATIVE then
@@ -34,11 +35,12 @@ message Stream {
   bool enabled = 5 [(google.api.field_behavior) = OUTPUT_ONLY];
   // stream limits
   Limits limits = 6 [(google.api.field_behavior) = OUTPUT_ONLY];
-  // null for source streams
-  /* constraints: general name constraint */
+  /*
+  null for source streams
+  constraints: general name constraint
+  */
   string linked_stream = 7;
-  // customer purposes.
-
+  // tags are meant for customers to tag their streams
   repeated string tags = 8;
   repeated Credentials credentials = 9 [(google.api.field_behavior) = OUTPUT_ONLY];
 
@@ -56,11 +58,15 @@ message Stream {
 message MaskedFields {
   // default Murmurhash3 for empty string
   string hash_type = 1 ;
-  // hashing seed
-  /* constraints: size < 1000, unicode */
+  /*
+  hashing seed
+  constraints: size < 1000, unicode
+  */
   string seed = 2;
-  // map of event-contract-ref vs field patterns
-  /* constraints:
+  /*
+  map of event-contract-ref vs field patterns
+
+  constraints:
     * event-contract-refs should be existing event contracts
     * field_patterns should be valid values (checked by event-core)
     * the field_patterns list should have no duplicates.
@@ -92,8 +98,10 @@ message KeyStream {
  */
 message StreamRef {
   string billing_id = 1 [(google.api.field_behavior) = OUTPUT_ONLY];
-  // the name of the stream
-  /* constraints: generic name */
+  /*
+  the name of the stream
+  constraints: generic name
+  */
   string name = 2 [(google.api.field_behavior) = REQUIRED];
 }
 
@@ -242,8 +250,9 @@ How to refer to a certain Kafka cluster.
 message KafkaClusterRef {
   // (-- streammachine for the default export cluster --)
   string billing_id = 1 [(google.api.field_behavior) = REQUIRED];
-  // (-- shared export --)
-  /* constraints: generic name constraint */
+  /*
+  constraints: generic name constraint
+  */
   string name = 2 [(google.api.field_behavior) = REQUIRED];
 }
 
@@ -256,16 +265,21 @@ message KafkaExporter {
 
 message KafkaExporterRef {
   string billing_id = 1 [(google.api.field_behavior) = REQUIRED];
-  // default value  <cluster-name>-<stream-name>
-  /* constraints: generic name constraint */
+  /*
+  default value  <cluster-name>-<stream-name>
+
+  constraints: generic name constraint
+  */
   string name = 2 [(google.api.field_behavior) = REQUIRED];
 }
 
 message KafkaExporterTarget {
   // what cluster to produce to
   KafkaClusterRef cluster_ref = 1 [(google.api.field_behavior) = REQUIRED];
-  // the topic this exporter produces to
-  /* constraints: access checked on creation of kafka exporter */
+  /*
+  the topic this exporter produces to
+  constraints: access checked on creation of kafka exporter
+  */
   string topic = 2 [(google.api.field_behavior) = REQUIRED];
   // used to access the target Kafka Cluster in case of OAuth based authentication
   string client_id = 3;
@@ -305,8 +319,10 @@ for descriptive purposes only.
  */
 message ConsentLevelMapping {
   ConsentLevelMappingRef ref = 1 [(google.api.field_behavior) = REQUIRED];
-  // some text like 'analytics'
-  /* constraints: generic name constraint */
+  /*
+  some text like 'analytics'
+  constraints: generic name constraint
+  */
   string name = 2 [(google.api.field_behavior) = REQUIRED];
 }
 
@@ -390,11 +406,16 @@ message SimpleSchemaNode {
 
 
 message SchemaMetadata {
-  // The human readable title of this Schema. Used in the Portal. Defaults to the Schema name. This field can be modified.
-  /* constraints: size < 500 */
+  /*
+  The human readable title of this Schema. Used in the Portal. Defaults to the Schema name. This field can be modified.
+
+  constraints: size < 500
+  */
   string title = 1 [(google.api.field_behavior) = OPTIONAL];
-  // The (optional) description of this Schema. Used in the Portal. Markdown syntax is supported. This field can be modified.
-  /* constraints: size < 5000 */
+  /*
+  The (optional) description of this Schema. Used in the Portal. Markdown syntax is supported. This field can be modified.
+  constraints: size < 5000
+  */
   string description = 2 [(google.api.field_behavior) = OPTIONAL];
   // The timestamp when this Schema was created.
   google.protobuf.Timestamp create_time = 3 [(google.api.field_behavior) = OUTPUT_ONLY];
