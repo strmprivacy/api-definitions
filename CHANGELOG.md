@@ -1,3 +1,10 @@
+# [2.16.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.15.0...v2.16.0) (2022-02-09)
+
+
+### Features
+
+* added google cloud bucket entity ([982daaa](https://gitlab.com/strmprivacy/api-definitions/commit/982daaac8dbbfd9bc28e8fd4cb4967f01b107dd2))
+
 # [2.15.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.14.0...v2.15.0) (2022-01-31)
 
 
