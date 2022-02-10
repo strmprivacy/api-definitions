@@ -1,7 +1,6 @@
 import com.google.protobuf.gradle.*
 import org.ajoberstar.grgit.Grgit
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-import com.autonomousapps.tasks.BuildHealthTask
 
 group = "io.strmprivacy.api"
 description = "Internal APIs for STRM Privacy"
@@ -70,7 +69,9 @@ dependencies {
     runtimeOnly("io.grpc:grpc-netty-shaded:${rootProject.ext["grpcVersion"]}")
 
     api("com.google.protobuf:protobuf-java-util:${rootProject.ext["protobufVersion"]}")
-    implementation("com.google.protobuf:protobuf-kotlin:${rootProject.ext["protobufVersion"]}")
+
+    // Needed to access types like DslList in consuming applications
+    api("com.google.protobuf:protobuf-kotlin:${rootProject.ext["protobufVersion"]}")
 
     // Coroutines are used in the health service, since it streams data
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:${rootProject.ext["kotlinXVersion"]}")
@@ -79,8 +80,8 @@ dependencies {
     testRuntimeOnly("io.grpc:grpc-netty-shaded:${rootProject.ext["grpcVersion"]}")
 }
 
-java.sourceCompatibility = JavaVersion.VERSION_14
-java.targetCompatibility = JavaVersion.VERSION_14
+java.sourceCompatibility = JavaVersion.VERSION_17
+java.targetCompatibility = JavaVersion.VERSION_17
 
 tasks.withType<JavaCompile> {
     options.encoding = "UTF-8"
@@ -88,7 +89,7 @@ tasks.withType<JavaCompile> {
 
 tasks.withType<KotlinCompile> {
     kotlinOptions {
-        jvmTarget = "14"
+        jvmTarget = "17"
         freeCompilerArgs = listOf("-Xopt-in=kotlin.RequiresOptIn")
     }
 }
