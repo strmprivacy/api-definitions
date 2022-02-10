@@ -1,0 +1,51 @@
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: api-CustomerEntityVersionsService-v1
+  title: "CustomerEntityVersionsService v1"
+  labels:
+    api-type: "api"
+    api-version: "v1"
+    api-component: "customer_entity_versions"
+spec:
+  type: grpc
+  lifecycle: production
+  owner: team-core
+  system: api-definitions
+  definition: |
+    syntax = "proto3";
+    
+    package strmprivacy.api.customer_entity_versions.v1;
+    
+    import "google/api/field_behavior.proto";
+    
+    option go_package = "github.com/strmprivacy/api-definitions-go/v2/api/customer_entity_versions/v1;customer_entity_versions";
+    option java_package = "io.strmprivacy.api.customer_entity_versions.v1";
+    option java_multiple_files = true;
+    
+    service CustomerEntityVersionsService {
+      rpc GetBatchExporterImage(GetBatchExporterImageRequest) returns (GetBatchExporterImageResponse);
+      rpc GetKafkaExporterImage(GetKafkaExporterImageRequest) returns (GetKafkaExporterImageResponse);
+      rpc GetDecrypterImage(GetDecrypterImageRequest) returns (GetDecrypterImageResponse);
+    }
+    
+    message GetBatchExporterImageRequest {
+    }
+    
+    message GetBatchExporterImageResponse {
+      string image = 0 [(google.api.field_behavior) = REQUIRED];
+    }
+    
+    message GetKafkaExporterImageRequest {
+    }
+    
+    message GetKafkaExporterImageResponse {
+      string image = 0 [(google.api.field_behavior) = REQUIRED];
+    }
+    
+    message GetDecrypterImageRequest {
+    }
+    
+    message GetDecrypterImageResponse {
+      string image = 0 [(google.api.field_behavior) = REQUIRED];
+    }

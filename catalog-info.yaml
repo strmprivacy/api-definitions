@@ -8,7 +8,6 @@ spec:
   - ./catalog-info/_api-definitions.yaml
   - ./catalog-info/internal_api-v1-quotas-quotas_v1.yaml
   - ./catalog-info/internal_api-v1-streams-streams_v1.yaml
-  - ./catalog-info/internal_api-v1-agents-strm_agent_operator_v1.yaml
   - ./catalog-info/internal_api-v1-agents-streams_agent_v1.yaml
   - ./catalog-info/internal_api-v1-agents-batch_jobs_agent_v1.yaml
   - ./catalog-info/internal_api-v1-agents-kafka_exporters_agent_v1.yaml
@@ -30,6 +29,7 @@ spec:
   - ./catalog-info/api-v1-kafka_users-kafka_users_v1.yaml
   - ./catalog-info/api-v1-event_contracts-event_contracts_v1.yaml
   - ./catalog-info/api-v1-batch_jobs-batch_jobs_v1.yaml
+  - ./catalog-info/api-v1-customer_entity_versions-customer_entity_versions_v1.yaml
   - ./catalog-info/api-v1-account-account_v1.yaml
   - ./catalog-info/api-v1-kafka_clusters-kafka_clusters_v1.yaml
   - ./catalog-info/api-v1-credentials-credentials_v1.yaml
