@@ -12,6 +12,7 @@ service CustomerEntityVersionsService {
   rpc GetBatchExporterImage(GetBatchExporterImageRequest) returns (GetBatchExporterImageResponse);
   rpc GetKafkaExporterImage(GetKafkaExporterImageRequest) returns (GetKafkaExporterImageResponse);
   rpc GetDecrypterImage(GetDecrypterImageRequest) returns (GetDecrypterImageResponse);
+  rpc GetBatchJobRunnerImage(GetBatchJobRunnerImageRequest) returns (GetBatchJobRunnerImageResponse);
 }
 
 message GetBatchExporterImageRequest {
@@ -32,5 +33,12 @@ message GetDecrypterImageRequest {
 }
 
 message GetDecrypterImageResponse {
+  string image = 1 [(google.api.field_behavior) = REQUIRED];
+}
+
+message GetBatchJobRunnerImageRequest {
+}
+
+message GetBatchJobRunnerImageResponse {
   string image = 1 [(google.api.field_behavior) = REQUIRED];
 }
