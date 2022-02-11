@@ -1,3 +1,10 @@
+## [2.16.1](https://gitlab.com/strmprivacy/api-definitions/compare/v2.16.0...v2.16.1) (2022-02-11)
+
+
+### Bug Fixes
+
+* fixed Kotlin DSL issue ([28ddaad](https://gitlab.com/strmprivacy/api-definitions/commit/28ddaad721e634bae89bbf22cf7421d5bc6bd065))
+
 # [2.16.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.15.0...v2.16.0) (2022-02-09)
 
 
