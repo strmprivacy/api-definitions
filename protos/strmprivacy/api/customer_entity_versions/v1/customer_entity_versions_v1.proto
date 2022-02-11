@@ -18,19 +18,19 @@ message GetBatchExporterImageRequest {
 }
 
 message GetBatchExporterImageResponse {
-  string image = 0 [(google.api.field_behavior) = REQUIRED];
+  string image = 1 [(google.api.field_behavior) = REQUIRED];
 }
 
 message GetKafkaExporterImageRequest {
 }
 
 message GetKafkaExporterImageResponse {
-  string image = 0 [(google.api.field_behavior) = REQUIRED];
+  string image = 1 [(google.api.field_behavior) = REQUIRED];
 }
 
 message GetDecrypterImageRequest {
 }
 
 message GetDecrypterImageResponse {
-  string image = 0 [(google.api.field_behavior) = REQUIRED];
+  string image = 1 [(google.api.field_behavior) = REQUIRED];
 }
