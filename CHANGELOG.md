@@ -1,3 +1,10 @@
+# [2.18.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.17.0...v2.18.0) (2022-02-14)
+
+
+### Features
+
+* remove images from agent apis ([344ea25](https://gitlab.com/strmprivacy/api-definitions/commit/344ea25dc0c6d8779a928351fe75348fee05fa12))
+
 # [2.17.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.16.1...v2.17.0) (2022-02-14)
 
 
