@@ -1,3 +1,12 @@
+# [2.17.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.16.1...v2.17.0) (2022-02-14)
+
+
+### Features
+
+* add batch job runner image rpc ([aa14c06](https://gitlab.com/strmprivacy/api-definitions/commit/aa14c06e22450351d1ae7dd4e0220edcd95b8a95))
+* ensure catalog-info dir is regenerated as a whole ([a4fc0bf](https://gitlab.com/strmprivacy/api-definitions/commit/a4fc0bf8d6e4ec11b6eee29c552e7e6c1f23fe2b))
+* remove strm-agent-operator; add customer entity versions api ([73e2d1c](https://gitlab.com/strmprivacy/api-definitions/commit/73e2d1cfb10fe2f08ee5e23a571a6f2cd7376ee1))
+
 ## [2.16.1](https://gitlab.com/strmprivacy/api-definitions/compare/v2.16.0...v2.16.1) (2022-02-11)
 
 
