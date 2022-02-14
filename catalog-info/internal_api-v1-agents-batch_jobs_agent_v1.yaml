@@ -17,7 +17,6 @@ spec:
     
     package strmprivacy.internal_api.agents.v1;
     
-    import "strmprivacy/api/entities/v1/entities_v1.proto";
     import "strmprivacy/internal_api/entities/v1/entities_v1.proto";
     
     option go_package = "github.com/strmprivacy/api-definitions-go/v2/internal_api/agents/v1;agents";
@@ -32,7 +31,6 @@ spec:
     }
     
     message GetDesiredBatchJobsResponse {
-      string batch_job_runner_image = 1;
-      repeated strmprivacy.internal_api.entities.v1.ExtendedBatchJob extended_batch_jobs = 2;
-      repeated strmprivacy.internal_api.entities.v1.ExtendedSink extended_sinks = 3;
+      repeated strmprivacy.internal_api.entities.v1.ExtendedBatchJob extended_batch_jobs = 1;
+      repeated strmprivacy.internal_api.entities.v1.ExtendedSink extended_sinks = 2;
     }

@@ -18,7 +18,6 @@ spec:
     package strmprivacy.internal_api.agents.v1;
     
     import "strmprivacy/api/entities/v1/entities_v1.proto";
-    import "strmprivacy/internal_api/entities/v1/entities_v1.proto";
     
     option go_package = "github.com/strmprivacy/api-definitions-go/v2/internal_api/agents/v1;agents";
     option java_package = "io.strmprivacy.internal_api.agents.v1";
@@ -32,6 +31,5 @@ spec:
     }
     
     message GetDesiredKafkaExportersResponse {
-      string kafka_exporter_image = 1;
-      repeated strmprivacy.api.entities.v1.KafkaExporter kafka_exporters = 2;
+      repeated strmprivacy.api.entities.v1.KafkaExporter kafka_exporters = 1;
     }

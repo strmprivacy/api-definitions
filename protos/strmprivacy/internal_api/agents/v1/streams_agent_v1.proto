@@ -2,7 +2,6 @@ syntax = "proto3";
 
 package strmprivacy.internal_api.agents.v1;
 
-import "strmprivacy/api/entities/v1/entities_v1.proto";
 import "strmprivacy/internal_api/entities/v1/entities_v1.proto";
 
 option go_package = "github.com/strmprivacy/api-definitions-go/v2/internal_api/agents/v1;agents";
@@ -19,8 +18,5 @@ message GetStreamsRequest {
 }
 
 message GetStreamsResponse {
-  repeated strmprivacy.internal_api.entities.v1.ExtendedStream extended_streams = 2;
-  // the full decrypter image for instance
-  // europe-west4-docker.pkg.dev/stream-machine-development/docker/events/decrypter:latest
-  string decrypter_image = 3;
+  repeated strmprivacy.internal_api.entities.v1.ExtendedStream extended_streams = 1;
 }
