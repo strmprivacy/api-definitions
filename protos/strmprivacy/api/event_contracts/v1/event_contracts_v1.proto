@@ -15,6 +15,9 @@ service EventContractsService {
   rpc GetEventContract (GetEventContractRequest) returns (GetEventContractResponse);
   rpc CreateEventContract (CreateEventContractRequest) returns (CreateEventContractResponse);
   rpc UpdateEventContract (UpdateEventContractRequest) returns (UpdateEventContractResponse);
+  rpc ActivateEventContract (ActivateEventContractRequest) returns (ActivateEventContractResponse);
+  rpc DeleteEventContract (DeleteEventContractRequest) returns (DeleteEventContractResponse);
+  rpc ArchiveEventContract (ArchiveEventContractRequest) returns (ArchiveEventContractResponse);
   rpc ValidateMaskedFields (ValidateMaskedFieldsRequest) returns (ValidateMaskedFieldsResponse);
 }
 
@@ -87,6 +90,29 @@ message UpdateEventContractResponse {
   string checksum = 2 [(google.api.field_behavior) = OUTPUT_ONLY];
 }
 
+message ActivateEventContractRequest {
+  string billing_id = 1 [(google.api.field_behavior) = REQUIRED];
+  strmprivacy.api.entities.v1.EventContractRef event_contract_ref = 2 [(google.api.field_behavior) = REQUIRED];
+}
+
+message ActivateEventContractResponse {
+}
+
+message DeleteEventContractRequest {
+  string billing_id = 1 [(google.api.field_behavior) = REQUIRED];
+  strmprivacy.api.entities.v1.EventContractRef event_contract_ref = 2 [(google.api.field_behavior) = REQUIRED];
+}
+
+message DeleteEventContractResponse {
+}
+
+message ArchiveEventContractRequest {
+  string billing_id = 1 [(google.api.field_behavior) = REQUIRED];
+  strmprivacy.api.entities.v1.EventContractRef event_contract_ref = 2 [(google.api.field_behavior) = REQUIRED];
+}
+
+message ArchiveEventContractResponse {
+}
 
 message ValidateMaskedFieldsRequest{
   string billing_id = 1 [(google.api.field_behavior) = REQUIRED];

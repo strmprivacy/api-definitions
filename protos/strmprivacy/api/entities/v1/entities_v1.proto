@@ -385,6 +385,22 @@ message Schema {
     // avro compatible name set by creator OR derived from name
     string avro_name = 5;
   }
+
+  enum State {
+    STATE_UNSPECIFIED = 0;
+    /*
+    The initial state, this schema has not been accepted yet, can still be modified and also deleted.
+     */
+    DRAFT = 1;
+    /*
+    This schema can be used for events and batch jobs. It cannot be modified or deleted.
+     */
+    ACTIVE = 2;
+    /*
+    This schema has been active, but no more events can be sent using this schema. In-flight events are still processed.
+     */
+    ARCHIVED = 3;
+  }
 }
 
 message SimpleSchemaNode {
@@ -447,6 +463,22 @@ message EventContract {
   map<string, int32> pii_fields = 6;
   repeated Validation validations = 7;
   EventContractMetadata metadata = 8;
+
+  enum State {
+    STATE_UNSPECIFIED = 0;
+    /*
+    The initial state, this schema has not been accepted yet, can still be modified and also deleted.
+     */
+    DRAFT = 1;
+    /*
+    This schema can be used for events and batch jobs. It cannot be modified or deleted.
+     */
+    ACTIVE = 2;
+    /*
+    This schema has been active, but no more events can be sent using this schema. In-flight events are still processed.
+     */
+    ARCHIVED = 3;
+  }
 }
 
 message EventContractMetadata {
@@ -521,15 +553,6 @@ enum AuthMechanism {
   AUTH_MECHANISM_UNSPECIFIED = 0;
   SASL_PLAIN = 1;
   SASL_SSL = 2;
-}
-
-enum State {
-  STATE_UNSPECIFIED = 0;
-  PENDING = 1;
-  IN_REVIEW = 2;
-  REJECTED = 3;
-  ACTIVE = 4;
-  DELETED = 5;
 }
 
 enum SchemaType {
