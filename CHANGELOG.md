@@ -1,3 +1,10 @@
+# [2.19.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.18.0...v2.19.0) (2022-02-24)
+
+
+### Features
+
+* strm-719 - state changes for data contracts ([bf41595](https://gitlab.com/strmprivacy/api-definitions/commit/bf415952b844f1809740e6ceae8553712ba295b4))
+
 # [2.18.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.17.0...v2.18.0) (2022-02-14)
 
 
