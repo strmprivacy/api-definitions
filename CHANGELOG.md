@@ -1,3 +1,10 @@
+# [2.20.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.19.0...v2.20.0) (2022-02-28)
+
+
+### Features
+
+* removed internal delete APIs ([f50a5a0](https://gitlab.com/strmprivacy/api-definitions/commit/f50a5a04c3d0cee9a830e4de2dcc1e1f45cfd6cc))
+
 # [2.19.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.18.0...v2.19.0) (2022-02-24)
 
 
