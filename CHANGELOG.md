@@ -1,3 +1,10 @@
+## [2.20.1](https://gitlab.com/strmprivacy/api-definitions/compare/v2.20.0...v2.20.1) (2022-02-28)
+
+
+### Bug Fixes
+
+* re-enabled buf-breaking ([d24640c](https://gitlab.com/strmprivacy/api-definitions/commit/d24640cf4853db98c660f831ef6eef6afbc4e12a))
+
 # [2.20.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.19.0...v2.20.0) (2022-02-28)
 
 
