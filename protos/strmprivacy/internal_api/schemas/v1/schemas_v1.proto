@@ -10,7 +10,6 @@ option java_multiple_files = true;
 
 service InternalSchemasService {
   rpc GetSchemaDefinition (GetSchemaDefinitionRequest) returns (GetSchemaDefinitionResponse);
-  rpc DeleteSchema (DeleteSchemaRequest) returns (DeleteSchemaResponse);
 }
 
 message GetSchemaDefinitionRequest {
@@ -20,15 +19,4 @@ message GetSchemaDefinitionRequest {
 
 message GetSchemaDefinitionResponse {
   string definition = 1;
-}
-
-// (-- api-linter: core::0135::request-name-required=disabled
-//     aip.dev/not-precedent: Schema's have no name, but a ref. --)
-message DeleteSchemaRequest {
-  // (-- api-linter: core::0135::request-unknown-fields=disabled
-  //     aip.dev/not-precedent: Schema's have no name, but a ref. --)
-  strmprivacy.api.entities.v1.SchemaRef ref = 1;
-}
-
-message DeleteSchemaResponse {
 }
