@@ -1,3 +1,10 @@
+# [2.21.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.20.1...v2.21.0) (2022-03-04)
+
+
+### Features
+
+* add DataConnector support for Azure Blob Storage ([f48cddd](https://gitlab.com/strmprivacy/api-definitions/commit/f48cddd19238632bfcc3ae70792594b193d54599))
+
 ## [2.20.1](https://gitlab.com/strmprivacy/api-definitions/compare/v2.20.0...v2.20.1) (2022-02-28)
 
 
