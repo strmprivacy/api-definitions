@@ -157,6 +157,7 @@ message DataConnector {
   oneof location {
     AwsS3BucketLocation s3_bucket = 2;
     GoogleCloudStorageBucketLocation google_cloud_storage_bucket = 3;
+    AzureBlobStorageContainerLocation azure_blob_storage_container = 4;
   }
 }
 
@@ -187,6 +188,28 @@ message GoogleCloudStorageBucketLocation {
   // The Google Cloud Service Account credentials JSON that is used to access the Google Cloud Storage bucket.
   // We do not support credentials in P12 format.
   string credentials = 2 [(google.api.field_behavior) = REQUIRED];
+}
+
+message AzureBlobStorageContainerLocation {
+  // The base URI of the Azure Storage Account. Typically this is 'https://<your-account-name>.blob.core.windows.net',
+  // but Azure users can map this to their own domain or subdomain.
+  string storage_account_uri = 1 [(google.api.field_behavior) = REQUIRED];
+  // (-- api-linter: core::0122::name-suffix=disabled
+  //     aip.dev/not-precedent: We refer to a container name. --)
+  // Name of the Storage Container
+  string container_name = 2 [(google.api.field_behavior) = REQUIRED];
+  // The AAD client secret credential used to acquire a token for the AAD application that has the required
+  // permissions on this Blob Storage Container.
+  AzureClientSecretCredential client_secret_credential = 3 [(google.api.field_behavior) = REQUIRED];
+}
+
+message AzureClientSecretCredential {
+  // Tenant ID of the Azure AD Application.
+  string tenant_id = 1 [(google.api.field_behavior) = REQUIRED];
+  // Client ID of the Azure AD Application.
+  string client_id = 2 [(google.api.field_behavior) = REQUIRED];
+  // Client secret to use for authentication.
+  string client_secret = 3 [(google.api.field_behavior) = REQUIRED];
 }
 
 message DataType {

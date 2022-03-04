@@ -11,7 +11,8 @@ val tag = System.getenv("CI_COMMIT_TAG")
 rootProject.version = if (tag != null || branch == "master") {
     project.version
 } else {
-    "${branch.replace("[^A-Za-z0-9]".toRegex(), "-")}-SNAPSHOT"
+    // To avoid snapshot versions being overridden by non-snapshot versions, we prefix the version with a high version number
+    "99.99.99-${branch.replace("[^A-Za-z0-9]".toRegex(), "-")}-SNAPSHOT"
 }
 
 buildscript {

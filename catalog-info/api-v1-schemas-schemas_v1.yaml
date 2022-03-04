@@ -31,6 +31,9 @@ spec:
       rpc CreateSchema (CreateSchemaRequest) returns (CreateSchemaResponse);
       rpc UpdateSchema (UpdateSchemaRequest) returns (UpdateSchemaResponse);
       rpc GetSchemaCode (GetSchemaCodeRequest) returns (GetSchemaCodeResponse);
+      rpc ActivateSchema (ActivateSchemaRequest) returns (ActivateSchemaResponse);
+      rpc DeleteSchema (DeleteSchemaRequest) returns (DeleteSchemaResponse);
+      rpc ArchiveSchema (ArchiveSchemaRequest) returns (ArchiveSchemaResponse);
     }
     
     // List Schemas, with optional filters. All filters behave as AND conditions. OR is not possible.
@@ -105,6 +108,30 @@ spec:
     message UpdateSchemaResponse {
       strmprivacy.api.entities.v1.Schema schema = 1;
       string checksum = 2 [(google.api.field_behavior) = OUTPUT_ONLY];
+    }
+    
+    message ActivateSchemaRequest {
+      string billing_id = 1 [(google.api.field_behavior) = REQUIRED];
+      strmprivacy.api.entities.v1.SchemaRef schema_ref = 2 [(google.api.field_behavior) = REQUIRED];
+    }
+    
+    message ActivateSchemaResponse {
+    }
+    
+    message DeleteSchemaRequest {
+      string billing_id = 1 [(google.api.field_behavior) = REQUIRED];
+      strmprivacy.api.entities.v1.SchemaRef schema_ref = 2 [(google.api.field_behavior) = REQUIRED];
+    }
+    
+    message DeleteSchemaResponse {
+    }
+    
+    message ArchiveSchemaRequest {
+      string billing_id = 1 [(google.api.field_behavior) = REQUIRED];
+      strmprivacy.api.entities.v1.SchemaRef schema_ref = 2 [(google.api.field_behavior) = REQUIRED];
+    }
+    
+    message ArchiveSchemaResponse {
     }
     
     message GetSchemaCodeRequest {
