@@ -21,8 +21,10 @@ message GetDesiredBatchExportersResponse {
 }
 
 message GetDesiredSinksRequest {
+  option deprecated = true;
 }
 
 message GetDesiredSinksResponse {
+  option deprecated = true;
   repeated strmprivacy.internal_api.entities.v1.ExtendedSink extended_sinks = 1;
 }

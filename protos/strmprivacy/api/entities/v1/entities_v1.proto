@@ -5,6 +5,7 @@ package strmprivacy.api.entities.v1;
 import "google/api/field_behavior.proto";
 import "google/protobuf/duration.proto";
 import "google/protobuf/timestamp.proto";
+import "strmprivacy/api/batch_jobs/v1/batch_jobs_v1.proto";
 
 option go_package = "github.com/strmprivacy/api-definitions-go/v2/api/entities/v1;entities";
 option java_package = "io.strmprivacy.api.entities.v1";
@@ -125,6 +126,7 @@ message Credentials {
 
 /* the sink config used by the batch exporters. */
 message Sink {
+  option deprecated = true;
   SinkRef ref = 1 [(google.api.field_behavior) = REQUIRED];
   SinkType sink_type = 2 [(google.api.field_behavior) = REQUIRED];
   oneof config {
@@ -133,6 +135,7 @@ message Sink {
 }
 
 message SinkRef {
+  option deprecated = true;
   string billing_id = 1 [(google.api.field_behavior) = REQUIRED];
   /* constraints: generic name */
   string name = 2 [(google.api.field_behavior) = REQUIRED];
@@ -159,11 +162,18 @@ message DataConnector {
     GoogleCloudStorageBucketLocation google_cloud_storage_bucket = 3;
     AzureBlobStorageContainerLocation azure_blob_storage_container = 4;
   }
+  string uuid = 5;
+  DataConnectorDependentEntities dependent_entities = 6;
 }
 
 message DataConnectorRef {
   string billing_id = 1;
   string name = 2;
+}
+
+message DataConnectorDependentEntities {
+  repeated BatchExporter batch_exporters = 1;
+  repeated batch_jobs.v1.BatchJob batch_jobs = 2;
 }
 
 message AwsS3BucketLocation {
@@ -249,6 +259,7 @@ message BatchExporter {
    */
   string path_prefix = 6;
   bool include_existing_events = 7;
+  DataConnectorRef data_connector_ref = 8;
 }
 
 message BatchExporterRef {
@@ -544,6 +555,7 @@ message StreamTree {
 }
 
 message SinkTree {
+  option deprecated = true;
   Sink sink = 1 [(google.api.field_behavior) = REQUIRED];
   repeated BatchExporter batch_exporters = 2;
 }
@@ -564,6 +576,7 @@ enum ConsentLevelType {
 }
 
 enum SinkType {
+  option deprecated = true;
   SINK_TYPE_UNSPECIFIED = 0;
   S3 = 1;
   GCLOUD = 2;
