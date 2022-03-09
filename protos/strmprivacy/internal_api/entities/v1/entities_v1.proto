@@ -46,5 +46,5 @@ message KubernetesDeployment {
 }
 
 message ExtendedBatchJob {
-  strmprivacy.api.batch_jobs.v1.BatchJob batch_job = 1;
+  strmprivacy.api.entities.v1.BatchJob batch_job = 1;
 }
