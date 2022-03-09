@@ -1,3 +1,11 @@
+# [2.22.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.21.0...v2.22.0) (2022-03-09)
+
+
+### Features
+
+* **strm-786:** add data connector services and deprecate sink definitions ([7c7f22b](https://gitlab.com/strmprivacy/api-definitions/commit/7c7f22b536e53f9659be37ac4bfc5ea6b5e70a5c))
+* **strm-786:** move BatchJob entities to entities_v1 to remove cyclic dependency ([0b09951](https://gitlab.com/strmprivacy/api-definitions/commit/0b0995164e0679a1be1065d5e7f39321d25a0be7))
+
 # [2.21.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.20.1...v2.21.0) (2022-03-04)
 
 
