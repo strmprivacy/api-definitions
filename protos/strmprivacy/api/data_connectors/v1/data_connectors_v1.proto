@@ -38,7 +38,6 @@ message DeleteDataConnectorResponse {
 
 message CreateDataConnectorRequest {
   entities.v1.DataConnector data_connector = 1 [(google.api.field_behavior) = REQUIRED];
-  bool include_credentials = 2;
 }
 
 message CreateDataConnectorResponse {
