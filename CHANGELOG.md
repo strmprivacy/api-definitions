@@ -1,3 +1,10 @@
+# [2.23.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.22.0...v2.23.0) (2022-03-21)
+
+
+### Features
+
+* **strm-716:** add api to report installation component status ([b67e82c](https://gitlab.com/strmprivacy/api-definitions/commit/b67e82ccc9bf62eb759bf1a97a0a9c6c52b143bd))
+
 # [2.22.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.21.0...v2.22.0) (2022-03-09)
 
 
