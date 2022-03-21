@@ -1,0 +1,55 @@
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: api-InstallationsService-v1
+  title: "InstallationsService v1"
+  labels:
+    api-type: "api"
+    api-version: "v1"
+    api-component: "installations"
+spec:
+  type: grpc
+  lifecycle: production
+  owner: team-core
+  system: api-definitions
+  definition: |
+    syntax = "proto3";
+    
+    package strmprivacy.api.installations.v1;
+    
+    import "google/api/field_behavior.proto";
+    import "strmprivacy/api/installations/v1/entities_v1.proto";
+    
+    option go_package = "github.com/strmprivacy/api-definitions-go/v2/api/installations/v1;installations";
+    option java_package = "io.strmprivacy.api.installations.v1";
+    option java_multiple_files = true;
+    
+    // Authentication goes through the users realm; a strm-external-user-id is required in the metadata.
+    service InstallationsService {
+      rpc CreateInstallation(CreateInstallationRequest) returns (CreateInstallationResponse);
+      rpc DeleteInstallation(DeleteInstallationRequest) returns (DeleteInstallationResponse);
+      rpc GetInstallation(GetInstallationRequest) returns (GetInstallationResponse);
+    }
+    
+    message CreateInstallationRequest {
+      Installation installation = 1 [(google.api.field_behavior) = REQUIRED];
+    }
+    
+    message CreateInstallationResponse {
+      Installation installation = 1 [(google.api.field_behavior) = REQUIRED];
+    }
+    
+    message DeleteInstallationRequest {
+      string id = 1 [(google.api.field_behavior) = REQUIRED];
+    }
+    
+    message DeleteInstallationResponse {
+    }
+    
+    message GetInstallationRequest {
+      string id = 1 [(google.api.field_behavior) = REQUIRED];
+    }
+    
+    message GetInstallationResponse {
+      Installation installation = 1 [(google.api.field_behavior) = REQUIRED];
+    }

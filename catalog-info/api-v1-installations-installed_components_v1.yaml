@@ -1,0 +1,64 @@
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: api-InstalledComponentsService-v1
+  title: "InstalledComponentsService v1"
+  labels:
+    api-type: "api"
+    api-version: "v1"
+    api-component: "installations"
+spec:
+  type: grpc
+  lifecycle: production
+  owner: team-core
+  system: api-definitions
+  definition: |
+    syntax = "proto3";
+    
+    package strmprivacy.api.installations.v1;
+    
+    import "google/api/field_behavior.proto";
+    import "strmprivacy/api/installations/v1/entities_v1.proto";
+    
+    option go_package = "github.com/strmprivacy/api-definitions-go/v2/api/installations/v1;installations";
+    option java_package = "io.strmprivacy.api.installations.v1";
+    option java_multiple_files = true;
+    
+    service InstalledComponentsService {
+      // Authentication goes through the installations realm; a strm-installation-id is required in the metadata.
+      rpc UpdateInstalledComponentState(UpdateInstalledComponentStateRequest) returns (UpdateInstalledComponentStateResponse);
+    
+      // Authentication goes through the users realm; a strm-external-user-id is required in the metadata.
+      rpc GetInstalledComponent(GetInstalledComponentRequest) returns (GetInstalledComponentResponse);
+    
+      // Authentication goes through the users realm; a strm-external-user-id is required in the metadata.
+      rpc ListInstalledComponents(ListInstalledComponentsRequest) returns (ListInstalledComponentsResponse);
+    }
+    
+    // (-- api-linter: core::0134::request-mask-required=disabled
+    //     aip.dev/not-precedent: This RPC only updates one field. --)
+    message UpdateInstalledComponentStateRequest {
+      InstalledComponentType component_type = 1 [(google.api.field_behavior) = REQUIRED];
+      string instance_id = 2 [(google.api.field_behavior) = REQUIRED];
+      InstalledComponentState installed_component_state = 3 [(google.api.field_behavior) = REQUIRED];
+    }
+    
+    message UpdateInstalledComponentStateResponse {
+    }
+    
+    message GetInstalledComponentRequest {
+      string installation_id = 1 [(google.api.field_behavior) = REQUIRED];
+      InstalledComponentType installed_component_type = 2 [(google.api.field_behavior) = REQUIRED];
+    }
+    
+    message GetInstalledComponentResponse {
+      InstalledComponent installed_component = 1;
+    }
+    
+    message ListInstalledComponentsRequest {
+      string installation_id = 1 [(google.api.field_behavior) = REQUIRED];
+    }
+    
+    message ListInstalledComponentsResponse {
+      repeated InstalledComponent installed_components = 1;
+    }

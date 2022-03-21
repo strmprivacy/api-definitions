@@ -1,0 +1,82 @@
+syntax = "proto3";
+
+package strmprivacy.api.installations.v1;
+
+import "google/api/field_behavior.proto";
+import "google/protobuf/timestamp.proto";
+
+option go_package = "github.com/strmprivacy/api-definitions-go/v2/api/installations/v1;installations";
+option java_package = "io.strmprivacy.api.installations.v1";
+option java_multiple_files = true;
+
+message Installation {
+  string id = 1 [(google.api.field_behavior) = REQUIRED];
+  InstallationType installation_type = 2 [(google.api.field_behavior) = REQUIRED];
+  // There is a zero-to-one relationship between an installation and a billing_account in the case of a non-SAAS
+  // installation. In this case, this field is required.
+  // When used in a SAAS installation, this field is empty.
+  // (-- api-linter: core::0203::required=disabled
+  //     aip.dev/not-precedent: This field is only required in certain circumstances. --)
+  string billing_account_id = 3;
+  InstallationCredentials installation_credentials = 4;
+}
+
+// The credentials used to authenticate with the control plane.
+message InstallationCredentials {
+  // The client ID used to authenticate with the control plane API.
+  string client_id = 1 [(google.api.field_behavior) = OUTPUT_ONLY];
+  // The client secret used to authenticate with the control plane API.
+  string client_secret = 2 [(google.api.field_behavior) = OUTPUT_ONLY];
+  // The secret used to pull images from the docker registry.
+  string image_pull_secret = 3 [(google.api.field_behavior) = OUTPUT_ONLY];
+}
+
+// One functional component, part of an "installation" (e.g. an Event Gateway). On k8s, this is on the level
+// of a deployment, so one InstalledComponent can contain multiple component instances (Pods) and each of these
+// component instances has its own list of states. It's up to the client (console) to aggregate these states if needed.
+message InstalledComponent {
+  // One installation always has one InstalledComponent of a given type (e.g. one Event Gateway deployment), so within
+  // one installation, the type is unique.
+  InstalledComponentType component_type = 1 [(google.api.field_behavior) = REQUIRED];
+  repeated InstalledComponentInstance instances = 2;
+}
+
+// One instance (Pod) that is part of an installed component (Deployment).
+message InstalledComponentInstance {
+  // The unique ID of this instance, e.g. the UID from the Pod metadata.
+  string id = 1 [(google.api.field_behavior) = REQUIRED];
+  repeated InstalledComponentState states = 2;
+}
+
+message InstalledComponentState {
+  google.protobuf.Timestamp state_time = 1 [(google.api.field_behavior) = OUTPUT_ONLY];
+  InstalledComponentStateType state_type = 2 [(google.api.field_behavior) = REQUIRED];
+  string message = 3 [(google.api.field_behavior) = OPTIONAL];
+}
+
+enum InstallationType {
+  INSTALLATION_TYPE_UNSPECIFIED = 0;
+  SAAS = 1;
+  SELF_HOSTED = 2;
+}
+
+enum InstalledComponentType {
+  INSTALLED_COMPONENT_TYPE_UNSPECIFIED = 0;
+  BATCH_JOBS_AGENT = 1;
+  BATCH_EXPORTERS_AGENT = 2;
+  // Kafka exporters are only used in SAAS.
+  KAFKA_EXPORTERS_AGENT = 3;
+  STREAMS_AGENT = 4;
+  EVENT_GATEWAY = 5;
+  WEB_SOCKET = 6;
+}
+
+enum InstalledComponentStateType {
+  INSTALLED_COMPONENT_STATE_TYPE_UNSPECIFIED = 0;
+  // The Helm chart has been installed, but an application isn't yet started
+  PROVISIONED = 1;
+  // The application is running correctly
+  RUNNING = 2;
+  // An error occurred preventing the application to run correctly
+  ERROR = 3;
+}

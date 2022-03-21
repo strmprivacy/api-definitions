@@ -28,6 +28,8 @@ spec:
   - ./catalog-info/api-v1-usage-usage_v1.yaml
   - ./catalog-info/api-v1-cli-cli.yaml
   - ./catalog-info/api-v1-schemas-schemas_v1.yaml
+  - ./catalog-info/api-v1-installations-installed_components_v1.yaml
+  - ./catalog-info/api-v1-installations-installations_v1.yaml
   - ./catalog-info/api-v1-kafka_users-kafka_users_v1.yaml
   - ./catalog-info/api-v1-event_contracts-event_contracts_v1.yaml
   - ./catalog-info/api-v1-batch_jobs-batch_jobs_v1.yaml
