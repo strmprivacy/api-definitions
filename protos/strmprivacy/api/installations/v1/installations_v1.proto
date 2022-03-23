@@ -14,6 +14,7 @@ service InstallationsService {
   rpc CreateInstallation(CreateInstallationRequest) returns (CreateInstallationResponse);
   rpc DeleteInstallation(DeleteInstallationRequest) returns (DeleteInstallationResponse);
   rpc GetInstallation(GetInstallationRequest) returns (GetInstallationResponse);
+  rpc ListInstallations(ListInstallationsRequest) returns (ListInstallationsResponse);
 }
 
 message CreateInstallationRequest {
@@ -37,4 +38,11 @@ message GetInstallationRequest {
 
 message GetInstallationResponse {
   Installation installation = 1 [(google.api.field_behavior) = REQUIRED];
+}
+
+message ListInstallationsRequest {
+}
+
+message ListInstallationsResponse {
+  repeated Installation installations = 1 [(google.api.field_behavior) = REQUIRED];
 }

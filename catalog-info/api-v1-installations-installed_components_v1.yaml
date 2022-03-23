@@ -41,6 +41,7 @@ spec:
       InstalledComponentType component_type = 1 [(google.api.field_behavior) = REQUIRED];
       string instance_id = 2 [(google.api.field_behavior) = REQUIRED];
       InstalledComponentState installed_component_state = 3 [(google.api.field_behavior) = REQUIRED];
+      string installation_id = 4 [(google.api.field_behavior) = REQUIRED];
     }
     
     message UpdateInstalledComponentStateResponse {
