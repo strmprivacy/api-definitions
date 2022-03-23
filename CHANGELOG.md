@@ -1,3 +1,10 @@
+# [2.24.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.23.0...v2.24.0) (2022-03-23)
+
+
+### Features
+
+* add list installations ([3755759](https://gitlab.com/strmprivacy/api-definitions/commit/37557598a0a62f4889cf01037a2cd8c975b50937))
+
 # [2.23.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.22.0...v2.23.0) (2022-03-21)
 
 
