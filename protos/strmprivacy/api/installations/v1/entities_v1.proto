@@ -79,4 +79,6 @@ enum InstalledComponentStateType {
   RUNNING = 2;
   // An error occurred preventing the application to run correctly
   ERROR = 3;
+  // App shuts down correctly
+  SHUTDOWN = 4;
 }
