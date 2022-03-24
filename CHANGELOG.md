@@ -1,3 +1,10 @@
+# [2.26.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.25.0...v2.26.0) (2022-03-24)
+
+
+### Features
+
+* **strm-862:** add SHUTTING_DOWN as installed component state type ([87087db](https://gitlab.com/strmprivacy/api-definitions/commit/87087db83035aa315fb679bc827f56e9cf9e69b6))
+
 # [2.25.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.24.0...v2.25.0) (2022-03-24)
 
 
