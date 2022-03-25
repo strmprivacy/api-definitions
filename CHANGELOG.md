@@ -1,3 +1,10 @@
+# [2.27.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.26.0...v2.27.0) (2022-03-25)
+
+
+### Features
+
+* **strm-864:** add installed component type for data connectors agent ([09787bd](https://gitlab.com/strmprivacy/api-definitions/commit/09787bdc783fc01477f0a6c4ffa7893f3c2be207))
+
 # [2.26.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.25.0...v2.26.0) (2022-03-24)
 
 
