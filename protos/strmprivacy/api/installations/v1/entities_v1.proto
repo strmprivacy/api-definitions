@@ -69,6 +69,7 @@ enum InstalledComponentType {
   STREAMS_AGENT = 4;
   EVENT_GATEWAY = 5;
   WEB_SOCKET = 6;
+  DATA_CONNECTORS_AGENT = 7;
 }
 
 enum InstalledComponentStateType {
@@ -77,7 +78,7 @@ enum InstalledComponentStateType {
   PROVISIONED = 1;
   // The application is running correctly
   RUNNING = 2;
-  // An error occurred preventing the application to run correctly
+  // An error occurred, preventing the application to run correctly
   ERROR = 3;
   // App is shutting down
   SHUTTING_DOWN = 4;
