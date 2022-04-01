@@ -25,7 +25,12 @@ spec:
     
     service InternalAccountService {
       /* Unfortunately, this internal API is required, as we cannot set headers per request with Kotlin gRPC */
-      rpc GetLegacyBillingId (GetLegacyBillingIdRequest) returns (GetLegacyBillingIdResponse);
+      rpc GetLegacyBillingId(GetLegacyBillingIdRequest) returns (GetLegacyBillingIdResponse);
+    
+      // Temporary API from SOS to OMA to map from billing_account_id to billing_id
+      // (-- api-linter: core::0136::prepositions=disabled
+      //     aip.dev/not-precedent: Temporary method, can't think of a better name. --)
+      rpc GetLegacyBillingIdByBillingAccountId(GetLegacyBillingIdByBillingAccountIdRequest) returns (GetLegacyBillingIdByBillingAccountIdResponse);
     }
     
     message GetLegacyBillingIdRequest {
@@ -33,5 +38,13 @@ spec:
     }
     
     message GetLegacyBillingIdResponse {
+      string billing_id = 1 [(google.api.field_behavior) = REQUIRED];
+    }
+    
+    message GetLegacyBillingIdByBillingAccountIdRequest {
+      string billing_account_id = 1 [(google.api.field_behavior) = REQUIRED];
+    }
+    
+    message GetLegacyBillingIdByBillingAccountIdResponse {
       string billing_id = 1 [(google.api.field_behavior) = REQUIRED];
     }

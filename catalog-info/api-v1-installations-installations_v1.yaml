@@ -26,38 +26,12 @@ spec:
     
     // Authentication goes through the users realm; a strm-external-user-id is required in the metadata.
     service InstallationsService {
-      rpc CreateInstallation(CreateInstallationRequest) returns (CreateInstallationResponse);
-      rpc DeleteInstallation(DeleteInstallationRequest) returns (DeleteInstallationResponse);
       rpc GetInstallation(GetInstallationRequest) returns (GetInstallationResponse);
-      rpc ListInstallations(ListInstallationsRequest) returns (ListInstallationsResponse);
-    }
-    
-    message CreateInstallationRequest {
-      Installation installation = 1 [(google.api.field_behavior) = REQUIRED];
-    }
-    
-    message CreateInstallationResponse {
-      Installation installation = 1 [(google.api.field_behavior) = REQUIRED];
-    }
-    
-    message DeleteInstallationRequest {
-      string id = 1 [(google.api.field_behavior) = REQUIRED];
-    }
-    
-    message DeleteInstallationResponse {
     }
     
     message GetInstallationRequest {
-      string id = 1 [(google.api.field_behavior) = REQUIRED];
     }
     
     message GetInstallationResponse {
       Installation installation = 1 [(google.api.field_behavior) = REQUIRED];
-    }
-    
-    message ListInstallationsRequest {
-    }
-    
-    message ListInstallationsResponse {
-      repeated Installation installations = 1 [(google.api.field_behavior) = REQUIRED];
     }
