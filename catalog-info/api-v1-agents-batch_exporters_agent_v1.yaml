@@ -1,0 +1,36 @@
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: api-BatchExportersAgentService-v1
+  title: "BatchExportersAgentService v1"
+  labels:
+    api-type: "api"
+    api-version: "v1"
+    api-component: "agents"
+spec:
+  type: grpc
+  lifecycle: production
+  owner: team-core
+  system: api-definitions
+  definition: |
+    syntax = "proto3";
+    
+    package strmprivacy.api.agents.v1;
+    
+    import "strmprivacy/api/entities/v1/entities_v1.proto";
+    
+    
+    option go_package = "github.com/strmprivacy/api-definitions-go/v2/api/agents/v1;agents";
+    option java_package = "io.strmprivacy.api.agents.v1";
+    option java_multiple_files = true;
+    
+    service BatchExportersAgentService {
+      rpc GetDesiredBatchExporters(GetDesiredBatchExportersRequest) returns (GetDesiredBatchExportersResponse);
+    }
+    
+    message GetDesiredBatchExportersRequest {
+    }
+    
+    message GetDesiredBatchExportersResponse {
+      repeated strmprivacy.api.entities.v1.ExtendedBatchExporter exporters = 1;
+    }

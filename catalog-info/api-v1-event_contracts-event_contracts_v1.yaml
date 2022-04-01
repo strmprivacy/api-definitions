@@ -34,6 +34,7 @@ spec:
       rpc DeleteEventContract (DeleteEventContractRequest) returns (DeleteEventContractResponse);
       rpc ArchiveEventContract (ArchiveEventContractRequest) returns (ArchiveEventContractResponse);
       rpc ValidateMaskedFields (ValidateMaskedFieldsRequest) returns (ValidateMaskedFieldsResponse);
+      rpc GetEventContractAndSchema (GetEventContractAndSchemaRequest) returns (GetEventContractAndSchemaResponse);
     }
     
     // List Event Contracts, with optional filters. All filters behave as AND conditions. OR is not possible.
@@ -151,4 +152,14 @@ spec:
           string message = 3;
         }
       }
+    }
+    
+    message GetEventContractAndSchemaRequest {
+      strmprivacy.api.entities.v1.EventContractRef ref = 1;
+    }
+    
+    message GetEventContractAndSchemaResponse {
+      strmprivacy.api.entities.v1.EventContract event_contract = 1;
+      strmprivacy.api.entities.v1.Schema schema = 2;
+      int32 confluent_id = 3;
     }

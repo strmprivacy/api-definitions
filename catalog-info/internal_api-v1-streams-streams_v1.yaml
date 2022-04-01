@@ -27,18 +27,25 @@ spec:
     // (-- api-linter: core::0136::prepositions=disabled
     //     aip.dev/not-precedent: This is an internal API and the alternative with oneof is good either. --)
     service InternalStreamsService {
+      // Use strmprivacy.api.streams.v1.StreamsService
+      option deprecated = true;
       rpc GetStreamsByClientIds(GetStreamsByClientIdsRequest) returns (GetStreamsByClientIdsResponse);
+      // TODO Used by Kafka Exporters agent, should be done via the API gateway in the future
       rpc GetStreamsByStreamRefs(GetStreamsByStreamRefsRequest) returns(GetStreamsByStreamRefsResponse);
       // (-- api-linter: core::0134::response-message-name=disabled
       //     aip.dev/not-precedent: We have standardized on always returning a "Response" message. --)
       rpc UpdateStreamEnabled(UpdateStreamEnabledRequest) returns (UpdateStreamEnabledResponse);
     }
     
+    // Use strmprivacy.api.streams.v1.StreamsService
     message GetStreamsByClientIdsRequest {
+      option deprecated = true;
       repeated string client_ids = 1;
     }
     
+    // Use strmprivacy.api.streams.v1.StreamsService
     message GetStreamsByClientIdsResponse {
+      option deprecated = true;
       repeated strmprivacy.internal_api.entities.v1.ExtendedStream extended_streams = 1;
     }
     

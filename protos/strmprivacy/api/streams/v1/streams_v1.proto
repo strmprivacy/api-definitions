@@ -10,10 +10,11 @@ option java_package = "io.strmprivacy.api.streams.v1";
 option java_multiple_files = true;
 
 service StreamsService {
-  rpc ListStreams (ListStreamsRequest) returns (ListStreamsResponse);
-  rpc GetStream (GetStreamRequest) returns (GetStreamResponse);
-  rpc DeleteStream (DeleteStreamRequest) returns (DeleteStreamResponse);
-  rpc CreateStream (CreateStreamRequest) returns (CreateStreamResponse);
+  rpc ListStreams(ListStreamsRequest) returns (ListStreamsResponse);
+  rpc ListExtendedStreams(ListExtendedStreamsRequest) returns (ListExtendedStreamsResponse);
+  rpc GetStream(GetStreamRequest) returns (GetStreamResponse);
+  rpc DeleteStream(DeleteStreamRequest) returns (DeleteStreamResponse);
+  rpc CreateStream(CreateStreamRequest) returns (CreateStreamResponse);
 }
 
 message ListStreamsRequest {
@@ -23,6 +24,14 @@ message ListStreamsRequest {
 
 message ListStreamsResponse {
   repeated strmprivacy.api.entities.v1.StreamTree streams = 1;
+}
+
+message ListExtendedStreamsRequest {
+  repeated string client_ids = 1;
+}
+
+message ListExtendedStreamsResponse {
+  repeated strmprivacy.api.entities.v1.ExtendedStream extended_streams = 1;
 }
 
 message DeleteStreamRequest {

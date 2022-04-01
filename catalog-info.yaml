@@ -25,6 +25,10 @@ spec:
   - ./catalog-info/api-v1-sinks-sinks_v1.yaml
   - ./catalog-info/api-v1-consent_levels-consent_levels_v1.yaml
   - ./catalog-info/api-v1-batch_exporters-batch_exporters_v1.yaml
+  - ./catalog-info/api-v1-agents-data_connector_agent_v1.yaml
+  - ./catalog-info/api-v1-agents-streams_agent_v1.yaml
+  - ./catalog-info/api-v1-agents-batch_jobs_agent_v1.yaml
+  - ./catalog-info/api-v1-agents-batch_exporters_agent_v1.yaml
   - ./catalog-info/api-v1-usage-usage_v1.yaml
   - ./catalog-info/api-v1-cli-cli.yaml
   - ./catalog-info/api-v1-schemas-schemas_v1.yaml

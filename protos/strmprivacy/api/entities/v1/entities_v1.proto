@@ -56,6 +56,20 @@ message Stream {
   MaskedFields masked_fields = 10;
 }
 
+message ExtendedStream {
+  strmprivacy.api.entities.v1.Stream stream = 1;
+  string topic = 2;
+  string uuid = 3;
+  /* whether or not a key stream EXISTS for this stream.
+   * So when this flag is true, there are TWO topics associated with this stream. */
+  bool has_key_stream = 4;
+}
+
+message ExtendedStreamGroup {
+  ExtendedStream source_stream = 1;
+  repeated ExtendedStream derived_streams = 2;
+}
+
 message MaskedFields {
   // default Murmurhash3 for empty string
   string hash_type = 1 ;
@@ -261,6 +275,12 @@ message BatchExporter {
   string path_prefix = 6;
   bool include_existing_events = 7;
   DataConnectorRef data_connector_ref = 8;
+}
+
+message ExtendedBatchExporter {
+  string uuid = 1;
+  string topic = 2;
+  strmprivacy.api.entities.v1.BatchExporter exporter = 3;
 }
 
 message BatchExporterRef {
@@ -578,6 +598,10 @@ message BatchJob {
   EncryptedData encrypted_data = 7 [(google.api.field_behavior) = REQUIRED];
   EncryptionKeysData encryption_keys_data = 8 [(google.api.field_behavior) = REQUIRED];
   repeated DerivedData derived_data = 9 [(google.api.field_behavior) = OPTIONAL];
+}
+
+message ExtendedBatchJob {
+  strmprivacy.api.entities.v1.BatchJob batch_job = 1;
 }
 
 message BatchJobRef {

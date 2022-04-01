@@ -9,14 +9,19 @@ option java_package = "io.strmprivacy.internal_api.event_contracts.v1";
 option java_multiple_files = true;
 
 service InternalEventContractsService {
+  option deprecated = true;
   rpc GetEventContractAndSchema (GetEventContractAndSchemaRequest) returns (GetEventContractAndSchemaResponse);
 }
 
+// Use strmprivacy.api.event_contracts.v1.EventContractsService
 message GetEventContractAndSchemaRequest {
+  option deprecated = true;
   strmprivacy.api.entities.v1.EventContractRef ref = 1;
 }
 
+// Use strmprivacy.api.event_contracts.v1.EventContractsService
 message GetEventContractAndSchemaResponse {
+  option deprecated = true;
   strmprivacy.api.entities.v1.EventContract event_contract = 1;
   strmprivacy.api.entities.v1.Schema schema = 2;
   int32 confluent_id = 3;

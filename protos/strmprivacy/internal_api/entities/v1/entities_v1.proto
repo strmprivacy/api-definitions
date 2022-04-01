@@ -9,7 +9,9 @@ option go_package = "github.com/strmprivacy/api-definitions-go/v2/internal_api/e
 option java_package = "io.strmprivacy.internal_api.entities.v1";
 option java_multiple_files = true;
 
+// Use strmprivacy.api.entities.v1.ExtendedStream
 message ExtendedStream {
+  option deprecated = true;
   strmprivacy.api.entities.v1.Stream stream = 1;
   string topic = 2;
   string uuid = 3;
@@ -18,33 +20,44 @@ message ExtendedStream {
   bool key_stream = 4;
 }
 
-// used for configuring decrypters
+// Use strmprivacy.api.entities.v1.ExtendedStream instead. This message is used to configure decrypters.
 message ExtendedStreamGroup {
+  option deprecated = true;
   ExtendedStream source_stream = 1;
   repeated ExtendedStream derived_streams = 2;
 }
 
+// Use strmprivacy.api.entities.v1.ExtendedBatchExporter instead.
 message ExtendedBatchExporter {
+  option deprecated = true;
   string uuid = 1;
   string topic = 2;
   strmprivacy.api.entities.v1.BatchExporter exporter = 3;
 }
 
+// This message is not used anymore and is succeeded by DataConnector
 message ExtendedSink {
+  option deprecated = true;
   string uuid = 1;
   strmprivacy.api.entities.v1.Sink sink = 2;
 }
 
+// This message is not used anymore and is succeeded by DataConnector
 message ExtendedBatchExporterAndSink {
+  option deprecated = true;
   ExtendedBatchExporter extended_exporter = 1;
   ExtendedSink extended_sink = 2;
 }
 
+// FIXME unused! This was meant for the SAO, but we don't have that anymore. Can be removed.
 message KubernetesDeployment {
+  option deprecated = true;
   string image = 1;
   string name = 2;
 }
 
+// Use strmprivacy.api.entities.v1.ExtendedBatchJob instead.
 message ExtendedBatchJob {
+  option deprecated = true;
   strmprivacy.api.entities.v1.BatchJob batch_job = 1;
 }

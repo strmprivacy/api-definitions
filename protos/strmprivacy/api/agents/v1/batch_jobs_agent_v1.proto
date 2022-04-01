@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package strmprivacy.api.agents.v1;
+
+import "strmprivacy/api/entities/v1/entities_v1.proto";
+
+option go_package = "github.com/strmprivacy/api-definitions-go/v2/api/agents/v1;agents";
+option java_package = "io.strmprivacy.api.agents.v1";
+option java_multiple_files = true;
+
+service BatchJobsAgentService {
+  rpc GetDesiredBatchJobs(GetDesiredBatchJobsRequest) returns (GetDesiredBatchJobsResponse);
+}
+
+message GetDesiredBatchJobsRequest {
+}
+
+message GetDesiredBatchJobsResponse {
+  repeated strmprivacy.api.entities.v1.ExtendedBatchJob extended_batch_jobs = 1;
+}

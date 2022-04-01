@@ -3,7 +3,6 @@ syntax = "proto3";
 package strmprivacy.api.batch_jobs.v1;
 
 import "google/api/field_behavior.proto";
-import "google/protobuf/timestamp.proto";
 import "strmprivacy/api/entities/v1/entities_v1.proto";
 
 option go_package = "github.com/strmprivacy/api-definitions-go/v2/api/batch_jobs/v1;batch_jobs";

@@ -19,6 +19,7 @@ service SchemasService {
   rpc ActivateSchema (ActivateSchemaRequest) returns (ActivateSchemaResponse);
   rpc DeleteSchema (DeleteSchemaRequest) returns (DeleteSchemaResponse);
   rpc ArchiveSchema (ArchiveSchemaRequest) returns (ArchiveSchemaResponse);
+  rpc GetSchemaDefinition (GetSchemaDefinitionRequest) returns (GetSchemaDefinitionResponse);
 }
 
 // List Schemas, with optional filters. All filters behave as AND conditions. OR is not possible.
@@ -131,4 +132,13 @@ message GetSchemaCodeResponse {
   string filename = 1;
   int64 data_size = 2;
   bytes data = 3;
+}
+
+message GetSchemaDefinitionRequest {
+  int32 confluent_id = 1;
+  strmprivacy.api.entities.v1.KafkaClusterRef cluster_ref = 2;
+}
+
+message GetSchemaDefinitionResponse {
+  string definition = 1;
 }
