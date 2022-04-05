@@ -1,3 +1,11 @@
+# [2.28.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.27.0...v2.28.0) (2022-04-05)
+
+
+### Features
+
+* **strm-722:** copy internal apis to public apis, as all software in CCD needs to be authenticated ([ba12b66](https://gitlab.com/strmprivacy/api-definitions/commit/ba12b667e63f3176ed10cd09273f7727aa8fe864))
+* **strm-726:** removed unused installation RPCs and added transferResources RPC ([58bf4b9](https://gitlab.com/strmprivacy/api-definitions/commit/58bf4b94a1e87942359f16d5e18217dd54d2741e))
+
 # [2.27.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.26.0...v2.27.0) (2022-03-25)
 
 
