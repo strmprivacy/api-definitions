@@ -194,3 +194,4 @@ publishing {
 }
 
 tasks.findByName("sourcesJar")?.dependsOn("build")
+tasks.findByName("publishToMavenLocal")?.doLast { project.logger.lifecycle("Published local version: ${rootProject.version}") }
