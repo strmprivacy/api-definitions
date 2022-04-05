@@ -1,3 +1,10 @@
+# [2.29.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.28.0...v2.29.0) (2022-04-05)
+
+
+### Features
+
+* **strm-875:** get installation needs an id; add list installations ([4d1c39e](https://gitlab.com/strmprivacy/api-definitions/commit/4d1c39e3140a47d903e9b8aea06763f514a593ac))
+
 # [2.28.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.27.0...v2.28.0) (2022-04-05)
 
 
