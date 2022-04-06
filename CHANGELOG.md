@@ -1,3 +1,10 @@
+# [2.30.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.29.0...v2.30.0) (2022-04-06)
+
+
+### Features
+
+* revert has key stream to key stream, should be fixed later ([3f6ec63](https://gitlab.com/strmprivacy/api-definitions/commit/3f6ec63af4741666270e7f3b27cec8749a1e3f7e))
+
 # [2.29.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.28.0...v2.29.0) (2022-04-05)
 
 
