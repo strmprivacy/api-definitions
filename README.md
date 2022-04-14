@@ -1,6 +1,7 @@
 # STRM Privacy API definitions
 
-All `proto` file definitions for the STRM Privacy APIs.
+This project contains all `proto` file definitions for the STRM Privacy APIs.
+For more information, see the `docs` directory.
 
 ## gRPC Guidelines
 

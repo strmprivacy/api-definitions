@@ -60,12 +60,6 @@ At Google Cloud, they have a preference of option 1. over option 2.
    we'll have to implement all CI logic into GitHub actions.
 2. `strmprivacy.api.entities.v1.entities_v1.proto` should be split into multiple
    files (they can be under the same package), but it'll help with overview.
-
-### Breaking
-
-1. `Sink` should be replaced by `DataConnector`, as the word `Sink` is confusing
-   when used with a source data connection. Furthermore, it contains
-   configuration that is specific for AWS S3, which should be in a custom AWS S3
-   message.
+   This may result in cyclic dependencies, will perhaps not be fully possible.
 
 [^1]: [Changes between Proto3 and Proto2](https://cloud.google.com/apis/design/proto3) 

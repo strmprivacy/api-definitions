@@ -7,10 +7,10 @@ The API Definitions consists of two parts:
 1. Public APIs (found in `protos/strmprivacy/api`)
 
    These APIs are exposed through the API Gateway, which is, next to the Event
-   Gateway, the only application that is publicly exposed. Our plan is to These
+   Gateway, the only application that is publicly exposed. These
    APIs can be found in the respective artifactories of the various languages we
    generate the protos to (e.g. JVM artifacts for these APIs can be found in
-   Maven Central)
+   Maven Central), see also the Development guide.
 
 2. Internal APIs (found in `protos/strmprivacy/internal_api`)
 
