@@ -1,3 +1,10 @@
+# [2.31.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.30.0...v2.31.0) (2022-04-15)
+
+
+### Features
+
+* list handles corresponding to an installation ([1d05228](https://gitlab.com/strmprivacy/api-definitions/commit/1d05228bfd27fb9435bb67d0a3842d2a27f61700))
+
 # [2.30.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.29.0...v2.30.0) (2022-04-06)
 
 
