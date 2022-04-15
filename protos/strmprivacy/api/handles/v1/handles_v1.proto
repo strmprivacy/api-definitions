@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package strmprivacy.api.handles.v1;
+
+option go_package = "github.com/strmprivacy/api-definitions-go/v2/api/handles/v1;handles";
+option java_package = "io.strmprivacy.api.handles.v1";
+option java_multiple_files = true;
+
+service HandlesService {
+  rpc ListInstallationHandles(ListInstallationHandlesRequest) returns (ListInstallationHandlesResponse);
+}
+
+message ListInstallationHandlesRequest {
+  string installation_id = 1;
+}
+
+message ListInstallationHandlesResponse {
+  repeated string installation_handles = 1;
+}

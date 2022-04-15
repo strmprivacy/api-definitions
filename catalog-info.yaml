@@ -19,6 +19,7 @@ spec:
   - ./catalog-info/internal_api-v1-event_contracts-event_contracts_v1.yaml
   - ./catalog-info/internal_api-v1-account-account_v1.yaml
   - ./catalog-info/api-v1-metrics-metrics.yaml
+  - ./catalog-info/api-v1-handles-handles_v1.yaml
   - ./catalog-info/api-v1-kafka_exporters-kafka_exporters_v1.yaml
   - ./catalog-info/api-v1-data_connectors-data_connectors_v1.yaml
   - ./catalog-info/api-v1-key_streams-key_streams.yaml
