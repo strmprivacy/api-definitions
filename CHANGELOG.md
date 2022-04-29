@@ -1,3 +1,10 @@
+# [2.32.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.31.0...v2.32.0) (2022-04-29)
+
+
+### Features
+
+* **strm-979:** add api for listing latest state per instance ([aaa3c32](https://gitlab.com/strmprivacy/api-definitions/commit/aaa3c32d238e6a999a197cfd2c8dd2493b3c4309))
+
 # [2.31.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.30.0...v2.31.0) (2022-04-15)
 
 
