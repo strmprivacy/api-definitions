@@ -18,6 +18,10 @@ service InstalledComponentsService {
 
   // Authentication goes through the users realm; a strm-external-user-id is required in the metadata.
   rpc ListInstalledComponents(ListInstalledComponentsRequest) returns (ListInstalledComponentsResponse);
+
+  // Authentication goes through the users realm; a strm-external-user-id is required in the metadata. Similar to list,
+  // but only lists the state of the instances in the last x minutes
+  rpc ListInstalledComponentsCurrentStates(ListInstalledComponentsCurrentStatesRequest) returns (ListInstalledComponentsCurrentStatesResponse);
 }
 
 // (-- api-linter: core::0134::request-mask-required=disabled
@@ -47,4 +51,14 @@ message ListInstalledComponentsRequest {
 
 message ListInstalledComponentsResponse {
   repeated InstalledComponent installed_components = 1;
+}
+
+message ListInstalledComponentsCurrentStatesRequest {
+  string installation_id = 1 [(google.api.field_behavior) = REQUIRED];
+}
+
+message ListInstalledComponentsCurrentStatesResponse {
+  // (-- api-linter: core::0132::response-unknown-fields=disabled
+  //     aip.dev/not-precedent: field name gets too clunky --)
+  repeated InstalledComponentsCurrentState installed_components = 1;
 }

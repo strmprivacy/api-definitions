@@ -48,6 +48,16 @@ message InstalledComponentInstance {
   repeated InstalledComponentState states = 2;
 }
 
+message InstalledComponentsCurrentState {
+  InstalledComponentType component_type = 1 [(google.api.field_behavior) = REQUIRED];
+  repeated InstalledComponentInstanceCurrentState instances = 2;
+}
+
+message InstalledComponentInstanceCurrentState {
+  string id = 1 [(google.api.field_behavior) = REQUIRED];
+  InstalledComponentState state = 2;
+}
+
 message InstalledComponentState {
   google.protobuf.Timestamp state_time = 1 [(google.api.field_behavior) = OUTPUT_ONLY];
   InstalledComponentStateType state_type = 2 [(google.api.field_behavior) = REQUIRED];
