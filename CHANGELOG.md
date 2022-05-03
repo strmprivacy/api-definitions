@@ -1,3 +1,10 @@
+# [2.33.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.32.0...v2.33.0) (2022-05-03)
+
+
+### Features
+
+* confluent-schema-proxy type added ([b7d16d2](https://gitlab.com/strmprivacy/api-definitions/commit/b7d16d2acd36a1a2a90812cb883e6729f4470cfb))
+
 # [2.32.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.31.0...v2.32.0) (2022-04-29)
 
 
