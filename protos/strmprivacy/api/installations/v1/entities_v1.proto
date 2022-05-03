@@ -80,6 +80,7 @@ enum InstalledComponentType {
   EVENT_GATEWAY = 5;
   WEB_SOCKET = 6;
   DATA_CONNECTORS_AGENT = 7;
+  CONFLUENT_SCHEMA_PROXY = 8;
 }
 
 enum InstalledComponentStateType {
