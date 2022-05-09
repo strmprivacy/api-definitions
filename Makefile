@@ -20,9 +20,9 @@ export
 # =======================
 strmprivacy_api_version := 2.33.0
 
-grpc_version := 1.44.0
-protobuf_version := 3.19.4
-google_common_protos_version := 2.7.4
+grpc_version := 1.46.0
+protobuf_version := 3.20.1
+google_common_protos_version := 2.8.3
 
 # google/protobuf dependencies (predefined Protos for e.g. Timestamp, Duration, etc)
 ${common_protos}/protobuf-java.jar:
