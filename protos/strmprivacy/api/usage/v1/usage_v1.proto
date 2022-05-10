@@ -12,6 +12,7 @@ option java_multiple_files = true;
 
 service UsageService {
   rpc GetStreamEventUsage (GetStreamEventUsageRequest) returns (GetStreamEventUsageResponse);
+  rpc StoreUsageEvent (StoreUsageEventRequest) returns (StoreUsageEventResponse);
 }
 
 message GetStreamEventUsageRequest {
@@ -24,4 +25,15 @@ message GetStreamEventUsageRequest {
 message GetStreamEventUsageResponse {
   strmprivacy.api.entities.v1.StreamRef ref = 1;
   repeated strmprivacy.api.entities.v1.WindowedEventCount windows = 2;
+}
+
+message StoreUsageEventRequest {
+    string billing_id = 1;
+    string stream = 2;
+    int32  event_count = 3;
+    google.protobuf.Timestamp event_arrival_time = 4;
+}
+
+message StoreUsageEventResponse {
+
 }
