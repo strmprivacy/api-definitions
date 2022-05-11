@@ -1,3 +1,10 @@
+# [2.34.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.33.0...v2.34.0) (2022-05-11)
+
+
+### Features
+
+* new service UsageService:StoreUsageEvent ([612d907](https://gitlab.com/strmprivacy/api-definitions/commit/612d907e2ced57b9614848146a7be0ad6525f0a8))
+
 # [2.33.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.32.0...v2.33.0) (2022-05-03)
 
 
