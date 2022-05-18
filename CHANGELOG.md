@@ -1,3 +1,10 @@
+# [2.35.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.34.0...v2.35.0) (2022-05-18)
+
+
+### Features
+
+* get kafka topic call added ([b48d6ed](https://gitlab.com/strmprivacy/api-definitions/commit/b48d6edfc7f94a8f96a6c3c40d42273a57219c52))
+
 # [2.34.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.33.0...v2.34.0) (2022-05-11)
 
 
