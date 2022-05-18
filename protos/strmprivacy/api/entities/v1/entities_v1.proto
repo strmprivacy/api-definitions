@@ -54,6 +54,7 @@ message Stream {
   * if present, for all field patterns in the MaskedFields instance, the hash with the specified seed is applied.
    */
   MaskedFields masked_fields = 10;
+  string kafka_topic = 11 [(google.api.field_behavior) = OUTPUT_ONLY];
 }
 
 message ExtendedStream {
@@ -108,6 +109,7 @@ message KeyStream {
   KeyStreamRef ref = 1 [(google.api.field_behavior) = REQUIRED];
   // -- TODO: this field is not used --
   string status = 2 [(google.api.field_behavior) = OUTPUT_ONLY];
+  string kafka_topic = 3 [(google.api.field_behavior) = OUTPUT_ONLY];
 }
 
 /* refers to a event stream.
