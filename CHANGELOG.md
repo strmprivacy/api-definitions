@@ -1,3 +1,10 @@
+# [2.36.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.35.0...v2.36.0) (2022-05-19)
+
+
+### Features
+
+* **strm-1057:** add data contracts api ([5073f8c](https://gitlab.com/strmprivacy/api-definitions/commit/5073f8ca3c724ab19349e4cfd95d5f9d10a23577))
+
 # [2.35.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.34.0...v2.35.0) (2022-05-18)
 
 
