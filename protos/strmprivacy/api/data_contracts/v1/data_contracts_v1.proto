@@ -1,0 +1,173 @@
+syntax = "proto3";
+
+package strmprivacy.api.data_contracts.v1;
+
+import "google/api/field_behavior.proto";
+import "google/protobuf/field_mask.proto";
+import "strmprivacy/api/entities/v1/entities_v1.proto";
+
+option go_package = "github.com/strmprivacy/api-definitions-go/v2/api/data_contracts/v1;data_contracts";
+option java_package = "io.strmprivacy.api.data_contracts.v1";
+option java_multiple_files = true;
+
+service DataContractsService {
+  rpc ListDataContracts (ListDataContractsRequest) returns (ListDataContractsResponse);
+  rpc GetDataContract (GetDataContractRequest) returns (GetDataContractResponse);
+  rpc CreateDataContract (CreateDataContractRequest) returns (CreateDataContractResponse);
+  rpc UpdateDataContract (UpdateDataContractRequest) returns (UpdateDataContractResponse);
+  rpc ReviewDataContract (ReviewDataContractRequest) returns (ReviewDataContractResponse);
+  rpc ActivateDataContract (ActivateDataContractRequest) returns (ActivateDataContractResponse);
+  rpc DeleteDataContract (DeleteDataContractRequest) returns (DeleteDataContractResponse);
+  rpc ArchiveDataContract (ArchiveDataContractRequest) returns (ArchiveDataContractResponse);
+  rpc GetDataContractSchemaCode (GetDataContractSchemaCodeRequest) returns (GetDataContractSchemaCodeResponse);
+  rpc GetDataContractSchemaDefinition (GetDataContractSchemaDefinitionRequest) returns (GetDataContractSchemaDefinitionResponse);
+  rpc ValidateDataContractsMaskedFields (ValidateDataContractsMaskedFieldsRequest) returns (ValidateDataContractsMaskedFieldsResponse);
+}
+
+// List Event Contracts, with optional filters. All filters behave as AND conditions. OR is not possible.
+message ListDataContractsRequest {
+  // The billing_id, used for authentication.
+  // If absent, only public Event Contracts can be returned. If present, public and owned private Event Contracts can be returned.
+  string billing_id = 1 [(google.api.field_behavior) = OPTIONAL];
+
+  // Filter on a string to do a full-text search.
+  string filter = 2 [(google.api.field_behavior) = OPTIONAL];
+
+  // Filter on a given handle.
+  string handle = 3 [(google.api.field_behavior) = OPTIONAL];
+
+  // Filter on a given name.
+  string name = 4 [(google.api.field_behavior) = OPTIONAL];
+
+  // Filter public/private Event Contracts.
+  strmprivacy.api.entities.v1.FilterPublicPrivate public_private = 5 [(google.api.field_behavior) = OPTIONAL];
+
+  // Filter based on labels. It is possible to skip the label value.
+  // In that case, the filter only filters on the key.
+  repeated strmprivacy.api.entities.v1.Label labels = 7 [(google.api.field_behavior) = OPTIONAL];
+
+  // Filter on domains.
+  repeated string domains = 8 [(google.api.field_behavior) = OPTIONAL];
+
+  // Filter on industries.
+  repeated string industries = 9 [(google.api.field_behavior) = OPTIONAL];
+}
+
+message ListDataContractsResponse {
+  repeated strmprivacy.api.entities.v1.DataContract data_contracts = 1;
+}
+
+message GetDataContractRequest {
+  string billing_id = 1;
+  strmprivacy.api.entities.v1.DataContractRef ref = 2;
+  string id = 3;
+}
+
+message GetDataContractResponse {
+  strmprivacy.api.entities.v1.DataContract data_contract = 1;
+  string checksum = 2 [(google.api.field_behavior) = REQUIRED];
+}
+
+message CreateDataContractRequest {
+  string billing_id = 1;
+  strmprivacy.api.entities.v1.DataContract data_contract = 2;
+}
+
+message CreateDataContractResponse {
+  strmprivacy.api.entities.v1.DataContract data_contract = 1;
+  string checksum = 2 [(google.api.field_behavior) = OUTPUT_ONLY];
+}
+
+message UpdateDataContractRequest {
+  string billing_id = 1 [(google.api.field_behavior) = REQUIRED];
+  strmprivacy.api.entities.v1.DataContract data_contract = 2 [(google.api.field_behavior) = REQUIRED];
+  string checksum = 3 [(google.api.field_behavior) = REQUIRED];
+  // The fields to update.
+  google.protobuf.FieldMask update_mask = 4 [(google.api.field_behavior) = REQUIRED];
+}
+
+message UpdateDataContractResponse {
+  strmprivacy.api.entities.v1.DataContract data_contract = 1;
+  string checksum = 2 [(google.api.field_behavior) = OUTPUT_ONLY];
+}
+
+message ReviewDataContractRequest {
+  string billing_id = 1 [(google.api.field_behavior) = REQUIRED];
+  string id = 2 [(google.api.field_behavior) = REQUIRED];
+}
+
+message ReviewDataContractResponse {
+}
+
+message ActivateDataContractRequest {
+  string billing_id = 1 [(google.api.field_behavior) = REQUIRED];
+  string id = 2 [(google.api.field_behavior) = REQUIRED];
+}
+
+message ActivateDataContractResponse {
+}
+
+message DeleteDataContractRequest {
+  string billing_id = 1 [(google.api.field_behavior) = REQUIRED];
+  string id = 2 [(google.api.field_behavior) = REQUIRED];
+}
+
+message DeleteDataContractResponse {
+}
+
+message ArchiveDataContractRequest {
+  string billing_id = 1 [(google.api.field_behavior) = REQUIRED];
+  string id = 2 [(google.api.field_behavior) = REQUIRED];
+}
+
+message ArchiveDataContractResponse {
+}
+
+message ValidateDataContractsMaskedFieldsRequest {
+  string billing_id = 1 [(google.api.field_behavior) = REQUIRED];
+  entities.v1.MaskedFields masked_fields = 2;
+}
+
+message ValidateDataContractsMaskedFieldsResponse {
+  // any errors. When empty, all ok.
+  repeated Error errors = 1;
+
+  message Error {
+    // the event contract id that was giving errors
+    string id = 1 [(google.api.field_behavior) = REQUIRED];
+    // the event contract ref that was giving errors
+    entities.v1.DataContractRef data_contract_ref = 2 [(google.api.field_behavior) = REQUIRED];
+    // for non field related errors (such as no event contract, or not allowed)
+    string message = 3;
+    // list of errors per field
+    repeated FieldError errors = 4;
+    message FieldError {
+      string field_pattern = 1;
+      string field_type = 2;
+      string message = 3;
+    }
+  }
+}
+
+message GetDataContractSchemaCodeRequest {
+  string billing_id = 1;
+  string id = 2 [(google.api.field_behavior) = REQUIRED];
+  // (-- api-linter: core::0143::standardized-codes=disabled
+  //     aip.dev/not-precedent: language here is a programming language, not a human spoken language. --)
+  string language = 3 [(google.api.field_behavior) = REQUIRED];
+}
+
+message GetDataContractSchemaCodeResponse {
+  string filename = 1;
+  int64 data_size = 2;
+  bytes data = 3;
+}
+
+message GetDataContractSchemaDefinitionRequest {
+  int32 confluent_id = 1;
+  strmprivacy.api.entities.v1.KafkaClusterRef cluster_ref = 2;
+}
+
+message GetDataContractSchemaDefinitionResponse {
+  string definition = 1;
+}

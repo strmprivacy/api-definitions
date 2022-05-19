@@ -418,6 +418,8 @@ message Schema {
   string fingerprint = 5 [(google.api.field_behavior) = OUTPUT_ONLY];
   SchemaMetadata metadata = 6;
   SimpleSchemaDefinition simple_schema = 7;
+  // The UUID of this schema
+  string id = 8;
 
   /*
   constraints: overall size < 100000 TBD
@@ -458,6 +460,10 @@ message Schema {
     This schema has been active, but no more events can be sent using this schema. In-flight events are still processed.
      */
     ARCHIVED = 3;
+    /*
+    This schema is being reviewed. It can be approved or rejected from here.
+     */
+    IN_REVIEW = 4;
   }
 }
 
@@ -521,21 +527,27 @@ message EventContract {
   map<string, int32> pii_fields = 6;
   repeated Validation validations = 7;
   EventContractMetadata metadata = 8;
+  // The UUID of this event contract
+  string id = 9;
 
   enum State {
     STATE_UNSPECIFIED = 0;
     /*
-    The initial state, this schema has not been accepted yet, can still be modified and also deleted.
+    The initial state, this event contract has not been accepted yet, can still be modified and also deleted.
      */
     DRAFT = 1;
     /*
-    This schema can be used for events and batch jobs. It cannot be modified or deleted.
+    This event contract can be used for events and batch jobs. It cannot be modified or deleted.
      */
     ACTIVE = 2;
     /*
-    This schema has been active, but no more events can be sent using this schema. In-flight events are still processed.
+    This event contract has been active, but no more events can be sent using this event contract. In-flight events are still processed.
      */
     ARCHIVED = 3;
+    /*
+    This event contract is being reviewed. It can be approved or rejected from here.
+     */
+    IN_REVIEW = 4;
   }
 }
 
@@ -664,6 +676,88 @@ message DerivedData {
   repeated int32 consent_levels = 2;
   ConsentLevelType consent_level_type = 3;
   MaskedFields masked_fields = 4;
+}
+
+message DataContractRef {
+  /* constraints: generic name constraint, globally unique */
+  string handle = 1 [(google.api.field_behavior) = REQUIRED];
+  /* constraints: generic name constraint */
+  string name = 2 [(google.api.field_behavior) = REQUIRED];
+  /* constraints: semantic version */
+  string version = 3 [(google.api.field_behavior) = REQUIRED];
+}
+
+message DataContract {
+  string id = 1 [(google.api.field_behavior) = REQUIRED];
+  DataContractRef ref = 2 [(google.api.field_behavior) = REQUIRED];
+  State state = 3 [(google.api.field_behavior) = OUTPUT_ONLY];
+  // (-- 'is' is intentional here (see https://google.aip.dev/140#booleans) --)
+  bool is_public = 4;
+  string event_sequence_field = 5 [(google.api.field_behavior) = REQUIRED];
+  map<string, int32> pii_fields = 6;
+  repeated Validation validations = 7;
+  DataContractMetadata metadata = 8;
+  string definition = 9 [(google.api.field_behavior) = REQUIRED];
+  string fingerprint = 10 [(google.api.field_behavior) = OUTPUT_ONLY];
+  SimpleSchemaDefinition simple_schema = 11;
+
+  enum State {
+    STATE_UNSPECIFIED = 0;
+    /*
+    The initial state, this schema has not been accepted yet, can still be modified and also deleted.
+     */
+    DRAFT = 1;
+    /*
+    This contract is in review. It can be used once it has been approved.
+     */
+    IN_REVIEW = 2;
+    /*
+    This schema can be used for events and batch jobs. It cannot be modified or deleted.
+     */
+    ACTIVE = 3;
+    /*
+    This schema has been active, but no more events can be sent using this schema. In-flight events are still processed.
+     */
+    ARCHIVED = 4;
+  }
+
+  /*
+  constraints: overall size < 100000 TBD
+   */
+  message SimpleSchemaDefinition {
+    /* constraints:
+    https://avro.apache.org/docs/current/spec.html#names
+      start with [A-Za-z_]
+      subsequently contain only [A-Za-z0-9_]
+     */
+    string name = 1;
+    /*
+    constraints:
+    dot separated sequence of name constraints
+    must be Avro compatible. When absent becomes <handle>.<name>.v<version>
+     */
+    string namespace = 2;
+    /* constraints:
+    size < 5000
+     */
+    string doc = 3;
+    repeated SimpleSchemaNode nodes = 4;
+    // avro compatible name set by creator OR derived from name
+    string avro_name = 5;
+  }
+}
+
+message DataContractMetadata {
+  // The human readable title of this Data Contract. Used in the Portal. Defaults to the Data Contract name if left unspecified. This field can be modified.
+  string title = 1 [(google.api.field_behavior) = OPTIONAL];
+  // The (optional) description of this Data Contract. Used in the Portal. Markdown syntax is supported. This field can be modified.
+  string description = 2 [(google.api.field_behavior) = OPTIONAL];
+  // The timestamp when this Data Contract was created.
+  google.protobuf.Timestamp create_time = 3 [(google.api.field_behavior) = OUTPUT_ONLY];
+  // Generic (key/value) labels for this Data Contract.
+  repeated Label labels = 5 [(google.api.field_behavior) = OPTIONAL];
+  repeated string domains = 6 [(google.api.field_behavior) = OPTIONAL];
+  repeated string industries = 7 [(google.api.field_behavior) = OPTIONAL];
 }
 
 enum BatchJobStateType {
