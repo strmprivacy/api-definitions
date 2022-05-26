@@ -41,7 +41,6 @@ plugins {
 }
 
 dependencyAnalysis {
-    strictMode(false)
     issues {
         all {
             onUnusedDependencies { severity("fail") }
