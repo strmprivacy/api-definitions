@@ -760,6 +760,10 @@ message DataContractMetadata {
   repeated string industries = 7 [(google.api.field_behavior) = OPTIONAL];
 }
 
+message Project {
+  string id = 1;
+}
+
 enum BatchJobStateType {
   BATCH_JOB_STATE_TYPE_UNSPECIFIED = 0;
   PENDING = 1;
