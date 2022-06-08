@@ -1,3 +1,10 @@
+# [2.37.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.36.0...v2.37.0) (2022-06-08)
+
+
+### Features
+
+* **strm-1197:** add list, create and delete for projects; add projects entity, with only id for now ([c6d17b0](https://gitlab.com/strmprivacy/api-definitions/commit/c6d17b0214db7c6d3babcbc3dde52cfbc9d93d20))
+
 # [2.36.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.35.0...v2.36.0) (2022-05-19)
 
 
