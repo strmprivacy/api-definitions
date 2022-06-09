@@ -22,27 +22,32 @@ service AccountService {
 }
 
 message GetAccountDetailsRequest {
-  string billing_id = 1 [(google.api.field_behavior) = REQUIRED];
+  string billing_id = 1 [deprecated = true];
 }
 
 message GetAccountDetailsResponse {
-  string billing_id = 1 [(google.api.field_behavior) = REQUIRED];
+  string billing_id = 1 [deprecated = true];
   int32 max_input_streams = 2 [(google.api.field_behavior) = REQUIRED];
   string handle = 3 [(google.api.field_behavior) = OPTIONAL];
   string subscription = 4 [(google.api.field_behavior) = REQUIRED];
+  string organization = 5 [(google.api.field_behavior) = REQUIRED];
+  string organization_id = 6 [(google.api.field_behavior) = REQUIRED];
+  string internal_user_id = 7 [(google.api.field_behavior) = REQUIRED];
 }
 
 message GetLegacyBillingIdRequest {
+  option deprecated = true;
 }
 
 message GetLegacyBillingIdResponse {
+  option deprecated = true;
   string billing_id = 1 [(google.api.field_behavior) = REQUIRED];
 }
 
 // (-- api-linter: core::0133::request-resource-field=disabled
 //     aip.dev/not-precedent: Handle is just a string. --)
 message CreateAccountHandleRequest {
-  string billing_id = 1 [(google.api.field_behavior) = REQUIRED];
+  string billing_id = 1 [deprecated = true];
   string handle = 2 [(google.api.field_behavior) = REQUIRED];
 }
 

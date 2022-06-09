@@ -17,7 +17,8 @@ service KafkaClustersService {
 }
 
 message ListKafkaClustersRequest {
-  string billing_id = 1 [(google.api.field_behavior) = OUTPUT_ONLY];
+  string billing_id = 1 [deprecated = true];
+  string project_id = 2 [(google.api.field_behavior) = OUTPUT_ONLY];
 }
 
 message ListKafkaClustersResponse {
@@ -25,8 +26,9 @@ message ListKafkaClustersResponse {
 }
 
 message DeleteKafkaClusterRequest {
-  string billing_id = 1 [(google.api.field_behavior) = OUTPUT_ONLY];
+  string billing_id = 1 [deprecated = true];
   entities.v1.KafkaClusterRef ref = 2 [(google.api.field_behavior) = REQUIRED];
+  string project_id = 3 [(google.api.field_behavior) = OUTPUT_ONLY];
 }
 
 message DeleteKafkaClusterResponse {
@@ -41,8 +43,9 @@ message CreateKafkaClusterResponse {
 }
 
 message GetKafkaClusterRequest {
-  string billing_id = 1 [(google.api.field_behavior) = OUTPUT_ONLY];
+  string billing_id = 1 [deprecated = true];
   entities.v1.KafkaClusterRef ref = 2 [(google.api.field_behavior) = REQUIRED];
+  string project_id = 3 [(google.api.field_behavior) = OUTPUT_ONLY];
 }
 
 message GetKafkaClusterResponse {

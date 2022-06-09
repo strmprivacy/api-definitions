@@ -26,7 +26,8 @@ message GetBatchJobResponse {
 }
 
 message ListBatchJobsRequest {
-  string billing_id = 1 [(google.api.field_behavior) = REQUIRED];
+  string billing_id = 1 [deprecated = true];
+  string project_id = 2 [(google.api.field_behavior) = REQUIRED];
 }
 
 message ListBatchJobsResponse {

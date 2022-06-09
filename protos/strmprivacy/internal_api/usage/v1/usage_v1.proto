@@ -24,6 +24,7 @@ message GetEventUsageResponse {
 }
 
 message EventUsage {
-  string billing_id = 1 [(google.api.field_behavior) = REQUIRED];
+  string billing_id = 1 [deprecated = true];
   int64 event_count = 2 [(google.api.field_behavior) = REQUIRED];
+  string project_id = 3 [(google.api.field_behavior) = REQUIRED];
 }

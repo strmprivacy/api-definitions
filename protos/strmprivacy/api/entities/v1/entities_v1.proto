@@ -115,30 +115,33 @@ message KeyStream {
 /* refers to a event stream.
  */
 message StreamRef {
-  string billing_id = 1 [(google.api.field_behavior) = OUTPUT_ONLY];
+  string billing_id = 1 [deprecated = true];
   /*
   the name of the stream
   constraints: generic name
   */
   string name = 2 [(google.api.field_behavior) = REQUIRED];
+  string project_id = 3 [(google.api.field_behavior) = OUTPUT_ONLY];
 }
 
 /* refers to a key stream.
  */
 message KeyStreamRef {
-  string billing_id = 1 [(google.api.field_behavior) = OUTPUT_ONLY];
+  string billing_id = 1 [deprecated = true];
   // the name of the stream
   string name = 2 [(google.api.field_behavior) = REQUIRED];
+  string project_id = 3 [(google.api.field_behavior) = OUTPUT_ONLY];
 }
 
 /*
 Credentials to produce to the event-gateway, or to consume from egress.
  */
 message Credentials {
-  string billing_id = 1 [(google.api.field_behavior) = OUTPUT_ONLY];
+  string billing_id = 1 [deprecated = true];
   string client_id = 2 [(google.api.field_behavior) = OUTPUT_ONLY];
   /* as this property is secret, it is not always returned */
   string client_secret = 3 [(google.api.field_behavior) = OUTPUT_ONLY];
+  string project_id = 4 [(google.api.field_behavior) = OUTPUT_ONLY];
 }
 
 /* the sink config used by the batch exporters. */
@@ -184,8 +187,9 @@ message DataConnector {
 }
 
 message DataConnectorRef {
-  string billing_id = 1;
+  string billing_id = 1 [deprecated = true];
   string name = 2;
+  string project_id = 3;
 }
 
 message DataConnectorDependentEntities {
@@ -287,9 +291,10 @@ message ExtendedBatchExporter {
 }
 
 message BatchExporterRef {
-  string billing_id = 1 [(google.api.field_behavior) = OUTPUT_ONLY];
+  string billing_id = 1 [deprecated = true];
   /* constraints: generic name constraint */
   string name = 2 [(google.api.field_behavior) = REQUIRED];
+  string project_id = 3 [(google.api.field_behavior) = OUTPUT_ONLY];
 }
 
 /*
@@ -307,11 +312,12 @@ How to refer to a certain Kafka cluster.
  */
 message KafkaClusterRef {
   // (-- streammachine for the default export cluster --)
-  string billing_id = 1 [(google.api.field_behavior) = REQUIRED];
+  string billing_id = 1 [deprecated = true];
   /*
   constraints: generic name constraint
   */
   string name = 2 [(google.api.field_behavior) = REQUIRED];
+  string project_id = 3 [(google.api.field_behavior) = REQUIRED];
 }
 
 message KafkaExporter {
@@ -322,13 +328,14 @@ message KafkaExporter {
 }
 
 message KafkaExporterRef {
-  string billing_id = 1 [(google.api.field_behavior) = REQUIRED];
+  string billing_id = 1 [deprecated = true];
   /*
   default value  <cluster-name>-<stream-name>
 
   constraints: generic name constraint
   */
   string name = 2 [(google.api.field_behavior) = REQUIRED];
+  string project_id = 3 [(google.api.field_behavior) = REQUIRED];
 }
 
 message KafkaExporterTarget {
@@ -363,9 +370,10 @@ message KafkaUser {
 }
 
 message KafkaUserRef {
-  string billing_id = 1 [(google.api.field_behavior) = OUTPUT_ONLY];
+  string billing_id = 1 [deprecated = true];
   /* constraints: generic name constraint */
   string name = 2 [(google.api.field_behavior) = OUTPUT_ONLY];
+  string project_id = 3 [(google.api.field_behavior) = OUTPUT_ONLY];
 }
 
 message ConsentLevels {
@@ -385,9 +393,10 @@ message ConsentLevelMapping {
 }
 
 message ConsentLevelMappingRef {
-  string billing_id = 1 [(google.api.field_behavior) = OUTPUT_ONLY];
+  string billing_id = 1 [deprecated = true];
   // the typically small integer value that we use in the events.
   int32 level = 2 [(google.api.field_behavior) = REQUIRED];
+  string project_id = 3 [(google.api.field_behavior) = OUTPUT_ONLY];
 }
 
 message WindowedEventCount {
@@ -620,9 +629,10 @@ message ExtendedBatchJob {
 }
 
 message BatchJobRef {
-  string billing_id = 1 [(google.api.field_behavior) = OUTPUT_ONLY];
+  string billing_id = 1 [deprecated = true];
   // the UUIDv4 of the job
   string id = 2 [(google.api.field_behavior) = OUTPUT_ONLY];
+  string project_id = 3 [(google.api.field_behavior) = OUTPUT_ONLY];
 }
 
 message BatchJobState {
@@ -762,6 +772,8 @@ message DataContractMetadata {
 
 message Project {
   string id = 1;
+  string name = 2;
+  string description = 3;
 }
 
 enum BatchJobStateType {

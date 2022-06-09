@@ -61,7 +61,7 @@ message ListSchemasResponse {
 }
 
 message GetSchemaRequest {
-  string billing_id = 1;
+  string billing_id = 1 [deprecated = true];
   strmprivacy.api.entities.v1.SchemaRef ref = 2;
   strmprivacy.api.entities.v1.KafkaClusterRef cluster_ref = 3;
 }
@@ -73,8 +73,9 @@ message GetSchemaResponse {
 }
 
 message CreateSchemaRequest {
-  string billing_id = 1;
+  string billing_id = 1 [deprecated = true];
   strmprivacy.api.entities.v1.Schema schema = 2;
+  string project_id = 3;
 }
 
 message CreateSchemaResponse {
@@ -83,12 +84,13 @@ message CreateSchemaResponse {
 }
 
 message UpdateSchemaRequest {
-  string billing_id = 1 [(google.api.field_behavior) = REQUIRED];
+  string billing_id = 1 [deprecated = true];
   strmprivacy.api.entities.v1.Schema schema = 2 [(google.api.field_behavior) = REQUIRED];
   string checksum = 3 [(google.api.field_behavior) = REQUIRED];
 
   // The fields to update.
   google.protobuf.FieldMask update_mask = 4 [(google.api.field_behavior) = REQUIRED];
+  string project_id = 5 [(google.api.field_behavior) = REQUIRED];
 }
 
 message UpdateSchemaResponse {
@@ -97,31 +99,34 @@ message UpdateSchemaResponse {
 }
 
 message ActivateSchemaRequest {
-  string billing_id = 1 [(google.api.field_behavior) = REQUIRED];
+  string billing_id = 1 [deprecated = true];
   strmprivacy.api.entities.v1.SchemaRef schema_ref = 2 [(google.api.field_behavior) = REQUIRED];
+  string project_id = 3 [(google.api.field_behavior) = REQUIRED];
 }
 
 message ActivateSchemaResponse {
 }
 
 message DeleteSchemaRequest {
-  string billing_id = 1 [(google.api.field_behavior) = REQUIRED];
+  string billing_id = 1 [deprecated = true];
   strmprivacy.api.entities.v1.SchemaRef schema_ref = 2 [(google.api.field_behavior) = REQUIRED];
+  string project_id = 3 [(google.api.field_behavior) = REQUIRED];
 }
 
 message DeleteSchemaResponse {
 }
 
 message ArchiveSchemaRequest {
-  string billing_id = 1 [(google.api.field_behavior) = REQUIRED];
+  string billing_id = 1 [deprecated = true];
   strmprivacy.api.entities.v1.SchemaRef schema_ref = 2 [(google.api.field_behavior) = REQUIRED];
+  string project_id = 3 [(google.api.field_behavior) = REQUIRED];
 }
 
 message ArchiveSchemaResponse {
 }
 
 message GetSchemaCodeRequest {
-  string billing_id = 1;
+  string billing_id = 1 [deprecated = true];
   strmprivacy.api.entities.v1.SchemaRef ref = 2;
   // (-- api-linter: core::0143::standardized-codes=disabled
   //     aip.dev/not-precedent: language here is a programming language, not a human spoken language. --)

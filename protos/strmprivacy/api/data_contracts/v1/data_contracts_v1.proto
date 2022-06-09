@@ -28,7 +28,7 @@ service DataContractsService {
 message ListDataContractsRequest {
   // The billing_id, used for authentication.
   // If absent, only public Event Contracts can be returned. If present, public and owned private Event Contracts can be returned.
-  string billing_id = 1 [(google.api.field_behavior) = OPTIONAL];
+  string billing_id = 1 [deprecated = true];
 
   // Filter on a string to do a full-text search.
   string filter = 2 [(google.api.field_behavior) = OPTIONAL];
@@ -58,7 +58,7 @@ message ListDataContractsResponse {
 }
 
 message GetDataContractRequest {
-  string billing_id = 1;
+  string billing_id = 1 [deprecated = true];
   strmprivacy.api.entities.v1.DataContractRef ref = 2;
   string id = 3;
 }
@@ -69,7 +69,7 @@ message GetDataContractResponse {
 }
 
 message CreateDataContractRequest {
-  string billing_id = 1;
+  string billing_id = 1 [deprecated = true];
   strmprivacy.api.entities.v1.DataContract data_contract = 2;
 }
 
@@ -79,7 +79,7 @@ message CreateDataContractResponse {
 }
 
 message UpdateDataContractRequest {
-  string billing_id = 1 [(google.api.field_behavior) = REQUIRED];
+  string billing_id = 1 [deprecated = true];
   strmprivacy.api.entities.v1.DataContract data_contract = 2 [(google.api.field_behavior) = REQUIRED];
   string checksum = 3 [(google.api.field_behavior) = REQUIRED];
   // The fields to update.
@@ -92,7 +92,7 @@ message UpdateDataContractResponse {
 }
 
 message ReviewDataContractRequest {
-  string billing_id = 1 [(google.api.field_behavior) = REQUIRED];
+  string billing_id = 1 [deprecated = true];
   string id = 2 [(google.api.field_behavior) = REQUIRED];
 }
 
@@ -100,7 +100,7 @@ message ReviewDataContractResponse {
 }
 
 message ActivateDataContractRequest {
-  string billing_id = 1 [(google.api.field_behavior) = REQUIRED];
+  string billing_id = 1 [deprecated = true];
   string id = 2 [(google.api.field_behavior) = REQUIRED];
 }
 
@@ -108,7 +108,7 @@ message ActivateDataContractResponse {
 }
 
 message DeleteDataContractRequest {
-  string billing_id = 1 [(google.api.field_behavior) = REQUIRED];
+  string billing_id = 1 [deprecated = true];
   string id = 2 [(google.api.field_behavior) = REQUIRED];
 }
 
@@ -116,7 +116,7 @@ message DeleteDataContractResponse {
 }
 
 message ArchiveDataContractRequest {
-  string billing_id = 1 [(google.api.field_behavior) = REQUIRED];
+  string billing_id = 1 [deprecated = true];
   string id = 2 [(google.api.field_behavior) = REQUIRED];
 }
 
@@ -124,7 +124,7 @@ message ArchiveDataContractResponse {
 }
 
 message ValidateDataContractsMaskedFieldsRequest {
-  string billing_id = 1 [(google.api.field_behavior) = REQUIRED];
+  string billing_id = 1 [deprecated = true];
   entities.v1.MaskedFields masked_fields = 2;
 }
 
@@ -150,7 +150,7 @@ message ValidateDataContractsMaskedFieldsResponse {
 }
 
 message GetDataContractSchemaCodeRequest {
-  string billing_id = 1;
+  string billing_id = 1 [deprecated = true];
   string id = 2 [(google.api.field_behavior) = REQUIRED];
   // (-- api-linter: core::0143::standardized-codes=disabled
   //     aip.dev/not-precedent: language here is a programming language, not a human spoken language. --)

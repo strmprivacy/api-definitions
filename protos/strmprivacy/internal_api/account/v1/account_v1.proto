@@ -19,17 +19,21 @@ service InternalAccountService {
 }
 
 message GetLegacyBillingIdRequest {
+  option deprecated = true;
   string external_user_id = 1 [(google.api.field_behavior) = REQUIRED];
 }
 
 message GetLegacyBillingIdResponse {
+  option deprecated = true;
   string billing_id = 1 [(google.api.field_behavior) = REQUIRED];
 }
 
 message GetLegacyBillingIdByBillingAccountIdRequest {
+  option deprecated = true;
   string billing_account_id = 1 [(google.api.field_behavior) = REQUIRED];
 }
 
 message GetLegacyBillingIdByBillingAccountIdResponse {
+  option deprecated = true;
   string billing_id = 1 [(google.api.field_behavior) = REQUIRED];
 }

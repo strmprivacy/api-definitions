@@ -23,7 +23,9 @@ message ListProjectsResponse {
 
 // (-- api-linter: core::0133::request-resource-field=disabled
 //     aip.dev/not-precedent: As we do not know anything about the project to create yet, create message is empty. --)
-message CreateProjectRequest {}
+message CreateProjectRequest {
+  strmprivacy.api.entities.v1.Project project = 1;
+}
 
 message CreateProjectResponse {
   strmprivacy.api.entities.v1.Project project = 1;

@@ -18,8 +18,9 @@ service StreamsService {
 }
 
 message ListStreamsRequest {
-  string billing_id = 1;
+  string billing_id = 1 [deprecated = true];
   bool recursive = 2;
+  string project_id = 3;
 }
 
 message ListStreamsResponse {

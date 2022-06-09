@@ -17,9 +17,10 @@ service DataConnectorsService {
 }
 
 message ListDataConnectorsRequest {
-  string billing_id = 1;
+  string billing_id = 1 [deprecated = true];
   bool recursive = 2;
   bool include_credentials = 3;
+  string project_id = 4 [(google.api.field_behavior) = REQUIRED];
 }
 
 message ListDataConnectorsResponse {
