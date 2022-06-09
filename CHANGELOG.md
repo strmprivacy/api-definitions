@@ -1,3 +1,10 @@
+# [2.38.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.37.0...v2.38.0) (2022-06-09)
+
+
+### Features
+
+* **strm-1196:** deprecate billing id and introduce correct alternative ([4fc87b9](https://gitlab.com/strmprivacy/api-definitions/commit/4fc87b91427f801271d19da42e0d242e5441509f))
+
 # [2.37.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.36.0...v2.37.0) (2022-06-08)
 
 
