@@ -12,9 +12,9 @@
   "devDependencies": {
     "@types/google-protobuf": "3.15.5",
     "@types/jquery": "3.5.14",
-    "@types/node": "17.0.39",
+    "@types/node": "17.0.42",
     "barrelsby": "2.3.4",
-    "google-artifactregistry-auth": "^3.0.0",
+    "google-artifactregistry-auth": "3.0.1",
     "ts-loader": "9.3.0",
     "typescript": "4.7.3",
     "webpack": "5.73.0",
