@@ -28,7 +28,9 @@ spec:
     }
     
     message GetQuotasRequest {
-      string legacy_billing_id = 1 [(google.api.field_behavior) = REQUIRED];
+      string legacy_billing_id = 1 [deprecated = true];
+      // not sure, this could also be an organization id
+      string project_id = 2 [(google.api.field_behavior) = REQUIRED];
     }
     
     message GetQuotasResponse {

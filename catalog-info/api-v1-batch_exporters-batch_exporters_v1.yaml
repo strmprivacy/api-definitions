@@ -32,7 +32,8 @@ spec:
     }
     
     message ListBatchExportersRequest {
-      string billing_id = 1;
+      string billing_id = 1 [deprecated = true];
+      string project_id = 2 [(google.api.field_behavior) = REQUIRED];
     }
     
     message ListBatchExportersResponse {

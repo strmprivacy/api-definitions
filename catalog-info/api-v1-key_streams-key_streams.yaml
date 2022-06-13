@@ -30,7 +30,8 @@ spec:
     }
     
     message ListKeyStreamsRequest {
-      string billing_id = 1 [(google.api.field_behavior) = OUTPUT_ONLY];
+      string billing_id = 1 [deprecated = true];
+      string project_id = 2 [(google.api.field_behavior) = OUTPUT_ONLY];
     }
     
     message ListKeyStreamsResponse {

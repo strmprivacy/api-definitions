@@ -41,7 +41,7 @@ spec:
     message ListEventContractsRequest {
       // The billing_id, used for authentication.
       // If absent, only public Event Contracts can be returned. If present, public and owned private Event Contracts can be returned.
-      string billing_id = 1 [(google.api.field_behavior) = OPTIONAL];
+      string billing_id = 1 [deprecated = true];
     
       // Filter on a string to do a full-text search.
       string filter = 2 [(google.api.field_behavior) = OPTIONAL];
@@ -74,7 +74,7 @@ spec:
     }
     
     message GetEventContractRequest {
-      string billing_id = 1;
+      string billing_id = 1 [deprecated = true];
       strmprivacy.api.entities.v1.EventContractRef ref = 2;
     }
     
@@ -84,8 +84,9 @@ spec:
     }
     
     message CreateEventContractRequest {
-      string billing_id = 1;
+      string billing_id = 1 [deprecated = true];
       strmprivacy.api.entities.v1.EventContract event_contract = 2;
+      string project_id = 3;
     }
     
     message CreateEventContractResponse {
@@ -94,11 +95,12 @@ spec:
     }
     
     message UpdateEventContractRequest {
-      string billing_id = 1 [(google.api.field_behavior) = REQUIRED];
+      string billing_id = 1 [deprecated = true];
       strmprivacy.api.entities.v1.EventContract event_contract = 2 [(google.api.field_behavior) = REQUIRED];
       string checksum = 3 [(google.api.field_behavior) = REQUIRED];
       // The fields to update.
       google.protobuf.FieldMask update_mask = 4 [(google.api.field_behavior) = REQUIRED];
+      string project_id = 5 [(google.api.field_behavior) = REQUIRED];
     }
     
     message UpdateEventContractResponse {
@@ -107,32 +109,36 @@ spec:
     }
     
     message ActivateEventContractRequest {
-      string billing_id = 1 [(google.api.field_behavior) = REQUIRED];
+      string billing_id = 1 [deprecated = true];
       strmprivacy.api.entities.v1.EventContractRef event_contract_ref = 2 [(google.api.field_behavior) = REQUIRED];
+      string project_id = 3 [(google.api.field_behavior) = REQUIRED];
     }
     
     message ActivateEventContractResponse {
     }
     
     message DeleteEventContractRequest {
-      string billing_id = 1 [(google.api.field_behavior) = REQUIRED];
+      string billing_id = 1 [deprecated = true];
       strmprivacy.api.entities.v1.EventContractRef event_contract_ref = 2 [(google.api.field_behavior) = REQUIRED];
+      string project_id = 3 [(google.api.field_behavior) = REQUIRED];
     }
     
     message DeleteEventContractResponse {
     }
     
     message ArchiveEventContractRequest {
-      string billing_id = 1 [(google.api.field_behavior) = REQUIRED];
+      string billing_id = 1 [deprecated = true];
       strmprivacy.api.entities.v1.EventContractRef event_contract_ref = 2 [(google.api.field_behavior) = REQUIRED];
+      string project_id = 3 [(google.api.field_behavior) = REQUIRED];
     }
     
     message ArchiveEventContractResponse {
     }
     
     message ValidateMaskedFieldsRequest{
-      string billing_id = 1 [(google.api.field_behavior) = REQUIRED];
+      string billing_id = 1 [deprecated = true];
       entities.v1.MaskedFields masked_fields = 2;
+      string project_id = 3 [(google.api.field_behavior) = REQUIRED];
     }
     
     message ValidateMaskedFieldsResponse{

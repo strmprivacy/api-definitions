@@ -25,6 +25,7 @@ spec:
   - ./catalog-info/api-v1-key_streams-key_streams.yaml
   - ./catalog-info/api-v1-streams-streams_v1.yaml
   - ./catalog-info/api-v1-sinks-sinks_v1.yaml
+  - ./catalog-info/api-v1-projects-projects_v1.yaml
   - ./catalog-info/api-v1-consent_levels-consent_levels_v1.yaml
   - ./catalog-info/api-v1-batch_exporters-batch_exporters_v1.yaml
   - ./catalog-info/api-v1-agents-data_connector_agent_v1.yaml

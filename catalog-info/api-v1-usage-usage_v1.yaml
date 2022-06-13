@@ -43,10 +43,11 @@ spec:
     }
     
     message StoreUsageEventRequest {
-        string billing_id = 1;
+        string billing_id = 1 [deprecated = true];
         string stream = 2;
         int32  event_count = 3;
         google.protobuf.Timestamp event_arrival_time = 4;
+        string project_id = 5;
     }
     
     message StoreUsageEventResponse {
