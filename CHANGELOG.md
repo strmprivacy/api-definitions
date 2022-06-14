@@ -1,3 +1,10 @@
+# [2.39.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.38.0...v2.39.0) (2022-06-14)
+
+
+### Features
+
+* **strm-1267:** add aws_ecr_image for AWS Marketplace Container Registry ([ae80469](https://gitlab.com/strmprivacy/api-definitions/commit/ae804694b4ef93ec822935deb5c9f0d376992c71))
+
 # [2.38.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.37.0...v2.38.0) (2022-06-09)
 
 
