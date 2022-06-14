@@ -35,7 +35,7 @@ spec:
     
     message GetBatchExporterImageResponse {
       string image = 1 [(google.api.field_behavior) = REQUIRED];
-      string aws_ecr_image = 2 [(google.api.field_behavior) = REQUIRED];
+      string aws_marketplace_image = 2 [(google.api.field_behavior) = REQUIRED];
     }
     
     message GetKafkaExporterImageRequest {
@@ -50,7 +50,7 @@ spec:
     
     message GetDecrypterImageResponse {
       string image = 1 [(google.api.field_behavior) = REQUIRED];
-      string aws_ecr_image = 2 [(google.api.field_behavior) = REQUIRED];
+      string aws_marketplace_image = 2 [(google.api.field_behavior) = REQUIRED];
     }
     
     message GetBatchJobRunnerImageRequest {
@@ -58,5 +58,5 @@ spec:
     
     message GetBatchJobRunnerImageResponse {
       string image = 1 [(google.api.field_behavior) = REQUIRED];
-      string aws_ecr_image = 2 [(google.api.field_behavior) = REQUIRED];
+      string aws_marketplace_image = 2 [(google.api.field_behavior) = REQUIRED];
     }
