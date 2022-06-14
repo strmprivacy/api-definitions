@@ -1,3 +1,10 @@
+# [2.40.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.39.0...v2.40.0) (2022-06-14)
+
+
+### Features
+
+* **strm-1267:** rename to aws_marketplace_image ([4e56b51](https://gitlab.com/strmprivacy/api-definitions/commit/4e56b51dc7744c5cfb46154f331d8b490d0d654f))
+
 # [2.39.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.38.0...v2.39.0) (2022-06-14)
 
 
