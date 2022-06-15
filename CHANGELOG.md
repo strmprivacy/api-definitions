@@ -1,3 +1,10 @@
+# [2.41.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.40.0...v2.41.0) (2022-06-15)
+
+
+### Features
+
+* **strm-1272:** add AWS_MARKETPLACE to installation types ([2c35ded](https://gitlab.com/strmprivacy/api-definitions/commit/2c35dedc124d28451d36d427d68ebfd68da9e956))
+
 # [2.40.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.39.0...v2.40.0) (2022-06-14)
 
 
