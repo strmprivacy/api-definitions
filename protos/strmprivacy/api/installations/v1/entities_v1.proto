@@ -68,6 +68,7 @@ enum InstallationType {
   INSTALLATION_TYPE_UNSPECIFIED = 0;
   SAAS = 1;
   SELF_HOSTED = 2;
+  AWS_MARKETPLACE = 3;
 }
 
 enum InstalledComponentType {
