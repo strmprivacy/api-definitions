@@ -13,6 +13,7 @@ option java_multiple_files = true;
 service InstallationsService {
   rpc GetInstallation(GetInstallationRequest) returns (GetInstallationResponse);
   rpc ListInstallations(ListInstallationsRequest) returns (ListInstallationsResponse);
+  rpc GetProjectInstallation(GetProjectInstallationRequest) returns (GetProjectInstallationResponse);
 }
 
 message GetInstallationRequest {
@@ -28,4 +29,12 @@ message ListInstallationsRequest {
 
 message ListInstallationsResponse {
   repeated Installation installations = 1 [(google.api.field_behavior) = REQUIRED];
+}
+
+message GetProjectInstallationRequest {
+  string project_id = 1 [(google.api.field_behavior) = REQUIRED];
+}
+
+message GetProjectInstallationResponse {
+  string installation_id = 1 [(google.api.field_behavior) = REQUIRED];
 }
