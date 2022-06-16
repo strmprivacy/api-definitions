@@ -1,3 +1,10 @@
+# [2.42.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.41.0...v2.42.0) (2022-06-16)
+
+
+### Features
+
+* **strm-1269:** get installation for a project ([9dcacea](https://gitlab.com/strmprivacy/api-definitions/commit/9dcacea84fcf3a9fb00a056506ee595c84844fc9))
+
 # [2.41.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.40.0...v2.41.0) (2022-06-15)
 
 
