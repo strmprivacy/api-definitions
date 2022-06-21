@@ -14,6 +14,7 @@ service InstallationsService {
   rpc GetInstallation(GetInstallationRequest) returns (GetInstallationResponse);
   rpc ListInstallations(ListInstallationsRequest) returns (ListInstallationsResponse);
   rpc GetProjectInstallation(GetProjectInstallationRequest) returns (GetProjectInstallationResponse);
+  rpc ListInstallationProjects(ListInstallationProjectsRequest) returns (ListInstallationProjectsResponse);
 }
 
 message GetInstallationRequest {
@@ -37,4 +38,14 @@ message GetProjectInstallationRequest {
 
 message GetProjectInstallationResponse {
   string installation_id = 1 [(google.api.field_behavior) = REQUIRED];
+}
+
+message ListInstallationProjectsRequest {
+  string installation_id = 1 [(google.api.field_behavior) = REQUIRED];
+}
+
+message ListInstallationProjectsResponse {
+  // (-- api-linter: core::0132::response-unknown-fields=disabled
+  //     aip.dev/not-precedent: this is best descriptive. --)
+  repeated string project_ids = 1;
 }
