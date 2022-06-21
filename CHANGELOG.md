@@ -1,3 +1,10 @@
+# [2.43.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.42.0...v2.43.0) (2022-06-21)
+
+
+### Features
+
+* **strm-1276:** list all projects for an installation ([0396eda](https://gitlab.com/strmprivacy/api-definitions/commit/0396edaea562d6c79a0482df00c8bf8e18eff2ad))
+
 # [2.42.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.41.0...v2.42.0) (2022-06-16)
 
 
