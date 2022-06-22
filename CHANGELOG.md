@@ -1,3 +1,10 @@
+## [2.43.1](https://gitlab.com/strmprivacy/api-definitions/compare/v2.43.0...v2.43.1) (2022-06-22)
+
+
+### Bug Fixes
+
+* **strm-1205:** add projectId to data contract related requests ([813e9f2](https://gitlab.com/strmprivacy/api-definitions/commit/813e9f22abd562ede4496bbc8ae391b977b3afbb))
+
 # [2.43.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.42.0...v2.43.0) (2022-06-21)
 
 
