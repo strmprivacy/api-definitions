@@ -51,6 +51,8 @@ message ListDataContractsRequest {
 
   // Filter on industries.
   repeated string industries = 9 [(google.api.field_behavior) = OPTIONAL];
+
+  string project_id = 10 [(google.api.field_behavior) = REQUIRED];
 }
 
 message ListDataContractsResponse {
@@ -71,6 +73,7 @@ message GetDataContractResponse {
 message CreateDataContractRequest {
   string billing_id = 1 [deprecated = true];
   strmprivacy.api.entities.v1.DataContract data_contract = 2;
+  string project_id = 3;
 }
 
 message CreateDataContractResponse {
