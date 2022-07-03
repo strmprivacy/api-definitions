@@ -12,8 +12,8 @@ pluginManagement {
         id("org.jetbrains.kotlin.jvm") version kotlinVersion
         id("com.google.cloud.artifactregistry.gradle-plugin") version "2.1.5"
         id("org.ajoberstar.grgit") version "5.0.0"
-        id("com.autonomousapps.dependency-analysis") version "1.8.0"
-        id("com.google.protobuf") version "0.8.18"
+        id("com.autonomousapps.dependency-analysis") version "1.9.0"
+        id("com.google.protobuf") version "0.8.19"
     }
 }
 
