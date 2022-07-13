@@ -1,3 +1,10 @@
+# [2.44.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.43.1...v2.44.0) (2022-07-13)
+
+
+### Features
+
+* new rtbf service ([cccd4b0](https://gitlab.com/strmprivacy/api-definitions/commit/cccd4b00484b923b86c2fceaa7039ba2087b7fbe))
+
 ## [2.43.1](https://gitlab.com/strmprivacy/api-definitions/compare/v2.43.0...v2.43.1) (2022-06-22)
 
 
