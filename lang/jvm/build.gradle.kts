@@ -3,7 +3,7 @@ import org.ajoberstar.grgit.Grgit
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 group = "io.strmprivacy.api"
-description = "Internal APIs for STRM Privacy"
+description = "APIs for STRM Privacy"
 
 val branch = System.getenv("CI_COMMIT_REF_NAME") ?: Grgit.open(mapOf("dir" to project.file("../../."))).branch.current().name
 val tag = System.getenv("CI_COMMIT_TAG")
@@ -37,23 +37,6 @@ plugins {
     id("com.google.cloud.artifactregistry.gradle-plugin")
     id("com.google.protobuf")
     id("org.ajoberstar.grgit")
-    id("com.autonomousapps.dependency-analysis")
-}
-
-dependencyAnalysis {
-    issues {
-        all {
-            onUnusedDependencies { severity("fail") }
-            onUsedTransitiveDependencies { severity("ignore") }
-            onIncorrectConfiguration { severity("ignore") }
-            onUnusedAnnotationProcessors { severity("ignore") }
-            onRedundantPlugins { severity("ignore") }
-            onAny {
-                // This is exposed explicitly to align Protobuf versions in the API definitions
-                exclude("com.google.protobuf:protobuf-java-util")
-            }
-        }
-    }
 }
 
 dependencies {
@@ -70,14 +53,17 @@ dependencies {
 
     api("com.google.protobuf:protobuf-java-util:${rootProject.ext["protobufVersion"]}")
 
-    // Needed to access types like DslList in consuming applications
-    api("com.google.protobuf:protobuf-kotlin:${rootProject.ext["protobufVersion"]}")
-
     // Coroutines are used in the health service, since it streams data
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:${rootProject.ext["kotlinXVersion"]}")
 
-    implementation(kotlin("stdlib-jdk8"))
-    testRuntimeOnly("io.grpc:grpc-netty-shaded:${rootProject.ext["grpcVersion"]}")
+    // Due to an issue in the Kotlin Compiler, with a lot of Proto files, the compiler hits an OOM
+    // Related issues:
+    // https://github.com/protocolbuffers/protobuf/issues/8732
+    // https://youtrack.jetbrains.com/issue/KT-47270
+//    // Needed to access types like DslList in consuming applications
+//    api("com.google.protobuf:protobuf-kotlin:${rootProject.ext["protobufVersion"]}")
+//    implementation(kotlin("stdlib-jdk8"))
+//    testRuntimeOnly("io.grpc:grpc-netty-shaded:${rootProject.ext["grpcVersion"]}")
 }
 
 java.sourceCompatibility = JavaVersion.VERSION_17
@@ -90,7 +76,8 @@ tasks.withType<JavaCompile> {
 tasks.withType<KotlinCompile> {
     kotlinOptions {
         jvmTarget = "17"
-        freeCompilerArgs = listOf("-Xopt-in=kotlin.RequiresOptIn")
+        // Part of Kotlin DSL, disabled due to OOM during compilation
+//        freeCompilerArgs = listOf("-Xopt-in=kotlin.RequiresOptIn")
     }
 }
 
@@ -129,9 +116,10 @@ protobuf {
     }
     generateProtoTasks {
         all().forEach {
-            it.builtins.register("kotlin") {
-                outputSubDir = "java"
-            }
+            // Part of Kotlin DSL, disabled due to OOM during compilation
+//            it.builtins.register("kotlin") {
+//                outputSubDir = "java"
+//            }
 
             it.plugins {
                 id("grpc") {

@@ -24,6 +24,7 @@ spec:
     option java_multiple_files = true;
     
     service InternalAccountService {
+      option deprecated = true;
       /* Unfortunately, this internal API is required, as we cannot set headers per request with Kotlin gRPC */
       rpc GetLegacyBillingId(GetLegacyBillingIdRequest) returns (GetLegacyBillingIdResponse);
     

@@ -710,6 +710,7 @@ message DataContract {
   string definition = 9 [(google.api.field_behavior) = REQUIRED];
   string fingerprint = 10 [(google.api.field_behavior) = OUTPUT_ONLY];
   SimpleSchemaDefinition simple_schema = 11;
+  string data_subject_field = 12;
 
   enum State {
     STATE_UNSPECIFIED = 0;
@@ -774,6 +775,7 @@ message Project {
   string id = 1;
   string name = 2;
   string description = 3;
+  string organization_id = 4;
 }
 
 enum BatchJobStateType {

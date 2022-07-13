@@ -28,6 +28,15 @@ spec:
       rpc ListProjects(ListProjectsRequest) returns (ListProjectsResponse);
       rpc CreateProject(CreateProjectRequest) returns (CreateProjectResponse);
       rpc DeleteProject(DeleteProjectRequest) returns (DeleteProjectResponse);
+      rpc GetProject(GetProjectRequest) returns (GetProjectResponse);
+    }
+    
+    message GetProjectRequest {
+      string project_id = 1;
+    }
+    
+    message GetProjectResponse {
+      strmprivacy.api.entities.v1.Project project = 1;
     }
     
     message ListProjectsRequest {}

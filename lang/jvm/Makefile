@@ -12,10 +12,10 @@ gradle.properties: ../../Makefile
 	echo "grpcVersion = ${grpc_version}" >> $@
 
 build: gradle.properties
-	./gradlew buildHealth build
+	./gradlew build
 
 publish: gradle.properties
-	./gradlew buildHealth publish
+	./gradlew publish
 
 publish-local: gradle.properties
 	./gradlew publishToMavenLocal
