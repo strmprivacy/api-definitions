@@ -538,6 +538,7 @@ message EventContract {
   EventContractMetadata metadata = 8;
   // The UUID of this event contract
   string id = 9;
+  string data_subject_field = 10;
 
   enum State {
     STATE_UNSPECIFIED = 0;
