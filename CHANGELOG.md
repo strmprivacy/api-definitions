@@ -1,3 +1,10 @@
+# [2.45.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.44.0...v2.45.0) (2022-07-14)
+
+
+### Features
+
+* **strm-1386:** data subject field in EventContract ([703c84a](https://gitlab.com/strmprivacy/api-definitions/commit/703c84a5edead70f642dd6b17bb4b13b9edaf886))
+
 # [2.44.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.43.1...v2.44.0) (2022-07-13)
 
 
