@@ -5,7 +5,7 @@
     "@semantic-release/changelog": "6.0.1",
     "@semantic-release/exec": "6.0.3",
     "@semantic-release/git": "10.0.1",
-    "@semantic-release/gitlab": "9.3.2",
+    "@semantic-release/gitlab": "9.4.1",
     "commitlint": "17.0.3",
     "conventional-changelog-conventionalcommits": "5.0.0",
     "cz-conventional-changelog": "3.3.0",
