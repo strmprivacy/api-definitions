@@ -1,0 +1,34 @@
+syntax = "proto3";
+
+package strmprivacy.api.organizations.v1;
+
+import "google/api/field_behavior.proto";
+
+option go_package = "github.com/strmprivacy/api-definitions-go/v2/api/organizations/v1;organizations";
+option java_package = "io.strmprivacy.api.organizations.v1";
+option java_multiple_files = true;
+
+service OrganizationsService {
+  rpc InviteUsers (InviteUsersRequest) returns (InviteUsersResponse);
+}
+
+message InviteUsersRequest {
+  repeated UserInvite user_invites = 1 [(google.api.field_behavior) = REQUIRED];
+  // This parameter is filled in by the management-api gateway from the identity of the caller.
+  // It must be empty when a call is made to the management-api.
+  string organization_id = 2;
+}
+
+message UserInvite {
+  string email = 1 [(google.api.field_behavior) = REQUIRED];
+}
+
+message InviteUsersResponse {
+  int64 invite_count = 1;
+  repeated UserInviteIssue issues = 2;
+
+  message UserInviteIssue {
+    UserInvite invite = 1;
+    string message = 2;
+  }
+}
