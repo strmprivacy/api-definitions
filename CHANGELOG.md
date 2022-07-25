@@ -1,3 +1,10 @@
+# [2.46.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.45.0...v2.46.0) (2022-07-25)
+
+
+### Features
+
+* **strm-1211:** create OrganizationService with InviteUsers rpc ([bf3f409](https://gitlab.com/strmprivacy/api-definitions/commit/bf3f4090e0fa47e31e462a6714e089eb45156e3b))
+
 # [2.45.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.44.0...v2.45.0) (2022-07-14)
 
 
