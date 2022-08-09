@@ -1,3 +1,10 @@
+# [2.47.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.46.0...v2.47.0) (2022-08-09)
+
+
+### Features
+
+* add projectId to update data contract ref and delete data contract request ([c080d1d](https://gitlab.com/strmprivacy/api-definitions/commit/c080d1d0fb27fca76f4dda7f4d19f7e0c0e1b2e5))
+
 # [2.46.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.45.0...v2.46.0) (2022-07-25)
 
 
