@@ -712,6 +712,7 @@ message DataContract {
   string fingerprint = 10 [(google.api.field_behavior) = OUTPUT_ONLY];
   SimpleSchemaDefinition simple_schema = 11;
   string data_subject_field = 12;
+  string project_id = 13;
 
   enum State {
     STATE_UNSPECIFIED = 0;
