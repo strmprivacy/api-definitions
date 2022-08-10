@@ -128,6 +128,7 @@ spec:
     message DeleteDataContractRequest {
       string billing_id = 1 [deprecated = true];
       string id = 2 [(google.api.field_behavior) = REQUIRED];
+      string project_id = 3 [(google.api.field_behavior) = REQUIRED];
     }
     
     message DeleteDataContractResponse {

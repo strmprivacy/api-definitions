@@ -48,6 +48,12 @@ spec:
       delete data subjects from the DSS database, and returns the deleted key links and timestamps
        */
       rpc DeleteDataSubjects(DeleteDataSubjectsRequest) returns (DeleteDataSubjectsResponse);
+    
+      /**
+      list data subjects from the DSS database
+       */
+      rpc ListDataSubjects(ListDataSubjectsRequest) returns (ListDataSubjectsResponse);
+    
     }
     
     message ListDataSubjectKeylinksRequest {
@@ -110,4 +116,24 @@ spec:
     
     message DeleteDataSubjectsResponse {
       int64 deleted_keylinks_count = 1;
+    }
+    
+    message ListDataSubjectsRequest {
+      // https://cloud.google.com/apis/design/design_patterns#list_pagination
+      string page_token = 1;
+      // maximum number of results returned. 0 means the server decides.
+      int32 page_size = 2;
+      // this parameter is filled in in the management-api from the identity of the caller
+      // it must be empty when a call is made to the management-api.
+      string organization_id = 3;
+    
+    }
+    
+    message ListDataSubjectsResponse {
+      repeated DataSubjectInfo data_subjects = 1;
+      string next_page_token = 2;
+      // for future info expansion we put the data subject in a message
+      message  DataSubjectInfo {
+        string data_subject_id = 1;
+      }
     }
