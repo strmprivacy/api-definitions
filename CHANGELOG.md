@@ -1,3 +1,10 @@
+# [2.48.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.47.0...v2.48.0) (2022-08-10)
+
+
+### Features
+
+* **STRM-1479:** dss list data subjects ([59f608b](https://gitlab.com/strmprivacy/api-definitions/commit/59f608b74d95e99b5ace1c6d4fc4153fa6e6dae8))
+
 # [2.47.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.46.0...v2.47.0) (2022-08-09)
 
 
