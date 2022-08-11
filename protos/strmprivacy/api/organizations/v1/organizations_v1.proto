@@ -13,6 +13,7 @@ option java_multiple_files = true;
 service OrganizationsService {
   rpc InviteUsers (InviteUsersRequest) returns (InviteUsersResponse);
   rpc UpdateUserRoles(UpdateUserRolesRequest) returns (UpdateUserRolesResponse);
+  rpc ListOrganizationMembers(ListOrganizationMembersRequest) returns (ListOrganizationMembersResponse);
 }
 
 message InviteUsersRequest {
@@ -45,3 +46,9 @@ message UpdateUserRolesRequest {
 }
 
 message UpdateUserRolesResponse {}
+
+message ListOrganizationMembersRequest {}
+
+message ListOrganizationMembersResponse {
+  repeated strmprivacy.api.entities.v1.User organization_members = 1;
+}
