@@ -780,6 +780,22 @@ message Project {
   string organization_id = 4;
 }
 
+// (-- api-linter: core::0148::human-names=disabled
+//     aip.dev/not-precedent . --)
+message User {
+  string email = 1;
+  string first_name = 2;
+  string last_name = 3;
+}
+
+enum UserRole {
+  USER_ROLE_UNSPECIFIED = 0;
+  ADMIN = 1;
+  PROJECT_ADMIN = 2;
+  APPROVER = 3;
+  MEMBER = 4;
+}
+
 enum BatchJobStateType {
   BATCH_JOB_STATE_TYPE_UNSPECIFIED = 0;
   PENDING = 1;
