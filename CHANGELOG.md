@@ -1,3 +1,10 @@
+# [2.49.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.48.0...v2.49.0) (2022-08-11)
+
+
+### Features
+
+* **strm-1229:** create apis for project member management; create apis for user roles ([94be0b9](https://gitlab.com/strmprivacy/api-definitions/commit/94be0b9c9b733a5c434da1b1e4fa63a0153092c7))
+
 # [2.48.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.47.0...v2.48.0) (2022-08-10)
 
 
