@@ -1,3 +1,10 @@
+# [2.50.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.49.0...v2.50.0) (2022-08-11)
+
+
+### Features
+
+* **strm-1488:** list organization members api ([4d9956c](https://gitlab.com/strmprivacy/api-definitions/commit/4d9956c3f89e20c7b7fe10afc2a0f03c5fcc5104))
+
 # [2.49.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.48.0...v2.49.0) (2022-08-11)
 
 
