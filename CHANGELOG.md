@@ -1,3 +1,10 @@
+# [2.51.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.50.0...v2.51.0) (2022-08-12)
+
+
+### Features
+
+* **strm-1231:** get user request in order to get a users role; add role to user entity ([8458176](https://gitlab.com/strmprivacy/api-definitions/commit/84581764741a77431911cac8e2c94485f6af0bd4))
+
 # [2.50.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.49.0...v2.50.0) (2022-08-11)
 
 
