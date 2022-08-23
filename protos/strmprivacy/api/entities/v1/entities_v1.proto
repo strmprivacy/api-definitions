@@ -586,7 +586,9 @@ message Label {
 message Validation {
   /* constraint: valid field path, follows avro constraints + slashes */
   string field = 1 [(google.api.field_behavior) = REQUIRED];
-  /* constraint: one of the validator types. handled by code */
+  /* constraint: one of the validator types. handled by code
+  This should become an enum
+  */
   string type = 2 [(google.api.field_behavior) = REQUIRED];
   /* constraint: a type specific definition */
   string value = 3 [(google.api.field_behavior) = REQUIRED];
@@ -704,15 +706,13 @@ message DataContract {
   State state = 3 [(google.api.field_behavior) = OUTPUT_ONLY];
   // (-- 'is' is intentional here (see https://google.aip.dev/140#booleans) --)
   bool is_public = 4;
-  string event_sequence_field = 5 [(google.api.field_behavior) = REQUIRED];
+  string key_field = 5 [(google.api.field_behavior) = REQUIRED];
   map<string, int32> pii_fields = 6;
   repeated Validation validations = 7;
   DataContractMetadata metadata = 8;
-  string definition = 9 [(google.api.field_behavior) = REQUIRED];
-  string fingerprint = 10 [(google.api.field_behavior) = OUTPUT_ONLY];
-  Schema schema = 11;
-  string data_subject_field = 12;
-  string project_id = 13;
+  Schema schema = 9;
+  string data_subject_field = 10;
+  string project_id = 11;
 
   enum State {
     STATE_UNSPECIFIED = 0;
