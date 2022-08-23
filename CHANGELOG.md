@@ -1,3 +1,10 @@
+# [2.52.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.51.0...v2.52.0) (2022-08-23)
+
+
+### Features
+
+* **strm-1533:** use schema in data contracts ([1a983c0](https://gitlab.com/strmprivacy/api-definitions/commit/1a983c05e1b74f1670a789b2f66921d6ee3d89f8))
+
 # [2.51.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.50.0...v2.51.0) (2022-08-12)
 
 
