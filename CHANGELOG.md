@@ -1,3 +1,10 @@
+## [2.52.1](https://gitlab.com/strmprivacy/api-definitions/compare/v2.52.0...v2.52.1) (2022-08-23)
+
+
+### Bug Fixes
+
+* **strm-1533:** use key_field instead of event_sequence_field ([3e6502d](https://gitlab.com/strmprivacy/api-definitions/commit/3e6502d562b5e581b2eca6918176daac5a3882c4))
+
 # [2.52.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.51.0...v2.52.0) (2022-08-23)
 
 
