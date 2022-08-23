@@ -76,6 +76,7 @@
   disabled_rules:
     # The unique identifier for consent levels is the level
     - 'core::0122::name-suffix'
+    - 'core::0203::required'
 
 - included_paths:
     - '**/account_*.proto'

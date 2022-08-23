@@ -423,7 +423,7 @@ message Schema {
   /*
   constraints: is no longer required provided simple_schema is not empty.
    */
-  string definition = 4 [(google.api.field_behavior) = REQUIRED];
+  string definition = 4;
   string fingerprint = 5 [(google.api.field_behavior) = OUTPUT_ONLY];
   SchemaMetadata metadata = 6;
   SimpleSchemaDefinition simple_schema = 7;
@@ -710,7 +710,7 @@ message DataContract {
   DataContractMetadata metadata = 8;
   string definition = 9 [(google.api.field_behavior) = REQUIRED];
   string fingerprint = 10 [(google.api.field_behavior) = OUTPUT_ONLY];
-  SimpleSchemaDefinition simple_schema = 11;
+  Schema schema = 11;
   string data_subject_field = 12;
   string project_id = 13;
 

@@ -18,6 +18,8 @@ spec:
     package strmprivacy.api.organizations.v1;
     
     import "google/api/field_behavior.proto";
+    import "strmprivacy/api/entities/v1/entities_v1.proto";
+    import "google/protobuf/field_mask.proto";
     
     option go_package = "github.com/strmprivacy/api-definitions-go/v2/api/organizations/v1;organizations";
     option java_package = "io.strmprivacy.api.organizations.v1";
@@ -25,6 +27,9 @@ spec:
     
     service OrganizationsService {
       rpc InviteUsers (InviteUsersRequest) returns (InviteUsersResponse);
+      rpc UpdateUserRoles(UpdateUserRolesRequest) returns (UpdateUserRolesResponse);
+      rpc GetUser(GetUserRequest) returns (GetUserResponse);
+      rpc ListOrganizationMembers(ListOrganizationMembersRequest) returns (ListOrganizationMembersResponse);
     }
     
     message InviteUsersRequest {
@@ -46,4 +51,28 @@ spec:
         UserInvite invite = 1;
         string message = 2;
       }
+    }
+    
+    // (-- api-linter: core::0134::request-mask-required=disabled
+    //     aip.dev/not-precedent: We will not be using the update field mask. --)
+    message UpdateUserRolesRequest {
+      // All users get all defined roles
+      repeated string emails = 1;
+      repeated strmprivacy.api.entities.v1.UserRole user_roles = 2;
+    }
+    
+    message UpdateUserRolesResponse {}
+    
+    message ListOrganizationMembersRequest {}
+    
+    message ListOrganizationMembersResponse {
+      repeated strmprivacy.api.entities.v1.User organization_members = 1;
+    }
+    
+    message GetUserRequest {
+      string email = 1;
+    }
+    
+    message GetUserResponse {
+      strmprivacy.api.entities.v1.User user = 1;
     }

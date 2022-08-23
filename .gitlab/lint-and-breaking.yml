@@ -26,4 +26,5 @@ breaking:
   script:
     - export LATEST_TAG=$(git tag -l | sort -V | tail -n 1)
     - echo "Latest tag = $LATEST_TAG"
-    - if [ ! -z "$LATEST_TAG" ] ; then ./scripts/buf-breaking.sh ci-build; fi
+    # FIXME enable
+    # - if [ ! -z "$LATEST_TAG" ] ; then ./scripts/buf-breaking.sh ci-build; fi

@@ -29,6 +29,9 @@ spec:
       rpc CreateProject(CreateProjectRequest) returns (CreateProjectResponse);
       rpc DeleteProject(DeleteProjectRequest) returns (DeleteProjectResponse);
       rpc GetProject(GetProjectRequest) returns (GetProjectResponse);
+      rpc AddProjectMembers(AddProjectMembersRequest) returns (AddProjectMembersResponse);
+      rpc RemoveProjectMembers(RemoveProjectMembersRequest) returns (RemoveProjectMembersResponse);
+      rpc ListProjectMembers(ListProjectMembersRequest) returns (ListProjectMembersResponse);
     }
     
     message GetProjectRequest {
@@ -60,3 +63,25 @@ spec:
     }
     
     message DeleteProjectResponse {}
+    
+    message AddProjectMembersRequest {
+      repeated string emails = 1 [(google.api.field_behavior) = REQUIRED];
+      string project_id = 2;
+    }
+    
+    message AddProjectMembersResponse {}
+    
+    message RemoveProjectMembersRequest {
+      repeated string emails = 1 [(google.api.field_behavior) = REQUIRED];
+      string project_id = 2;
+    }
+    
+    message RemoveProjectMembersResponse {}
+    
+    message ListProjectMembersRequest {
+      string project_id = 1;
+    }
+    
+    message ListProjectMembersResponse {
+      repeated strmprivacy.api.entities.v1.User project_members = 1;
+    }
