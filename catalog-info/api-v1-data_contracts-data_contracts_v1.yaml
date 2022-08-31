@@ -102,6 +102,14 @@ spec:
       string checksum = 3 [(google.api.field_behavior) = REQUIRED];
       // The fields to update.
       google.protobuf.FieldMask update_mask = 4 [(google.api.field_behavior) = REQUIRED];
+      ConsoleWizardStep console_wizard_step = 5;
+    
+      enum ConsoleWizardStep {
+        CONSOLE_WIZARD_STEP_UNSPECIFIED = 0;
+        SCHEMA = 1;
+        EVENT_CONTRACT = 2;
+        DATA_CONTRACT = 3;
+      }
     }
     
     message UpdateDataContractResponse {
@@ -111,7 +119,9 @@ spec:
     
     message ReviewDataContractRequest {
       string billing_id = 1 [deprecated = true];
-      string id = 2 [(google.api.field_behavior) = REQUIRED];
+      // Id or Data Contract Ref must be filled. If filled in both Id takes precedence.
+      string id = 2;
+      entities.v1.DataContractRef data_contract_ref = 3;
     }
     
     message ReviewDataContractResponse {
@@ -119,7 +129,9 @@ spec:
     
     message ActivateDataContractRequest {
       string billing_id = 1 [deprecated = true];
-      string id = 2 [(google.api.field_behavior) = REQUIRED];
+      // Id or Data Contract Ref must be filled. If filled in both Id takes precedence.
+      string id = 2;
+      entities.v1.DataContractRef data_contract_ref = 3;
     }
     
     message ActivateDataContractResponse {
@@ -127,8 +139,10 @@ spec:
     
     message DeleteDataContractRequest {
       string billing_id = 1 [deprecated = true];
-      string id = 2 [(google.api.field_behavior) = REQUIRED];
+      // Id or Data Contract Ref must be filled. If filled in both Id takes precedence.
+      string id = 2;
       string project_id = 3 [(google.api.field_behavior) = REQUIRED];
+      entities.v1.DataContractRef data_contract_ref = 4;
     }
     
     message DeleteDataContractResponse {
@@ -136,7 +150,9 @@ spec:
     
     message ArchiveDataContractRequest {
       string billing_id = 1 [deprecated = true];
-      string id = 2 [(google.api.field_behavior) = REQUIRED];
+      // Id or Data Contract Ref must be filled. If filled in both Id takes precedence.
+      string id = 2;
+      entities.v1.DataContractRef data_contract_ref = 3;
     }
     
     message ArchiveDataContractResponse {
@@ -170,10 +186,12 @@ spec:
     
     message GetDataContractSchemaCodeRequest {
       string billing_id = 1 [deprecated = true];
-      string id = 2 [(google.api.field_behavior) = REQUIRED];
+      // Id or Data Contract Ref must be filled. If filled in both Id takes precedence.
+      string id = 2;
       // (-- api-linter: core::0143::standardized-codes=disabled
       //     aip.dev/not-precedent: language here is a programming language, not a human spoken language. --)
       string language = 3 [(google.api.field_behavior) = REQUIRED];
+      entities.v1.DataContractRef data_contract_ref = 4;
     }
     
     message GetDataContractSchemaCodeResponse {

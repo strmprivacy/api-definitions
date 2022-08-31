@@ -74,7 +74,7 @@ message ExtendedStreamGroup {
 
 message MaskedFields {
   // default Murmurhash3 for empty string
-  string hash_type = 1 ;
+  string hash_type = 1;
   /*
   hashing seed
   constraints: size < 1000, unicode
@@ -88,7 +88,7 @@ message MaskedFields {
     * field_patterns should be valid values (checked by event-core)
     * the field_patterns list should have no duplicates.
    */
-  map <string, PatternList> field_patterns = 3;
+  map<string, PatternList> field_patterns = 3;
   message PatternList {
     repeated string field_patterns = 1;
   }
@@ -462,21 +462,21 @@ message Schema {
      */
     DRAFT = 1;
     /*
-    This schema is in review. It can be used once it has been approved.
-     */
-    IN_REVIEW = 2;
-    /*
     This schema is valid and complete can be used for events and batch jobs. It cannot be modified or deleted.
      */
-    ACTIVE = 3;
+    ACTIVE = 2;
     /*
     This schema is valid and complete has been active, but no more events can be sent using this schema. In-flight events are still processed.
      */
-    ARCHIVED = 4;
+    ARCHIVED = 3;
+    /*
+    This schema is in review. It can be used once it has been approved.
+     */
+    IN_REVIEW = 4;
     /*
     This schema is still under construction.
     */
-    INCOMPLETE= 5;
+    INCOMPLETE = 5;
   }
 }
 
@@ -551,21 +551,21 @@ message EventContract {
      */
     DRAFT = 1;
     /*
-    This event contract is in review. It can be used once it has been approved.
-     */
-    IN_REVIEW = 2;
-    /*
     This event contract is valid and complete can be used for events and batch jobs. It cannot be modified or deleted.
      */
-    ACTIVE = 3;
+    ACTIVE = 2;
     /*
     This event contract is valid and complete has been active, but no more events can be sent using this schema. In-flight events are still processed.
      */
-    ARCHIVED = 4;
+    ARCHIVED = 3;
+    /*
+    This event contract is in review. It can be used once it has been approved.
+     */
+    IN_REVIEW = 4;
     /*
     This event contract is still under construction.
     */
-    INCOMPLETE= 5;
+    INCOMPLETE = 5;
   }
 }
 
@@ -743,7 +743,7 @@ message DataContract {
     /*
     This data contract is still under construction.
     */
-    INCOMPLETE= 5;
+    INCOMPLETE = 5;
   }
 
   /*
@@ -851,7 +851,7 @@ enum AuthMechanism {
 }
 
 enum SchemaType {
-  SCHEMA_TYPE_UNSPECIFIED = 0 ;
+  SCHEMA_TYPE_UNSPECIFIED = 0;
   AVRO = 1;
   JSONSCHEMA = 2;
 }
