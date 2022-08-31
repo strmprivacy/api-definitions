@@ -458,21 +458,25 @@ message Schema {
   enum State {
     STATE_UNSPECIFIED = 0;
     /*
-    The initial state, this schema has not been accepted yet, can still be modified and also deleted.
+    This schema is valid and complete, but has not been accepted yet, can still be modified and also deleted.
      */
     DRAFT = 1;
     /*
-    This schema can be used for events and batch jobs. It cannot be modified or deleted.
+    This schema is in review. It can be used once it has been approved.
      */
-    ACTIVE = 2;
+    IN_REVIEW = 2;
     /*
-    This schema has been active, but no more events can be sent using this schema. In-flight events are still processed.
+    This schema is valid and complete can be used for events and batch jobs. It cannot be modified or deleted.
      */
-    ARCHIVED = 3;
+    ACTIVE = 3;
     /*
-    This schema is being reviewed. It can be approved or rejected from here.
+    This schema is valid and complete has been active, but no more events can be sent using this schema. In-flight events are still processed.
      */
-    IN_REVIEW = 4;
+    ARCHIVED = 4;
+    /*
+    This schema is still under construction.
+    */
+    INCOMPLETE= 5;
   }
 }
 
@@ -543,21 +547,25 @@ message EventContract {
   enum State {
     STATE_UNSPECIFIED = 0;
     /*
-    The initial state, this event contract has not been accepted yet, can still be modified and also deleted.
+    This event contract is valid and complete, but has not been accepted yet, can still be modified and also deleted.
      */
     DRAFT = 1;
     /*
-    This event contract can be used for events and batch jobs. It cannot be modified or deleted.
+    This event contract is in review. It can be used once it has been approved.
      */
-    ACTIVE = 2;
+    IN_REVIEW = 2;
     /*
-    This event contract has been active, but no more events can be sent using this event contract. In-flight events are still processed.
+    This event contract is valid and complete can be used for events and batch jobs. It cannot be modified or deleted.
      */
-    ARCHIVED = 3;
+    ACTIVE = 3;
     /*
-    This event contract is being reviewed. It can be approved or rejected from here.
+    This event contract is valid and complete has been active, but no more events can be sent using this schema. In-flight events are still processed.
      */
-    IN_REVIEW = 4;
+    ARCHIVED = 4;
+    /*
+    This event contract is still under construction.
+    */
+    INCOMPLETE= 5;
   }
 }
 
@@ -717,21 +725,25 @@ message DataContract {
   enum State {
     STATE_UNSPECIFIED = 0;
     /*
-    The initial state, this schema has not been accepted yet, can still be modified and also deleted.
+    This data contract is valid and complete, but has not been accepted yet, can still be modified and also deleted.
      */
     DRAFT = 1;
     /*
-    This contract is in review. It can be used once it has been approved.
+    This data contract is in review. It can be used once it has been approved.
      */
     IN_REVIEW = 2;
     /*
-    This schema can be used for events and batch jobs. It cannot be modified or deleted.
+    This data contract is valid and complete can be used for events and batch jobs. It cannot be modified or deleted.
      */
     ACTIVE = 3;
     /*
-    This schema has been active, but no more events can be sent using this schema. In-flight events are still processed.
+    This data contract is valid and complete has been active, but no more events can be sent using this data contract. In-flight events are still processed.
      */
     ARCHIVED = 4;
+    /*
+    This data contract is still under construction.
+    */
+    INCOMPLETE= 5;
   }
 
   /*
