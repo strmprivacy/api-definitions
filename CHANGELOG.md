@@ -1,3 +1,10 @@
+# [2.53.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.52.1...v2.53.0) (2022-08-31)
+
+
+### Features
+
+* **strm-1533:** refactor data contracts api flow ([c8efe08](https://gitlab.com/strmprivacy/api-definitions/commit/c8efe08f24820acef38295ddfbfe905c6b198cb7))
+
 ## [2.52.1](https://gitlab.com/strmprivacy/api-definitions/compare/v2.52.0...v2.52.1) (2022-08-23)
 
 
