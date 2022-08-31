@@ -1,3 +1,10 @@
+## [2.53.1](https://gitlab.com/strmprivacy/api-definitions/compare/v2.53.0...v2.53.1) (2022-08-31)
+
+
+### Bug Fixes
+
+* **strm-1533:** do not break state enum numbering ([0957dd4](https://gitlab.com/strmprivacy/api-definitions/commit/0957dd46c61e3384d1b1b6f8c07c54e44e7232a7))
+
 # [2.53.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.52.1...v2.53.0) (2022-08-31)
 
 
