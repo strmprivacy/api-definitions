@@ -745,31 +745,6 @@ message DataContract {
     */
     INCOMPLETE = 5;
   }
-
-  /*
-  constraints: overall size < 100000 TBD
-   */
-  message SimpleSchemaDefinition {
-    /* constraints:
-    https://avro.apache.org/docs/current/spec.html#names
-      start with [A-Za-z_]
-      subsequently contain only [A-Za-z0-9_]
-     */
-    string name = 1;
-    /*
-    constraints:
-    dot separated sequence of name constraints
-    must be Avro compatible. When absent becomes <handle>.<name>.v<version>
-     */
-    string namespace = 2;
-    /* constraints:
-    size < 5000
-     */
-    string doc = 3;
-    repeated SimpleSchemaNode nodes = 4;
-    // avro compatible name set by creator OR derived from name
-    string avro_name = 5;
-  }
 }
 
 message DataContractMetadata {
