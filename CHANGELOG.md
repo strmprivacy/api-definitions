@@ -1,3 +1,10 @@
+## [2.53.2](https://gitlab.com/strmprivacy/api-definitions/compare/v2.53.1...v2.53.2) (2022-09-20)
+
+
+### Bug Fixes
+
+* remove message SimpleSchemaDefinition from DataContract ([0ca4051](https://gitlab.com/strmprivacy/api-definitions/commit/0ca4051e33daceb3dec120fef4b36c7ed15d6280))
+
 ## [2.53.1](https://gitlab.com/strmprivacy/api-definitions/compare/v2.53.0...v2.53.1) (2022-08-31)
 
 
