@@ -10,8 +10,9 @@
             "matchStrings": [
                 "grpc_version\\s?:=\\s?(?<currentValue>[\\d.]*?)\\n"
             ],
-            "depNameTemplate": "io.grpc:grpc-protobuf",
-            "datasourceTemplate": "maven"
+            depNameTemplate: "grpc/grpc",
+            datasourceTemplate: "github-releases",
+            extractVersionTemplate: "^v(?<version>\\d+\\.\\d+\\.\\d+)",
         },
         {
             "fileMatch": [
