@@ -69,7 +69,7 @@ protodocs-clean:
 	rm -rf protodocs
 
 protodocs: protodocs-clean
-	docker run --rm -v "$(pwd)/protodocs:/out" -v "$(pwd)/protos:/protos" -v "$(pwd)/lang:/lang" pseudomuto/protoc-gen-doc ${relative_proto_files} --proto_path=lang/.common-protos --doc_opt=html,index.html
+	docker run --rm -v "$(pwd)/protodocs:/out" -v "$(pwd)/protos:/protos" -v "$(pwd)/lang:/lang" pseudomuto/protoc-gen-doc ${relative_proto_files} --proto_path=lang/.common-protos --doc_opt=markdown,docs.md
 
 # =======================
 # Build and publish tasks
