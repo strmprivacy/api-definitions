@@ -23,7 +23,7 @@
   },
   "dependencies": {
     "google-protobuf": "^3.19.1",
-    "grpc-web": "1.4.0"
+    "grpc-web": "1.4.1"
   },
   "scripts": {
     "authenticate": "cp .npmrc_template .npmrc && npm install google-artifactregistry-auth --save-dev && npx google-artifactregistry-auth .npmrc",
