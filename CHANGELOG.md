@@ -1,3 +1,10 @@
+# [2.54.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.53.2...v2.54.0) (2022-10-06)
+
+
+### Features
+
+* **strm-1766:** add rpc and messages for project deletion and states ([c4dde8f](https://gitlab.com/strmprivacy/api-definitions/commit/c4dde8fa74db6b68b2b2598e265d53ba185aca6b))
+
 ## [2.53.2](https://gitlab.com/strmprivacy/api-definitions/compare/v2.53.1...v2.53.2) (2022-09-20)
 
 
