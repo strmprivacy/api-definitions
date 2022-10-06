@@ -765,6 +765,12 @@ message Project {
   string name = 2;
   string description = 3;
   string organization_id = 4;
+  State state = 5;
+  enum State {
+    STATE_UNSPECIFIED = 0;
+    OPERATIONAL = 1;
+    PENDING_DELETION = 2;
+  }
 }
 
 // (-- api-linter: core::0148::human-names=disabled
