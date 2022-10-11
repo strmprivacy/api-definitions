@@ -6,11 +6,9 @@ include:
   - local: '.gitlab/lint-and-breaking.yml'
   - local: '.gitlab/python.yml'
   - local: '.gitlab/typescript.yml'
-  - local: '.gitlab/docs.yml'
 
 stages:
   - lint-and-breaking
-  - docs
   - generate
   - release
   - publish
