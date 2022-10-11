@@ -1,9 +1,0 @@
-site_name: 'API Definitions'
-
-nav:
-  - Home: index.md
-  - Develoment guide: dev_guide.md
-  - Future Improvements: future_improvements.md
-
-plugins:
-  - techdocs-core

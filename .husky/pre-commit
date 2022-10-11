@@ -1,4 +1,0 @@
-#!/bin/sh
-. "$(dirname "$0")/_/husky.sh"
-
-./scripts/generate-catalog-info-yamls.sh && git add catalog-info catalog-info.yaml

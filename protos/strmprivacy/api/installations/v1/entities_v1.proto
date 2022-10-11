@@ -66,9 +66,14 @@ message InstalledComponentState {
 
 enum InstallationType {
   INSTALLATION_TYPE_UNSPECIFIED = 0;
+  // Managed Data Plane by STRM Privacy
   SAAS = 1;
+  // Any Kubernetes cluster
   SELF_HOSTED = 2;
+  // AWS Marketplace Bring Your Own License
   AWS_MARKETPLACE = 3;
+  // AWS Marketplace Pay As You Go
+  AWS_MARKETPLACE_PAYG = 4;
 }
 
 enum InstalledComponentType {
