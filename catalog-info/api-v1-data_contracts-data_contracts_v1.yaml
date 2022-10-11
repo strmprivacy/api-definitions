@@ -71,7 +71,18 @@ spec:
     }
     
     message ListDataContractsResponse {
-      repeated strmprivacy.api.entities.v1.DataContract data_contracts = 1;
+      repeated strmprivacy.api.entities.v1.DataContract data_contracts = 1 [deprecated=true];
+    
+      // if this field contains data, the deprecated field above does not.
+      // #1 will be removed at a later stage.
+      // (-- api-linter: core::0132::response-unknown-fields=disabled
+      //     aip.dev/not-precedent: We really need this field because a data-contract is mutable
+      // as long as the state is not active --)
+      repeated DataContractAndChecksum data_contracts_and_checksums = 2;
+      message DataContractAndChecksum {
+        strmprivacy.api.entities.v1.DataContract data_contract = 1;
+        string checksum = 2;
+      }
     }
     
     message GetDataContractRequest {

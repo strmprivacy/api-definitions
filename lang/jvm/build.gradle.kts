@@ -142,6 +142,7 @@ tasks.withType(Jar::class) {
 val sourcesJar = tasks.register("sourcesJar", Jar::class) {
     from(sourceSets["main"].allSource)
     archiveClassifier.set("sources")
+    duplicatesStrategy = DuplicatesStrategy.INCLUDE
 
     manifest {
         attributes["Implementation-Version"] = rootProject.version
