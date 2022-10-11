@@ -1,3 +1,10 @@
+# [2.55.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.54.0...v2.55.0) (2022-10-11)
+
+
+### Features
+
+* **strm-1819:** added checksum to ListDataContractsResponse ([a2e65df](https://gitlab.com/strmprivacy/api-definitions/commit/a2e65df5b7d7ef2d42ab38660b544ff27b7ad8e2))
+
 # [2.54.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.53.2...v2.54.0) (2022-10-06)
 
 
