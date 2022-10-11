@@ -1,3 +1,10 @@
+# [2.56.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.55.0...v2.56.0) (2022-10-11)
+
+
+### Features
+
+* **strm-1791:** add installation type aws payg ([b41981a](https://gitlab.com/strmprivacy/api-definitions/commit/b41981a67efa37a88904d0fe91a1ea72a74594c0))
+
 # [2.55.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.54.0...v2.55.0) (2022-10-11)
 
 
