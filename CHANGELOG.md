@@ -1,3 +1,10 @@
+# [2.57.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.56.0...v2.57.0) (2022-10-12)
+
+
+### Features
+
+* **strm-1777:** add installation type to image requests to toggle the image field server side ([19491e2](https://gitlab.com/strmprivacy/api-definitions/commit/19491e26e6decf9560eec33ea2c418f17c684397))
+
 # [2.56.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.55.0...v2.56.0) (2022-10-11)
 
 
