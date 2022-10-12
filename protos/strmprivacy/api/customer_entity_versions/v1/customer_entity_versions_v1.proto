@@ -3,6 +3,7 @@ syntax = "proto3";
 package strmprivacy.api.customer_entity_versions.v1;
 
 import "google/api/field_behavior.proto";
+import "strmprivacy/api/installations/v1/entities_v1.proto";
 
 option go_package = "github.com/strmprivacy/api-definitions-go/v2/api/customer_entity_versions/v1;customer_entity_versions";
 option java_package = "io.strmprivacy.api.customer_entity_versions.v1";
@@ -16,11 +17,12 @@ service CustomerEntityVersionsService {
 }
 
 message GetBatchExporterImageRequest {
+  installations.v1.InstallationType installation_type = 1 [(google.api.field_behavior) = REQUIRED];
 }
 
 message GetBatchExporterImageResponse {
   string image = 1 [(google.api.field_behavior) = REQUIRED];
-  string aws_marketplace_image = 2 [(google.api.field_behavior) = REQUIRED];
+  string aws_marketplace_image = 2 [(google.api.field_behavior) = REQUIRED, deprecated = true];
 }
 
 message GetKafkaExporterImageRequest {
@@ -31,17 +33,19 @@ message GetKafkaExporterImageResponse {
 }
 
 message GetDecrypterImageRequest {
+  installations.v1.InstallationType installation_type = 1 [(google.api.field_behavior) = REQUIRED];
 }
 
 message GetDecrypterImageResponse {
   string image = 1 [(google.api.field_behavior) = REQUIRED];
-  string aws_marketplace_image = 2 [(google.api.field_behavior) = REQUIRED];
+  string aws_marketplace_image = 2 [(google.api.field_behavior) = REQUIRED, deprecated = true];
 }
 
 message GetBatchJobRunnerImageRequest {
+  installations.v1.InstallationType installation_type = 1 [(google.api.field_behavior) = REQUIRED];
 }
 
 message GetBatchJobRunnerImageResponse {
   string image = 1 [(google.api.field_behavior) = REQUIRED];
-  string aws_marketplace_image = 2 [(google.api.field_behavior) = REQUIRED];
+  string aws_marketplace_image = 2 [(google.api.field_behavior) = REQUIRED, deprecated = true];
 }
