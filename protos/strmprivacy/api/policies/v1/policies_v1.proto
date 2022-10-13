@@ -1,0 +1,58 @@
+syntax = "proto3";
+
+package strmprivacy.api.policies.v1;
+
+import "google/api/field_behavior.proto";
+import "google/protobuf/field_mask.proto";
+import "strmprivacy/api/entities/v1/entities_v1.proto";
+
+option go_package = "github.com/strmprivacy/api-definitions-go/v2/api/policies/v1;policies";
+option java_package = "io.strmprivacy.api.policies.v1";
+option java_multiple_files = true;
+
+service PoliciesService {
+  rpc ListPolicies (ListPoliciesRequest) returns (ListPoliciesResponse);
+  rpc GetPolicy (GetPolicyRequest) returns (GetPolicyResponse);
+  rpc DeletePolicy (DeletePolicyRequest) returns (DeletePolicyResponse);
+  rpc CreatePolicy (CreatePolicyRequest) returns (CreatePolicyResponse);
+  rpc UpdatePolicy (UpdatePolicyRequest) returns (UpdatePolicyResponse);
+}
+
+message ListPoliciesRequest {
+}
+
+message ListPoliciesResponse {
+  repeated strmprivacy.api.entities.v1.Policy policies = 1;
+}
+
+message DeletePolicyRequest {
+  string policy_id = 1 [(google.api.field_behavior) = REQUIRED];
+}
+
+message DeletePolicyResponse {
+}
+
+message CreatePolicyRequest {
+  strmprivacy.api.entities.v1.Policy policy = 1;
+}
+
+message CreatePolicyResponse {
+  strmprivacy.api.entities.v1.Policy policy = 1;
+}
+
+message UpdatePolicyRequest {
+  strmprivacy.api.entities.v1.Policy policy = 1;
+  google.protobuf.FieldMask update_mask = 2 [(google.api.field_behavior) = REQUIRED];
+}
+
+message UpdatePolicyResponse {
+  strmprivacy.api.entities.v1.Policy policy = 1;
+}
+
+message GetPolicyRequest {
+  string policy_id = 1 [(google.api.field_behavior) = REQUIRED];
+}
+
+message GetPolicyResponse {
+  strmprivacy.api.entities.v1.Policy policy = 1;
+}

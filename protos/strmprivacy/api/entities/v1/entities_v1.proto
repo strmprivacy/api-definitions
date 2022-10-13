@@ -55,6 +55,7 @@ message Stream {
    */
   MaskedFields masked_fields = 10;
   string kafka_topic = 11 [(google.api.field_behavior) = OUTPUT_ONLY];
+  string policy_id = 12;
 }
 
 message ExtendedStream {
@@ -102,7 +103,7 @@ message Limits {
 }
 
 /*
-A Stream of key-link, encryption-key messages created from a source stream
+A Stream of key-link, encryption-key, policy-id messages created from a source stream
 with the same `name`.
  */
 message KeyStream {
@@ -399,6 +400,21 @@ message ConsentLevelMappingRef {
   string project_id = 3 [(google.api.field_behavior) = OUTPUT_ONLY];
 }
 
+message Policy {
+  string id = 1 [(google.api.field_behavior) = REQUIRED];
+  string name = 2 [(google.api.field_behavior) = REQUIRED];
+  string description = 3;
+  string legal_grounds = 4;
+  int32 retention_days = 5 [(google.api.field_behavior) = REQUIRED];
+  State state = 6;
+  enum State {
+    STATE_UNSPECIFIED = 0;
+    STATE_DRAFT = 1;
+    STATE_ACTIVE = 2;
+    STATE_ARCHIVED = 3;
+  }
+}
+
 message WindowedEventCount {
   google.protobuf.Timestamp start_time = 1 [(google.api.field_behavior) = OUTPUT_ONLY];
   google.protobuf.Timestamp end_time = 2 [(google.api.field_behavior) = OUTPUT_ONLY];
@@ -633,6 +649,7 @@ message BatchJob {
   EncryptedData encrypted_data = 7 [(google.api.field_behavior) = REQUIRED];
   EncryptionKeysData encryption_keys_data = 8 [(google.api.field_behavior) = REQUIRED];
   repeated DerivedData derived_data = 9 [(google.api.field_behavior) = OPTIONAL];
+  string policy_id = 10 [(google.api.field_behavior) = REQUIRED];
 }
 
 message ExtendedBatchJob {
