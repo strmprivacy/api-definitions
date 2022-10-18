@@ -1,3 +1,10 @@
+# [2.58.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.57.0...v2.58.0) (2022-10-18)
+
+
+### Features
+
+* **strm-1833:** policies added ([2d08c01](https://gitlab.com/strmprivacy/api-definitions/commit/2d08c01355289662679de90cfe35181374fc38db))
+
 # [2.57.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.56.0...v2.57.0) (2022-10-12)
 
 
