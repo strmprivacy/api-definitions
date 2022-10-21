@@ -1,3 +1,10 @@
+# [2.59.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.58.0...v2.59.0) (2022-10-21)
+
+
+### Features
+
+* **strm-1877:** add FieldMetaData and Micro-aggregation ([eed9e5c](https://gitlab.com/strmprivacy/api-definitions/commit/eed9e5c7907a8912e739b85f07a6c4af50420be8))
+
 # [2.58.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.57.0...v2.58.0) (2022-10-18)
 
 
