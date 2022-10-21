@@ -22,7 +22,8 @@ message GetBatchJobRequest {
 }
 
 message GetBatchJobResponse {
-  entities.v1.BatchJob batch_job = 1 [(google.api.field_behavior) = REQUIRED];
+  entities.v1.BatchJob batch_job = 1 [deprecated = true];
+  BatchJobWrapper job = 2 [(google.api.field_behavior) = REQUIRED];
 }
 
 message ListBatchJobsRequest {
@@ -30,16 +31,21 @@ message ListBatchJobsRequest {
   string project_id = 2 [(google.api.field_behavior) = REQUIRED];
 }
 
+// (-- api-linter: core::0132::response-unknown-fields=disabled
+//     aip.dev/not-precedent: we prefer this approach over creating a new service --)
 message ListBatchJobsResponse {
-  repeated entities.v1.BatchJob batch_jobs = 1;
+  repeated entities.v1.BatchJob batch_jobs = 1 [deprecated = true];
+  repeated BatchJobWrapper jobs = 2 [(google.api.field_behavior) = REQUIRED];
 }
 
 message CreateBatchJobRequest {
-  entities.v1.BatchJob batch_job = 1 [(google.api.field_behavior) = REQUIRED];
+  entities.v1.BatchJob batch_job = 1 [deprecated = true];
+  BatchJobWrapper job = 2 [(google.api.field_behavior) = REQUIRED];
 }
 
 message CreateBatchJobResponse {
-  entities.v1.BatchJob batch_job = 1 [(google.api.field_behavior) = REQUIRED];
+  entities.v1.BatchJob batch_job = 1 [(google.api.field_behavior) = REQUIRED, deprecated = true];
+  BatchJobWrapper job = 2 [(google.api.field_behavior) = REQUIRED];
 }
 
 message DeleteBatchJobRequest {
@@ -57,4 +63,11 @@ message UpdateBatchJobStateRequest {
 }
 
 message UpdateBatchJobStateResponse {
+}
+
+message BatchJobWrapper {
+  oneof job {
+    entities.v1.BatchJob encryption_batch_job = 1;
+    entities.v1.MicroAggregationBatchJob micro_aggregation_batch_job = 2;
+  }
 }

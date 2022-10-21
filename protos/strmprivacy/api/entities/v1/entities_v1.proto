@@ -634,7 +634,7 @@ message SinkTree {
 
 /*********************************
  Batch Jobs
- Currently we  only support:
+ Currently we only support:
  - CSV as DataFormat type
  - a clean database for every batch job
  - CSV files with a header row, because the header is needed to get the field names
@@ -653,7 +653,11 @@ message BatchJob {
 }
 
 message ExtendedBatchJob {
-  strmprivacy.api.entities.v1.BatchJob batch_job = 1;
+  BatchJob batch_job = 1 [deprecated = true];
+  oneof job {
+    BatchJob encryption_batch_job = 2;
+    MicroAggregationBatchJob micro_aggregation_batch_job = 3;
+  }
 }
 
 message BatchJobRef {
@@ -716,6 +720,38 @@ message DerivedData {
   MaskedFields masked_fields = 4;
 }
 
+/*********************************
+ K-Member Micro-aggregation Batch Job
+ Currently we only support:
+ - CSV as DataFormat type
+ - CSV files with a header row, because the header is needed to get the field names
+ - Numerical, Categorical & Ordinal data
+*********************************/
+message MicroAggregationBatchJob {
+  BatchJobRef ref = 1 [(google.api.field_behavior) = REQUIRED];
+  repeated BatchJobState states = 2 [(google.api.field_behavior) = REQUIRED];
+  DataConnectorAndType source_data = 3 [(google.api.field_behavior) = REQUIRED];
+  DataConnectorAndType target_data = 4 [(google.api.field_behavior) = REQUIRED];
+  DataContractRef data_contract_ref = 5 [(google.api.field_behavior) = REQUIRED];
+  // Configuration specifically for the aggregation algorithm.
+  MicroAggregationConfig aggregation_config = 6 [(google.api.field_behavior) = REQUIRED];
+  // Metrics reported by the aggregation algorithm after successful completion.
+  MicroAggregationMetrics metrics = 7 [(google.api.field_behavior) = OUTPUT_ONLY];
+}
+
+message MicroAggregationConfig {
+  // The desired k-anonymity level.
+  int32 minimum_k_anonymity = 1 [(google.api.field_behavior) = REQUIRED];
+  // If specified, these fields will be used to aggregate on. Otherwise, fields specified as Quasi Identifiers in the data contract are used instead.
+  repeated string aggregation_fields = 2;
+}
+
+message MicroAggregationMetrics {
+  int32 total_clusters = 1 [(google.api.field_behavior) = OUTPUT_ONLY];
+  float info_loss = 2 [(google.api.field_behavior) = OUTPUT_ONLY];
+  map<int32, int32> cluster_size_histogram = 3 [(google.api.field_behavior) = OUTPUT_ONLY];
+}
+
 message DataContractRef {
   /* constraints: generic name constraint, globally unique */
   string handle = 1 [(google.api.field_behavior) = REQUIRED];
@@ -732,12 +768,13 @@ message DataContract {
   // (-- 'is' is intentional here (see https://google.aip.dev/140#booleans) --)
   bool is_public = 4;
   string key_field = 5 [(google.api.field_behavior) = REQUIRED];
-  map<string, int32> pii_fields = 6;
+  map<string, int32> pii_fields = 6 [deprecated = true];
   repeated Validation validations = 7;
   DataContractMetadata metadata = 8;
   Schema schema = 9;
   string data_subject_field = 10;
   string project_id = 11;
+  map<string, FieldMetadata> field_metadata = 12;
 
   enum State {
     STATE_UNSPECIFIED = 0;
@@ -761,6 +798,39 @@ message DataContract {
     This data contract is still under construction.
     */
     INCOMPLETE = 5;
+  }
+}
+
+message FieldMetadata {
+  string field_name = 1;
+  // PII-related metadata if a field is a PII field.
+  PIIConfig pii_config = 2;
+  // Whether a field contains categorical values only.
+  bool is_categorical = 3;
+  // If a field contains ordinal values, defines the possible values and their order.
+  OrdinalConfig ordinal_config = 4;
+  // How null values should generally be dealt with for a field.
+  NullHandlingConfig null_handling_config = 5;
+
+  message PIIConfig {
+    int32 purpose_level = 1 [(google.api.field_behavior) = REQUIRED];
+    bool is_quasi_id = 2;
+  }
+
+  message OrdinalConfig {
+    repeated string ordered_values = 1 [(google.api.field_behavior) = REQUIRED];
+  }
+
+  message NullHandlingConfig {
+    NullHandlingType type = 1 [(google.api.field_behavior) = REQUIRED];
+    // If the type is DEFAULT_VALUE, the desired default value must be specified.
+    string default_value = 2;
+
+    enum NullHandlingType {
+      NULL_HANDLING_TYPE_UNSPECIFIED = 0;
+      DROP_RECORD = 1;
+      DEFAULT_VALUE = 2;
+    }
   }
 }
 

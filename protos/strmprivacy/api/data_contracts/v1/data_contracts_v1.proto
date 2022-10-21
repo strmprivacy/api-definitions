@@ -22,6 +22,7 @@ service DataContractsService {
   rpc GetDataContractSchemaCode (GetDataContractSchemaCodeRequest) returns (GetDataContractSchemaCodeResponse);
   rpc GetDataContractSchemaDefinition (GetDataContractSchemaDefinitionRequest) returns (GetDataContractSchemaDefinitionResponse);
   rpc ValidateDataContractsMaskedFields (ValidateDataContractsMaskedFieldsRequest) returns (ValidateDataContractsMaskedFieldsResponse);
+  rpc SimpleSchemaDryRun (SimpleSchemaDryRunRequest ) returns (SimpleSchemaDryRunResponse);
 }
 
 // List Event Contracts, with optional filters. All filters behave as AND conditions. OR is not possible.
@@ -203,4 +204,11 @@ message GetDataContractSchemaDefinitionRequest {
 
 message GetDataContractSchemaDefinitionResponse {
   string definition = 1;
+}
+
+message SimpleSchemaDryRunRequest  {
+  strmprivacy.api.entities.v1.Schema.SimpleSchemaDefinition simple_schema_definition = 1;
+}
+message SimpleSchemaDryRunResponse {
+  strmprivacy.api.entities.v1.Schema.SimpleSchemaDefinition simple_schema_definition = 1;
 }
