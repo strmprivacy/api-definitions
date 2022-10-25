@@ -9,11 +9,16 @@ option java_package = "io.strmprivacy.api.account.v1";
 option java_multiple_files = true;
 
 service AccountService {
+  // Retrieve information regarding quotas, and the user context
   rpc GetAccountDetails (GetAccountDetailsRequest) returns (GetAccountDetailsResponse);
   rpc GetLegacyBillingId (GetLegacyBillingIdRequest) returns (GetLegacyBillingIdResponse);
+  // Claim and create a handle for your user
   rpc CreateAccountHandle (CreateAccountHandleRequest) returns (CreateAccountHandleResponse);
+  // Start a checkout to subscribe to a specific subscription
   rpc InitializeCheckout (InitializeCheckoutRequest) returns (InitializeCheckoutResponse);
+  // Get the Stripe Checkout Status for an ongoing checkout
   rpc GetCheckoutStatus (GetCheckoutStatusRequest) returns (GetCheckoutStatusResponse);
+
   rpc InitializeCustomerPortal (InitializeCustomerPortalRequest) returns (InitializeCustomerPortalResponse);
 
   // (-- api-linter: core::0134::synonyms=disabled

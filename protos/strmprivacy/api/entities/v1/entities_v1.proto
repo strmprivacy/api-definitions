@@ -768,6 +768,8 @@ message DataContract {
   // (-- 'is' is intentional here (see https://google.aip.dev/140#booleans) --)
   bool is_public = 4;
   string key_field = 5 [(google.api.field_behavior) = REQUIRED];
+  // PII Fields as a map, where the key is the field path (i.e. producerSessionId or customer/id) and the
+  // value is the purpose level, provided as an integer
   map<string, int32> pii_fields = 6 [deprecated = true];
   repeated Validation validations = 7;
   DataContractMetadata metadata = 8;
