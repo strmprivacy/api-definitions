@@ -1,6 +1,8 @@
 include:
   - project: 'strmprivacy/tools-and-utilities/ci-templates'
     file: '/common/semantic-release.yml'
+  - project: 'strmprivacy/tools-and-utilities/ci-templates'
+    file: '/rules/rules.yml'
   - local: '.gitlab/go.yml'
   - local: '.gitlab/jvm.yml'
   - local: '.gitlab/lint-and-breaking.yml'
@@ -16,3 +18,39 @@ stages:
 release:
   stage: release
   extends: .semantic-release
+
+
+
+generate:
+  stage: generate
+  image:
+    name: bufbuild/buf:1.9.0
+    entrypoint: [""]
+  script:
+    - apk add --update make
+    - make generate
+  artifacts:
+    paths:
+      - "lang/**/src"
+    reports:
+      dotenv: VERSION.env
+  needs:
+    - buf-lint
+    - aip-guidelines-lint
+    - breaking
+  except:
+    - master
+
+bsr-push:
+  stage: publish
+  extends:
+    - .only-tags
+  image:
+    name: bufbuild/buf:1.9.0
+    entrypoint: [ "" ]
+  script:
+    - apk add --update make
+    - cd protos
+    - buf push --tag "${CI_COMMIT_TAG}"
+  needs:
+    - generate

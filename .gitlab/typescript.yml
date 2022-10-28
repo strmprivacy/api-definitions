@@ -2,38 +2,19 @@ include:
   - project: 'strmprivacy/tools-and-utilities/ci-templates'
     file: '/nodejs/publish.yml'
 
-generate-typescript:
-  stage: generate
-  image: namely/protoc-all:1.42_1
-  before_script:
-    - apt-get install -y make unzip
-    # Ensure that the protoc compiler has the Google protos
-    - make default-google-dependencies
-  script:
-    - make typescript-generate
-  artifacts:
-    paths:
-      - lang/typescript
-  needs:
-    - buf-lint
-    - aip-guidelines-lint
-    - breaking
-  except:
-    - master
-
 .typescript-needs:
   stage: publish
-  needs:
-    - generate-typescript
   dependencies:
-    - generate-typescript
+    - generate
+  needs:
+    - generate
 
 typescript-artifact-build:
   extends:
     - .typescript-needs
     - .nodejs
   script:
-    - make typescript-build-without-generate
+    - make typescript-build
   only:
     - /^renovate\/build-only.*$/
 

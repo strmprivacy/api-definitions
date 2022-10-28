@@ -4,7 +4,6 @@ package strmprivacy.internal_api.usage.v1;
 
 import "google/api/field_behavior.proto";
 import "google/protobuf/timestamp.proto";
-import "strmprivacy/api/entities/v1/entities_v1.proto";
 
 option go_package = "github.com/strmprivacy/api-definitions-go/v2/internal_api/usage/v1;usage";
 option java_package = "io.strmprivacy.internal_api.usage.v1";

@@ -1,72 +1,56 @@
-.PHONY: clean development build banaan
+.PHONY: clean build templates
 
 top_level_package_name := strmprivacy
 python_version_files := VERSION requirements.txt requirements-dev.txt
+generated_dir := src
 
-VERSION: ../../Makefile ../../VERSION.env
+${generated_dir}/VERSION: ../../Makefile ../../VERSION.env
 	. ./../../VERSION.env && echo "$$VERSION" > $@
 
-requirements.txt: ../../Makefile
+${generated_dir}/requirements.txt: ../../Makefile
 	echo "grpcio==${grpc_version}" > $@
 
-requirements-dev.txt: ../../Makefile
+${generated_dir}/requirements-dev.txt: ../../Makefile
 	echo "grpcio-tools==${grpc_version}" > $@ && \
 	echo "keyring" >> $@ && \
 	echo "keyrings.google-artifactregistry-auth" >> $@ && \
 	echo "twine" >> $@
 
-clean: clean-build clean-pyc
+${generated_dir}/setup.py:
+	cp setup-template.py ${generated_dir}/setup.py
 
-clean-build:
-	rm -f ${python_version_files}
-	rm -fr ${top_level_package_name}
-	rm -fr dist/
-	rm -fr build/
-	rm -fr .eggs/
-	find . -name '*.egg-info' -exec rm -fr {} +
-	find . -name '*.egg' -exec rm -f {} +
+clean:
+	rm -rf ${generated_dir}
 
-clean-pyc:
-	find . -name '*.pyc' -exec rm -f {} +
-	find . -name '*.pyo' -exec rm -f {} +
-	find . -name '*~' -exec rm -f {} +
-	find . -name '__pycache__' -exec rm -fr {} +
+templates: ${generated_dir} ${generated_dir}/setup.py ${generated_dir}/requirements.txt ${generated_dir}/requirements-dev.txt ${generated_dir}/VERSION
 
-development: ${python_version_files}
-	python -m pip install -r requirements-dev.txt
-
-generate: clean development
-		python -m grpc_tools.protoc ${proto_files} \
-		--proto_path=${protos_dir} \
-		--proto_path=${common_protos} \
-		--python_out=. \
-		--grpc_python_out=. && \
-	find ${top_level_package_name} -type d -exec touch "{}/__init__.py" \;
-
-generate-public: clean development
-		python -m grpc_tools.protoc ${public_proto_files} \
-		--proto_path=${protos_dir} \
-		--proto_path=${common_protos} \
-		--python_out=. \
-		--grpc_python_out=. && \
-	find ${top_level_package_name} -type d -exec touch "{}/__init__.py" \;
-
-build:
-	python setup.py sdist
+# Build depends on the existence of the lang/python/strmprivacy dir
+build: templates
+	cd ${generated_dir}; \
+	python -m pip install -r requirements-dev.txt; \
+	find ${top_level_package_name} -type d -exec touch "{}/__init__.py" \; ; \
+	python setup.py sdist; \
 	python setup.py bdist_wheel
-	ls -l dist
 
-publish-test: generate build
-	twine upload --repository-url "https://europe-west4-python.pkg.dev/stream-machine-development/python-test/" dist/*
+build-public: templates
+	cd ${generated_dir}; \
+	rm -rf strmprivacy/internal_api; \
+	python -m pip install -r requirements-dev.txt; \
+	find ${top_level_package_name} -type d -exec touch "{}/__init__.py" \; ; \
+	python setup.py sdist; \
+	python setup.py bdist_wheel
 
-publish: generate build
-	twine upload --repository-url "https://europe-west4-python.pkg.dev/stream-machine-development/python/" dist/*
+publish-test: build
+	twine upload --repository-url "https://europe-west4-python.pkg.dev/stream-machine-development/python-test/" ${generated_dir}/dist/*
 
-publish-public-test: generate-public build
-	twine upload --repository testpypi dist/*
+publish: build
+	twine upload --repository-url "https://europe-west4-python.pkg.dev/stream-machine-development/python/" ${generated_dir}/dist/*
 
-publish-public: generate-public build
-	twine upload dist/*
+publish-public-test: build-public
+	twine upload --repository testpypi ${generated_dir}/dist/*
 
-install: generate build ## install the package to the active Python's site-packages
-	python setup.py install
+publish-public: build-public
+	twine upload ${generated_dir}/dist/*
+
+install: build ## install the package to the active Python's site-packages
+	cd ${generated_dir}; python setup.py install

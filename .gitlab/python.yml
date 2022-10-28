@@ -4,10 +4,10 @@ include:
 
 .python-needs:
   stage: publish
+  dependencies:
+    - generate
   needs:
-    - buf-lint
-    - aip-guidelines-lint
-    - breaking
+    - generate
 
 python-artifact-build:
   extends:

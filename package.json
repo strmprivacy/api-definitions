@@ -18,7 +18,8 @@
   },
   "release": {
     "branches": [
-      "master"
+      "master",
+      "feature/strm-1909"
     ],
     "plugins": [
       "@semantic-release/commit-analyzer",
@@ -28,6 +29,14 @@
         "@google/semantic-release-replace-plugin",
         {
           "replacements": [
+            {
+              "files": [
+                "protos/buf.gen.yaml"
+              ],
+              "from": "module=github.com/strmprivacy/api-definitions-go/v.*",
+              "to": "module=github.com/strmprivacy/api-definitions-go/v${nextRelease.version.split('.')[0]}",
+              "countMatches": true
+            },
             {
               "files": [
                 "Makefile"

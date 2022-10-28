@@ -17,6 +17,9 @@ ij_wrap_on_typing = false
 indent_size = 4
 indent_style = tab
 
+[*.json]
+indent_size = 2
+
 [*.css]
 ij_css_align_closing_brace_with_properties = false
 ij_css_blank_lines_around_nested_selector = 1

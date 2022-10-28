@@ -8,10 +8,10 @@ include:
 
 .jvm-needs:
   stage: publish
+  dependencies:
+    - generate
   needs:
-    - buf-lint
-    - aip-guidelines-lint
-    - breaking
+    - generate
 
 jvm-artifact-build:
   extends:

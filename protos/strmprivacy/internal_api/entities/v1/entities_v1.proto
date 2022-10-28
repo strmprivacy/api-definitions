@@ -2,7 +2,6 @@ syntax = "proto3";
 
 package strmprivacy.internal_api.entities.v1;
 
-import "strmprivacy/api/batch_jobs/v1/batch_jobs_v1.proto";
 import "strmprivacy/api/entities/v1/entities_v1.proto";
 
 option go_package = "github.com/strmprivacy/api-definitions-go/v2/internal_api/entities/v1;entities";

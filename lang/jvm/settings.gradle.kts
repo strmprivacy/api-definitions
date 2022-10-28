@@ -13,7 +13,6 @@ pluginManagement {
         id("com.google.cloud.artifactregistry.gradle-plugin") version "2.2.0"
         id("org.ajoberstar.grgit") version "5.0.0"
         id("com.autonomousapps.dependency-analysis") version "1.13.1"
-        id("com.google.protobuf") version "0.9.1"
     }
 }
 

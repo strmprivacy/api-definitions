@@ -4,28 +4,6 @@ include:
   - project: 'strmprivacy/tools-and-utilities/ci-templates'
     file: '/go/publish.yml'
 
-generate-go:
-  stage: generate
-  image: namely/protoc-all:1.42_1
-  before_script:
-    - apt-get install -y make unzip
-    # Ensure that the protoc compiler has the Google protos
-    - make default-google-dependencies
-  script:
-    - make go-generate
-  artifacts:
-    paths:
-      - lang/go/build
-      - lang/go/VERSION
-    reports:
-      dotenv: VERSION.env
-  needs:
-    - buf-lint
-    - aip-guidelines-lint
-    - breaking
-  except:
-    - master
-
 .go-needs:
   stage: publish
   variables:
@@ -33,16 +11,16 @@ generate-go:
     GIT_USER_NAME: "strmprivacy-io"
     REPOSITORY_URL: "https://git:${GITHUB_TOKEN}@github.com/strmprivacy/api-definitions-go.git"
   dependencies:
-    - generate-go
+    - generate
   needs:
-    - generate-go
+    - generate
 
-go-setup:
+go-build:
   extends:
     - .go-needs
     - .go
   script:
-    - make go-setup
+    - make go-build
   only:
     - /^renovate\/build-only.*$/
 
@@ -51,13 +29,13 @@ go-repo-update:
     - .go-needs
     - .go-repo-update
   script:
-    - make go-setup
-    - cp -f -r lang/go/build/* lang/go/README.md lang/go/VERSION lang/go/LICENSE "${CI_COMMIT_SHA}"
+    - make go-build
+    - cp -f -r lang/go/src/* "${CI_COMMIT_SHA}"
 
 go-repo-update-and-tag:
   extends:
     - .go-needs
     - .go-repo-update-and-tag
   script:
-    - make go-setup
-    - cp -f -r lang/go/build/* lang/go/README.md lang/go/VERSION lang/go/LICENSE "${CI_COMMIT_SHA}"
+    - make go-build
+    - cp -f -r lang/go/src/* "${CI_COMMIT_SHA}"

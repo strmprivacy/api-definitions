@@ -4,7 +4,6 @@ package strmprivacy.api.organizations.v1;
 
 import "google/api/field_behavior.proto";
 import "strmprivacy/api/entities/v1/entities_v1.proto";
-import "google/protobuf/field_mask.proto";
 
 option go_package = "github.com/strmprivacy/api-definitions-go/v2/api/organizations/v1;organizations";
 option java_package = "io.strmprivacy.api.organizations.v1";

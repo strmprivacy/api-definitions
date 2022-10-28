@@ -1,4 +1,4 @@
-.PHONY: intellij clean build publish buf-breaking buf-lint api-lint default-protobuf-dependencies protodocs protodocs-clean clean-common-protos
+.PHONY: intellij clean build publish buf-breaking buf-lint api-lint default-protobuf-dependencies protodocs protodocs-clean clean-common-protos generate
 
 # =======================
 # Variables
@@ -59,8 +59,8 @@ intellij: ${common_protos}/protobuf-java.jar ${common_protos}/proto-google-commo
 buf-breaking:
 	bash ./scripts/buf-breaking.sh
 
-buf-lint: ${common_protos}/google/api ${common_protos}/google/protobuf
-	buf lint
+buf-lint:
+	cd protos; buf lint
 
 api-lint:
 	docker run --rm -v "${pwd}:/workspace" europe-west4-docker.pkg.dev/stream-machine-development/docker/build/google-api-linter:1.29.3 ./scripts/api-linter.sh
@@ -74,8 +74,16 @@ protodocs: protodocs-clean
 # =======================
 # Build and publish tasks
 # =======================
-clean: clean-common-protos jvm-clean python-clean go-clean typescript-clean
-build: default-google-dependencies jvm-build python-build go-build typescript-build
+clean: jvm-clean python-clean go-clean typescript-clean
+build: jvm-build python-build go-build typescript-build
+
+# -----------------
+# generate
+# -----------------
+lang/jvm/src lang/go/src lang/python/src lang/typescript/src: $@
+	cd protos; buf generate
+
+generate: lang/jvm/src lang/go/src lang/python/src lang/typescript/src VERSION.env
 
 # -----------------
 # JVM
@@ -83,13 +91,13 @@ build: default-google-dependencies jvm-build python-build go-build typescript-bu
 jvm-clean:
 	make -C lang/jvm clean
 
-jvm-build:
+jvm-build: lang/jvm/src
 	make -C lang/jvm build
 
-jvm-publish:
+jvm-publish: lang/jvm/src
 	make -C lang/jvm publish
 
-jvm-publish-local:
+jvm-publish-local: lang/jvm/src
 	make -C lang/jvm publish-local
 
 # -----------------
@@ -98,38 +106,32 @@ jvm-publish-local:
 python-clean:
 	make -C lang/python clean
 
-python-build: ${common_protos}/google/api ${common_protos}/google/protobuf VERSION.env
-	make -C lang/python generate build
+python-build: lang/python/src VERSION.env
+	make -C lang/python build
 
-python-build-public: ${common_protos}/google/api ${common_protos}/google/protobuf VERSION.env
-	make -C lang/python generate-public build
+python-build-public: lang/python/src VERSION.env
+	make -C lang/python build-public
 
-python-publish-test: ${common_protos}/google/api ${common_protos}/google/protobuf VERSION.env
+python-publish-test: lang/python/src VERSION.env
 	make -C lang/python publish-test
 
-python-publish-release: ${common_protos}/google/api ${common_protos}/google/protobuf VERSION.env
+python-publish-release: lang/python/src VERSION.env
 	make -C lang/python publish
 
-python-publish-public-test: ${common_protos}/google/api ${common_protos}/google/protobuf VERSION.env
+python-publish-public-test: lang/python/src VERSION.env
 	make -C lang/python publish-public-test
 
-python-publish-public-release: ${common_protos}/google/api ${common_protos}/google/protobuf VERSION.env
+python-publish-public-release: lang/python/src VERSION.env
 	make -C lang/python publish-public
 
 # -----------------
 # Golang
 # -----------------
-go-generate: ${common_protos}/google/api ${common_protos}/google/protobuf VERSION.env
-	make -C lang/go generate
-
-go-setup: VERSION.env
-	make -C lang/go setup
-
-go-build: ${common_protos}/google/api ${common_protos}/google/protobuf VERSION.env
-	make -C lang/go build
-
 go-clean:
 	make -C lang/go clean
+
+go-build: lang/go/src VERSION.env
+	make -C lang/go build
 
 # -----------------
 # TypeScript
@@ -137,20 +139,11 @@ go-clean:
 typescript-clean:
 	make -C lang/typescript clean
 
-typescript-generate: ${common_protos}/google/api ${common_protos}/google/protobuf
-	make -C lang/typescript generate
-
-lang/typescript/build/.timestamp: typescript-generate
-	touch lang/typescript/build/.timestamp
-
-typescript-build: lang/typescript/build/.timestamp
+typescript-build: lang/typescript/src
 	make -C lang/typescript build
 
-typescript-build-without-generate:
-	make -C lang/typescript build
-
-typescript-publish-release:
+typescript-publish-release: lang/typescript/src
 	make -C lang/typescript publish
 
-typescript-publish-snapshot:
+typescript-publish-snapshot: lang/typescript/src
 	make -C lang/typescript publish-snapshot

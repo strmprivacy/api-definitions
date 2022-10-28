@@ -1,4 +1,3 @@
-import com.google.protobuf.gradle.*
 import org.ajoberstar.grgit.Grgit
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
@@ -35,7 +34,6 @@ plugins {
     id("maven-publish")
     kotlin("jvm")
     id("com.google.cloud.artifactregistry.gradle-plugin")
-    id("com.google.protobuf")
     id("org.ajoberstar.grgit")
 }
 
@@ -55,15 +53,6 @@ dependencies {
 
     // Coroutines are used in the health service, since it streams data
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:${rootProject.ext["kotlinXVersion"]}")
-
-    // Due to an issue in the Kotlin Compiler, with a lot of Proto files, the compiler hits an OOM
-    // Related issues:
-    // https://github.com/protocolbuffers/protobuf/issues/8732
-    // https://youtrack.jetbrains.com/issue/KT-47270
-//    // Needed to access types like DslList in consuming applications
-//    api("com.google.protobuf:protobuf-kotlin:${rootProject.ext["protobufVersion"]}")
-//    implementation(kotlin("stdlib-jdk8"))
-//    testRuntimeOnly("io.grpc:grpc-netty-shaded:${rootProject.ext["grpcVersion"]}")
 }
 
 java.sourceCompatibility = JavaVersion.VERSION_17
@@ -76,60 +65,6 @@ tasks.withType<JavaCompile> {
 tasks.withType<KotlinCompile> {
     kotlinOptions {
         jvmTarget = "17"
-        // Part of Kotlin DSL, disabled due to OOM during compilation
-//        freeCompilerArgs = listOf("-Xopt-in=kotlin.RequiresOptIn")
-    }
-}
-
-sourceSets["main"].apply {
-    proto {
-        srcDir("../../protos")
-    }
-}
-
-java {
-    sourceSets["main"].apply {
-        java.srcDir(layout.buildDirectory.dir("generated/proto/main/java").get())
-        java.srcDir("../../protos")
-    }
-}
-
-kotlin {
-    sourceSets["main"].apply {
-        kotlin.srcDir(layout.buildDirectory.dir("generated/proto/main/java").get())
-    }
-}
-
-protobuf {
-    generatedFilesBaseDir = layout.buildDirectory.dir("generated/proto").get().toString()
-
-    protoc {
-        artifact = "com.google.protobuf:protoc:${rootProject.ext["protobufVersion"]}"
-    }
-    plugins {
-        id("grpc") {
-            artifact = "io.grpc:protoc-gen-grpc-java:${rootProject.ext["grpcVersion"]}"
-        }
-        id("grpckt") {
-            artifact = "io.grpc:protoc-gen-grpc-kotlin:${rootProject.ext["grpcKotlinVersion"]}:jdk7@jar"
-        }
-    }
-    generateProtoTasks {
-        all().forEach {
-            // Part of Kotlin DSL, disabled due to OOM during compilation
-//            it.builtins.register("kotlin") {
-//                outputSubDir = "java"
-//            }
-
-            it.plugins {
-                id("grpc") {
-                    outputSubDir = "java"
-                }
-                id("grpckt") {
-                    outputSubDir = "java"
-                }
-            }
-        }
     }
 }
 

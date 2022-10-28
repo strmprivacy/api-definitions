@@ -1,0 +1,33 @@
+version: v1
+plugins:
+  - remote: buf.build/protocolbuffers/plugins/java:v3.20.1-1
+    out: ../lang/jvm/src/main/java/
+  - remote: buf.build/grpc/plugins/java:v1.46.0-1
+    out: ../lang/jvm/src/main/java/
+  - remote: buf.build/grpc/plugins/kotlin:v1.3.0-2
+    out: ../lang/jvm/src/main/kotlin/
+  - remote: buf.build/protocolbuffers/plugins/go:v1.27.1-1
+    out: ../lang/go/src/
+    opt:
+      - module=github.com/strmprivacy/api-definitions-go/v2
+  - remote: buf.build/grpc/plugins/go:v1.2.0-1
+    out: ../lang/go/src/
+    opt:
+      - module=github.com/strmprivacy/api-definitions-go/v2
+  - remote: buf.build/protocolbuffers/plugins/python:v21.8.0-1
+    out: ../lang/python/src/
+  - remote: buf.build/grpc/plugins/python:v1.46.0-1
+    out: ../lang/python/src/
+  # Buf Connect TypeScript
+  - remote: buf.build/bufbuild/plugins/es:v0.2.0-1
+    out: ../lang/typescript/src/
+    # With target=ts, we generate TypeScript files.
+    # Use target=js+dts to generate JavaScript and TypeScript declaration files
+    # like remote generation does.
+    opt:
+      - target=ts
+  - remote: buf.build/bufbuild/plugins/connect-web:v0.3.0-1
+    out: ../lang/typescript/src/
+    # With target=ts, we generate TypeScript files.
+    opt:
+      - target=ts

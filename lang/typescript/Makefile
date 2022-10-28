@@ -1,39 +1,36 @@
-.PHONY: clean generate build publish publish-snapshot
+.PHONY: clean build publish publish-snapshot templates
 
-build_dir := build
-dist_dir := dist
+generated_dir := src
 
 clean:
-	rm -rf ${build_dir}
-	rm -rf ${dist_dir}
+	rm -rf ${generated_dir}
 
-generate:
-	mkdir -p ${build_dir}
-	mkdir -p ${dist_dir}
-	protoc ${proto_files} ${common_proto_files} \
-		--proto_path=${protos_dir} \
-		--proto_path=${common_protos} \
-	 	--js_out=import_style=commonjs:${build_dir} \
-		--grpc-web_out=import_style=commonjs+dts,mode=grpcwebtext:${build_dir}
+templates:
+	cp .npmrc-template ${generated_dir}/.npmrc
+	cp package-template.json ${generated_dir}/package.json
 
-build:
-	npm run authenticate
-	npm version "${strmprivacy_api_version}" --allow-same-version --no-commit-hooks --no-git-tag-version
-	npm install "google-protobuf@${protobuf_version}"
-	npm install
+build: templates
+	cd ${generated_dir}; \
+	rm -rf "strmprivacy/internal_api"; \
+	npm run authenticate; \
+	npm version "${strmprivacy_api_version}" --allow-same-version --no-commit-hooks --no-git-tag-version; \
+	npm install; \
 	npm run dist
 
-build-snapshot:
-	npm run authenticate
-	npm version "${strmprivacy_api_version}-$$CI_PIPELINE_ID"
-	npm install "google-protobuf@${protobuf_version}"
-	npm install
+build-snapshot: templates
+	cd ${generated_dir}; \
+	rm -rf "strmprivacy/internal_api"; \
+	npm run authenticate; \
+	npm version "${strmprivacy_api_version}-$$CI_PIPELINE_ID"; \
+	npm install; \
 	npm run dist
 
 publish: build
-	npm run authenticate
+	cd ${generated_dir}; \
+	npm run authenticate; \
 	npm publish
 
 publish-snapshot: build-snapshot
-	npm run authenticate
+	cd ${generated_dir}; \
+	npm run authenticate; \
 	npm publish
