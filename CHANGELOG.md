@@ -1,3 +1,10 @@
+# [2.60.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.59.0...v2.60.0) (2022-10-28)
+
+
+### Features
+
+* **strm-1909:** python, go, jvm codegen and artifact creation working ([79ea93e](https://gitlab.com/strmprivacy/api-definitions/commit/79ea93e589f2fb1755462c7abca9ef2c4b6f6bf6))
+
 # [2.59.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.58.0...v2.59.0) (2022-10-21)
 
 
