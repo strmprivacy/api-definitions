@@ -1,3 +1,10 @@
+## [2.61.2](https://gitlab.com/strmprivacy/api-definitions/compare/v2.61.1...v2.61.2) (2022-11-01)
+
+
+### Bug Fixes
+
+* ensure that generate only needs lint and breaking checks when present in the pipeline ([be78cca](https://gitlab.com/strmprivacy/api-definitions/commit/be78cca113287e2a0905a890d73c6a0bb952aed5))
+
 ## [2.61.1](https://gitlab.com/strmprivacy/api-definitions/compare/v2.61.0...v2.61.1) (2022-11-01)
 
 
