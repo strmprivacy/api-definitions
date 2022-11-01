@@ -1,3 +1,10 @@
+# [2.61.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.60.0...v2.61.0) (2022-11-01)
+
+
+### Features
+
+* **strm-1877:** add FieldMetaData and MicroAggregationBatchJob ([c505508](https://gitlab.com/strmprivacy/api-definitions/commit/c505508902114a7d2b1742761ff00e61fa41d826))
+
 # [2.60.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.59.0...v2.60.0) (2022-10-28)
 
 
