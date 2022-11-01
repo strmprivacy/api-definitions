@@ -57,7 +57,7 @@ intellij: ${common_protos}/protobuf-java.jar ${common_protos}/proto-google-commo
 	./scripts/setup-ide-protobuf-plugins.sh
 
 buf-breaking:
-	bash ./scripts/buf-breaking.sh
+	cd protos; buf breaking --against "../.git#branch=master,subdir=protos"
 
 buf-lint:
 	cd protos; buf lint
