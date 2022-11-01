@@ -1,3 +1,11 @@
+## [2.61.1](https://gitlab.com/strmprivacy/api-definitions/compare/v2.61.0...v2.61.1) (2022-11-01)
+
+
+### Bug Fixes
+
+* use buf breaking directly instead of script ([4ab1f5c](https://gitlab.com/strmprivacy/api-definitions/commit/4ab1f5c3959f629eacb7f44f0a4315c0e3949018))
+* use CI_REPOSITORY_URL and add rules ([a83215e](https://gitlab.com/strmprivacy/api-definitions/commit/a83215e12c93fcc3aa63d6e718b856cfd8558c61))
+
 # [2.61.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.60.0...v2.61.0) (2022-11-01)
 
 
