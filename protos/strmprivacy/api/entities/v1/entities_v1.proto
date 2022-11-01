@@ -196,6 +196,7 @@ message DataConnectorRef {
 message DataConnectorDependentEntities {
   repeated BatchExporter batch_exporters = 1;
   repeated BatchJob batch_jobs = 2;
+  repeated MicroAggregationBatchJob micro_aggregation_batch_jobs = 3;
 }
 
 message AwsS3BucketLocation {
@@ -652,12 +653,16 @@ message BatchJob {
   string policy_id = 10 [(google.api.field_behavior) = REQUIRED];
 }
 
+message BatchJobWrapper {
+  oneof job {
+    entities.v1.BatchJob encryption_batch_job = 1;
+    entities.v1.MicroAggregationBatchJob micro_aggregation_batch_job = 2;
+  }
+}
+
 message ExtendedBatchJob {
   BatchJob batch_job = 1 [deprecated = true];
-  oneof job {
-    BatchJob encryption_batch_job = 2;
-    MicroAggregationBatchJob micro_aggregation_batch_job = 3;
-  }
+  BatchJobWrapper job = 2;
 }
 
 message BatchJobRef {
@@ -735,21 +740,14 @@ message MicroAggregationBatchJob {
   DataContractRef data_contract_ref = 5 [(google.api.field_behavior) = REQUIRED];
   // Configuration specifically for the aggregation algorithm.
   MicroAggregationConfig aggregation_config = 6 [(google.api.field_behavior) = REQUIRED];
-  // Metrics reported by the aggregation algorithm after successful completion.
-  MicroAggregationMetrics metrics = 7 [(google.api.field_behavior) = OUTPUT_ONLY];
 }
 
 message MicroAggregationConfig {
+
   // The desired k-anonymity level.
   int32 minimum_k_anonymity = 1 [(google.api.field_behavior) = REQUIRED];
   // If specified, these fields will be used to aggregate on. Otherwise, fields specified as Quasi Identifiers in the data contract are used instead.
   repeated string aggregation_fields = 2;
-}
-
-message MicroAggregationMetrics {
-  int32 total_clusters = 1 [(google.api.field_behavior) = OUTPUT_ONLY];
-  float info_loss = 2 [(google.api.field_behavior) = OUTPUT_ONLY];
-  map<int32, int32> cluster_size_histogram = 3 [(google.api.field_behavior) = OUTPUT_ONLY];
 }
 
 message DataContractRef {
@@ -776,7 +774,7 @@ message DataContract {
   Schema schema = 9;
   string data_subject_field = 10;
   string project_id = 11;
-  map<string, FieldMetadata> field_metadata = 12;
+  repeated FieldMetadata field_metadata = 12;
 
   enum State {
     STATE_UNSPECIFIED = 0;
@@ -804,23 +802,24 @@ message DataContract {
 }
 
 message FieldMetadata {
+  // Full reference to a (nested) field. For non-top-level fields (i.e. nested fields), each level should be separated by a forward slash. E.g. customer/id.
   string field_name = 1;
-  // PII-related metadata if a field is a PII field.
-  PIIConfig pii_config = 2;
-  // Whether a field contains categorical values only.
-  bool is_categorical = 3;
-  // If a field contains ordinal values, defines the possible values and their order.
-  OrdinalConfig ordinal_config = 4;
+  // Metadata on the type of personal data this field may contain.
+  PersonalDataConfig personal_data_config = 2;
+  // The statistical data type of the field, e.g. nominal, ordinal, numerical.
+  StatisticalDataType statistical_data_type = 3;
+  // If a field is of ordinal values, defines the possible values and their order.
+  repeated string ordinal_values = 4;
   // How null values should generally be dealt with for a field.
   NullHandlingConfig null_handling_config = 5;
 
-  message PIIConfig {
-    int32 purpose_level = 1 [(google.api.field_behavior) = REQUIRED];
-    bool is_quasi_id = 2;
-  }
-
-  message OrdinalConfig {
-    repeated string ordered_values = 1 [(google.api.field_behavior) = REQUIRED];
+  message PersonalDataConfig {
+    // Currently, only string fields or repeated string fields can be marked as PII, since other data types cannot store an encrypted string.
+    bool is_pii = 1 [(google.api.field_behavior) = REQUIRED];
+    // A quasi identifier doesn't identify an individual directly, but combined with other QIs can result in a unique (direct) identifier.
+    bool is_quasi_id = 2 [(google.api.field_behavior) = REQUIRED];
+    // The purpose level as defined in the purpose level mapping of an organization.
+    int32 purpose_level = 3;
   }
 
   message NullHandlingConfig {
@@ -940,4 +939,11 @@ enum FilterPublicPrivate {
   FILTER_PUBLIC_PRIVATE_UNSPECIFIED = 0;
   ONLY_PUBLIC = 1;
   ONLY_PRIVATE = 2;
+}
+
+enum StatisticalDataType {
+  STATISTICAL_DATA_TYPE_UNSPECIFIED = 0;
+  NOMINAL = 1;
+  ORDINAL = 2;
+  NUMERICAL = 3;
 }
