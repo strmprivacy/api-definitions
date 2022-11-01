@@ -19,8 +19,6 @@ release:
   stage: release
   extends: .semantic-release
 
-
-
 generate:
   stage: generate
   image:
@@ -35,9 +33,12 @@ generate:
     reports:
       dotenv: VERSION.env
   needs:
-    - buf-lint
-    - aip-guidelines-lint
-    - breaking
+    - job: buf-lint
+      optional: true
+    - job: aip-guidelines-lint
+      optional: true
+    - job: breaking
+      optional: true
   except:
     - master
 
