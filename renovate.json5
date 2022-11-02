@@ -55,8 +55,20 @@
             "matchStrings": [
                 // https://github.com/bufbuild/plugins/blob/main/plugins/protocolbuffers/java/source.yaml
                 "buf.build\\/protocolbuffers\\/plugins\\/java:v(?<currentValue>\\d+\\.\\d+)\\.\\d+-\\d+\\n",
+            ],
+            depNameTemplate: "protocolbuffers/protobuf",
+            datasourceTemplate: "github-releases",
+            // Versioning in the protocolbuffers/protobuf GH repository is weird, so we have to map it correctly
+            extractVersionTemplate: "^v(?<version>\\d+\\.\\d+)\\.\\d+",
+            versioningTemplate: "regex:^(?<major>\\d+)\\.(?<minor>\\d+)$"
+        },
+        {
+            "fileMatch": [
+                "buf.gen.yaml$"
+            ],
+            "matchStrings": [
                 // https://github.com/bufbuild/plugins/blob/main/plugins/protocolbuffers/python/source.yaml
-                "buf.build\\/protocolbuffers\\/plugins\\/python:v(?<currentValue>\\d+\\.\\d+)\\.\\d+-\\d+\\n",
+                "buf.build\\/protocolbuffers\\/plugins\\/python:v(?<currentValue>\\d+\\.\\d+)\\.\\d+-\\d+\\n"
             ],
             depNameTemplate: "protocolbuffers/protobuf",
             datasourceTemplate: "github-releases",
