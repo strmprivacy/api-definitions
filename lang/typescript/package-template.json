@@ -1,6 +1,6 @@
 {
   "name": "@strmprivacy-internal/api-definitions",
-  "version": "2.59.0",
+  "version": "filled-out-during-make-step",
   "main": "index.ts",
   "files": [
     "/strmprivacy",

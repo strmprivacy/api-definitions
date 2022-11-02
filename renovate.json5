@@ -33,6 +33,106 @@
             ],
             "depNameTemplate": "com.google.api.grpc:proto-google-common-protos",
             "datasourceTemplate": "maven"
+        },
+        {
+            "fileMatch": [
+                "gradle-template.properties$"
+            ],
+            "matchStrings": [
+                "grpcKotlinVersion\\s?=\\s?(?<currentValue>\\d+\\.\\d+\\.\\d+)\\n"
+            ],
+            depNameTemplate: "grpc/grpc-kotlin",
+            datasourceTemplate: "github-releases",
+            extractVersionTemplate: "^v(?<version>\\d+\\.\\d+\\.\\d+)"
+        },
+        // Buf Remote Code Generation dependencies
+        // Renovate does not have a generic HTTP datasource, nor does it support Buf Plugins directly,
+        // so we're using the sources of the plugins
+        {
+            "fileMatch": [
+                "buf.gen.yaml$"
+            ],
+            "matchStrings": [
+                // https://github.com/bufbuild/plugins/blob/main/plugins/protocolbuffers/java/source.yaml
+                "buf.build\\/protocolbuffers\\/plugins\\/java:v(?<currentValue>\\d+\\.\\d+)\\.\\d+-\\d+\\n",
+                // https://github.com/bufbuild/plugins/blob/main/plugins/protocolbuffers/python/source.yaml
+                "buf.build\\/protocolbuffers\\/plugins\\/python:v(?<currentValue>\\d+\\.\\d+)\\.\\d+-\\d+\\n",
+            ],
+            depNameTemplate: "protocolbuffers/protobuf",
+            datasourceTemplate: "github-releases",
+            // Versioning in the protocolbuffers/protobuf GH repository is weird, so we have to map it correctly
+            extractVersionTemplate: "^v(?<version>\\d+\\.\\d+)",
+        },
+        {
+            "fileMatch": [
+                "buf.gen.yaml$"
+            ],
+            "matchStrings": [
+                // https://github.com/bufbuild/plugins/blob/main/plugins/protocolbuffers/go/source.yaml
+                "buf.build\\/protocolbuffers\\/plugins\\/go:v(?<currentValue>\\d+\\.\\d+\\.\\d+)-\\d+\\n"
+            ],
+            depNameTemplate: "protocolbuffers/protobuf-go",
+            datasourceTemplate: "github-releases",
+            extractVersionTemplate: "^v(?<version>\\d+\\.\\d+\\.\\d+)"
+        },
+
+        {
+            "fileMatch": [
+                "buf.gen.yaml$"
+            ],
+            "matchStrings": [
+                // https://github.com/bufbuild/plugins/blob/main/plugins/grpc/java/source.yaml
+                "buf.build\\/grpc\\/plugins\\/java:v(?<currentValue>[\\d.]*?)-\\d+\\n"
+            ],
+            "depNameTemplate": "io.grpc:protoc-gen-grpc-java",
+            "datasourceTemplate": "maven",
+        },
+        {
+            "fileMatch": [
+                "buf.gen.yaml$"
+            ],
+            "matchStrings": [
+                // https://github.com/bufbuild/plugins/blob/main/plugins/grpc/kotlin/source.yaml
+                "buf.build\\/grpc\\/plugins\\/kotlin:v(?<currentValue>[\\d.]*?)-\\d+\\n"
+            ],
+            "depNameTemplate": "io.grpc:protoc-gen-grpc-kotlin",
+            "datasourceTemplate": "maven",
+            // as the current version is v1.3.0-2 (since -1 is broken), and Renovate cannot check
+            // directly what the latest plugin version is, we need to provide a replace template with -1 suffixed
+            "autoReplaceStringTemplate": "buf.build/grpc/plugins/kotlin:v{{{newValue}}}-1"
+        },
+        {
+            "fileMatch": [
+                "buf.gen.yaml$"
+            ],
+            "matchStrings": [
+                // https://github.com/bufbuild/plugins/blob/main/plugins/grpc/go/source.yaml
+                "buf.build\\/grpc\\/plugins\\/go:v(?<currentValue>[\\d.]*?)-\\d+\\n"
+            ],
+            "depNameTemplate": "google.golang.org/grpc/cmd/protoc-gen-go-grpc",
+            "datasourceTemplate": "go",
+        },
+        {
+            "fileMatch": [
+                "buf.gen.yaml$"
+            ],
+            "matchStrings": [
+                // https://github.com/bufbuild/plugins/blob/main/plugins/bufbuild/es/source.yaml
+                "buf.build\\/bufbuild\\/plugins\\/es:v(?<currentValue>\\d+\\.\\d+\\.\\d+)-\\d+\\n"
+            ],
+            depNameTemplate: "@bufbuild/protoc-gen-es",
+            datasourceTemplate: "npm",
+        },
+        {
+            "fileMatch": [
+                "buf.gen.yaml$"
+            ],
+            "matchStrings": [
+                // https://github.com/bufbuild/plugins/blob/main/plugins/bufbuild/connect-web/source.yaml
+                "buf.build\\/bufbuild\\/plugins\\/connect-web:v(?<currentValue>\\d+\\.\\d+\\.\\d+)-\\d+\\n"
+            ],
+            depNameTemplate: "@bufbuild/protoc-gen-connect-web",
+            datasourceTemplate: "npm",
         }
     ],
     packageRules: [
