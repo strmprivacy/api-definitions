@@ -59,7 +59,7 @@
             depNameTemplate: "protocolbuffers/protobuf",
             datasourceTemplate: "github-releases",
             // Versioning in the protocolbuffers/protobuf GH repository is weird, so we have to map it correctly
-            extractVersionTemplate: "^v(?<version>\\d+\\.\\d+)\\.\\d+",
+            extractVersionTemplate: "^v(?<version>\\d+\\.\\d+)",
             versioningTemplate: "regex:^(?<minor>\\d+)\\.(?<patch>\\d+)$"
         },
         {
@@ -73,7 +73,7 @@
             depNameTemplate: "protocolbuffers/protobuf",
             datasourceTemplate: "github-releases",
             // Versioning in the protocolbuffers/protobuf GH repository is weird, so we have to map it correctly
-            extractVersionTemplate: "^v(?<version>\\d+\\.\\d+)\\.\\d+",
+            extractVersionTemplate: "^v(?<version>\\d+\\.\\d+)",
             versioningTemplate: "regex:^(?<minor>\\d+)\\.(?<patch>\\d+)$"
         },
         {
