@@ -1,12 +1,12 @@
 version: v1
 plugins:
-  - remote: buf.build/protocolbuffers/plugins/java:v21.0.0-1
+  - remote: buf.build/protocolbuffers/plugins/java:v21.9.0-1
     out: ../lang/jvm/src/main/java/
-  - remote: buf.build/grpc/plugins/java:v1.46.0-1
+  - remote: buf.build/grpc/plugins/java:v1.50.2-1
     out: ../lang/jvm/src/main/java/
   - remote: buf.build/grpc/plugins/kotlin:v1.3.0-2
     out: ../lang/jvm/src/main/kotlin/
-  - remote: buf.build/protocolbuffers/plugins/go:v1.27.1-1
+  - remote: buf.build/protocolbuffers/plugins/go:v1.28.1-1
     out: ../lang/go/src/
     opt:
       - module=github.com/strmprivacy/api-definitions-go/v2
@@ -14,15 +14,15 @@ plugins:
     out: ../lang/go/src/
     opt:
       - module=github.com/strmprivacy/api-definitions-go/v2
-  - remote: buf.build/protocolbuffers/plugins/python:v21.8.0-1
+  - remote: buf.build/protocolbuffers/plugins/python:v21.9.0-1
     out: ../lang/python/src/
   - remote: buf.build/grpc/plugins/python:v1.46.0-1
     out: ../lang/python/src/
-  - remote: buf.build/bufbuild/plugins/es:v0.2.0-1
+  - remote: buf.build/bufbuild/plugins/es:v0.2.1-1
     out: ../lang/typescript/src/
     opt:
       - target=ts
-  - remote: buf.build/bufbuild/plugins/connect-web:v0.3.0-1
+  - remote: buf.build/bufbuild/plugins/connect-web:v0.3.1-1
     out: ../lang/typescript/src/
     opt:
       - target=ts
