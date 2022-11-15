@@ -13,6 +13,8 @@ typescript-artifact-build:
   extends:
     - .typescript-needs
     - .nodejs
+  variables:
+    REPOSITORY_NODE_MODULES_LOCATION: "$CI_PROJECT_DIR/lang/typescript/src/node_modules"
   script:
     - make typescript-build
   only:
@@ -22,6 +24,8 @@ typescript-artifact-snapshot:
   extends:
     - .typescript-needs
     - .nodejs-artifact-snapshot
+  variables:
+    REPOSITORY_NODE_MODULES_LOCATION: "$CI_PROJECT_DIR/lang/typescript/src/node_modules"
   script:
     - make typescript-publish-snapshot
 
@@ -29,5 +33,7 @@ typescript-artifact-release:
   extends:
     - .typescript-needs
     - .nodejs-artifact-release
+  variables:
+    REPOSITORY_NODE_MODULES_LOCATION: "$CI_PROJECT_DIR/lang/typescript/src/node_modules"
   script:
     - make typescript-publish-release

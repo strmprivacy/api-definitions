@@ -18,11 +18,3 @@ plugins:
     out: ../lang/python/src/
   - remote: buf.build/grpc/plugins/python:v1.46.0-1
     out: ../lang/python/src/
-  - remote: buf.build/bufbuild/plugins/es:v0.2.1-1
-    out: ../lang/typescript/src/
-    opt:
-      - target=ts
-  - remote: buf.build/bufbuild/plugins/connect-web:v0.3.1-1
-    out: ../lang/typescript/src/
-    opt:
-      - target=ts

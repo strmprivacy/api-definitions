@@ -1,4 +1,4 @@
-.PHONY: intellij clean build publish buf-breaking buf-lint api-lint default-protobuf-dependencies protodocs protodocs-clean clean-common-protos generate
+.PHONY: intellij clean build publish buf-breaking buf-lint api-lint default-protobuf-dependencies protodocs protodocs-clean clean-common-protos generate typescript-generate
 
 # =======================
 # Variables
@@ -20,7 +20,7 @@ export
 # =======================
 strmprivacy_api_version := 2.61.2
 
-grpc_version := 1.50.1
+grpc_version := 1.50.0
 protobuf_version := 3.21.9
 google_common_protos_version := 2.10.0
 
@@ -80,8 +80,12 @@ build: jvm-build python-build go-build typescript-build
 # -----------------
 # generate
 # -----------------
-lang/jvm/src lang/go/src lang/python/src lang/typescript/src: $@
+lang/jvm/src lang/go/src lang/python/src: $@
 	cd protos; buf generate
+
+# See protos/buf.gen.typescript.yaml for the reason this is necessary
+lang/typescript/src:
+	cd protos; buf generate --template buf.gen.typescript.yaml --include-imports
 
 generate: lang/jvm/src lang/go/src lang/python/src lang/typescript/src VERSION.env
 

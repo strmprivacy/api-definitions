@@ -1,0 +1,14 @@
+# Because v1 of buf.gen.yaml does not allow to specify an include imports during codegen.
+# This means that for each plugin you want to enable this for (it's a buf generate flag)
+# a separate file needs to be made in order to specify the flag only for those plugins that
+# require it. Issue in buf GitHub: https://github.com/bufbuild/buf/issues/1407
+version: v1
+plugins:
+  - remote: buf.build/bufbuild/plugins/es:v0.2.1-1
+    out: ../lang/typescript/src/
+    opt:
+      - target=ts
+  - remote: buf.build/bufbuild/plugins/connect-web:v0.3.1-1
+    out: ../lang/typescript/src/
+    opt:
+      - target=ts

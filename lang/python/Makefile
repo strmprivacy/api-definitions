@@ -26,18 +26,18 @@ templates: ${generated_dir} ${generated_dir}/setup.py ${generated_dir}/requireme
 
 # Build depends on the existence of the lang/python/strmprivacy dir
 build: templates
-	cd ${generated_dir}; \
-	python -m pip install -r requirements-dev.txt; \
-	find ${top_level_package_name} -type d -exec touch "{}/__init__.py" \; ; \
-	python setup.py sdist; \
+	cd ${generated_dir} && \
+	python -m pip install -r requirements-dev.txt && \
+	find ${top_level_package_name} -type d -exec touch "{}/__init__.py" \; && \
+	python setup.py sdist && \
 	python setup.py bdist_wheel
 
 build-public: templates
-	cd ${generated_dir}; \
-	rm -rf strmprivacy/internal_api; \
-	python -m pip install -r requirements-dev.txt; \
-	find ${top_level_package_name} -type d -exec touch "{}/__init__.py" \; ; \
-	python setup.py sdist; \
+	cd ${generated_dir} && \
+	rm -rf strmprivacy/internal_api && \
+	python -m pip install -r requirements-dev.txt && \
+	find ${top_level_package_name} -type d -exec touch "{}/__init__.py" \; && \
+	python setup.py sdist && \
 	python setup.py bdist_wheel
 
 publish-test: build
@@ -53,4 +53,4 @@ publish-public: build-public
 	twine upload ${generated_dir}/dist/*
 
 install: build ## install the package to the active Python's site-packages
-	cd ${generated_dir}; python setup.py install
+	cd ${generated_dir} && python setup.py install
