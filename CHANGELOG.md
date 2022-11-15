@@ -1,3 +1,10 @@
+## [2.61.3](https://gitlab.com/strmprivacy/api-definitions/compare/v2.61.2...v2.61.3) (2022-11-15)
+
+
+### Bug Fixes
+
+* **strm-1970:** include google dependencies in TS code ([1a93350](https://gitlab.com/strmprivacy/api-definitions/commit/1a93350bd0cfdd4d4c6c6292da7746384ec5b9e8))
+
 ## [2.61.2](https://gitlab.com/strmprivacy/api-definitions/compare/v2.61.1...v2.61.2) (2022-11-01)
 
 
