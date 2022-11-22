@@ -2,7 +2,7 @@ version: v1
 plugins:
   - remote: buf.build/protocolbuffers/plugins/java:v21.9.0-1
     out: ../lang/jvm/src/main/java/
-  - remote: buf.build/grpc/plugins/java:v1.50.2-1
+  - remote: buf.build/grpc/plugins/java:v1.51.0-1
     out: ../lang/jvm/src/main/java/
   - remote: buf.build/grpc/plugins/kotlin:v1.3.0-2
     out: ../lang/jvm/src/main/kotlin/
