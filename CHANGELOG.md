@@ -1,3 +1,10 @@
+## [2.61.4](https://gitlab.com/strmprivacy/api-definitions/compare/v2.61.3...v2.61.4) (2022-11-23)
+
+
+### Bug Fixes
+
+* **strm-2042:** always create BSR tag when a release is made ([73a44b3](https://gitlab.com/strmprivacy/api-definitions/commit/73a44b39eea328d6b2c17e895f17549d06154504))
+
 ## [2.61.3](https://gitlab.com/strmprivacy/api-definitions/compare/v2.61.2...v2.61.3) (2022-11-15)
 
 
