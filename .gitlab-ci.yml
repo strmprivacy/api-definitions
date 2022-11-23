@@ -53,5 +53,11 @@ bsr-push:
     - apk add --update make
     - cd protos
     - buf push --tag "${CI_COMMIT_TAG}"
+    # Due to this issue (https://github.com/bufbuild/buf/issues/1621) in buf, no tag is created if the proto files are not changed
+    # To keep the BSR tags in sync with our git repo, we manually add it
+    - apk update
+    - apk add curl jq
+    - "latest_commit=$(curl 'https://api.buf.build/buf.alpha.registry.v1alpha1.RepositoryCommitService/ListRepositoryCommitsByReference' -H 'content-type: application/json' --data-raw '{\"repositoryOwner\":\"strmprivacy\",\"repositoryName\":\"apis\",\"reference\":\"main\",\"pageSize\":1,\"reverse\":true}' | jq -r '.repositoryCommits[0].name')"
+    - "curl 'https://api.buf.build/buf.alpha.registry.v1alpha1.RepositoryTagService/CreateRepositoryTag' -H 'content-type: application/json' -u \"strmprivacy:$BUF_TOKEN\" --data-raw '{\"repositoryId\":\"4e0c9176-b1c3-42b4-8f81-f40f306128ab\",\"name\":\"${CI_COMMIT_TAG}\",\"commitName\":\"${latest_commit}\"}'"
   needs:
     - generate
