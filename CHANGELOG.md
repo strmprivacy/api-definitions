@@ -1,3 +1,10 @@
+## [2.61.5](https://gitlab.com/strmprivacy/api-definitions/compare/v2.61.4...v2.61.5) (2022-11-23)
+
+
+### Bug Fixes
+
+* double quotes in ci are required for variable expansion ([bf3e106](https://gitlab.com/strmprivacy/api-definitions/commit/bf3e106c11a5846520eb4e33e5ed6ba298c9143f))
+
 ## [2.61.4](https://gitlab.com/strmprivacy/api-definitions/compare/v2.61.3...v2.61.4) (2022-11-23)
 
 
