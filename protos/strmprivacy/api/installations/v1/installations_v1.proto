@@ -13,8 +13,12 @@ option java_multiple_files = true;
 service InstallationsService {
   rpc GetInstallation(GetInstallationRequest) returns (GetInstallationResponse);
   rpc ListInstallations(ListInstallationsRequest) returns (ListInstallationsResponse);
-  rpc GetProjectInstallation(GetProjectInstallationRequest) returns (GetProjectInstallationResponse);
-  rpc ListInstallationProjects(ListInstallationProjectsRequest) returns (ListInstallationProjectsResponse);
+  rpc GetProjectInstallation(GetProjectInstallationRequest) returns (GetProjectInstallationResponse) {
+    option deprecated = true; // Moved to internal apis artifact (not part of this repo)
+  };
+  rpc ListInstallationProjects(ListInstallationProjectsRequest) returns (ListInstallationProjectsResponse){
+    option deprecated = true; // Moved to internal apis artifact (not part of this repo)
+  };
 }
 
 message GetInstallationRequest {
@@ -33,18 +37,22 @@ message ListInstallationsResponse {
 }
 
 message GetProjectInstallationRequest {
+  option deprecated = true; // Moved to internal apis artifact (not part of this repo)
   string project_id = 1 [(google.api.field_behavior) = REQUIRED];
 }
 
 message GetProjectInstallationResponse {
+  option deprecated = true; // Moved to internal apis artifact (not part of this repo)
   string installation_id = 1 [(google.api.field_behavior) = REQUIRED];
 }
 
 message ListInstallationProjectsRequest {
+  option deprecated = true; // Moved to internal apis artifact (not part of this repo)
   string installation_id = 1 [(google.api.field_behavior) = REQUIRED];
 }
 
 message ListInstallationProjectsResponse {
+  option deprecated = true; // Moved to internal apis artifact (not part of this repo)
   // (-- api-linter: core::0132::response-unknown-fields=disabled
   //     aip.dev/not-precedent: this is best descriptive. --)
   repeated string project_ids = 1;
