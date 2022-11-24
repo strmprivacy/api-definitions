@@ -947,3 +947,12 @@ enum StatisticalDataType {
   ORDINAL = 2;
   NUMERICAL = 3;
 }
+
+enum SubscriptionPlan {
+  SUBSCRIPTION_PLAN_UNSPECIFIED = 0;
+  FREE = 1;
+  BUSINESS = 2;
+  SELF_HOSTED = 3;
+  AWS_MARKETPLACE_PAYG = 4;
+  AWS_MARKETPLACE_BYOL = 5;
+}
