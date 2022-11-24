@@ -1,3 +1,10 @@
+# [2.62.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.61.5...v2.62.0) (2022-11-24)
+
+
+### Features
+
+* **strm-2038:** deprecate internal installation calls ([5efbaf6](https://gitlab.com/strmprivacy/api-definitions/commit/5efbaf688126b459e84091b32cf1468313e69e37))
+
 ## [2.61.5](https://gitlab.com/strmprivacy/api-definitions/compare/v2.61.4...v2.61.5) (2022-11-23)
 
 
