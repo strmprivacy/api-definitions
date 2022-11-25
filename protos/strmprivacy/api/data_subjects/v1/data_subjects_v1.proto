@@ -61,7 +61,8 @@ message AddDataSubjectsKeyLinksRequest {
 message AddDataSubjectsKeyLinksResponse {
 
   int64 stored_count = 1;
-  repeated AddDataSubjectsIssues issues = 2;
+  // issues with stored data items. Now the service call just throws an exception
+  repeated AddDataSubjectsIssues issues = 2 [deprecated = true];
 
   /**
   this list is empty when nothing has gone wrong.
@@ -70,7 +71,8 @@ message AddDataSubjectsKeyLinksResponse {
   DuplicateKey: (when you have the same project/data_subject/keylink tuple). Harmless
   InvalidArgument: when you have a project_id or key_link that is not a uuid
    */
-  message AddDataSubjectsIssues  {
+  message AddDataSubjectsIssues {
+    option deprecated = true;
     string data_subject_id = 1;
     string key_link = 2;
     string message = 3;
