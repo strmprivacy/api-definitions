@@ -1,3 +1,10 @@
+# [2.63.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.62.0...v2.63.0) (2022-11-30)
+
+
+### Features
+
+* **strm-1991:** use js+dts for typescript ([5799252](https://gitlab.com/strmprivacy/api-definitions/commit/5799252e195c54cb2ef9a817542efb7a28945aa2))
+
 # [2.62.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.61.5...v2.62.0) (2022-11-24)
 
 
