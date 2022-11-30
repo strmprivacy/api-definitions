@@ -1,5 +1,5 @@
 {
-  "name": "@strmprivacy-internal/api-definitions-connect-web",
+  "name": "@strmprivacy-internal/api-definitions",
   "version": "filled-out-during-make-step",
   "main": "index.ts",
   "files": [
@@ -8,6 +8,7 @@
     "package.json",
     "tsconfig.json"
   ],
+  "type": "module",
   "publishConfig": {
     "@strmprivacy:registry": " https://europe-west4-npm.pkg.dev/stream-machine-development/npm/"
   },

@@ -4,11 +4,11 @@
 # require it. Issue in buf GitHub: https://github.com/bufbuild/buf/issues/1407
 version: v1
 plugins:
-  - remote: buf.build/bufbuild/plugins/es:v0.2.1-1
+  - remote: buf.build/bufbuild/plugins/es:v0.3.0-1
     out: ../lang/typescript/src/
     opt:
-      - target=ts
-  - remote: buf.build/bufbuild/plugins/connect-web:v0.3.1-1
+      - target=js+dts
+  - remote: buf.build/bufbuild/plugins/connect-web:v0.3.2-1
     out: ../lang/typescript/src/
     opt:
-      - target=ts
+      - target=js+dts
