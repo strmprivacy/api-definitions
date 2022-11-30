@@ -1,3 +1,10 @@
+# [2.64.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.63.0...v2.64.0) (2022-11-30)
+
+
+### Features
+
+* **strm-2045:** add subscription plans ([13b9972](https://gitlab.com/strmprivacy/api-definitions/commit/13b9972b194ce37217172ceb55780fe91d14dc95))
+
 # [2.63.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.62.0...v2.63.0) (2022-11-30)
 
 
