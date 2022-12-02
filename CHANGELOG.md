@@ -1,3 +1,10 @@
+# [2.65.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.64.0...v2.65.0) (2022-12-02)
+
+
+### Features
+
+* **strm-2029:** include tag field to indicate image version ([ac74756](https://gitlab.com/strmprivacy/api-definitions/commit/ac7475693a61b2896be12e34cf0a3c79952cf07a))
+
 # [2.64.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.63.0...v2.64.0) (2022-11-30)
 
 
