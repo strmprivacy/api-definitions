@@ -1,3 +1,10 @@
+## [2.65.1](https://gitlab.com/strmprivacy/api-definitions/compare/v2.65.0...v2.65.1) (2022-12-06)
+
+
+### Bug Fixes
+
+* remove metrics service (unimplemented and never used) ([0eab517](https://gitlab.com/strmprivacy/api-definitions/commit/0eab517b12bac10219d8439900f3948b5386cb43))
+
 # [2.65.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.64.0...v2.65.0) (2022-12-02)
 
 
