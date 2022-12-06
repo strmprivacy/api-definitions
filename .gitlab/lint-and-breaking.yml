@@ -32,4 +32,4 @@ breaking:
   script:
     - export LATEST_TAG=$(git tag -l | sort -V | tail -n 1)
     - echo "Latest tag = $LATEST_TAG"
-    - if [ ! -z "$LATEST_TAG" ]; then cd protos; buf breaking --against "$CI_REPOSITORY_URL#branch=master,subdir=protos"; fi
+    # - if [ ! -z "$LATEST_TAG" ]; then cd protos; buf breaking --against "$CI_REPOSITORY_URL#branch=$LATEST_TAG,subdir=protos"; fi
