@@ -872,6 +872,15 @@ message User {
   repeated UserRole user_roles = 4;
 }
 
+message PurposeMapping {
+  // an integer, which retains the same technical function as the original "consent level"
+  int32 level = 1;
+  // a name/short description of the purpose, e.g. "Analytics", "Functional"
+  string purpose = 2;
+  // a more elaborate description
+  string description = 3;
+}
+
 enum UserRole {
   USER_ROLE_UNSPECIFIED = 0;
   ADMIN = 1;
