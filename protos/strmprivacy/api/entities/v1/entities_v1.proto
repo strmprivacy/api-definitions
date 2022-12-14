@@ -820,6 +820,8 @@ message FieldMetadata {
     bool is_quasi_id = 2 [(google.api.field_behavior) = REQUIRED];
     // The purpose level as defined in the purpose level mapping of an organization.
     int32 purpose_level = 3;
+    // The special sensitive data type as defined by the GDPR https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=CELEX:32016R0679#d1e2051-1-1
+    string gdpr_special_personal_data_type = 4;
   }
 
   message NullHandlingConfig {
