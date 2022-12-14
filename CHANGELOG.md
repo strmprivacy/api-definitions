@@ -1,3 +1,10 @@
+# [2.66.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.65.1...v2.66.0) (2022-12-14)
+
+
+### Features
+
+* **strm-2130:** add GDPR's special personal data types to FieldMetadata ([f4caa81](https://gitlab.com/strmprivacy/api-definitions/commit/f4caa81ca25458d283d915227001b4b579b6f6d9))
+
 ## [2.65.1](https://gitlab.com/strmprivacy/api-definitions/compare/v2.65.0...v2.65.1) (2022-12-06)
 
 
