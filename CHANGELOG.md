@@ -1,3 +1,10 @@
+# [2.67.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.66.0...v2.67.0) (2022-12-14)
+
+
+### Features
+
+* **strm-2129:** add purpose mapping api service and entities. Delete consent levels api ([a75f2ef](https://gitlab.com/strmprivacy/api-definitions/commit/a75f2eff67b9acd2d49de129a9d3f9b5819f3aea))
+
 # [2.66.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.65.1...v2.66.0) (2022-12-14)
 
 
