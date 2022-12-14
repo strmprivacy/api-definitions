@@ -22,7 +22,7 @@ release:
 generate:
   stage: generate
   image:
-    name: bufbuild/buf:1.9.0
+    name: bufbuild/buf:1.10.0
     entrypoint: [""]
   script:
     - apk add --update make
@@ -47,7 +47,7 @@ bsr-push:
   extends:
     - .only-tags
   image:
-    name: bufbuild/buf:1.9.0
+    name: bufbuild/buf:1.10.0
     entrypoint: [ "" ]
   script:
     - apk add --update make
