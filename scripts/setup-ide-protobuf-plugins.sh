@@ -15,6 +15,9 @@ cat << EOF > "$IDEA_DIR/protoeditor.xml"
           <option name="location" value="file://\$PROJECT_DIR$/protos" />
         </ImportPathEntry>
         <ImportPathEntry>
+          <option name="location" value="file://\$PROJECT_DIR$/lang/.common-protos" />
+        </ImportPathEntry>
+        <ImportPathEntry>
           <option name="location" value="jar://\$PROJECT_DIR$/lang/.common-protos/proto-google-common-protos.jar!/" />
         </ImportPathEntry>
         <ImportPathEntry>
@@ -32,19 +35,12 @@ cat << EOF > "$IDEA_DIR/protobuf.xml"
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ProtobufSettings">
-    <option name="importRoots">
-      <list>
-        <ImportRootEntry>
-          <option name="path" value="file://\$PROJECT_DIR$/protos" />
-        </ImportRootEntry>
-        <ImportRootEntry>
-          <option name="path" value="jar://\$PROJECT_DIR$/lang/.common-protos/proto-google-common-protos.jar!/" />
-        </ImportRootEntry>
-        <ImportRootEntry>
-          <option name="path" value="jar://\$PROJECT_DIR$/lang/.common-protos/protobuf-java.jar!/" />
-        </ImportRootEntry>
-      </list>
-    </option>
+    <roots>
+      <entry path="file://\$PROJECT_DIR$/protos" />
+      <entry path="file://\$PROJECT_DIR$/lang/.common-protos" />
+      <entry path="jar://\$PROJECT_DIR$/lang/.common-protos/proto-google-common-protos.jar!/" />
+      <entry path="jar://\$PROJECT_DIR$/lang/.common-protos/protobuf-java.jar!/" />
+    </roots>
   </component>
 </project>
 EOF
@@ -61,7 +57,7 @@ if [ -f "$IML_FILE" ]; then
 
   $SED -i 's|<content url="file://$MODULE_DIR$" />|<content url="file://$MODULE_DIR$"><sourceFolder url="file://$MODULE_DIR$/protos" isTestSource="false" /></content>|g' "$IML_FILE"
 else
-cat <<-EOF > "$IML_FILE"
+cat <<-EOF > ".idea/api-definitions.iml"
 <?xml version="1.0" encoding="UTF-8"?>
 <module type="JAVA_MODULE" version="4">
   <component name="Go" enabled="true" />
@@ -83,5 +79,3 @@ cat <<-EOF > "$IML_FILE"
 </module>
 EOF
 fi
-
-

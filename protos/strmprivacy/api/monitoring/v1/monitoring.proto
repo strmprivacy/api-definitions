@@ -1,0 +1,144 @@
+syntax = "proto3";
+
+package strmprivacy.api.monitoring.v1;
+
+import "google/api/field_behavior.proto";
+import "google/protobuf/field_mask.proto";
+import "google/protobuf/timestamp.proto";
+
+option go_package = "github.com/strmprivacy/api-definitions-go/v2/api/monitoring/v1;monitoring";
+option java_package = "io.strmprivacy.api.monitoring.v1";
+option java_multiple_files = true;
+
+/*
+  The monitoring service
+  1. holds a semi-persistent store of entity states that can be queried by end users to show entity state
+  2. has an endpoint that agents can call to store entity states
+ */
+service MonitoringService {
+  /*
+    will be called by end users from the cli or console, to retrieve entity states
+    and indicate them to users.
+   */
+  rpc GetEntityState (GetEntityStateRequest) returns (stream GetEntityStateResponse);
+
+  /*
+    can be called via the CLI and the Console, to get the latest entity state for all entities included
+    in this request
+   */
+  rpc GetLatestEntityStates (GetLatestEntityStatesRequest) returns (GetLatestEntityStatesResponse);
+
+  /*
+    will be called from entity agents so that they can send the entity states
+    of items they're responsible for to the monitoring service.
+   */
+  rpc UpdateEntityStates (stream UpdateEntityStatesRequest) returns (UpdateEntityStatesResponse);
+}
+
+/**
+Initial call returns every entity state that's relevant to the caller.
+
+Subsequent streaming gives changes only.
+*/
+message GetEntityStateRequest {
+  // Filter based on a specific entity ref (or partially based on the ref's fields)
+  EntityState.Ref ref = 1;
+  // Filter based on a specific entity status
+  EntityState.Status status = 2;
+
+  // Specify the fields that need to be part of the response. If left empty, all details will be returned.
+  // https://developers.google.com/protocol-buffers/docs/reference/google.protobuf#field-masks-in-projections
+  google.protobuf.FieldMask projection_mask = 3;
+}
+
+message GetEntityStateResponse {
+  EntityState state = 1;
+}
+
+/**
+Returns the latest entity state that's relevant to the caller.
+*/
+message GetLatestEntityStatesRequest {
+  // Filter based on a specific entity ref (or partially based on the ref's fields)
+  EntityState.Ref ref = 1;
+  // Filter based on a specific entity status
+  EntityState.Status status = 2;
+
+  // Specify the fields that need to be part of the response. If left empty, all details will be returned.
+  // https://developers.google.com/protocol-buffers/docs/reference/google.protobuf#field-masks-in-projections
+  google.protobuf.FieldMask projection_mask = 3;
+}
+
+message GetLatestEntityStatesResponse {
+  repeated EntityState state = 1;
+}
+
+/*
+Only when changes occur to resources, an entity state is sent
+(-- api-linter: core::0134::request-mask-required=disabled
+ */
+message UpdateEntityStatesRequest {
+  repeated EntityState states = 1;
+}
+
+message UpdateEntityStatesResponse {
+}
+
+message EntityState {
+  google.protobuf.Timestamp state_time = 1 [(google.api.field_behavior) = REQUIRED];
+  Ref ref = 2 [(google.api.field_behavior) = REQUIRED];
+  // also used to indicate that the entity is being removed.
+  Status status = 3 [(google.api.field_behavior) = REQUIRED];
+  // generic status message, often empty, meant for resources that are not necessarily Kubernetes pods
+  string message = 4;
+  // logging in case the entity is unhealthy
+  repeated string logs = 5;
+  ResourceType resource_type = 6;
+
+  // a unique reference to the entity
+  message Ref {
+    EntityType type = 1;
+    string project_id = 2 [(google.api.field_behavior) = REQUIRED];
+    string name = 3;
+  }
+
+  // (-- api-linter: core::0216::synonyms=disabled
+  enum Status {
+    STATUS_UNSPECIFIED = 0;
+    HEALTHY = 1;
+    REMOVED = 2;
+    PENDING = 3;
+    TERMINATING = 4;
+    UNHEALTHY = 5;
+    RESTARTING = 6;
+  }
+  // what kind of entity category or instance are we dealing with
+  enum EntityType {
+    ENTITY_TYPE_UNSPECIFIED = 0;
+
+    BATCH_JOB = 1;
+    STREAM = 2;
+    BATCH_EXPORTER = 3;
+  }
+
+  enum ResourceType {
+    RESOURCE_TYPE_UNSPECIFIED = 0;
+
+    // Batch Job Kubernetes deployment
+    BATCH_JOB_DEPLOYMENT = 100;
+    // Batch Job Kubernetes secret
+    BATCH_JOB_SECRET = 101;
+
+    // Stream Kafka Topic
+    STREAM_TOPIC = 120;
+    // Encryption keys Kafka Topic
+    STREAM_ENCRYPTION_KEYS_TOPIC = 121;
+    // Stream Decrypter Kubernetes Deployment, responsible for creating derived / privacy streams
+    STREAM_DECRYPTER_DEPLOYMENT = 122;
+
+    // Batch Exporter Kubernetes Deployment
+    BATCH_EXPORTER_DEPLOYMENT = 140;
+    // Batch Exporter Kubernetes Secret
+    BATCH_EXPORTER_SECRET = 141;
+  }
+}
