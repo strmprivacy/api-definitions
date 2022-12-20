@@ -1,3 +1,10 @@
+# [2.68.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.67.0...v2.68.0) (2022-12-20)
+
+
+### Features
+
+* **strm-2047:** monitoring service added ([6b97aad](https://gitlab.com/strmprivacy/api-definitions/commit/6b97aad397ff75ed73fd8d5e35669273006192ae))
+
 # [2.67.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.66.0...v2.67.0) (2022-12-14)
 
 
