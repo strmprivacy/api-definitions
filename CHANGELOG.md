@@ -1,3 +1,10 @@
+# [2.69.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.68.0...v2.69.0) (2022-12-21)
+
+
+### Features
+
+* **strm-1973:** add protoc-gen-validate validations ([8ac8c4e](https://gitlab.com/strmprivacy/api-definitions/commit/8ac8c4ea50ed7ea08a9fd295386ac8bee0dde6f9))
+
 # [2.68.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.67.0...v2.68.0) (2022-12-20)
 
 
