@@ -5,6 +5,7 @@ package strmprivacy.api.data_contracts.v1;
 import "google/api/field_behavior.proto";
 import "google/protobuf/field_mask.proto";
 import "strmprivacy/api/entities/v1/entities_v1.proto";
+import "validate/validate.proto";
 
 option go_package = "github.com/strmprivacy/api-definitions-go/v2/api/data_contracts/v1;data_contracts";
 option java_package = "io.strmprivacy.api.data_contracts.v1";
@@ -29,76 +30,75 @@ service DataContractsService {
 message ListDataContractsRequest {
   // The billing_id, used for authentication.
   // If absent, only public Event Contracts can be returned. If present, public and owned private Event Contracts can be returned.
-  string billing_id = 1 [deprecated = true];
+  string billing_id = 1 [deprecated = true, (validate.rules).string = {len: 0, ignore_empty: true}];
 
   // Filter on a string to do a full-text search.
-  string filter = 2 [(google.api.field_behavior) = OPTIONAL];
+  string filter = 2;
 
   // Filter on a given handle.
-  string handle = 3 [(google.api.field_behavior) = OPTIONAL];
+  string handle = 3;
 
   // Filter on a given name.
-  string name = 4 [(google.api.field_behavior) = OPTIONAL];
+  string name = 4;
 
   // Filter public/private Event Contracts.
-  strmprivacy.api.entities.v1.FilterPublicPrivate public_private = 5 [(google.api.field_behavior) = OPTIONAL];
+  strmprivacy.api.entities.v1.FilterPublicPrivate public_private = 5;
 
   // Filter based on labels. It is possible to skip the label value.
   // In that case, the filter only filters on the key.
-  repeated strmprivacy.api.entities.v1.Label labels = 7 [(google.api.field_behavior) = OPTIONAL];
+  repeated strmprivacy.api.entities.v1.Label labels = 7;
 
   // Filter on domains.
-  repeated string domains = 8 [(google.api.field_behavior) = OPTIONAL];
+  repeated string domains = 8;
 
   // Filter on industries.
-  repeated string industries = 9 [(google.api.field_behavior) = OPTIONAL];
+  repeated string industries = 9;
 
-  string project_id = 10 [(google.api.field_behavior) = REQUIRED];
+  string project_id = 10 [(validate.rules).string.uuid = true];
 }
 
 message ListDataContractsResponse {
   repeated strmprivacy.api.entities.v1.DataContract data_contracts = 1 [deprecated=true];
 
-  // if this field contains data, the deprecated field above does not.
-  // #1 will be removed at a later stage.
   // (-- api-linter: core::0132::response-unknown-fields=disabled
   //     aip.dev/not-precedent: We really need this field because a data-contract is mutable
   // as long as the state is not active --)
   repeated DataContractAndChecksum data_contracts_and_checksums = 2;
   message DataContractAndChecksum {
-    strmprivacy.api.entities.v1.DataContract data_contract = 1;
-    string checksum = 2;
+    strmprivacy.api.entities.v1.DataContract data_contract = 1 [(google.api.field_behavior) = REQUIRED];
+    string checksum = 2 [(google.api.field_behavior) = REQUIRED];
   }
 }
 
 message GetDataContractRequest {
-  string billing_id = 1 [deprecated = true];
+  string billing_id = 1 [deprecated = true, (validate.rules).string = {len: 0, ignore_empty: true}];
+  // Id or Data Contract Ref must be filled. If filled in both, Id takes precedence.
   strmprivacy.api.entities.v1.DataContractRef ref = 2;
   string id = 3;
 }
 
 message GetDataContractResponse {
-  strmprivacy.api.entities.v1.DataContract data_contract = 1;
+  strmprivacy.api.entities.v1.DataContract data_contract = 1 [(google.api.field_behavior) = REQUIRED];
   string checksum = 2 [(google.api.field_behavior) = REQUIRED];
 }
 
 message CreateDataContractRequest {
-  string billing_id = 1 [deprecated = true];
-  strmprivacy.api.entities.v1.DataContract data_contract = 2;
-  string project_id = 3;
+  string billing_id = 1 [deprecated = true, (validate.rules).string = {len: 0, ignore_empty: true}];
+  strmprivacy.api.entities.v1.DataContract data_contract = 2 [(validate.rules).message.required = true];
+  string project_id = 3 [(validate.rules).string.uuid = true];
 }
 
 message CreateDataContractResponse {
-  strmprivacy.api.entities.v1.DataContract data_contract = 1;
-  string checksum = 2 [(google.api.field_behavior) = OUTPUT_ONLY];
+  strmprivacy.api.entities.v1.DataContract data_contract = 1 [(google.api.field_behavior) = REQUIRED];
+  string checksum = 2 [(google.api.field_behavior) = REQUIRED];
 }
 
 message UpdateDataContractRequest {
-  string billing_id = 1 [deprecated = true];
-  strmprivacy.api.entities.v1.DataContract data_contract = 2 [(google.api.field_behavior) = REQUIRED];
-  string checksum = 3 [(google.api.field_behavior) = REQUIRED];
+  string billing_id = 1 [deprecated = true, (validate.rules).string = {len: 0, ignore_empty: true}];
+  strmprivacy.api.entities.v1.DataContract data_contract = 2 [(validate.rules).message.required = true];
+  string checksum = 3 [(validate.rules).string.min_len = 1];
   // The fields to update.
-  google.protobuf.FieldMask update_mask = 4 [(google.api.field_behavior) = REQUIRED];
+  google.protobuf.FieldMask update_mask = 4 [(validate.rules).message.required = true];
   ConsoleWizardStep console_wizard_step = 5;
 
   enum ConsoleWizardStep {
@@ -110,13 +110,13 @@ message UpdateDataContractRequest {
 }
 
 message UpdateDataContractResponse {
-  strmprivacy.api.entities.v1.DataContract data_contract = 1;
-  string checksum = 2 [(google.api.field_behavior) = OUTPUT_ONLY];
+  strmprivacy.api.entities.v1.DataContract data_contract = 1 [(google.api.field_behavior) = REQUIRED];
+  string checksum = 2 [(google.api.field_behavior) = REQUIRED];
 }
 
 message ReviewDataContractRequest {
-  string billing_id = 1 [deprecated = true];
-  // Id or Data Contract Ref must be filled. If filled in both Id takes precedence.
+  string billing_id = 1 [deprecated = true, (validate.rules).string = {len: 0, ignore_empty: true}];
+  // Id or Data Contract Ref must be filled. If filled in both, Id takes precedence.
   string id = 2;
   entities.v1.DataContractRef data_contract_ref = 3;
 }
@@ -125,8 +125,8 @@ message ReviewDataContractResponse {
 }
 
 message ActivateDataContractRequest {
-  string billing_id = 1 [deprecated = true];
-  // Id or Data Contract Ref must be filled. If filled in both Id takes precedence.
+  string billing_id = 1 [deprecated = true, (validate.rules).string = {len: 0, ignore_empty: true}];
+  // Id or Data Contract Ref must be filled. If filled in both, Id takes precedence.
   string id = 2;
   entities.v1.DataContractRef data_contract_ref = 3;
 }
@@ -135,10 +135,10 @@ message ActivateDataContractResponse {
 }
 
 message DeleteDataContractRequest {
-  string billing_id = 1 [deprecated = true];
-  // Id or Data Contract Ref must be filled. If filled in both Id takes precedence.
+  string billing_id = 1 [deprecated = true, (validate.rules).string = {len: 0, ignore_empty: true}];
+  // Id or Data Contract Ref must be filled. If filled in both, Id takes precedence.
   string id = 2;
-  string project_id = 3 [(google.api.field_behavior) = REQUIRED];
+  string project_id = 3 [(validate.rules).string.uuid = true];
   entities.v1.DataContractRef data_contract_ref = 4;
 }
 
@@ -146,8 +146,8 @@ message DeleteDataContractResponse {
 }
 
 message ArchiveDataContractRequest {
-  string billing_id = 1 [deprecated = true];
-  // Id or Data Contract Ref must be filled. If filled in both Id takes precedence.
+  string billing_id = 1 [deprecated = true, (validate.rules).string = {len: 0, ignore_empty: true}];
+  // Id or Data Contract Ref must be filled. If filled in both, Id takes precedence.
   string id = 2;
   entities.v1.DataContractRef data_contract_ref = 3;
 }
@@ -156,8 +156,8 @@ message ArchiveDataContractResponse {
 }
 
 message ValidateDataContractsMaskedFieldsRequest {
-  string billing_id = 1 [deprecated = true];
-  entities.v1.MaskedFields masked_fields = 2;
+  string billing_id = 1 [deprecated = true, (validate.rules).string = {len: 0, ignore_empty: true}];
+  entities.v1.MaskedFields masked_fields = 2 [(validate.rules).message.required = true];
 }
 
 message ValidateDataContractsMaskedFieldsResponse {
@@ -182,19 +182,20 @@ message ValidateDataContractsMaskedFieldsResponse {
 }
 
 message GetDataContractSchemaCodeRequest {
-  string billing_id = 1 [deprecated = true];
+  string billing_id = 1 [deprecated = true, (validate.rules).string = {len: 0, ignore_empty: true}];
   // Id or Data Contract Ref must be filled. If filled in both Id takes precedence.
   string id = 2;
   // (-- api-linter: core::0143::standardized-codes=disabled
   //     aip.dev/not-precedent: language here is a programming language, not a human spoken language. --)
-  string language = 3 [(google.api.field_behavior) = REQUIRED];
+  // This should be an enum
+  string language = 3 [(validate.rules).string = {in: ["java", "typescript", "python", "rust"]}];
   entities.v1.DataContractRef data_contract_ref = 4;
 }
 
 message GetDataContractSchemaCodeResponse {
-  string filename = 1;
-  int64 data_size = 2;
-  bytes data = 3;
+  string filename = 1 [(google.api.field_behavior) = REQUIRED];
+  int64 data_size = 2 [(google.api.field_behavior) = REQUIRED];
+  bytes data = 3 [(google.api.field_behavior) = REQUIRED];
 }
 
 message GetDataContractSchemaDefinitionRequest {
@@ -203,12 +204,12 @@ message GetDataContractSchemaDefinitionRequest {
 }
 
 message GetDataContractSchemaDefinitionResponse {
-  string definition = 1;
+  string definition = 1 [(google.api.field_behavior) = REQUIRED];
 }
 
 message SimpleSchemaDryRunRequest  {
-  strmprivacy.api.entities.v1.Schema.SimpleSchemaDefinition simple_schema_definition = 1;
+  strmprivacy.api.entities.v1.Schema.SimpleSchemaDefinition simple_schema_definition = 1 [(validate.rules).message.required = true];
 }
 message SimpleSchemaDryRunResponse {
-  strmprivacy.api.entities.v1.Schema.SimpleSchemaDefinition simple_schema_definition = 1;
+  strmprivacy.api.entities.v1.Schema.SimpleSchemaDefinition simple_schema_definition = 1 [(google.api.field_behavior) = REQUIRED];
 }

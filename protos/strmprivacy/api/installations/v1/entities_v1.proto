@@ -4,20 +4,21 @@ package strmprivacy.api.installations.v1;
 
 import "google/api/field_behavior.proto";
 import "google/protobuf/timestamp.proto";
+import "validate/validate.proto";
 
 option go_package = "github.com/strmprivacy/api-definitions-go/v2/api/installations/v1;installations";
 option java_package = "io.strmprivacy.api.installations.v1";
 option java_multiple_files = true;
 
 message Installation {
-  string id = 1 [(google.api.field_behavior) = REQUIRED];
+  string id = 1 [(validate.rules).string.uuid = true];
   InstallationType installation_type = 2 [(google.api.field_behavior) = REQUIRED];
   // There is a zero-to-one relationship between an installation and a billing_account in the case of a non-SAAS
   // installation. In this case, this field is required.
   // When used in a SAAS installation, this field is empty.
   // (-- api-linter: core::0203::required=disabled
   //     aip.dev/not-precedent: This field is only required in certain circumstances. --)
-  string billing_account_id = 3;
+  string billing_account_id = 3 [(validate.rules).string.uuid = true];
   InstallationCredentials installation_credentials = 4;
 }
 
@@ -37,31 +38,31 @@ message InstallationCredentials {
 message InstalledComponent {
   // One installation always has one InstalledComponent of a given type (e.g. one Event Gateway deployment), so within
   // one installation, the type is unique.
-  InstalledComponentType component_type = 1 [(google.api.field_behavior) = REQUIRED];
+  InstalledComponentType component_type = 1 [(validate.rules).enum = {not_in: [0]}];
   repeated InstalledComponentInstance instances = 2;
 }
 
 // One instance (Pod) that is part of an installed component (Deployment).
 message InstalledComponentInstance {
-  // The unique ID of this instance, e.g. the UID from the Pod metadata.
-  string id = 1 [(google.api.field_behavior) = REQUIRED];
+  // The unique ID of this instance, e.g. the hostname, that defaults to the Kubernetes pod name
+  string id = 1 [(validate.rules).string = {min_len: 3}];
   repeated InstalledComponentState states = 2;
 }
 
 message InstalledComponentsCurrentState {
-  InstalledComponentType component_type = 1 [(google.api.field_behavior) = REQUIRED];
+  InstalledComponentType component_type = 1 [(validate.rules).enum = {not_in: [0]}];
   repeated InstalledComponentInstanceCurrentState instances = 2;
 }
 
 message InstalledComponentInstanceCurrentState {
-  string id = 1 [(google.api.field_behavior) = REQUIRED];
+  string id = 1 [(validate.rules).string = {min_len: 4}];
   InstalledComponentState state = 2;
 }
 
 message InstalledComponentState {
   google.protobuf.Timestamp state_time = 1 [(google.api.field_behavior) = OUTPUT_ONLY];
-  InstalledComponentStateType state_type = 2 [(google.api.field_behavior) = REQUIRED];
-  string message = 3 [(google.api.field_behavior) = OPTIONAL];
+  InstalledComponentStateType state_type = 2 [(validate.rules).enum = {not_in: [0]}];
+  string message = 3 [(validate.rules).string = {ignore_empty: true, min_len: 4}];
 }
 
 enum InstallationType {

@@ -4,6 +4,7 @@ package strmprivacy.api.cli.v1;
 
 import "google/api/field_behavior.proto";
 import "google/protobuf/timestamp.proto";
+import "validate/validate.proto";
 
 option go_package = "github.com/strmprivacy/api-definitions-go/v2/api/cli/v1;cli";
 option java_package = "io.strmprivacy.api.cli.v1";
@@ -15,7 +16,10 @@ service CliService {
 
 message GetReleaseRequest {
   // The CLI version, get the latest version if unspecified.
-  string version = 1 [(google.api.field_behavior) = OPTIONAL];
+  string version = 1 [(validate.rules).string = {
+    ignore_empty: true,
+    pattern:"^v(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:-((?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\\.(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\\+([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?$/gm"
+  }];
 }
 
 message GetReleaseResponse {

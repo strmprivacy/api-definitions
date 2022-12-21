@@ -4,6 +4,7 @@ package strmprivacy.api.installations.v1;
 
 import "google/api/field_behavior.proto";
 import "strmprivacy/api/installations/v1/entities_v1.proto";
+import "validate/validate.proto";
 
 option go_package = "github.com/strmprivacy/api-definitions-go/v2/api/installations/v1;installations";
 option java_package = "io.strmprivacy.api.installations.v1";
@@ -22,7 +23,7 @@ service InstallationsService {
 }
 
 message GetInstallationRequest {
-  string installation_id = 1 [(google.api.field_behavior) = REQUIRED];
+  string installation_id = 1 [(validate.rules).string.uuid = true];
 }
 
 message GetInstallationResponse {

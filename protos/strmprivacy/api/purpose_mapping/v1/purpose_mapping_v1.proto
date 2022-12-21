@@ -4,6 +4,7 @@ package strmprivacy.api.purpose_mapping.v1;
 
 import "google/api/field_behavior.proto";
 import "strmprivacy/api/entities/v1/entities_v1.proto";
+import "validate/validate.proto";
 
 option go_package = "github.com/strmprivacy/api-definitions-go/v2/api/purpose_mapping/v1;purpose_mapping";
 option java_package = "io.strmprivacy.api.purpose_mapping.v1";
@@ -22,17 +23,17 @@ message ListPurposeMappingsResponse {
 }
 
 message CreatePurposeMappingRequest {
-  strmprivacy.api.entities.v1.PurposeMapping purpose_mapping = 1 [(google.api.field_behavior) = REQUIRED];
+  strmprivacy.api.entities.v1.PurposeMapping purpose_mapping = 1 [(validate.rules).message.required = true];
 }
 
 message CreatePurposeMappingResponse {
-  strmprivacy.api.entities.v1.PurposeMapping purpose_mapping = 1;
+  strmprivacy.api.entities.v1.PurposeMapping purpose_mapping = 1 [(google.api.field_behavior) = REQUIRED];
 }
 
 message GetPurposeMappingRequest {
-  int32 level = 1 [(google.api.field_behavior) = REQUIRED];
+  int32 level = 1 [(validate.rules).int32.gte = 0];
 }
 
 message GetPurposeMappingResponse {
-  strmprivacy.api.entities.v1.PurposeMapping purpose_mapping = 1;
+  strmprivacy.api.entities.v1.PurposeMapping purpose_mapping = 1 [(google.api.field_behavior) = REQUIRED];
 }

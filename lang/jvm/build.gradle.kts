@@ -51,6 +51,9 @@ dependencies {
 
     api("com.google.protobuf:protobuf-java-util:${rootProject.ext["protobufVersion"]}")
 
+    // Protoc Gen Validate - validations for Proto messages
+    implementation("build.buf.protoc-gen-validate:pgv-java-stub:0.8.0")
+
     // Coroutines are used in the health service, since it streams data
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:${rootProject.ext["kotlinXVersion"]}")
 }

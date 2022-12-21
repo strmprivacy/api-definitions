@@ -5,6 +5,7 @@ package strmprivacy.api.usage.v1;
 import "google/protobuf/duration.proto";
 import "google/protobuf/timestamp.proto";
 import "strmprivacy/api/entities/v1/entities_v1.proto";
+import "validate/validate.proto";
 
 option go_package = "github.com/strmprivacy/api-definitions-go/v2/api/usage/v1;usage";
 option java_package = "io.strmprivacy.api.usage.v1";
@@ -19,7 +20,9 @@ message GetStreamEventUsageRequest {
   strmprivacy.api.entities.v1.StreamRef ref = 1;
   google.protobuf.Timestamp start_time = 2;
   google.protobuf.Timestamp end_time = 3;
-  google.protobuf.Duration interval = 4;
+  google.protobuf.Duration interval = 4 [
+    (validate.rules).duration={gte:{seconds:60}}
+  ];
 }
 
 message GetStreamEventUsageResponse {
@@ -28,11 +31,11 @@ message GetStreamEventUsageResponse {
 }
 
 message StoreUsageEventRequest {
-    string billing_id = 1 [deprecated = true];
-    string stream = 2;
-    int32  event_count = 3;
-    google.protobuf.Timestamp event_arrival_time = 4;
-    string project_id = 5;
+  string billing_id = 1 [deprecated = true, (validate.rules).string = {len: 0, ignore_empty: true}];
+  string stream = 2 [(validate.rules).string = {pattern: "^[\\pL\\pN\\pS\\pM\\pP]+$", min_len: 4, max_len: 50}];
+  int32  event_count = 3 [(validate.rules).int32 = {gte:0}];
+  google.protobuf.Timestamp event_arrival_time = 4;
+  string project_id = 5 [(validate.rules).string.uuid = true];
 }
 
 message StoreUsageEventResponse {

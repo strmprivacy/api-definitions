@@ -1,4 +1,4 @@
-.PHONY: intellij clean build publish buf-breaking buf-lint api-lint default-protobuf-dependencies protodocs protodocs-clean clean-common-protos generate typescript-generate
+.PHONY: intellij clean build publish buf-breaking buf-lint api-lint default-protobuf-dependencies protodocs protodocs-clean clean-common-protos generate typescript-generate protoc-gen-validate-dependency
 
 # =======================
 # Variables
@@ -32,7 +32,7 @@ ${common_protos}/protobuf-java.jar:
 ${common_protos}/proto-google-common-protos.jar:
 	curl "https://repo1.maven.org/maven2/com/google/api/grpc/proto-google-common-protos/${google_common_protos_version}/proto-google-common-protos-${google_common_protos_version}.jar" --create-dirs -o "${common_protos}/proto-google-common-protos.jar"
 
-${common_protos}: ${common_protos}/proto-google-common-protos.jar ${common_protos}/protobuf-java.jar
+${common_protos}: ${common_protos}/proto-google-common-protos.jar ${common_protos}/protobuf-java.jar ${common_protos}/validate/validate.proto
 
 clean-common-protos:
 	rm -rf ${common_protos}
@@ -43,8 +43,12 @@ ${common_protos}/google/protobuf: ${common_protos}/protobuf-java.jar
 ${common_protos}/google/api: ${common_protos}/proto-google-common-protos.jar
 	unzip -d ${common_protos} $< "google/**/*.proto"
 
+${common_protos}/validate/validate.proto:
+	curl "https://raw.githubusercontent.com/bufbuild/protoc-gen-validate/v0.6.13/validate/validate.proto" --create-dirs -o "${common_protos}/validate/validate.proto"
+
 # To ensure that we use the same Google Common Protobuf files in all languages, we extract them from the jar
 default-google-dependencies: ${common_protos}/google/protobuf ${common_protos}/google/api
+protoc-gen-validate-dependency: ${common_protos}/validate/validate.proto
 
 VERSION.env: Makefile
 	GIT_BRANCH="$${CI_COMMIT_REF_NAME:-${git_branch}}" && \
@@ -53,17 +57,18 @@ VERSION.env: Makefile
 # =======================
 # Miscellaneous
 # =======================
-intellij: ${common_protos}/protobuf-java.jar ${common_protos}/proto-google-common-protos.jar
+intellij: ${common_protos}
 	./scripts/setup-ide-protobuf-plugins.sh
 
 buf-breaking:
 	cd protos; buf breaking --against "../.git#branch=master,subdir=protos"
 
-buf-lint:
+buf-lint: ${common_protos}/google/api ${common_protos}/google/protobuf
 	cd protos; buf lint
 
+# Make sure the google api linter is on your path (https://github.com/googleapis/api-linter/releases)
 api-lint:
-	docker run --rm -v "${pwd}:/workspace" europe-west4-docker.pkg.dev/stream-machine-development/docker/build/google-api-linter:1.29.3 ./scripts/api-linter.sh
+	docker run --rm -v "$(pwd):/workspace" europe-west4-docker.pkg.dev/stream-machine-development/docker/build/google-api-linter:latest ./scripts/api-linter.sh
 
 protodocs-clean:
 	rm -rf protodocs

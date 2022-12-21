@@ -2,8 +2,8 @@ syntax = "proto3";
 
 package strmprivacy.api.batch_exporters.v1;
 
-import "google/api/field_behavior.proto";
 import "strmprivacy/api/entities/v1/entities_v1.proto";
+import "validate/validate.proto";
 
 option go_package = "github.com/strmprivacy/api-definitions-go/v2/api/batch_exporters/v1;batch_exporters";
 option java_package = "io.strmprivacy.api.batch_exporters.v1";
@@ -17,8 +17,8 @@ service BatchExportersService {
 }
 
 message ListBatchExportersRequest {
-  string billing_id = 1 [deprecated = true];
-  string project_id = 2 [(google.api.field_behavior) = REQUIRED];
+  string billing_id = 1 [deprecated = true, (validate.rules).string = {len: 0, ignore_empty: true}];
+  string project_id = 2 [(validate.rules).string = {uuid:true}];
 }
 
 message ListBatchExportersResponse {
@@ -26,14 +26,14 @@ message ListBatchExportersResponse {
 }
 
 message DeleteBatchExporterRequest {
-  entities.v1.BatchExporterRef ref = 1 [(google.api.field_behavior) = REQUIRED];
+  entities.v1.BatchExporterRef ref = 1 [(validate.rules).message.required = true];
 }
 
 message DeleteBatchExporterResponse {
 }
 
 message CreateBatchExporterRequest {
-  strmprivacy.api.entities.v1.BatchExporter batch_exporter = 1;
+  strmprivacy.api.entities.v1.BatchExporter batch_exporter = 1 [(validate.rules).message.required = true];
 }
 
 message CreateBatchExporterResponse {
@@ -41,7 +41,7 @@ message CreateBatchExporterResponse {
 }
 
 message GetBatchExporterRequest {
-  entities.v1.BatchExporterRef ref = 1 [(google.api.field_behavior) = REQUIRED];
+  entities.v1.BatchExporterRef ref = 1 [(validate.rules).message.required = true];
 }
 
 message GetBatchExporterResponse {

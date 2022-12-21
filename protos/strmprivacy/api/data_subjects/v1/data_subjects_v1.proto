@@ -5,6 +5,7 @@ package strmprivacy.api.data_subjects.v1;
 import "google/api/field_behavior.proto";
 import "google/protobuf/descriptor.proto";
 import "google/protobuf/timestamp.proto";
+import "validate/validate.proto";
 
 option go_package = "github.com/strmprivacy/api-definitions-go/v2/api/data_subjects/v1;data_subjects";
 option java_package = "io.strmprivacy.api.data_subjects.v1";
@@ -41,10 +42,13 @@ service DataSubjectsService {
 }
 
 message ListDataSubjectKeylinksRequest {
-  repeated string data_subject_id = 1;
+  // data_subject_id is defined by the external organization, and can be almost any string (customer-id, car license plate
+  // mac address, ....
+  // here we're just adding a sanity constraints to limit to printable characters
+  repeated string data_subject_id = 1 [(validate.rules).repeated.items.string.pattern = "^[\\pL\\pN\\pS\\pM\\pP]{4,100}$"];
   // this parameter is filled in in the management-api from the identity of the caller
   // it must be empty when a call is made to the management-api.
-  string organization_id = 2;
+  string organization_id = 2 [(validate.rules).string = {uuid:true, ignore_empty:true} ];
 }
 
 message ListDataSubjectKeylinksResponse {
@@ -52,15 +56,12 @@ message ListDataSubjectKeylinksResponse {
 }
 
 message AddDataSubjectsKeyLinksRequest {
-  // this parameter is filled in in the management-api from the identity of the caller
-  // it must be empty when a call is made to the management-api.
-  string project_id = 1 [(google.api.field_behavior) = REQUIRED];
+  string project_id = 1 [(validate.rules).string.uuid = true];
   repeated DatasubjectKeylinks data_subject_keylinks = 2;
 }
 
 message AddDataSubjectsKeyLinksResponse {
-
-  int64 stored_count = 1;
+  int64 stored_count = 1 [(google.api.field_behavior) = REQUIRED];
   // issues with stored data items. Now the service call just throws an exception
   repeated AddDataSubjectsIssues issues = 2 [deprecated = true];
 
@@ -84,19 +85,19 @@ message AddDataSubjectsKeyLinksResponse {
 been used to encrypt data up to a certain point in time.
 */
 message DatasubjectKeylinks {
-  string data_subject_id = 1 [(google.api.field_behavior) = REQUIRED];
+  string data_subject_id = 1 [(validate.rules).string.pattern = "^[\\pL\\pN\\pS\\pM\\pP]{4,50}$"];
   repeated KeylinkAndTimestamp keylinks_and_timestamps = 2;
   message KeylinkAndTimestamp  {
-    string key_link = 1;
-    google.protobuf.Timestamp expiry_time = 2;
+    string key_link = 1 [(validate.rules).string.uuid = true];
+    google.protobuf.Timestamp expiry_time = 2 [(validate.rules).timestamp.required = true];
   }
 }
 
 message DeleteDataSubjectsRequest {
-  repeated string data_subjects = 1;
+  repeated string data_subjects = 1 [(validate.rules).repeated.items.string.pattern = "^[\\pL\\pN\\pS\\pM\\pP]{4,50}"];
   // this parameter is filled in in the management-api from the identity of the caller
   // it must be empty when a call is made to the management-api.
-  string organization_id = 2;
+  string organization_id = 2 [(validate.rules).string = {uuid:true, ignore_empty:true} ];
 
 }
 
@@ -108,10 +109,10 @@ message ListDataSubjectsRequest {
   // https://cloud.google.com/apis/design/design_patterns#list_pagination
   string page_token = 1;
   // maximum number of results returned. 0 means the server decides.
-  int32 page_size = 2;
+  int32 page_size = 2 [(validate.rules).int32 = {gte:0}];
   // this parameter is filled in in the management-api from the identity of the caller
   // it must be empty when a call is made to the management-api.
-  string organization_id = 3;
+  string organization_id = 3 [(validate.rules).string = {uuid:true, ignore_empty:true}];
 
 }
 

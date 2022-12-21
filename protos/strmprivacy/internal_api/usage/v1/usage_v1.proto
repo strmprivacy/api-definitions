@@ -4,6 +4,7 @@ package strmprivacy.internal_api.usage.v1;
 
 import "google/api/field_behavior.proto";
 import "google/protobuf/timestamp.proto";
+import "validate/validate.proto";
 
 option go_package = "github.com/strmprivacy/api-definitions-go/v2/internal_api/usage/v1;usage";
 option java_package = "io.strmprivacy.internal_api.usage.v1";
@@ -14,8 +15,8 @@ service InternalUsageService {
 }
 
 message GetEventUsageRequest {
-  google.protobuf.Timestamp start_time = 1 [(google.api.field_behavior) = REQUIRED];
-  google.protobuf.Timestamp end_time = 2 [(google.api.field_behavior) = REQUIRED];
+  google.protobuf.Timestamp start_time = 1 [(validate.rules).timestamp.required = true];
+  google.protobuf.Timestamp end_time = 2 [(validate.rules).timestamp.required = true];
 }
 
 message GetEventUsageResponse {

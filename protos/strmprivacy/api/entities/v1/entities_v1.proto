@@ -6,6 +6,7 @@ import "google/api/field_behavior.proto";
 import "google/protobuf/duration.proto";
 import "google/protobuf/timestamp.proto";
 import "google/type/datetime.proto";
+import "validate/validate.proto";
 
 option go_package = "github.com/strmprivacy/api-definitions-go/v2/api/entities/v1;entities";
 option java_package = "io.strmprivacy.api.entities.v1";
@@ -17,32 +18,32 @@ option java_multiple_files = true;
   Key streams are a separate entity in the api.
  */
 message Stream {
-  StreamRef ref = 1 [(google.api.field_behavior) = REQUIRED];
-  // customer's description for this Stream.
-  string description = 2;
+  StreamRef ref = 1 [(google.api.field_behavior) = REQUIRED, (validate.rules).message.required = true];
+  // Stream description
+  string description = 2 [(validate.rules).string = {ignore_empty: true, max_len: 1000}];
   /*
   consent levels for derived streams
 
   constraints:
-  size < 50
   if consent_level_type ==  CUMULATIVE then
     size = 1
   endif
    */
-  repeated int32 consent_levels = 3;
+  repeated int32 consent_levels = 3 [(validate.rules).repeated.max_items = 50];
   // how event consent-levels are interpreted by decrypters.
   ConsentLevelType consent_level_type = 4;
   // whether or not this stream is enabled.
   bool enabled = 5 [(google.api.field_behavior) = OUTPUT_ONLY];
   // stream limits
   Limits limits = 6 [(google.api.field_behavior) = OUTPUT_ONLY];
-  /*
-  null for source streams
-  constraints: general name constraint
-  */
+  // null for source streams
   string linked_stream = 7;
   // tags are meant for customers to tag their streams
-  repeated string tags = 8;
+  repeated string tags = 8 [(validate.rules).repeated = {
+    max_items: 20
+    unique: true
+    items: {string: {max_len: 100}}
+  }];
   repeated Credentials credentials = 9 [(google.api.field_behavior) = OUTPUT_ONLY];
 
   /* field masking is defined per OUTPUT stream and event-contract ref. combination
@@ -54,44 +55,59 @@ message Stream {
   * if present, for all field patterns in the MaskedFields instance, the hash with the specified seed is applied.
    */
   MaskedFields masked_fields = 10;
-  string kafka_topic = 11 [(google.api.field_behavior) = OUTPUT_ONLY];
-  string policy_id = 12;
+  // Kafka topic of the stream. Deprecated in favor of topic in message ExtendedStream
+  string kafka_topic = 11 [deprecated = true, (google.api.field_behavior) = OUTPUT_ONLY];
+  // The id of the policy that should be applied to this stream's data
+  string policy_id = 12 [(validate.rules).string = {ignore_empty: true, uuid: true}];
 }
 
 message ExtendedStream {
-  strmprivacy.api.entities.v1.Stream stream = 1;
-  string topic = 2;
-  string uuid = 3;
+  strmprivacy.api.entities.v1.Stream stream = 1 [(google.api.field_behavior) = OUTPUT_ONLY];
+  // The Kafka Topic name that the data is published to
+  string topic = 2 [(google.api.field_behavior) = OUTPUT_ONLY];
+  // The UUID identifier of the Stream, used in Kubernetes
+  string uuid = 3 [(google.api.field_behavior) = OUTPUT_ONLY];
   /* whether or not a key stream EXISTS for this stream.
    * So when this flag is true, there are TWO topics associated with this stream.
    * TODO: Rename to has_key_stream, requires many updates in api gateway. */
-  bool key_stream = 4;
+  bool key_stream = 4 [(google.api.field_behavior) = OUTPUT_ONLY];
 }
 
 message ExtendedStreamGroup {
-  ExtendedStream source_stream = 1;
+  ExtendedStream source_stream = 1 [(google.api.field_behavior) = OUTPUT_ONLY];
   repeated ExtendedStream derived_streams = 2;
 }
 
 message MaskedFields {
-  // default Murmurhash3 for empty string
+  // Default Murmurhash3 if empty
   string hash_type = 1;
-  /*
-  hashing seed
-  constraints: size < 1000, unicode
-  */
-  string seed = 2;
+  // hashing seed
+  string seed = 2 [
+    (validate.rules).string = {
+      // if empty skip validations and a default seed is generated upon creation
+      ignore_empty: true,
+      max_len: 1000,
+      pattern: "^[\\pL\\pN\\pS\\pM\\pP]+$"
+    }
+  ];
   /*
   map of event-contract-ref vs field patterns
 
   constraints:
-    * event-contract-refs should be existing event contracts
-    * field_patterns should be valid values (checked by event-core)
+    * data-contract-refs should be existing data contracts
+    * field_patterns should be valid values (checked by events-core)
     * the field_patterns list should have no duplicates.
    */
   map<string, PatternList> field_patterns = 3;
   message PatternList {
-    repeated string field_patterns = 1;
+    repeated string field_patterns = 1 [(validate.rules).repeated = {
+      unique: true
+      items: {
+        string: {
+          not_contains: "strmMeta" // cannot apply masking on strmMeta
+        }
+      }
+    }];
   }
 }
 
@@ -107,38 +123,51 @@ A Stream of key-link, encryption-key, policy-id messages created from a source s
 with the same `name`.
  */
 message KeyStream {
-  KeyStreamRef ref = 1 [(google.api.field_behavior) = REQUIRED];
+  KeyStreamRef ref = 1 [(google.api.field_behavior) = OUTPUT_ONLY];
   // -- TODO: this field is not used --
-  string status = 2 [(google.api.field_behavior) = OUTPUT_ONLY];
+  string status = 2 [deprecated = true, (google.api.field_behavior) = OUTPUT_ONLY];
   string kafka_topic = 3 [(google.api.field_behavior) = OUTPUT_ONLY];
 }
 
 /* refers to a event stream.
  */
 message StreamRef {
-  string billing_id = 1 [deprecated = true];
+  string billing_id = 1 [deprecated = true, (validate.rules).string = {len: 0, ignore_empty: true}];
   /*
   the name of the stream
   constraints: generic name
   */
-  string name = 2 [(google.api.field_behavior) = REQUIRED];
-  string project_id = 3 [(google.api.field_behavior) = OUTPUT_ONLY];
+  string name = 2 [(validate.rules).string = {
+    // if empty skip validations and a default name is generated upon creation
+    ignore_empty: true,
+    min_len: 4,
+    max_len: 50,
+    pattern: "^[\\pL\\pN\\pS\\pM\\pP]+$"
+  }];
+  string project_id = 3 [(validate.rules).string.uuid = true];
 }
 
 /* refers to a key stream.
  */
 message KeyStreamRef {
-  string billing_id = 1 [deprecated = true];
+  string billing_id = 1 [deprecated = true, (validate.rules).string = {len: 0, ignore_empty: true}];
   // the name of the stream
-  string name = 2 [(google.api.field_behavior) = REQUIRED];
-  string project_id = 3 [(google.api.field_behavior) = OUTPUT_ONLY];
+  string name = 2 [(validate.rules).string = {
+    // if empty skip validations and a default name is generated upon creation
+    ignore_empty: true,
+    min_len: 4,
+    max_len: 50,
+    // Only printable unicode characters are supported
+    pattern: "^[\\pL\\pN\\pS\\pM\\pP]+$"
+  }];
+  string project_id = 3 [(validate.rules).string.uuid = true];
 }
 
 /*
 Credentials to produce to the event-gateway, or to consume from egress.
  */
 message Credentials {
-  string billing_id = 1 [deprecated = true];
+  string billing_id = 1 [(google.api.field_behavior) = OUTPUT_ONLY];
   string client_id = 2 [(google.api.field_behavior) = OUTPUT_ONLY];
   /* as this property is secret, it is not always returned */
   string client_secret = 3 [(google.api.field_behavior) = OUTPUT_ONLY];
@@ -177,20 +206,21 @@ message BucketConfig {
 }
 
 message DataConnector {
-  DataConnectorRef ref = 1;
+  DataConnectorRef ref = 1 [(validate.rules).message.required = true];
   oneof location {
+    option (validate.required) = true;
     AwsS3BucketLocation s3_bucket = 2;
     GoogleCloudStorageBucketLocation google_cloud_storage_bucket = 3;
     AzureBlobStorageContainerLocation azure_blob_storage_container = 4;
   }
-  string uuid = 5;
+  string uuid = 5 [(validate.rules).string = {uuid: true, ignore_empty: true}];
   DataConnectorDependentEntities dependent_entities = 6;
 }
 
 message DataConnectorRef {
-  string billing_id = 1 [deprecated = true];
-  string name = 2;
-  string project_id = 3;
+  string billing_id = 1 [deprecated = true, (validate.rules).string = {len: 0, ignore_empty: true}];
+  string name = 2 [(validate.rules).string = {pattern: "^[\\pL\\pN\\pS\\pM\\pP]+$", min_len: 4, max_len: 50}];
+  string project_id = 3 [(validate.rules).string.uuid = true];
 }
 
 message DataConnectorDependentEntities {
@@ -202,52 +232,53 @@ message DataConnectorDependentEntities {
 message AwsS3BucketLocation {
   // (-- api-linter: core::0122::name-suffix=disabled
   //     aip.dev/not-precedent: We refer to a bucket name. --)
-  string bucket_name = 1 [(google.api.field_behavior) = REQUIRED];
+  string bucket_name = 1 [(validate.rules).string.min_len = 1];
   // The AWS IAM credentials that give access to this bucket, in JSON format as returned by the AWS CLI. This means a
   // JSON with at least one property: "AccessKey", which contains at least the two properties: "AccessKeyId" and
   // "SecretAccessKey".
-  string credentials = 2 [(google.api.field_behavior) = REQUIRED];
+  string credentials = 2 [(validate.rules).string.min_len = 1];
   /* The ARN of the role to assume.
      If present, start an AssumeRole flow to get temporary credentials in another AWS account.
      This is used when the customer has a separate users account.
      Default there is no assumed role. */
-  string assume_role_arn = 3 [(google.api.field_behavior) = OPTIONAL];
+  string assume_role_arn = 3 [(validate.rules).string = {min_len: 1, ignore_empty: true}];
 }
 
 message GoogleCloudStorageBucketLocation {
   // (-- api-linter: core::0122::name-suffix=disabled
   //     aip.dev/not-precedent: We refer to a bucket name. --)
-  string bucket_name = 1 [(google.api.field_behavior) = REQUIRED];
+  string bucket_name = 1 [(validate.rules).string.min_len = 1];
   // The Google Cloud Service Account credentials JSON that is used to access the Google Cloud Storage bucket.
   // We do not support credentials in P12 format.
-  string credentials = 2 [(google.api.field_behavior) = REQUIRED];
+  string credentials = 2 [(validate.rules).string.min_len = 1];
 }
 
 message AzureBlobStorageContainerLocation {
   // The base URI of the Azure Storage Account. Typically this is 'https://<your-account-name>.blob.core.windows.net',
   // but Azure users can map this to their own domain or subdomain.
-  string storage_account_uri = 1 [(google.api.field_behavior) = REQUIRED];
+  string storage_account_uri = 1 [(validate.rules).string.min_len = 1];
   // (-- api-linter: core::0122::name-suffix=disabled
   //     aip.dev/not-precedent: We refer to a container name. --)
   // Name of the Storage Container
-  string container_name = 2 [(google.api.field_behavior) = REQUIRED];
+  string container_name = 2 [(validate.rules).string.min_len = 1];
   // The AAD client secret credential used to acquire a token for the AAD application that has the required
   // permissions on this Blob Storage Container.
-  AzureClientSecretCredential client_secret_credential = 3 [(google.api.field_behavior) = REQUIRED];
+  AzureClientSecretCredential client_secret_credential = 3 [(validate.rules).message.required = true];
 }
 
 message AzureClientSecretCredential {
   // Tenant ID of the Azure AD Application.
-  string tenant_id = 1 [(google.api.field_behavior) = REQUIRED];
+  string tenant_id = 1 [(validate.rules).string.min_len = 1];
   // Client ID of the Azure AD Application.
-  string client_id = 2 [(google.api.field_behavior) = REQUIRED];
+  string client_id = 2 [(validate.rules).string.min_len = 1];
   // Client secret to use for authentication.
-  string client_secret = 3 [(google.api.field_behavior) = REQUIRED];
+  string client_secret = 3 [(validate.rules).string.min_len = 1];
 }
 
 
 message DataType {
   oneof data_type {
+    option (validate.required) = true;
     entities.v1.CsvConfig csv = 1;
   }
 }
@@ -260,43 +291,50 @@ message CsvConfig {
 A batch exporter.
  */
 message BatchExporter {
-  BatchExporterRef ref = 1 [(google.api.field_behavior) = REQUIRED];
+  BatchExporterRef ref = 1 [(validate.rules).message.required = true];
   oneof stream_or_key_stream_ref {
-    StreamRef stream_ref = 2 [(google.api.field_behavior) = REQUIRED];
-    KeyStreamRef key_stream_ref = 3 [(google.api.field_behavior) = REQUIRED];
+    option (validate.required) = true;
+
+    StreamRef stream_ref = 2;
+    KeyStreamRef key_stream_ref = 3;
   }
   // granularity of seconds, nanos is unused
-  /*
-  constraints:
-  interval > 30s
-  interval < TBD
-   */
-  google.protobuf.Duration interval = 4 [(google.api.field_behavior) = REQUIRED];
+  google.protobuf.Duration interval = 4 [(google.api.field_behavior) = REQUIRED, (validate.rules).duration = {
+    gte: {seconds: 30},
+    lte: {seconds: 3600}
+  }];
   // (-- api-linter: core::0122::name-suffix=disabled
   //     aip.dev/not-precedent: We refer to the sink by name. --)
-  /* constraints: generic name constraints */
-  string sink_name = 5 [(google.api.field_behavior) = REQUIRED];
-  /* constraints:
-  Total key size on S3 is 1024 unicode characters max. The export filenames are
-  created from the stream name suffixed with partition numbers and a timestamp.
-  Suggestion: generic name constraint
-   */
-  string path_prefix = 6;
+  // Deprecated in favor of data_connector_ref
+  string sink_name = 5 [deprecated = true, (validate.rules).string = {len: 0, ignore_empty: true}];
+  string path_prefix = 6 [(validate.rules).string = {
+    // Mostly taken from GCS object naming: https://cloud.google.com/storage/docs/objects#naming
+    ignore_empty: true,
+    max_len: 900, // Reserve 124 characters for filenames
+    // Should not end with a slash
+    pattern: "^.+[^\\/]$",
+    not_contains: ".well-known/acme-challenge",
+    not_in: [".", ".."]
+  }];
   bool include_existing_events = 7;
-  DataConnectorRef data_connector_ref = 8;
+  DataConnectorRef data_connector_ref = 8 [(validate.rules).message.required = true];
 }
 
 message ExtendedBatchExporter {
-  string uuid = 1;
-  string topic = 2;
-  strmprivacy.api.entities.v1.BatchExporter exporter = 3;
+  // The UUID identifier of the Batch Exporter, used in Kubernetes
+  string uuid = 1 [(google.api.field_behavior) = OUTPUT_ONLY];
+  // The Kafka Topic name that the Batch Exporter reads from
+  string topic = 2 [(google.api.field_behavior) = OUTPUT_ONLY];
+  strmprivacy.api.entities.v1.BatchExporter exporter = 3 [(google.api.field_behavior) = OUTPUT_ONLY];
 }
 
 message BatchExporterRef {
-  string billing_id = 1 [deprecated = true];
-  /* constraints: generic name constraint */
-  string name = 2 [(google.api.field_behavior) = REQUIRED];
-  string project_id = 3 [(google.api.field_behavior) = OUTPUT_ONLY];
+  string billing_id = 1 [deprecated = true, (validate.rules).string = {len: 0, ignore_empty: true}];
+  string name = 2 [(validate.rules).string = {
+    ignore_empty: true,
+    pattern: "^[\\pL\\pN\\pS\\pM\\pP]+$", min_len: 4, max_len: 50
+  }];
+  string project_id = 3 [(validate.rules).string.uuid = true];
 }
 
 /*
@@ -314,44 +352,48 @@ How to refer to a certain Kafka cluster.
  */
 message KafkaClusterRef {
   // (-- streammachine for the default export cluster --)
-  string billing_id = 1 [deprecated = true];
+  string billing_id = 1;
   /*
   constraints: generic name constraint
   */
-  string name = 2 [(google.api.field_behavior) = REQUIRED];
-  string project_id = 3 [(google.api.field_behavior) = REQUIRED];
+  string name = 2 [(validate.rules).string = {pattern: "^[\\pL\\pN\\pS\\pM\\pP]+$", min_len: 4, max_len: 50}];
+  string project_id = 3 [(validate.rules).string = {uuid: true, ignore_empty: true}];
 }
 
 message KafkaExporter {
-  KafkaExporterRef ref = 1 [(google.api.field_behavior) = REQUIRED];
-  StreamRef stream_ref = 2 [(google.api.field_behavior) = REQUIRED];
-  KafkaExporterTarget target = 3 [(google.api.field_behavior) = REQUIRED];
+  KafkaExporterRef ref = 1 [(validate.rules).message.required = true];
+  StreamRef stream_ref = 2 [(validate.rules).message.required = true];
+  KafkaExporterTarget target = 3;
   repeated KafkaUser users = 4;
 }
 
 message KafkaExporterRef {
-  string billing_id = 1 [deprecated = true];
+  string billing_id = 1;
   /*
   default value  <cluster-name>-<stream-name>
 
   constraints: generic name constraint
   */
-  string name = 2 [(google.api.field_behavior) = REQUIRED];
-  string project_id = 3 [(google.api.field_behavior) = REQUIRED];
+  string name = 2 [(validate.rules).string = {pattern: "^[\\pL\\pN\\pS\\pM\\pP]+$", min_len: 4, max_len: 50}];
+  string project_id = 3 [(validate.rules).string = {uuid: true, ignore_empty: true}];
 }
 
 message KafkaExporterTarget {
   // what cluster to produce to
-  KafkaClusterRef cluster_ref = 1 [(google.api.field_behavior) = REQUIRED];
+  KafkaClusterRef cluster_ref = 1 [(validate.rules).message.required = true];
   /*
   the topic this exporter produces to
   constraints: access checked on creation of kafka exporter
   */
-  string topic = 2 [(google.api.field_behavior) = REQUIRED];
+  string topic = 2 [(validate.rules).string = {
+    // Kafka topic validations: https://github.com/apache/kafka/blob/trunk/clients/src/main/java/org/apache/kafka/common/internals/Topic.java
+    max_len: 249,
+    pattern: "^[a-zA-Z0-9._-]+$"
+  }];
   // used to access the target Kafka Cluster in case of OAuth based authentication
-  string client_id = 3;
+  string client_id = 3 [(validate.rules).string = {uuid: true, ignore_empty: true}];
   // used to access the target Kafka Cluster in case of OAuth based authentication
-  string client_secret = 4;
+  string client_secret = 4 [(validate.rules).string = {ignore_empty: true, pattern: "^[ -~]+$"}];
 }
 
 /*
@@ -361,7 +403,7 @@ The kafka exporter is linked to a certain cluster, so this entity is bound to a 
 kafka cluster.
  */
 message KafkaUser {
-  KafkaUserRef ref = 1 [(google.api.field_behavior) = REQUIRED];
+  KafkaUserRef ref = 1 [(validate.rules).message.required = true];
   // (-- api-linter: core::0122::name-suffix=disabled
   //     aip.dev/not-precedent: We refer to the kafka exporter by name. --)
   string kafka_exporter_name = 3 [(google.api.field_behavior) = OUTPUT_ONLY];
@@ -373,7 +415,6 @@ message KafkaUser {
 
 message KafkaUserRef {
   string billing_id = 1 [deprecated = true];
-  /* constraints: generic name constraint */
   string name = 2 [(google.api.field_behavior) = OUTPUT_ONLY];
   string project_id = 3 [(google.api.field_behavior) = OUTPUT_ONLY];
 }
@@ -386,28 +427,33 @@ message ConsentLevels {
 for descriptive purposes only.
  */
 message ConsentLevelMapping {
-  ConsentLevelMappingRef ref = 1 [(google.api.field_behavior) = REQUIRED];
+  ConsentLevelMappingRef ref = 1 [(validate.rules).message.required = true];
   /*
   some text like 'analytics'
   constraints: generic name constraint
   */
-  string name = 2 [(google.api.field_behavior) = REQUIRED];
+  string name = 2 [(validate.rules).string = {pattern: "^[\\pL\\pN\\pS\\pM\\pP]+$", min_len: 4, max_len: 50}];
 }
 
 message ConsentLevelMappingRef {
-  string billing_id = 1 [deprecated = true];
+  string billing_id = 1 [deprecated = true, (validate.rules).string = {max_len: 0; ignore_empty: true}];
   // the typically small integer value that we use in the events.
-  int32 level = 2 [(google.api.field_behavior) = REQUIRED];
-  string project_id = 3 [(google.api.field_behavior) = OUTPUT_ONLY];
+  int32 level = 2 [(validate.rules).int32 = {gte: 0}];
+  string project_id = 3 [(validate.rules).string = {uuid: true}];
 }
 
 message Policy {
-  string id = 1 [(google.api.field_behavior) = REQUIRED];
-  string name = 2 [(google.api.field_behavior) = REQUIRED];
-  string description = 3;
-  string legal_grounds = 4;
-  int32 retention_days = 5 [(google.api.field_behavior) = REQUIRED];
+  string id = 1 [(validate.rules).string.uuid = true];
+  string name = 2 [(validate.rules).string = {
+    pattern: "^[\\pL\\pN\\pS\\pM\\pP]+$",
+    min_len: 4,
+    max_len: 50
+  }];
+  string description = 3 [(validate.rules).string = {max_len: 1000}];
+  string legal_grounds = 4 [(validate.rules).string = {max_len: 1000}];
+  int32 retention_days = 5 [(validate.rules).int32 = {gte: 1}];
   State state = 6;
+
   enum State {
     STATE_UNSPECIFIED = 0;
     STATE_DRAFT = 1;
@@ -433,7 +479,7 @@ message SchemaRef {
 }
 
 message Schema {
-  SchemaRef ref = 1 [(google.api.field_behavior) = REQUIRED];
+  SchemaRef ref = 1 [(validate.rules).message.required = true];
   State state = 2 [(google.api.field_behavior) = OUTPUT_ONLY];
   // (-- 'is' is intentional here (see https://google.aip.dev/140#booleans) --)
   bool is_public = 3;
@@ -445,31 +491,30 @@ message Schema {
   SchemaMetadata metadata = 6;
   SimpleSchemaDefinition simple_schema = 7;
   // The UUID of this schema
-  string id = 8;
+  string id = 8 [(google.api.field_behavior) = OUTPUT_ONLY];
 
   /*
   constraints: overall size < 100000 TBD
    */
   message SimpleSchemaDefinition {
-    /* constraints:
-    https://avro.apache.org/docs/current/spec.html#names
-      start with [A-Za-z_]
-      subsequently contain only [A-Za-z0-9_]
-     */
-    string name = 1;
+    /* constraints: printable characters */
+    string name = 1 [(validate.rules).string = {pattern: "^[^\\pC]+$",}];
     /*
     constraints:
     dot separated sequence of name constraints
     must be Avro compatible. When absent becomes <handle>.<name>.v<version>
      */
-    string namespace = 2;
-    /* constraints:
-    size < 5000
-     */
-    string doc = 3;
+    string namespace = 2 [(validate.rules).string = {
+      ignore_empty: true,
+      pattern: "^([a-zA-Z_][a-zA-Z0-9_]*)(\\.[a-zA-Z_][a-zA-Z0-9_]*)*$",
+    }];
+    string doc = 3 [(validate.rules).string.max_len = 5000];
     repeated SimpleSchemaNode nodes = 4;
-    // avro compatible name set by creator OR derived from name
-    string avro_name = 5;
+    // avro compatible name set by creator OR derived from name (thus ignore_empty = true)
+    string avro_name = 5 [(validate.rules).string = {
+      ignore_empty: true,
+      pattern: "^[a-zA-Z_][a-zA-Z0-9_]*$",
+    }];
   }
 
   enum State {
@@ -498,52 +543,57 @@ message Schema {
 }
 
 message SimpleSchemaNode {
-  SimpleSchemaNodeType type = 1;
+  SimpleSchemaNodeType type = 1 [(validate.rules).enum = {not_in: 0}];
   /*
   constraints: same as SimpleSchemaDefinition
    */
-  string name = 2;
+  string name = 2 [(validate.rules).string = {pattern: "^[^\\pC]+$",}];
   // avro compatible name set by creator OR derived from name
-  string avro_name = 7;
+  string avro_name = 7 [(validate.rules).string = {
+    ignore_empty: true,
+    pattern: "^[a-zA-Z_][a-zA-Z0-9_]*$",
+  }];
   bool repeated = 3;
   bool required = 4;
   repeated SimpleSchemaNode nodes = 5;
   /* constraints:
   size < 5000
    */
-  string doc = 6;
+  string doc = 6 [(validate.rules).string.max_len = 5000];
 }
 
 
 message SchemaMetadata {
   /*
   The human readable title of this Schema. Used in the Portal. Defaults to the Schema name. This field can be modified.
-
-  constraints: size < 500
   */
-  string title = 1 [(google.api.field_behavior) = OPTIONAL];
+  string title = 1 [(validate.rules).string = {
+    ignore_empty: true,
+    pattern: "^[^\\pC]+$",
+    min_len: 4,
+    max_len: 100
+  }];
   /*
-  The (optional) description of this Schema. Used in the Portal. Markdown syntax is supported. This field can be modified.
-  constraints: size < 5000
+  The description of this Schema. Used in the Portal. Markdown syntax is supported. This field can be modified.
   */
-  string description = 2 [(google.api.field_behavior) = OPTIONAL];
+  string description = 2 [(validate.rules).string.max_len = 5000];
   // The timestamp when this Schema was created.
   google.protobuf.Timestamp create_time = 3 [(google.api.field_behavior) = OUTPUT_ONLY];
-  // The (optional) URI to the icon used with this Schema. This always an absolute URI, with the https scheme. Used in the Portal.
-  string icon_uri = 4 [(google.api.field_behavior) = OPTIONAL];
+  // The URI to the icon used with this Schema. This always an absolute URI, with the https scheme. Used in the Portal.
+  string icon_uri = 4 [(validate.rules).string = {prefix: "https://", uri: true, ignore_empty: true}];
   // Generic (key/value) labels for this Schema.
-  repeated Label labels = 5 [(google.api.field_behavior) = OPTIONAL];
-  repeated string domains = 6 [(google.api.field_behavior) = OPTIONAL];
-  repeated string industries = 7 [(google.api.field_behavior) = OPTIONAL];
+  repeated Label labels = 5;
+  repeated string domains = 6;
+  repeated string industries = 7;
 }
 
 message EventContractRef {
-  /* constraints: generic name constraint, globally unique */
-  string handle = 1 [(google.api.field_behavior) = REQUIRED];
-  /* constraints: generic name constraint */
-  string name = 2 [(google.api.field_behavior) = REQUIRED];
-  /* constraints: semantic version */
-  string version = 3 [(google.api.field_behavior) = REQUIRED];
+  /* constraint: handle should already exist */
+  string handle = 1 [(validate.rules).string.min_len = 4];
+  /* constraints: generic name constraint, unique within handle */
+  string name = 2 [(validate.rules).string = {pattern: "^[\\pL\\pN\\pS\\pM\\pP]+$", min_len: 4, max_len: 50}];
+  /* constraints: semantic version, e.g. 1.12.3 */
+  string version = 3 [(validate.rules).string = {pattern: "^\\d+\\.\\d+\\.\\d+$"}];
 }
 
 message EventContract {
@@ -603,20 +653,20 @@ message EventContractMetadata {
 
 message Label {
   // The key of the label.
-  string key = 1 [(google.api.field_behavior) = REQUIRED];
-  // The (optional) value of the label. An empty string means there is no value.
-  string value = 2 [(google.api.field_behavior) = OPTIONAL];
+  string key = 1 [(validate.rules).string.min_len = 1];
+  // The value of the label. An empty string means there is no value.
+  string value = 2;
 }
 
 message Validation {
   /* constraint: valid field path, follows avro constraints + slashes */
-  string field = 1 [(google.api.field_behavior) = REQUIRED];
+  string field = 1 [(validate.rules).string.min_len = 1];
   /* constraint: one of the validator types. handled by code
   This should become an enum
   */
-  string type = 2 [(google.api.field_behavior) = REQUIRED];
+  string type = 2 [(validate.rules).string = {in: ["regex"]}];
   /* constraint: a type specific definition */
-  string value = 3 [(google.api.field_behavior) = REQUIRED];
+  string value = 3 [(validate.rules).string.min_len = 1];
 }
 
 message StreamTree {
@@ -641,20 +691,22 @@ message SinkTree {
  - CSV files with a header row, because the header is needed to get the field names
 *********************************/
 message BatchJob {
-  BatchJobRef ref = 1 [(google.api.field_behavior) = REQUIRED];
+  BatchJobRef ref = 1 [(validate.rules).message.required = true];
   repeated BatchJobState states = 2 [(google.api.field_behavior) = OUTPUT_ONLY];
-  DataConnectorAndType source_data = 3 [(google.api.field_behavior) = REQUIRED];
-  ConsentConfig consent = 4 [(google.api.field_behavior) = REQUIRED];
-  EncryptionConfig encryption = 5 [(google.api.field_behavior) = REQUIRED];
-  EventContractRef event_contract_ref = 6 [(google.api.field_behavior) = REQUIRED];
-  EncryptedData encrypted_data = 7 [(google.api.field_behavior) = REQUIRED];
-  EncryptionKeysData encryption_keys_data = 8 [(google.api.field_behavior) = REQUIRED];
-  repeated DerivedData derived_data = 9 [(google.api.field_behavior) = OPTIONAL];
-  string policy_id = 10 [(google.api.field_behavior) = REQUIRED];
+  DataConnectorAndType source_data = 3 [(validate.rules).message.required = true];
+  ConsentConfig consent = 4 [(validate.rules).message.required = true];
+  EncryptionConfig encryption = 5 [(validate.rules).message.required = true];
+  EventContractRef event_contract_ref = 6 [(validate.rules).message.required = true];
+  EncryptedData encrypted_data = 7 [(validate.rules).message.required = true];
+  EncryptionKeysData encryption_keys_data = 8 [(validate.rules).message.required = true];
+  repeated DerivedData derived_data = 9;
+  string policy_id = 10 [(validate.rules).string = {uuid: true, ignore_empty: true}];
 }
 
 message BatchJobWrapper {
   oneof job {
+    option (validate.required) = true;
+
     entities.v1.BatchJob encryption_batch_job = 1;
     entities.v1.MicroAggregationBatchJob micro_aggregation_batch_job = 2;
   }
@@ -666,26 +718,35 @@ message ExtendedBatchJob {
 }
 
 message BatchJobRef {
-  string billing_id = 1 [deprecated = true];
-  // the UUIDv4 of the job
+  string billing_id = 1 [deprecated = true, (validate.rules).string = {len: 0, ignore_empty: true}];
+  // the UUIDv4 of the job, generated upon creation
   string id = 2 [(google.api.field_behavior) = OUTPUT_ONLY];
-  string project_id = 3 [(google.api.field_behavior) = OUTPUT_ONLY];
+  // the UUIDv4 of the STRM Privacy project
+  string project_id = 3 [(validate.rules).string.uuid = true];
 }
 
 message BatchJobState {
   google.protobuf.Timestamp state_time = 1 [(google.api.field_behavior) = OUTPUT_ONLY];
-  BatchJobStateType state = 2 [(google.api.field_behavior) = REQUIRED];
+  BatchJobStateType state = 2 [(google.api.field_behavior) = OUTPUT_ONLY];
   string message = 3 [(google.api.field_behavior) = OPTIONAL];
 }
 
 message DataConnectorAndType {
-  DataConnectorRef data_connector_ref = 1 [(google.api.field_behavior) = REQUIRED];
+  DataConnectorRef data_connector_ref = 1 [(validate.rules).message.required = true];
   // If omitted, files are read from the root of the bucket.
-  string path_prefix = 2 [(google.api.field_behavior) = OPTIONAL];
+  string path_prefix = 2 [(validate.rules).string = {
+    // Mostly taken from GCS object naming: https://cloud.google.com/storage/docs/objects#naming
+    ignore_empty: true,
+    max_len: 900, // Reserve 124 characters for filenames
+    // Should not end with a slash
+    pattern: "^.+[^\\/]$",
+    not_contains: ".well-known/acme-challenge",
+    not_in: [".", ".."]
+  }];
   // (-- api-linter: core::0122::name-suffix=disabled
   //     aip.dev/not-precedent: We think file_name is a better name. --)
-  string file_name = 3 [(google.api.field_behavior) = OPTIONAL];
-  DataType data_type = 4 [(google.api.field_behavior) = REQUIRED];
+  string file_name = 3 [(validate.rules).string = {ignore_empty: true, pattern: "^[^\\pC]+$"}];
+  DataType data_type = 4 [(validate.rules).message.required = true];
 }
 
 message ConsentConfig {
@@ -699,23 +760,24 @@ message ConsentLevelExtractor {
 }
 
 message EncryptionConfig {
-  TimestampConfig timestamp_config = 1 [(google.api.field_behavior) = REQUIRED];
-  string batch_job_group_id = 2 [(google.api.field_behavior) = REQUIRED];
+  TimestampConfig timestamp_config = 1 [(validate.rules).message.required = true];
+  string batch_job_group_id = 2;
 }
 
 message TimestampConfig {
-  string field = 1 [(google.api.field_behavior) = REQUIRED];
+  // generic field name
+  string field = 1 [(validate.rules).string = {pattern: "^[\\pL\\pN\\pS\\pM\\pP]+$", min_len: 4, max_len: 50}];
   // Java Time Format template, see https://docs.oracle.com/javase/8/docs/api/java/time/format/DateTimeFormatter.html
-  string format = 2 [(google.api.field_behavior) = REQUIRED];
-  google.type.TimeZone default_time_zone = 3 [(google.api.field_behavior) = OPTIONAL];
+  string format = 2 [(validate.rules).string = {min_len: 1}];
+  google.type.TimeZone default_time_zone = 3;
 }
 
 message EncryptedData {
-  DataConnectorAndType target = 1 [(google.api.field_behavior) = REQUIRED];
+  DataConnectorAndType target = 1 [(validate.rules).message.required = true];
 }
 
 message EncryptionKeysData {
-  DataConnectorAndType target = 1 [(google.api.field_behavior) = REQUIRED];
+  DataConnectorAndType target = 1 [(validate.rules).message.required = true];
 }
 
 message DerivedData {
@@ -733,47 +795,49 @@ message DerivedData {
  - Numerical, Categorical & Ordinal data
 *********************************/
 message MicroAggregationBatchJob {
-  BatchJobRef ref = 1 [(google.api.field_behavior) = REQUIRED];
-  repeated BatchJobState states = 2 [(google.api.field_behavior) = REQUIRED];
-  DataConnectorAndType source_data = 3 [(google.api.field_behavior) = REQUIRED];
-  DataConnectorAndType target_data = 4 [(google.api.field_behavior) = REQUIRED];
-  DataContractRef data_contract_ref = 5 [(google.api.field_behavior) = REQUIRED];
+  BatchJobRef ref = 1 [(validate.rules).message.required = true];
+  repeated BatchJobState states = 2 [(google.api.field_behavior) = OUTPUT_ONLY];
+  DataConnectorAndType source_data = 3 [(validate.rules).message.required = true];
+  DataConnectorAndType target_data = 4 [(validate.rules).message.required = true];
+  DataContractRef data_contract_ref = 5 [(validate.rules).message.required = true];
   // Configuration specifically for the aggregation algorithm.
-  MicroAggregationConfig aggregation_config = 6 [(google.api.field_behavior) = REQUIRED];
+  MicroAggregationConfig aggregation_config = 6 [(validate.rules).message.required = true];
 }
 
 message MicroAggregationConfig {
 
   // The desired k-anonymity level.
-  int32 minimum_k_anonymity = 1 [(google.api.field_behavior) = REQUIRED];
+  int32 minimum_k_anonymity = 1 [(validate.rules).int32.gte = 2];
   // If specified, these fields will be used to aggregate on. Otherwise, fields specified as Quasi Identifiers in the data contract are used instead.
   repeated string aggregation_fields = 2;
 }
 
 message DataContractRef {
-  /* constraints: generic name constraint, globally unique */
-  string handle = 1 [(google.api.field_behavior) = REQUIRED];
-  /* constraints: generic name constraint */
-  string name = 2 [(google.api.field_behavior) = REQUIRED];
-  /* constraints: semantic version */
-  string version = 3 [(google.api.field_behavior) = REQUIRED];
+  /* constraint: handle should already exist */
+  string handle = 1 [(google.api.field_behavior) = REQUIRED, (validate.rules).string.min_len = 4];
+  /* constraints: generic name constraint, unique within handle */
+  string name = 2 [(validate.rules).string = {pattern: "^[\\pL\\pN\\pS\\pM\\pP]+$", min_len: 4, max_len: 50}];
+  /* constraints: semantic version, e.g. 1.12.3 */
+  string version = 3 [(google.api.field_behavior) = REQUIRED, (validate.rules).string = {
+    pattern: "^\\d+\\.\\d+\\.\\d+$"
+  }];
 }
 
 message DataContract {
-  string id = 1 [(google.api.field_behavior) = REQUIRED];
-  DataContractRef ref = 2 [(google.api.field_behavior) = REQUIRED];
+  string id = 1 [(google.api.field_behavior) = OUTPUT_ONLY];
+  DataContractRef ref = 2 [(validate.rules).message.required = true];
   State state = 3 [(google.api.field_behavior) = OUTPUT_ONLY];
   // (-- 'is' is intentional here (see https://google.aip.dev/140#booleans) --)
   bool is_public = 4;
-  string key_field = 5 [(google.api.field_behavior) = REQUIRED];
+  string key_field = 5 [(validate.rules).string.min_len = 1];
   // PII Fields as a map, where the key is the field path (i.e. producerSessionId or customer/id) and the
   // value is the purpose level, provided as an integer
   map<string, int32> pii_fields = 6 [deprecated = true];
   repeated Validation validations = 7;
   DataContractMetadata metadata = 8;
-  Schema schema = 9;
+  Schema schema = 9 [(validate.rules).message.required = true];
   string data_subject_field = 10;
-  string project_id = 11;
+  string project_id = 11 [(validate.rules).string.uuid = true];
   repeated FieldMetadata field_metadata = 12;
 
   enum State {
@@ -839,23 +903,28 @@ message FieldMetadata {
 
 message DataContractMetadata {
   // The human readable title of this Data Contract. Used in the Portal. Defaults to the Data Contract name if left unspecified. This field can be modified.
-  string title = 1 [(google.api.field_behavior) = OPTIONAL];
-  // The (optional) description of this Data Contract. Used in the Portal. Markdown syntax is supported. This field can be modified.
-  string description = 2 [(google.api.field_behavior) = OPTIONAL];
+  string title = 1 [(validate.rules).string = {
+    ignore_empty: true,
+    pattern: "^[\\pL\\pN\\pS\\pM\\pP]+$",
+    min_len: 4,
+    max_len: 100
+  }];
+  // The description of this Data Contract. Used in the Portal. Markdown syntax is supported. This field can be modified.
+  string description = 2;
   // The timestamp when this Data Contract was created.
   google.protobuf.Timestamp create_time = 3 [(google.api.field_behavior) = OUTPUT_ONLY];
   // Generic (key/value) labels for this Data Contract.
-  repeated Label labels = 5 [(google.api.field_behavior) = OPTIONAL];
-  repeated string domains = 6 [(google.api.field_behavior) = OPTIONAL];
-  repeated string industries = 7 [(google.api.field_behavior) = OPTIONAL];
+  repeated Label labels = 5;
+  repeated string domains = 6;
+  repeated string industries = 7;
 }
 
 message Project {
-  string id = 1;
-  string name = 2;
-  string description = 3;
-  string organization_id = 4;
-  State state = 5;
+  string id = 1 [(google.api.field_behavior) = OUTPUT_ONLY];
+  string name = 2 [(validate.rules).string = {pattern: "^[\\pL\\pN\\pS\\pM\\pP]+$", min_len: 2, max_len: 100}];
+  string description = 3 [(validate.rules).string = {max_len: 5000}];
+  string organization_id = 4 [(google.api.field_behavior) = OUTPUT_ONLY];
+  State state = 5 [(google.api.field_behavior) = OUTPUT_ONLY];
   enum State {
     STATE_UNSPECIFIED = 0;
     OPERATIONAL = 1;
@@ -866,19 +935,19 @@ message Project {
 // (-- api-linter: core::0148::human-names=disabled
 //     aip.dev/not-precedent . --)
 message User {
-  string email = 1;
-  string first_name = 2;
-  string last_name = 3;
+  string email = 1 [(validate.rules).string = {email: true, ignore_empty: true}];
+  string first_name = 2 [(validate.rules).string = {pattern: "^[\\pL\\pN\\pS\\pM\\pP]+$", min_len: 2, max_len: 50}];
+  string last_name = 3 [(validate.rules).string = {pattern: "^[\\pL\\pN\\pS\\pM\\pP]+$", min_len: 2, max_len: 50}];
   repeated UserRole user_roles = 4;
 }
 
 message PurposeMapping {
   // an integer, which retains the same technical function as the original "consent level"
-  int32 level = 1;
+  int32 level = 1 [(validate.rules).int32.gte = 0];
   // a name/short description of the purpose, e.g. "Analytics", "Functional"
-  string purpose = 2;
+  string purpose = 2 [(validate.rules).string = {min_len: 2, max_len: 50}];
   // a more elaborate description
-  string description = 3;
+  string description = 3 [(validate.rules).string = {ignore_empty: true, min_len: 2}];
 }
 
 enum UserRole {

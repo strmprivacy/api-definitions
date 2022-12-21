@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 PROTOS_DIR="protos"
 cd "$PROTOS_DIR" || exit

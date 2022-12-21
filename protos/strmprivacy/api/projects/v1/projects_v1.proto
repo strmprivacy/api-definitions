@@ -4,6 +4,7 @@ package strmprivacy.api.projects.v1;
 
 import "google/api/field_behavior.proto";
 import "strmprivacy/api/entities/v1/entities_v1.proto";
+import "validate/validate.proto";
 
 option go_package = "github.com/strmprivacy/api-definitions-go/v2/api/projects/v1;projects";
 option java_package = "io.strmprivacy.api.projects.v1";
@@ -20,11 +21,11 @@ service ProjectsService {
 }
 
 message GetProjectRequest {
-  string project_id = 1;
+  string project_id = 1 [(validate.rules).string.uuid = true];
 }
 
 message GetProjectResponse {
-  strmprivacy.api.entities.v1.Project project = 1;
+  strmprivacy.api.entities.v1.Project project = 1 [(google.api.field_behavior) = REQUIRED];
 }
 
 message ListProjectsRequest {}
@@ -33,38 +34,42 @@ message ListProjectsResponse {
   repeated strmprivacy.api.entities.v1.Project projects = 1;
 }
 
-// (-- api-linter: core::0133::request-resource-field=disabled
-//     aip.dev/not-precedent: As we do not know anything about the project to create yet, create message is empty. --)
 message CreateProjectRequest {
-  strmprivacy.api.entities.v1.Project project = 1;
+  strmprivacy.api.entities.v1.Project project = 1 [(validate.rules).message.required = true];
 }
 
 message CreateProjectResponse {
-  strmprivacy.api.entities.v1.Project project = 1;
+  strmprivacy.api.entities.v1.Project project = 1 [(google.api.field_behavior) = REQUIRED];
 }
 
 message DeleteProjectRequest {
-  string project_id = 1;
+  string project_id = 1 [(validate.rules).string.uuid = true];
 }
 
 message DeleteProjectResponse {}
 
 message AddProjectMembersRequest {
-  repeated string emails = 1 [(google.api.field_behavior) = REQUIRED];
-  string project_id = 2;
+  repeated string emails = 1 [(validate.rules).repeated = {
+    min_items: 1,
+    items: {string: {email: true}}}
+  ];
+  string project_id = 2 [(validate.rules).string.uuid = true];
 }
 
 message AddProjectMembersResponse {}
 
 message RemoveProjectMembersRequest {
-  repeated string emails = 1 [(google.api.field_behavior) = REQUIRED];
-  string project_id = 2;
+  repeated string emails = 1 [(validate.rules).repeated = {
+    min_items: 1,
+    items: {string: {email: true}}}
+  ];
+  string project_id = 2 [(validate.rules).string.uuid = true];
 }
 
 message RemoveProjectMembersResponse {}
 
 message ListProjectMembersRequest {
-  string project_id = 1;
+  string project_id = 1 [(validate.rules).string.uuid = true];
 }
 
 message ListProjectMembersResponse {

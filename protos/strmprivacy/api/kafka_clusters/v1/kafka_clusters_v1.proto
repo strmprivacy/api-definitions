@@ -2,8 +2,8 @@ syntax = "proto3";
 
 package strmprivacy.api.kafka_clusters.v1;
 
-import "google/api/field_behavior.proto";
 import "strmprivacy/api/entities/v1/entities_v1.proto";
+import "validate/validate.proto";
 
 option go_package = "github.com/strmprivacy/api-definitions-go/v2/api/kafka_clusters/v1;kafka_clusters";
 option java_package = "io.strmprivacy.api.kafka_clusters.v1";
@@ -17,8 +17,8 @@ service KafkaClustersService {
 }
 
 message ListKafkaClustersRequest {
-  string billing_id = 1 [(google.api.field_behavior) = OUTPUT_ONLY];
-  string project_id = 2 [(google.api.field_behavior) = OUTPUT_ONLY];
+  string billing_id = 1 [deprecated = true, (validate.rules).string = {len: 0, ignore_empty: true}];
+  string project_id = 2 [(validate.rules).string = {uuid: true, ignore_empty: true}];
 }
 
 message ListKafkaClustersResponse {
@@ -26,9 +26,9 @@ message ListKafkaClustersResponse {
 }
 
 message DeleteKafkaClusterRequest {
-  string billing_id = 1 [(google.api.field_behavior) = OUTPUT_ONLY];
-  entities.v1.KafkaClusterRef ref = 2 [(google.api.field_behavior) = REQUIRED];
-  string project_id = 3 [(google.api.field_behavior) = OUTPUT_ONLY];
+  string billing_id = 1 [deprecated = true, (validate.rules).string = {len: 0, ignore_empty: true}];
+  entities.v1.KafkaClusterRef ref = 2 [(validate.rules).message.required = true];
+  string project_id = 3 [(validate.rules).string = {uuid: true, ignore_empty: true}];
 }
 
 message DeleteKafkaClusterResponse {
@@ -43,9 +43,9 @@ message CreateKafkaClusterResponse {
 }
 
 message GetKafkaClusterRequest {
-  string billing_id = 1 [(google.api.field_behavior) = OUTPUT_ONLY];
-  entities.v1.KafkaClusterRef ref = 2 [(google.api.field_behavior) = REQUIRED];
-  string project_id = 3 [(google.api.field_behavior) = OUTPUT_ONLY];
+  string billing_id = 1 [deprecated = true, (validate.rules).string = {len: 0, ignore_empty: true}];
+  entities.v1.KafkaClusterRef ref = 2 [(validate.rules).message.required = true];
+  string project_id = 3 [(validate.rules).string = {uuid: true, ignore_empty: true}];
 }
 
 message GetKafkaClusterResponse {

@@ -3,16 +3,18 @@ syntax = "proto3";
 package strmprivacy.api.agents.v1;
 
 import "strmprivacy/api/entities/v1/entities_v1.proto";
+import "validate/validate.proto";
 
 option go_package = "github.com/strmprivacy/api-definitions-go/v2/api/agents/v1;agents";
 option java_package = "io.strmprivacy.api.agents.v1";
 option java_multiple_files = true;
 
 service BatchJobsAgentService {
-  rpc GetDesiredBatchJobs(GetDesiredBatchJobsRequest) returns (GetDesiredBatchJobsResponse);
+  rpc GetDesiredBatchJobs (GetDesiredBatchJobsRequest) returns (GetDesiredBatchJobsResponse);
 }
 
 message GetDesiredBatchJobsRequest {
+  option (validate.disabled) = false; // to prevent removing the import
 }
 
 message GetDesiredBatchJobsResponse {

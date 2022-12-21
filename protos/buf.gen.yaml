@@ -6,6 +6,10 @@ plugins:
     out: ../lang/jvm/src/main/java/
   - remote: buf.build/grpc/plugins/kotlin:v1.3.0-2
     out: ../lang/jvm/src/main/kotlin/
+  - remote: buf.build/strmprivacy/plugins/protoc-gen-validate:v0.8.0-1
+    out: ../lang/jvm/src/main/java/
+    opt:
+      - lang=java
   - remote: buf.build/protocolbuffers/plugins/go:v1.28.1-1
     out: ../lang/go/src/
     opt:

@@ -2,8 +2,8 @@ syntax = "proto3";
 
 package strmprivacy.api.organizations.v1;
 
-import "google/api/field_behavior.proto";
 import "strmprivacy/api/entities/v1/entities_v1.proto";
+import "validate/validate.proto";
 
 option go_package = "github.com/strmprivacy/api-definitions-go/v2/api/organizations/v1;organizations";
 option java_package = "io.strmprivacy.api.organizations.v1";
@@ -11,20 +11,21 @@ option java_multiple_files = true;
 
 service OrganizationsService {
   rpc InviteUsers (InviteUsersRequest) returns (InviteUsersResponse);
-  rpc UpdateUserRoles(UpdateUserRolesRequest) returns (UpdateUserRolesResponse);
-  rpc GetUser(GetUserRequest) returns (GetUserResponse);
-  rpc ListOrganizationMembers(ListOrganizationMembersRequest) returns (ListOrganizationMembersResponse);
+  rpc UpdateUserRoles (UpdateUserRolesRequest) returns (UpdateUserRolesResponse);
+  rpc GetUser (GetUserRequest) returns (GetUserResponse);
+  rpc ListOrganizationMembers (ListOrganizationMembersRequest) returns (ListOrganizationMembersResponse);
 }
 
 message InviteUsersRequest {
-  repeated UserInvite user_invites = 1 [(google.api.field_behavior) = REQUIRED];
+  // Max invites is also enforced in backend
+  repeated UserInvite user_invites = 1 [(validate.rules).repeated = {min_items: 1, max_items : 500}];
   // This parameter is filled in by the management-api gateway from the identity of the caller.
   // It must be empty when a call is made to the management-api.
-  string organization_id = 2;
+  string organization_id = 2 [(validate.rules).string = {uuid: true, ignore_empty: true}];
 }
 
 message UserInvite {
-  string email = 1 [(google.api.field_behavior) = REQUIRED];
+  string email = 1 [(validate.rules).string = {email: true}];
 }
 
 message InviteUsersResponse {
@@ -32,7 +33,7 @@ message InviteUsersResponse {
   repeated UserInviteIssue issues = 2;
 
   message UserInviteIssue {
-    UserInvite invite = 1;
+    UserInvite invite = 1 [(validate.rules).message.required = true];
     string message = 2;
   }
 }
@@ -41,7 +42,8 @@ message InviteUsersResponse {
 //     aip.dev/not-precedent: We will not be using the update field mask. --)
 message UpdateUserRolesRequest {
   // All users get all defined roles
-  repeated string emails = 1;
+  repeated string emails = 1 [(validate.rules).repeated = {items: {string: {email: true}}, min_items: 1}];
+  // If no user roles are defined, user will always default to MEMBER
   repeated strmprivacy.api.entities.v1.UserRole user_roles = 2;
 }
 
@@ -54,7 +56,7 @@ message ListOrganizationMembersResponse {
 }
 
 message GetUserRequest {
-  string email = 1;
+  string email = 1 [(validate.rules).string = {email: true}];
 }
 
 message GetUserResponse {

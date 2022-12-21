@@ -3,6 +3,7 @@ syntax = "proto3";
 package strmprivacy.api.agents.v1;
 
 import "strmprivacy/api/entities/v1/entities_v1.proto";
+import "validate/validate.proto";
 
 option go_package = "github.com/strmprivacy/api-definitions-go/v2/api/agents/v1;agents";
 option java_package = "io.strmprivacy.api.agents.v1";
@@ -11,10 +12,11 @@ option java_multiple_files = true;
 // (-- api-linter: core::0136::prepositions=disabled
 //     aip.dev/not-precedent: This is an internal API and the alternative with oneof is good either. --)
 service StreamsAgentService {
-  rpc GetStreams(GetStreamsRequest) returns (GetStreamsResponse);
+  rpc GetStreams (GetStreamsRequest) returns (GetStreamsResponse);
 }
 
 message GetStreamsRequest {
+  option (validate.disabled) = false;
 }
 
 message GetStreamsResponse {

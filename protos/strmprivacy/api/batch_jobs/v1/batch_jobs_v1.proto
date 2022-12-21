@@ -4,6 +4,7 @@ package strmprivacy.api.batch_jobs.v1;
 
 import "google/api/field_behavior.proto";
 import "strmprivacy/api/entities/v1/entities_v1.proto";
+import "validate/validate.proto";
 
 option go_package = "github.com/strmprivacy/api-definitions-go/v2/api/batch_jobs/v1;batch_jobs";
 option java_package = "io.strmprivacy.api.batch_jobs.v1";
@@ -18,7 +19,7 @@ service BatchJobsService {
 }
 
 message GetBatchJobRequest {
-  entities.v1.BatchJobRef ref = 1 [(google.api.field_behavior) = REQUIRED];
+  entities.v1.BatchJobRef ref = 1 [(validate.rules).message.required = true];
 }
 
 message GetBatchJobResponse {
@@ -27,8 +28,8 @@ message GetBatchJobResponse {
 }
 
 message ListBatchJobsRequest {
-  string billing_id = 1 [deprecated = true];
-  string project_id = 2 [(google.api.field_behavior) = REQUIRED];
+  string billing_id = 1 [deprecated = true, (validate.rules).string = {len: 0, ignore_empty: true}];
+  string project_id = 2 [(validate.rules).string.uuid = true];
 }
 
 // (-- api-linter: core::0132::response-unknown-fields=disabled
@@ -40,6 +41,7 @@ message ListBatchJobsResponse {
 
 message CreateBatchJobRequest {
   entities.v1.BatchJob batch_job = 1 [deprecated = true];
+  // Todo: use [(validate.rules).message.required = true] instead once all apps use the wrapper
   entities.v1.BatchJobWrapper job = 2 [(google.api.field_behavior) = REQUIRED];
 }
 
@@ -49,7 +51,7 @@ message CreateBatchJobResponse {
 }
 
 message DeleteBatchJobRequest {
-  entities.v1.BatchJobRef ref = 1 [(google.api.field_behavior) = REQUIRED];
+  entities.v1.BatchJobRef ref = 1 [(validate.rules).message.required = true];
 }
 
 message DeleteBatchJobResponse {
@@ -58,8 +60,8 @@ message DeleteBatchJobResponse {
 // (-- api-linter: core::0134::request-mask-required=disabled
 //     aip.dev/not-precedent: This RPC only updates one field. --)
 message UpdateBatchJobStateRequest {
-  entities.v1.BatchJobRef ref = 1 [(google.api.field_behavior) = REQUIRED];
-  entities.v1.BatchJobState batch_job_state = 2 [(google.api.field_behavior) = REQUIRED];
+  entities.v1.BatchJobRef ref = 1 [(validate.rules).message.required = true];
+  entities.v1.BatchJobState batch_job_state = 2 [(validate.rules).message.required = true];
 }
 
 message UpdateBatchJobStateResponse {

@@ -2,25 +2,25 @@ syntax = "proto3";
 
 package strmprivacy.api.streams.v1;
 
-import "google/api/field_behavior.proto";
 import "strmprivacy/api/entities/v1/entities_v1.proto";
+import "validate/validate.proto";
 
 option go_package = "github.com/strmprivacy/api-definitions-go/v2/api/streams/v1;streams";
 option java_package = "io.strmprivacy.api.streams.v1";
 option java_multiple_files = true;
 
 service StreamsService {
-  rpc ListStreams(ListStreamsRequest) returns (ListStreamsResponse);
-  rpc ListExtendedStreams(ListExtendedStreamsRequest) returns (ListExtendedStreamsResponse);
-  rpc GetStream(GetStreamRequest) returns (GetStreamResponse);
-  rpc DeleteStream(DeleteStreamRequest) returns (DeleteStreamResponse);
-  rpc CreateStream(CreateStreamRequest) returns (CreateStreamResponse);
+  rpc ListStreams (ListStreamsRequest) returns (ListStreamsResponse);
+  rpc ListExtendedStreams (ListExtendedStreamsRequest) returns (ListExtendedStreamsResponse);
+  rpc GetStream (GetStreamRequest) returns (GetStreamResponse);
+  rpc DeleteStream (DeleteStreamRequest) returns (DeleteStreamResponse);
+  rpc CreateStream (CreateStreamRequest) returns (CreateStreamResponse);
 }
 
 message ListStreamsRequest {
-  string billing_id = 1 [deprecated = true];
+  string billing_id = 1 [deprecated = true, (validate.rules).string = {len: 0, ignore_empty: true}];
   bool recursive = 2;
-  string project_id = 3;
+  string project_id = 3 [(validate.rules).string.uuid = true];
 }
 
 message ListStreamsResponse {
@@ -28,7 +28,7 @@ message ListStreamsResponse {
 }
 
 message ListExtendedStreamsRequest {
-  repeated string client_ids = 1;
+  repeated string client_ids = 1 [(validate.rules).repeated = {min_items: 1}];
 }
 
 message ListExtendedStreamsResponse {
@@ -36,17 +36,17 @@ message ListExtendedStreamsResponse {
 }
 
 message DeleteStreamRequest {
-  entities.v1.StreamRef ref = 1 [(google.api.field_behavior) = REQUIRED];
+  entities.v1.StreamRef ref = 1 [(validate.rules).message.required = true];
   // (-- api-linter: core::0135::request-unknown-fields=disabled
   //     aip.dev/not-precedent: We really need this field. --)
-  bool recursive = 2 [(google.api.field_behavior) = REQUIRED];
+  bool recursive = 2;
 }
 
 message DeleteStreamResponse {
 }
 
 message CreateStreamRequest {
-  strmprivacy.api.entities.v1.Stream stream = 1 [(google.api.field_behavior) = REQUIRED];
+  strmprivacy.api.entities.v1.Stream stream = 1 [(validate.rules).message.required = true];
 }
 
 message CreateStreamResponse {
@@ -54,8 +54,8 @@ message CreateStreamResponse {
 }
 
 message GetStreamRequest {
-  entities.v1.StreamRef ref = 1 [(google.api.field_behavior) = REQUIRED];
-  bool recursive = 2 [(google.api.field_behavior) = REQUIRED];
+  entities.v1.StreamRef ref = 1 [(validate.rules).message.required = true];
+  bool recursive = 2;
 }
 
 message GetStreamResponse {

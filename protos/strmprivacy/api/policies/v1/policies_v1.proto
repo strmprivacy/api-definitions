@@ -5,6 +5,7 @@ package strmprivacy.api.policies.v1;
 import "google/api/field_behavior.proto";
 import "google/protobuf/field_mask.proto";
 import "strmprivacy/api/entities/v1/entities_v1.proto";
+import "validate/validate.proto";
 
 option go_package = "github.com/strmprivacy/api-definitions-go/v2/api/policies/v1;policies";
 option java_package = "io.strmprivacy.api.policies.v1";
@@ -26,31 +27,32 @@ message ListPoliciesResponse {
 }
 
 message DeletePolicyRequest {
-  string policy_id = 1 [(google.api.field_behavior) = REQUIRED];
+  string policy_id = 1 [(validate.rules).string = {uuid:true}];
 }
 
 message DeletePolicyResponse {
 }
 
 message CreatePolicyRequest {
-  strmprivacy.api.entities.v1.Policy policy = 1;
+  strmprivacy.api.entities.v1.Policy policy = 1 [(validate.rules).message.required = true];
 }
 
 message CreatePolicyResponse {
-  strmprivacy.api.entities.v1.Policy policy = 1;
+  strmprivacy.api.entities.v1.Policy policy = 1 [(google.api.field_behavior) = REQUIRED];
 }
 
 message UpdatePolicyRequest {
-  strmprivacy.api.entities.v1.Policy policy = 1;
-  google.protobuf.FieldMask update_mask = 2 [(google.api.field_behavior) = REQUIRED];
+  strmprivacy.api.entities.v1.Policy policy = 1 [(validate.rules).message.required = true];
+  google.protobuf.FieldMask update_mask = 2 [(validate.rules).message.required = true];
 }
 
 message UpdatePolicyResponse {
-  strmprivacy.api.entities.v1.Policy policy = 1;
+  strmprivacy.api.entities.v1.Policy policy = 1 [(google.api.field_behavior) = REQUIRED];
 }
 
 message GetPolicyRequest {
-  string policy_id = 1 [(google.api.field_behavior) = REQUIRED];
+  // an empty policy id will return the hard-coded default "" policy
+  string policy_id = 1 [(validate.rules).string = {uuid:true, ignore_empty:true}];
 }
 
 message GetPolicyResponse {

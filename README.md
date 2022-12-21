@@ -35,3 +35,16 @@ Make sure [buf](https://buf.build) is installed. The `Makefile` is the
 entrypoint
 of this repository and should be used to generate code and build artifacts for
 various languages.
+
+## Proto validations
+
+This repository
+uses [bufbuild/protoc-gen-validate](https://github.com/bufbuild/protoc-gen-validate)
+to validate Protobuf messages.
+
+**Important!** <br>
+If validations are created for messages in `A.proto` and file `B.proto` contains
+messages that use messages from `A.proto`, but `B.proto` does not
+import `validate.proto`, no validators are generated for `B.proto`, and thus no
+validations happen that are defined in `A.proto`, even though `B.proto` might
+use messages from `A.proto` in its own messages.

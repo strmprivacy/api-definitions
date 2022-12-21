@@ -3,6 +3,7 @@ syntax = "proto3";
 package strmprivacy.api.account.v1;
 
 import "google/api/field_behavior.proto";
+import "validate/validate.proto";
 
 option go_package = "github.com/strmprivacy/api-definitions-go/v2/api/account/v1;account";
 option java_package = "io.strmprivacy.api.account.v1";
@@ -27,7 +28,7 @@ service AccountService {
 }
 
 message GetAccountDetailsRequest {
-  string billing_id = 1 [deprecated = true];
+  string billing_id = 1 [deprecated = true, (validate.rules).string = {len: 0, ignore_empty: true}];
 }
 
 message GetAccountDetailsResponse {
@@ -52,8 +53,14 @@ message GetLegacyBillingIdResponse {
 // (-- api-linter: core::0133::request-resource-field=disabled
 //     aip.dev/not-precedent: Handle is just a string. --)
 message CreateAccountHandleRequest {
-  string billing_id = 1 [deprecated = true];
-  string handle = 2 [(google.api.field_behavior) = REQUIRED];
+  string billing_id = 1 [deprecated = true, (validate.rules).string = {len: 0, ignore_empty: true}];
+  string handle = 2 [
+    (validate.rules).string = {
+      min_len: 4,
+      max_len: 50,
+      not_contains: "strm",
+      pattern: "^[a-zA-Z0-9][a-zA-Z0-9_-]+[a-zA-Z0-9]$",
+    }];
 }
 
 message CreateAccountHandleResponse {
@@ -61,8 +68,13 @@ message CreateAccountHandleResponse {
 }
 
 message InitializeCheckoutRequest {
-  string plan_id = 1 [(google.api.field_behavior) = REQUIRED];
-  string user_id = 2;
+  // The STRM Privacy subscription name
+  string plan_id = 1 [(validate.rules).string = {
+    min_len: 1,
+    in: ["ENTERPRISE", "BUSINESS", "SELF_HOSTED", "FREE"]
+  }];
+  // The external user id of the logged in user. Deprecated in favor of the user id in the Bearer token, which overrides any provided value here
+  string user_id = 2 [deprecated = true, (validate.rules).string = {len: 0, ignore_empty: true}];
 }
 
 message InitializeCheckoutResponse {
@@ -70,24 +82,28 @@ message InitializeCheckoutResponse {
 }
 
 message GetCheckoutStatusRequest {
-  string user_id = 1 [(google.api.field_behavior) = REQUIRED];
-  string checkout_session_id = 2 [(google.api.field_behavior) = REQUIRED];
+  // The external user id of the logged in user. Deprecated in favor of the user id in the Bearer token, which overrides any provided value here
+  string user_id = 1 [deprecated = true, (validate.rules).string = {len: 0, ignore_empty: true}];
+  // The Stripe checkout session id
+  string checkout_session_id = 2 [(validate.rules).string = {min_len: 1, ignore_empty: true}];
 }
 
 message GetCheckoutStatusResponse {
-  string status = 1;
+  string status = 1 [(google.api.field_behavior) = REQUIRED];
 }
 
 message SetCheckoutCancelledRequest {
-  string user_id = 1 [(google.api.field_behavior) = REQUIRED];
-  string checkout_session_id = 2 [(google.api.field_behavior) = REQUIRED];
+  // The external user id of the logged in user. Deprecated in favor of the user id in the Bearer token, which overrides any provided value here
+  string user_id = 1 [deprecated = true, (validate.rules).string = {len: 0, ignore_empty: true}];
+  string checkout_session_id = 2 [(validate.rules).string = {min_len: 1, ignore_empty: true}];
 }
 
 message SetCheckoutCancelledResponse {
 }
 
 message InitializeCustomerPortalRequest {
-  string user_id = 1 [(google.api.field_behavior) = REQUIRED];
+  // The external user id of the logged in user. Deprecated in favor of the user id in the Bearer token, which overrides any provided value here
+  string user_id = 1 [deprecated = true, (validate.rules).string = {len: 0, ignore_empty: true}];
 }
 
 message InitializeCustomerPortalResponse {

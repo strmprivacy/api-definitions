@@ -4,25 +4,26 @@ package strmprivacy.api.customer_entity_versions.v1;
 
 import "google/api/field_behavior.proto";
 import "strmprivacy/api/installations/v1/entities_v1.proto";
+import "validate/validate.proto";
 
 option go_package = "github.com/strmprivacy/api-definitions-go/v2/api/customer_entity_versions/v1;customer_entity_versions";
 option java_package = "io.strmprivacy.api.customer_entity_versions.v1";
 option java_multiple_files = true;
 
 service CustomerEntityVersionsService {
-  rpc GetBatchExporterImage(GetBatchExporterImageRequest) returns (GetBatchExporterImageResponse);
-  rpc GetKafkaExporterImage(GetKafkaExporterImageRequest) returns (GetKafkaExporterImageResponse);
-  rpc GetDecrypterImage(GetDecrypterImageRequest) returns (GetDecrypterImageResponse);
-  rpc GetBatchJobRunnerImage(GetBatchJobRunnerImageRequest) returns (GetBatchJobRunnerImageResponse);
+  rpc GetBatchExporterImage (GetBatchExporterImageRequest) returns (GetBatchExporterImageResponse);
+  rpc GetKafkaExporterImage (GetKafkaExporterImageRequest) returns (GetKafkaExporterImageResponse);
+  rpc GetDecrypterImage (GetDecrypterImageRequest) returns (GetDecrypterImageResponse);
+  rpc GetBatchJobRunnerImage (GetBatchJobRunnerImageRequest) returns (GetBatchJobRunnerImageResponse);
 }
 
 message GetBatchExporterImageRequest {
-  installations.v1.InstallationType installation_type = 1 [(google.api.field_behavior) = REQUIRED];
+  installations.v1.InstallationType installation_type = 1 [(validate.rules).enum = {not_in: [0]}];
 }
 
 message GetBatchExporterImageResponse {
   string image = 1 [(google.api.field_behavior) = REQUIRED];
-  string aws_marketplace_image = 2 [(google.api.field_behavior) = REQUIRED, deprecated = true];
+  string aws_marketplace_image = 2 [deprecated = true];
   string image_tag = 3 [(google.api.field_behavior) = REQUIRED];
 }
 
@@ -34,21 +35,21 @@ message GetKafkaExporterImageResponse {
 }
 
 message GetDecrypterImageRequest {
-  installations.v1.InstallationType installation_type = 1 [(google.api.field_behavior) = REQUIRED];
+  installations.v1.InstallationType installation_type = 1 [(validate.rules).enum = {not_in: [0]}];
 }
 
 message GetDecrypterImageResponse {
   string image = 1 [(google.api.field_behavior) = REQUIRED];
-  string aws_marketplace_image = 2 [(google.api.field_behavior) = REQUIRED, deprecated = true];
+  string aws_marketplace_image = 2 [deprecated = true];
   string image_tag = 3 [(google.api.field_behavior) = REQUIRED];
 }
 
 message GetBatchJobRunnerImageRequest {
-  installations.v1.InstallationType installation_type = 1 [(google.api.field_behavior) = REQUIRED];
+  installations.v1.InstallationType installation_type = 1 [(validate.rules).enum = {not_in: [0]}];
 }
 
 message GetBatchJobRunnerImageResponse {
   string image = 1 [(google.api.field_behavior) = REQUIRED];
-  string aws_marketplace_image = 2 [(google.api.field_behavior) = REQUIRED, deprecated = true];
+  string aws_marketplace_image = 2 [deprecated = true];
   string image_tag = 3 [(google.api.field_behavior) = REQUIRED];
 }

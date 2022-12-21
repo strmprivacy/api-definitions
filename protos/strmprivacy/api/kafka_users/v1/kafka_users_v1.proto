@@ -4,6 +4,7 @@ package strmprivacy.api.kafka_users.v1;
 
 import "google/api/field_behavior.proto";
 import "strmprivacy/api/entities/v1/entities_v1.proto";
+import "validate/validate.proto";
 
 option go_package = "github.com/strmprivacy/api-definitions-go/v2/api/kafka_users/v1;kafka_users";
 option java_package = "io.strmprivacy.api.kafka_users.v1";
@@ -19,32 +20,32 @@ service KafkaUsersService {
 message ListKafkaUsersRequest {
   // (-- api-linter: core::0122::name-suffix=disabled
   //     aip.dev/not-precedent: ref is a better name than Google suggests ¯\_(ツ)_/¯ --)
-  entities.v1.KafkaExporterRef ref = 1 [(google.api.field_behavior) = REQUIRED];
+  entities.v1.KafkaExporterRef ref = 1 [(validate.rules).message.required = true];
 }
 
 message ListKafkaUsersResponse {
-  repeated strmprivacy.api.entities.v1.KafkaUser kafka_users = 1;
+  repeated strmprivacy.api.entities.v1.KafkaUser kafka_users = 1 [(google.api.field_behavior) = REQUIRED];
 }
 
 message DeleteKafkaUserRequest {
-  entities.v1.KafkaUserRef ref = 1 [(google.api.field_behavior) = REQUIRED];
+  entities.v1.KafkaUserRef ref = 1 [(validate.rules).message.required = true];
 }
 
 message DeleteKafkaUserResponse {
 }
 
 message CreateKafkaUserRequest {
-  strmprivacy.api.entities.v1.KafkaUser kafka_user = 1;
+  strmprivacy.api.entities.v1.KafkaUser kafka_user = 1 [(validate.rules).message.required = true];
 }
 
 message CreateKafkaUserResponse {
-  strmprivacy.api.entities.v1.KafkaUser kafka_user = 1;
+  strmprivacy.api.entities.v1.KafkaUser kafka_user = 1 [(google.api.field_behavior) = REQUIRED];
 }
 
 message GetKafkaUserRequest {
-  entities.v1.KafkaUserRef ref = 1 [(google.api.field_behavior) = REQUIRED];
+  entities.v1.KafkaUserRef ref = 1 [(validate.rules).message.required = true];
 }
 
 message GetKafkaUserResponse {
-  strmprivacy.api.entities.v1.KafkaUser kafka_user = 1;
+  strmprivacy.api.entities.v1.KafkaUser kafka_user = 1 [(google.api.field_behavior) = REQUIRED];
 }

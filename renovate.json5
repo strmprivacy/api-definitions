@@ -126,7 +126,7 @@
         },
         {
             "fileMatch": [
-                "buf.gen.yaml$"
+                "buf.gen.*yaml$"
             ],
             "matchStrings": [
                 // https://github.com/bufbuild/plugins/blob/main/plugins/bufbuild/connect-web/source.yaml
@@ -134,6 +134,18 @@
             ],
             depNameTemplate: "@bufbuild/protoc-gen-connect-web",
             datasourceTemplate: "npm",
+        },
+        {
+            "fileMatch": [
+                "buf.gen.*yaml$"
+            ],
+            "matchStrings": [
+                // https://github.com/bufbuild/plugins/blob/main/plugins/bufbuild/connect-web/source.yaml
+                "buf.build\\/strmprivacy\\/plugins\\/protoc-gen-validate:v(?<currentValue>\\d+\\.\\d+\\.\\d+)-\\d+\\n"
+            ],
+            depNameTemplate: "bufbuild/protoc-gen-validate",
+            datasourceTemplate: "github-releases",
+            extractVersionTemplate: "^v(?<version>\\d+\\.\\d+\\.\\d+)"
         }
     ],
     packageRules: [

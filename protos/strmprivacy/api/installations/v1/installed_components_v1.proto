@@ -2,8 +2,8 @@ syntax = "proto3";
 
 package strmprivacy.api.installations.v1;
 
-import "google/api/field_behavior.proto";
 import "strmprivacy/api/installations/v1/entities_v1.proto";
+import "validate/validate.proto";
 
 option go_package = "github.com/strmprivacy/api-definitions-go/v2/api/installations/v1;installations";
 option java_package = "io.strmprivacy.api.installations.v1";
@@ -27,18 +27,19 @@ service InstalledComponentsService {
 // (-- api-linter: core::0134::request-mask-required=disabled
 //     aip.dev/not-precedent: This RPC only updates one field. --)
 message UpdateInstalledComponentStateRequest {
-  InstalledComponentType component_type = 1 [(google.api.field_behavior) = REQUIRED];
-  string instance_id = 2 [(google.api.field_behavior) = REQUIRED];
-  InstalledComponentState installed_component_state = 3 [(google.api.field_behavior) = REQUIRED];
-  string installation_id = 4 [(google.api.field_behavior) = REQUIRED];
+  InstalledComponentType component_type = 1 [(validate.rules).enum = {not_in: [0]}];
+  // A string that represents the instance. The hostname is used for this, which in Kubernetes defaults to the pod name.
+  string instance_id = 2 [(validate.rules).string = {min_len: 4}];
+  InstalledComponentState installed_component_state = 3 [(validate.rules).message.required = true];
+  string installation_id = 4 [(validate.rules).string.uuid = true];
 }
 
 message UpdateInstalledComponentStateResponse {
 }
 
 message GetInstalledComponentRequest {
-  string installation_id = 1 [(google.api.field_behavior) = REQUIRED];
-  InstalledComponentType installed_component_type = 2 [(google.api.field_behavior) = REQUIRED];
+  string installation_id = 1 [(validate.rules).string.uuid = true];
+  InstalledComponentType installed_component_type = 2 [(validate.rules).enum = {not_in: [0]}];
 }
 
 message GetInstalledComponentResponse {
@@ -46,7 +47,7 @@ message GetInstalledComponentResponse {
 }
 
 message ListInstalledComponentsRequest {
-  string installation_id = 1 [(google.api.field_behavior) = REQUIRED];
+  string installation_id = 1 [(validate.rules).string.uuid = true];
 }
 
 message ListInstalledComponentsResponse {
@@ -54,7 +55,7 @@ message ListInstalledComponentsResponse {
 }
 
 message ListInstalledComponentsCurrentStatesRequest {
-  string installation_id = 1 [(google.api.field_behavior) = REQUIRED];
+  string installation_id = 1 [(validate.rules).string.uuid = true];
 }
 
 message ListInstalledComponentsCurrentStatesResponse {

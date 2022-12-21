@@ -4,6 +4,7 @@ package strmprivacy.api.data_connectors.v1;
 
 import "google/api/field_behavior.proto";
 import "strmprivacy/api/entities/v1/entities_v1.proto";
+import "validate/validate.proto";
 
 option go_package = "github.com/strmprivacy/api-definitions-go/v2/api/data_connectors/v1;data_connectors";
 option java_package = "io.strmprivacy.api.data_connectors.v1";
@@ -17,10 +18,10 @@ service DataConnectorsService {
 }
 
 message ListDataConnectorsRequest {
-  string billing_id = 1 [deprecated = true];
+  string billing_id = 1 [deprecated = true, (validate.rules).string = {len: 0, ignore_empty: true}];
   bool recursive = 2;
   bool include_credentials = 3;
-  string project_id = 4 [(google.api.field_behavior) = REQUIRED];
+  string project_id = 4 [(validate.rules).string = {uuid: true}];
 }
 
 message ListDataConnectorsResponse {
@@ -28,7 +29,7 @@ message ListDataConnectorsResponse {
 }
 
 message DeleteDataConnectorRequest {
-  entities.v1.DataConnectorRef ref = 1 [(google.api.field_behavior) = REQUIRED];
+  entities.v1.DataConnectorRef ref = 1 [(validate.rules).message.required = true];
   // (-- api-linter: core::0135::request-unknown-fields=disabled
   //     aip.dev/not-precedent: We really need this field. --)
   bool recursive = 2;
@@ -38,15 +39,15 @@ message DeleteDataConnectorResponse {
 }
 
 message CreateDataConnectorRequest {
-  entities.v1.DataConnector data_connector = 1 [(google.api.field_behavior) = REQUIRED];
+  entities.v1.DataConnector data_connector = 1 [(validate.rules).message.required = true];
 }
 
 message CreateDataConnectorResponse {
-  entities.v1.DataConnector data_connector = 1;
+  entities.v1.DataConnector data_connector = 1 [(google.api.field_behavior) = REQUIRED];
 }
 
 message GetDataConnectorRequest {
-  entities.v1.DataConnectorRef ref = 1 [(google.api.field_behavior) = REQUIRED];
+  entities.v1.DataConnectorRef ref = 1 [(validate.rules).message.required = true];
   bool recursive = 2;
   bool include_credentials = 3;
 }

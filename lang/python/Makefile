@@ -36,7 +36,7 @@ build-public: templates
 	cd ${generated_dir} && \
 	rm -rf strmprivacy/internal_api && \
 	python -m pip install -r requirements-dev.txt && \
-	find ${top_level_package_name} -type d -exec touch "{}/__init__.py" \; && \
+	find ${top_level_package_name} -type d -exec touch "{}/__init__.py" \;  && \
 	python setup.py sdist && \
 	python setup.py bdist_wheel
 
