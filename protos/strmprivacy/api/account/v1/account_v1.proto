@@ -57,7 +57,7 @@ message CreateAccountHandleRequest {
   string handle = 2 [
     (validate.rules).string = {
       min_len: 4,
-      max_len: 50,
+      max_len: 100,
       not_contains: "strm",
       pattern: "^[a-zA-Z0-9][a-zA-Z0-9_-]+[a-zA-Z0-9]$",
     }];

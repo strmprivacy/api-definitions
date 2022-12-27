@@ -141,7 +141,7 @@ message StreamRef {
     // if empty skip validations and a default name is generated upon creation
     ignore_empty: true,
     min_len: 4,
-    max_len: 50,
+    max_len: 100,
     pattern: "^[\\pL\\pN\\pS\\pM\\pP]+$"
   }];
   string project_id = 3 [(validate.rules).string.uuid = true];
@@ -156,7 +156,7 @@ message KeyStreamRef {
     // if empty skip validations and a default name is generated upon creation
     ignore_empty: true,
     min_len: 4,
-    max_len: 50,
+    max_len: 100,
     // Only printable unicode characters are supported
     pattern: "^[\\pL\\pN\\pS\\pM\\pP]+$"
   }];
@@ -219,7 +219,7 @@ message DataConnector {
 
 message DataConnectorRef {
   string billing_id = 1 [deprecated = true, (validate.rules).string = {len: 0, ignore_empty: true}];
-  string name = 2 [(validate.rules).string = {pattern: "^[\\pL\\pN\\pS\\pM\\pP]+$", min_len: 4, max_len: 50}];
+  string name = 2 [(validate.rules).string = {pattern: "^[\\pL\\pN\\pS\\pM\\pP]+$", min_len: 4, max_len: 100}];
   string project_id = 3 [(validate.rules).string.uuid = true];
 }
 
@@ -332,7 +332,7 @@ message BatchExporterRef {
   string billing_id = 1 [deprecated = true, (validate.rules).string = {len: 0, ignore_empty: true}];
   string name = 2 [(validate.rules).string = {
     ignore_empty: true,
-    pattern: "^[\\pL\\pN\\pS\\pM\\pP]+$", min_len: 4, max_len: 50
+    pattern: "^[\\pL\\pN\\pS\\pM\\pP]+$", min_len: 4, max_len: 100
   }];
   string project_id = 3 [(validate.rules).string.uuid = true];
 }
@@ -356,7 +356,7 @@ message KafkaClusterRef {
   /*
   constraints: generic name constraint
   */
-  string name = 2 [(validate.rules).string = {pattern: "^[\\pL\\pN\\pS\\pM\\pP]+$", min_len: 4, max_len: 50}];
+  string name = 2 [(validate.rules).string = {pattern: "^[\\pL\\pN\\pS\\pM\\pP]+$", min_len: 4, max_len: 100}];
   string project_id = 3 [(validate.rules).string = {uuid: true, ignore_empty: true}];
 }
 
@@ -374,7 +374,7 @@ message KafkaExporterRef {
 
   constraints: generic name constraint
   */
-  string name = 2 [(validate.rules).string = {pattern: "^[\\pL\\pN\\pS\\pM\\pP]+$", min_len: 4, max_len: 50}];
+  string name = 2 [(validate.rules).string = {pattern: "^[\\pL\\pN\\pS\\pM\\pP]+$", min_len: 4, max_len: 100}];
   string project_id = 3 [(validate.rules).string = {uuid: true, ignore_empty: true}];
 }
 
@@ -432,7 +432,7 @@ message ConsentLevelMapping {
   some text like 'analytics'
   constraints: generic name constraint
   */
-  string name = 2 [(validate.rules).string = {pattern: "^[\\pL\\pN\\pS\\pM\\pP]+$", min_len: 4, max_len: 50}];
+  string name = 2 [(validate.rules).string = {pattern: "^[\\pL\\pN\\pS\\pM\\pP]+$", min_len: 4, max_len: 100}];
 }
 
 message ConsentLevelMappingRef {
@@ -447,7 +447,7 @@ message Policy {
   string name = 2 [(validate.rules).string = {
     pattern: "^[\\pL\\pN\\pS\\pM\\pP]+$",
     min_len: 4,
-    max_len: 50
+    max_len: 100
   }];
   string description = 3 [(validate.rules).string = {max_len: 1000}];
   string legal_grounds = 4 [(validate.rules).string = {max_len: 1000}];
@@ -591,7 +591,7 @@ message EventContractRef {
   /* constraint: handle should already exist */
   string handle = 1 [(validate.rules).string.min_len = 4];
   /* constraints: generic name constraint, unique within handle */
-  string name = 2 [(validate.rules).string = {pattern: "^[\\pL\\pN\\pS\\pM\\pP]+$", min_len: 4, max_len: 50}];
+  string name = 2 [(validate.rules).string = {pattern: "^[\\pL\\pN\\pS\\pM\\pP]+$", min_len: 4, max_len: 100}];
   /* constraints: semantic version, e.g. 1.12.3 */
   string version = 3 [(validate.rules).string = {pattern: "^\\d+\\.\\d+\\.\\d+$"}];
 }
@@ -816,7 +816,7 @@ message DataContractRef {
   /* constraint: handle should already exist */
   string handle = 1 [(google.api.field_behavior) = REQUIRED, (validate.rules).string.min_len = 4];
   /* constraints: generic name constraint, unique within handle */
-  string name = 2 [(validate.rules).string = {pattern: "^[\\pL\\pN\\pS\\pM\\pP]+$", min_len: 4, max_len: 50}];
+  string name = 2 [(validate.rules).string = {pattern: "^[\\pL\\pN\\pS\\pM\\pP]+$", min_len: 4, max_len: 100}];
   /* constraints: semantic version, e.g. 1.12.3 */
   string version = 3 [(google.api.field_behavior) = REQUIRED, (validate.rules).string = {
     pattern: "^\\d+\\.\\d+\\.\\d+$"
@@ -936,8 +936,8 @@ message Project {
 //     aip.dev/not-precedent . --)
 message User {
   string email = 1 [(validate.rules).string = {email: true, ignore_empty: true}];
-  string first_name = 2 [(validate.rules).string = {pattern: "^[\\pL\\pN\\pS\\pM\\pP]+$", min_len: 2, max_len: 50}];
-  string last_name = 3 [(validate.rules).string = {pattern: "^[\\pL\\pN\\pS\\pM\\pP]+$", min_len: 2, max_len: 50}];
+  string first_name = 2 [(validate.rules).string = {pattern: "^[\\pL\\pN\\pS\\pM\\pP]+$", min_len: 2, max_len: 100}];
+  string last_name = 3 [(validate.rules).string = {pattern: "^[\\pL\\pN\\pS\\pM\\pP]+$", min_len: 2, max_len: 100}];
   repeated UserRole user_roles = 4;
 }
 
@@ -945,7 +945,7 @@ message PurposeMapping {
   // an integer, which retains the same technical function as the original "consent level"
   int32 level = 1 [(validate.rules).int32.gte = 0];
   // a name/short description of the purpose, e.g. "Analytics", "Functional"
-  string purpose = 2 [(validate.rules).string = {min_len: 2, max_len: 50}];
+  string purpose = 2 [(validate.rules).string = {min_len: 2, max_len: 100}];
   // a more elaborate description
   string description = 3 [(validate.rules).string = {ignore_empty: true, min_len: 2}];
 }

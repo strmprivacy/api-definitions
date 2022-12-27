@@ -85,7 +85,7 @@ message AddDataSubjectsKeyLinksResponse {
 been used to encrypt data up to a certain point in time.
 */
 message DatasubjectKeylinks {
-  string data_subject_id = 1 [(validate.rules).string.pattern = "^[\\pL\\pN\\pS\\pM\\pP]{4,50}$"];
+  string data_subject_id = 1 [(validate.rules).string.pattern = "^[\\pL\\pN\\pS\\pM\\pP]{4,100}$"];
   repeated KeylinkAndTimestamp keylinks_and_timestamps = 2;
   message KeylinkAndTimestamp  {
     string key_link = 1 [(validate.rules).string.uuid = true];
@@ -94,7 +94,7 @@ message DatasubjectKeylinks {
 }
 
 message DeleteDataSubjectsRequest {
-  repeated string data_subjects = 1 [(validate.rules).repeated.items.string.pattern = "^[\\pL\\pN\\pS\\pM\\pP]{4,50}"];
+  repeated string data_subjects = 1 [(validate.rules).repeated.items.string.pattern = "^[\\pL\\pN\\pS\\pM\\pP]{4,100}"];
   // this parameter is filled in in the management-api from the identity of the caller
   // it must be empty when a call is made to the management-api.
   string organization_id = 2 [(validate.rules).string = {uuid:true, ignore_empty:true} ];
