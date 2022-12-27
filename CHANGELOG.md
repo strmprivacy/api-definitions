@@ -1,3 +1,10 @@
+## [2.69.1](https://gitlab.com/strmprivacy/api-definitions/compare/v2.69.0...v2.69.1) (2022-12-27)
+
+
+### Bug Fixes
+
+* **strm-2183:** 50 to 100 character limit ([cac0bad](https://gitlab.com/strmprivacy/api-definitions/commit/cac0bad0e75b79a047b5528dfb81bdfeffa7d90f))
+
 # [2.69.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.68.0...v2.69.0) (2022-12-21)
 
 
