@@ -1,3 +1,10 @@
+## [2.69.2](https://gitlab.com/strmprivacy/api-definitions/compare/v2.69.1...v2.69.2) (2022-12-27)
+
+
+### Bug Fixes
+
+* **strm-2187:** add missing protoc-gen-validate dependency ([b738746](https://gitlab.com/strmprivacy/api-definitions/commit/b738746ea1e3663ca14c3277e7e8f4bc6e225801))
+
 ## [2.69.1](https://gitlab.com/strmprivacy/api-definitions/compare/v2.69.0...v2.69.1) (2022-12-27)
 
 
