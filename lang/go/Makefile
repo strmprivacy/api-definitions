@@ -22,4 +22,5 @@ build: ${generated_dir}/VERSION ${generated_dir}/README.md ${generated_dir}/LICE
 	rm -rf "internal_api" && \
 	go mod init github.com/strmprivacy/api-definitions-go/v$${MAJOR_VERSION} && \
 	go get google.golang.org/grpc@v${grpc_version} && \
+	go get github.com/envoyproxy/protoc-gen-validate/validate && \
 	go mod tidy
