@@ -1,3 +1,10 @@
+# [2.70.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.69.2...v2.70.0) (2023-01-04)
+
+
+### Features
+
+* **strm-2165:** add approver_id in ReviewDataContractRequest rpc ([d08bff5](https://gitlab.com/strmprivacy/api-definitions/commit/d08bff5c22374a123b04d565d41ea2e6bae98aa9))
+
 ## [2.69.2](https://gitlab.com/strmprivacy/api-definitions/compare/v2.69.1...v2.69.2) (2022-12-27)
 
 
