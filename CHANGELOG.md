@@ -1,3 +1,10 @@
+## [2.70.1](https://gitlab.com/strmprivacy/api-definitions/compare/v2.70.0...v2.70.1) (2023-01-06)
+
+
+### Bug Fixes
+
+* **strm-2204:** add ignore_empty to approver_external_user_id in ReviewDataContract ([a918d49](https://gitlab.com/strmprivacy/api-definitions/commit/a918d497202142aa676228ad60af63851880fe42))
+
 # [2.70.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.69.2...v2.70.0) (2023-01-04)
 
 
