@@ -119,7 +119,8 @@ message ReviewDataContractRequest {
   // Id or Data Contract Ref must be filled. If filled in both, Id takes precedence.
   string id = 2;
   entities.v1.DataContractRef data_contract_ref = 3;
-  string approver_external_user_id = 4 [(validate.rules).string = {uuid:true}];
+  // When empty, no email is sent after putting the data contract into review
+  string approver_external_user_id = 4 [(validate.rules).string = {uuid:true, ignore_empty: true}];
 }
 
 message ReviewDataContractResponse {
