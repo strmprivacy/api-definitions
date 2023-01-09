@@ -1,3 +1,10 @@
+# [2.71.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.70.1...v2.71.0) (2023-01-09)
+
+
+### Features
+
+* upgrade typescript [@bufbuild](https://gitlab.com/bufbuild) packages ([0c61ab4](https://gitlab.com/strmprivacy/api-definitions/commit/0c61ab4a4454d9f51e9e6e353e3ebf75f3afc1f2))
+
 ## [2.70.1](https://gitlab.com/strmprivacy/api-definitions/compare/v2.70.0...v2.70.1) (2023-01-06)
 
 
