@@ -119,26 +119,26 @@ message EntityState {
     BATCH_JOB = 1;
     STREAM = 2;
     BATCH_EXPORTER = 3;
+    DATA_CONNECTOR = 4;
+    KAFKA_EXPORTER = 5;
   }
 
   enum ResourceType {
     RESOURCE_TYPE_UNSPECIFIED = 0;
 
-    // Batch Job Kubernetes deployment
-    BATCH_JOB_DEPLOYMENT = 100;
-    // Batch Job Kubernetes secret
+    BATCH_JOB_JOB = 100;
     BATCH_JOB_SECRET = 101;
+    BATCH_JOB_CONFIG_MAP = 102;
 
-    // Stream Kafka Topic
     STREAM_TOPIC = 120;
-    // Encryption keys Kafka Topic
     STREAM_ENCRYPTION_KEYS_TOPIC = 121;
-    // Stream Decrypter Kubernetes Deployment, responsible for creating derived / privacy streams
     STREAM_DECRYPTER_DEPLOYMENT = 122;
 
-    // Batch Exporter Kubernetes Deployment
     BATCH_EXPORTER_DEPLOYMENT = 140;
-    // Batch Exporter Kubernetes Secret
     BATCH_EXPORTER_SECRET = 141;
+
+    DATA_CONNECTOR_SECRET = 150;
+
+    KAFKA_EXPORTER_DEPLOYMENT = 160;
   }
 }
