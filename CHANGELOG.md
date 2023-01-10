@@ -1,3 +1,10 @@
+# [2.72.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.71.0...v2.72.0) (2023-01-10)
+
+
+### Features
+
+* **strm-2195:** added entity types and their resources ([0f88bc4](https://gitlab.com/strmprivacy/api-definitions/commit/0f88bc4dc99b8bc38b81799ba056a86e7af0f20c))
+
 # [2.71.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.70.1...v2.71.0) (2023-01-09)
 
 
