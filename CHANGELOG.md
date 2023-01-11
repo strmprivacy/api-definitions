@@ -1,3 +1,10 @@
+# [2.73.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.72.0...v2.73.0) (2023-01-11)
+
+
+### Features
+
+* **strm-2166:** add ApproveDataContract rpc ([0dc1989](https://gitlab.com/strmprivacy/api-definitions/commit/0dc1989ce4e0fc036e706695ac0178286884edf9))
+
 # [2.72.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.71.0...v2.72.0) (2023-01-10)
 
 
