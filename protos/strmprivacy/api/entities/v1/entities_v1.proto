@@ -445,13 +445,16 @@ message ConsentLevelMappingRef {
 message Policy {
   string id = 1 [(validate.rules).string.uuid = true];
   string name = 2 [(validate.rules).string = {
-    pattern: "^[\\pL\\pN\\pS\\pM\\pP]+$",
+    pattern: "^[\\pL\\pN\\pS\\pM\\pP ]+$",
     min_len: 4,
-    max_len: 100
+    max_len: 100,
+    // Can be empty during an update, field mask specifies which fields actually get modified.
+    ignore_empty: true
   }];
   string description = 3 [(validate.rules).string = {max_len: 1000}];
   string legal_grounds = 4 [(validate.rules).string = {max_len: 1000}];
-  int32 retention_days = 5 [(validate.rules).int32 = {gte: 1}];
+  // Can be empty during an update, field mask specifies which fields actually get modified.
+  int32 retention_days = 5 [(validate.rules).int32 = {gte: 1, ignore_empty: true}];
   State state = 6;
 
   enum State {
