@@ -539,6 +539,10 @@ message Schema {
     This schema is still under construction.
     */
     INCOMPLETE = 5;
+    /*
+    This schema is approved and when activated can be used used for events and batch jobs. It cannot be modified or deleted.
+    */
+    APPROVED = 6;
   }
 }
 
@@ -862,6 +866,10 @@ message DataContract {
     This data contract is still under construction.
     */
     INCOMPLETE = 5;
+    /*
+    This data contract is approved and when activated can be used used for events and batch jobs. It cannot be modified or deleted.
+     */
+    APPROVED = 6;
   }
 }
 

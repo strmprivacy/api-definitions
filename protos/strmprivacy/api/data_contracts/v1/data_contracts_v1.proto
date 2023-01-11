@@ -20,6 +20,7 @@ service DataContractsService {
   rpc ActivateDataContract (ActivateDataContractRequest) returns (ActivateDataContractResponse);
   rpc DeleteDataContract (DeleteDataContractRequest) returns (DeleteDataContractResponse);
   rpc ArchiveDataContract (ArchiveDataContractRequest) returns (ArchiveDataContractResponse);
+  rpc ApproveDataContract (ApproveDataContractRequest) returns (ApproveDataContractResponse);
   rpc GetDataContractSchemaCode (GetDataContractSchemaCodeRequest) returns (GetDataContractSchemaCodeResponse);
   rpc GetDataContractSchemaDefinition (GetDataContractSchemaDefinitionRequest) returns (GetDataContractSchemaDefinitionResponse);
   rpc ValidateDataContractsMaskedFields (ValidateDataContractsMaskedFieldsRequest) returns (ValidateDataContractsMaskedFieldsResponse);
@@ -121,10 +122,20 @@ message ReviewDataContractRequest {
   entities.v1.DataContractRef data_contract_ref = 3;
   // When empty, no email is sent after putting the data contract into review
   string approver_external_user_id = 4 [(validate.rules).string = {uuid:true, ignore_empty: true}];
+  bool notify_reviewer = 5;
 }
 
 message ReviewDataContractResponse {
 }
+
+message ApproveDataContractRequest {
+  string id = 1;
+  // Id or Data Contract Ref must be filled. If filled in both, Id takes precedence.
+  entities.v1.DataContractRef data_contract_ref = 2;
+  bool notify_creator = 3;
+}
+
+message ApproveDataContractResponse {}
 
 message ActivateDataContractRequest {
   string billing_id = 1 [deprecated = true, (validate.rules).string = {len: 0, ignore_empty: true}];
