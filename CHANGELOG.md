@@ -1,3 +1,10 @@
+## [2.73.2](https://gitlab.com/strmprivacy/api-definitions/compare/v2.73.1...v2.73.2) (2023-01-12)
+
+
+### Bug Fixes
+
+* for some entities, naming or title should be able to use spaces ([84f51b5](https://gitlab.com/strmprivacy/api-definitions/commit/84f51b5bc063987dacb8fb630aa293d62e2fd988))
+
 ## [2.73.1](https://gitlab.com/strmprivacy/api-definitions/compare/v2.73.0...v2.73.1) (2023-01-11)
 
 
