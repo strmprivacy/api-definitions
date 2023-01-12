@@ -773,7 +773,7 @@ message EncryptionConfig {
 
 message TimestampConfig {
   // generic field name
-  string field = 1 [(validate.rules).string = {pattern: "^[\\pL\\pN\\pS\\pM\\pP]+$", min_len: 4, max_len: 50}];
+  string field = 1 [(validate.rules).string = {pattern: "^[^\\pC]+$", min_len: 4, max_len: 50}];
   // Java Time Format template, see https://docs.oracle.com/javase/8/docs/api/java/time/format/DateTimeFormatter.html
   string format = 2 [(validate.rules).string = {min_len: 1}];
   google.type.TimeZone default_time_zone = 3;
@@ -916,7 +916,7 @@ message DataContractMetadata {
   // The human readable title of this Data Contract. Used in the Portal. Defaults to the Data Contract name if left unspecified. This field can be modified.
   string title = 1 [(validate.rules).string = {
     ignore_empty: true,
-    pattern: "^[\\pL\\pN\\pS\\pM\\pP]+$",
+    pattern: "^[^\\pC]+$",
     min_len: 4,
     max_len: 100
   }];
@@ -947,8 +947,8 @@ message Project {
 //     aip.dev/not-precedent . --)
 message User {
   string email = 1 [(validate.rules).string = {email: true, ignore_empty: true}];
-  string first_name = 2 [(validate.rules).string = {pattern: "^[\\pL\\pN\\pS\\pM\\pP]+$", min_len: 2, max_len: 100}];
-  string last_name = 3 [(validate.rules).string = {pattern: "^[\\pL\\pN\\pS\\pM\\pP]+$", min_len: 2, max_len: 100}];
+  string first_name = 2 [(validate.rules).string = {pattern: "^[^\\pC]+$", min_len: 2, max_len: 100}];
+  string last_name = 3 [(validate.rules).string = {pattern: "^[^\\pC]+$", min_len: 2, max_len: 100}];
   repeated UserRole user_roles = 4;
 }
 
