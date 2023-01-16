@@ -1,3 +1,10 @@
+# [2.74.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.73.2...v2.74.0) (2023-01-16)
+
+
+### Features
+
+* **strm-2230:** add onboarding feature ([bfe536c](https://gitlab.com/strmprivacy/api-definitions/commit/bfe536cc65c80ec2920e8994030829f164aad51b))
+
 ## [2.73.2](https://gitlab.com/strmprivacy/api-definitions/compare/v2.73.1...v2.73.2) (2023-01-12)
 
 
