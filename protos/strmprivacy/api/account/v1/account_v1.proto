@@ -25,6 +25,7 @@ service AccountService {
   // (-- api-linter: core::0134::synonyms=disabled
   //     aip.dev/not-precedent: We're not updating a Checkout here. --)
   rpc SetCheckoutCancelled (SetCheckoutCancelledRequest) returns (SetCheckoutCancelledResponse);
+  rpc UpdateOnboarding (UpdateOnboardingRequest) returns (UpdateOnboardingResponse);
 }
 
 message GetAccountDetailsRequest {
@@ -39,6 +40,7 @@ message GetAccountDetailsResponse {
   string organization = 5 [(google.api.field_behavior) = REQUIRED];
   string organization_id = 6 [(google.api.field_behavior) = REQUIRED];
   string internal_user_id = 7 [(google.api.field_behavior) = REQUIRED];
+  bool is_onboarding_done = 8 [(google.api.field_behavior) = REQUIRED];
 }
 
 message GetLegacyBillingIdRequest {
@@ -109,3 +111,11 @@ message InitializeCustomerPortalRequest {
 message InitializeCustomerPortalResponse {
   string customer_portal_uri = 1 [(google.api.field_behavior) = REQUIRED];
 }
+
+// (-- api-linter: core::0134::request-mask-required=disabled
+//     aip.dev/not-precedent: we prefer this way over creating a new entity--)
+message UpdateOnboardingRequest {
+  bool is_onboarding_done = 1;
+}
+
+message UpdateOnboardingResponse {}
