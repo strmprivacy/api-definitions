@@ -1,3 +1,10 @@
+# [2.75.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.74.0...v2.75.0) (2023-01-16)
+
+
+### Features
+
+* **strm-2111:** add decrypter config map resource type ([5039a0d](https://gitlab.com/strmprivacy/api-definitions/commit/5039a0d898ac23aa7d28fd2d9889677f511f4957))
+
 # [2.74.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.73.2...v2.74.0) (2023-01-16)
 
 
