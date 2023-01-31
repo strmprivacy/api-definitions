@@ -1,5 +1,13 @@
 # Stubbing API responses for tests
 
+## Pre-requisites
+
+Run the following make command, to ensure that the instructions in this document work for you:
+```shell
+make protoc-gen-validate-dependency default-google-dependencies
+```
+
+## Setup
 In order to stub API responses, for
 tests, [Gripmock](https://github.com/tokopedia/gripmock) can be used. As the
 STRM Privacy APIs use various imports, the Docker command is not straight
