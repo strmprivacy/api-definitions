@@ -1,0 +1,21 @@
+{
+  "service": "AccountService",
+  "method": "GetAccountDetails",
+  "input": {
+    "equals": {
+      "billing_id": "banana"
+    }
+  },
+  "output": {
+    "data": {
+      "billing_id":  "banana",
+      "max_input_streams": 42,
+      "handle":  "bananas",
+      "subscription": "SUPER",
+      "organization":  "banana-farm",
+      "organization_id": "eb9a070c-ee1e-4f2f-a665-fd3a23d8a367",
+      "internal_user_id":  "2595a492-80ac-40aa-9276-45c5702dedc0",
+      "is_onboarding_done": true
+    }
+  }
+}
