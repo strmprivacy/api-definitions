@@ -2,6 +2,7 @@ syntax = "proto3";
 
 package strmprivacy.api.account.v1;
 
+import "strmprivacy/api/entities/v1/entities_v1.proto";
 import "google/api/field_behavior.proto";
 import "validate/validate.proto";
 
@@ -41,6 +42,7 @@ message GetAccountDetailsResponse {
   string organization_id = 6 [(google.api.field_behavior) = REQUIRED];
   string internal_user_id = 7 [(google.api.field_behavior) = REQUIRED];
   bool is_onboarding_done = 8 [(google.api.field_behavior) = REQUIRED];
+  repeated strmprivacy.api.entities.v1.UserRole user_roles = 9 [(google.api.field_behavior) = OPTIONAL];
 }
 
 message GetLegacyBillingIdRequest {
