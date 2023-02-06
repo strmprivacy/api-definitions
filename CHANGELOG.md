@@ -1,3 +1,10 @@
+# [2.76.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.75.0...v2.76.0) (2023-02-06)
+
+
+### Features
+
+* **strm-2282:** add user roles to GetAccountDetails ([bcab95b](https://gitlab.com/strmprivacy/api-definitions/commit/bcab95b7a565b8344583d989bf930edf456fb041))
+
 # [2.75.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.74.0...v2.75.0) (2023-01-16)
 
 
