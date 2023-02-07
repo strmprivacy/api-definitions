@@ -1,24 +1,22 @@
 version: v1
 plugins:
-  - remote: buf.build/protocolbuffers/plugins/java:v21.9.0-1
+  - plugin: buf.build/protocolbuffers/java:v21.12
     out: ../lang/jvm/src/main/java/
-  - remote: buf.build/grpc/plugins/java:v1.51.0-1
+  - plugin: buf.build/grpc/java:v1.52.1
     out: ../lang/jvm/src/main/java/
-  - remote: buf.build/grpc/plugins/kotlin:v1.3.0-2
+  - plugin: buf.build/grpc/kotlin:v1.3.0
     out: ../lang/jvm/src/main/kotlin/
-  - remote: buf.build/strmprivacy/plugins/protoc-gen-validate:v0.8.0-1
+  - plugin: buf.build/bufbuild/validate-java:v0.9.0
     out: ../lang/jvm/src/main/java/
-    opt:
-      - lang=java
-  - remote: buf.build/protocolbuffers/plugins/go:v1.28.1-1
+  - plugin: buf.build/protocolbuffers/go:v1.28.1
     out: ../lang/go/src/
     opt:
       - module=github.com/strmprivacy/api-definitions-go/v2
-  - remote: buf.build/grpc/plugins/go:v1.2.0-1
+  - plugin: buf.build/grpc/go:v1.2.0
     out: ../lang/go/src/
     opt:
       - module=github.com/strmprivacy/api-definitions-go/v2
-  - remote: buf.build/protocolbuffers/plugins/python:v21.9.0-1
+  - plugin: buf.build/protocolbuffers/python:v21.12
     out: ../lang/python/src/
-  - remote: buf.build/grpc/plugins/python:v1.46.0-1
+  - plugin: buf.build/grpc/python:v1.52.0
     out: ../lang/python/src/
