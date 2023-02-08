@@ -212,6 +212,7 @@ message DataConnector {
     AwsS3BucketLocation s3_bucket = 2;
     GoogleCloudStorageBucketLocation google_cloud_storage_bucket = 3;
     AzureBlobStorageContainerLocation azure_blob_storage_container = 4;
+    JdbcLocation jdbc_location = 7;
   }
   string uuid = 5 [(validate.rules).string = {uuid: true, ignore_empty: true}];
   DataConnectorDependentEntities dependent_entities = 6;
@@ -275,11 +276,16 @@ message AzureClientSecretCredential {
   string client_secret = 3 [(validate.rules).string.min_len = 1];
 }
 
+message JdbcLocation {
+  string jdbc_uri = 1 [(validate.rules).string.min_len = 1];
+  DatabaseType database_type = 3;
+}
 
 message DataType {
   oneof data_type {
     option (validate.required) = true;
     entities.v1.CsvConfig csv = 1;
+    DatabaseConfig database = 2;
   }
 }
 
@@ -756,6 +762,12 @@ message DataConnectorAndType {
   DataType data_type = 4 [(validate.rules).message.required = true];
 }
 
+message DatabaseConfig {
+  string schema = 1 [(validate.rules).string = {min_len: 1, ignore_empty: true}];
+  string table = 2 [(validate.rules).string = {min_len: 1}];
+  repeated string columns = 3 [(validate.rules).repeated.items.string.min_len = 1, (validate.rules).repeated.ignore_empty = true];
+}
+
 message ConsentConfig {
   repeated int32 default_consent_levels = 1 [(google.api.field_behavior) = OPTIONAL];
   ConsentLevelExtractor consent_level_extractor = 2 [(google.api.field_behavior) = OPTIONAL];
@@ -1046,4 +1058,11 @@ enum SubscriptionPlan {
   SELF_HOSTED = 3;
   AWS_MARKETPLACE_PAYG = 4;
   AWS_MARKETPLACE_BYOL = 5;
+}
+
+enum DatabaseType {
+  DATABASE_TYPE_UNSPECIFIED = 0;
+  POSTGRES = 1;
+  MYSQL = 2;
+  BIGQUERY = 3;
 }
