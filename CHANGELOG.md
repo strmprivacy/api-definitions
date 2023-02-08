@@ -1,3 +1,10 @@
+# [2.77.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.76.0...v2.77.0) (2023-02-08)
+
+
+### Features
+
+* **strm-2266:** add jdbc config as new data connector ([0113f6b](https://gitlab.com/strmprivacy/api-definitions/commit/0113f6b7f4c3d93ef586a8f08fd94ba12c3182a4))
+
 # [2.76.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.75.0...v2.76.0) (2023-02-06)
 
 
