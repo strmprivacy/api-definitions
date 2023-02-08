@@ -16,6 +16,7 @@ plugins:
     out: ../lang/go/src/
     opt:
       - module=github.com/strmprivacy/api-definitions-go/v2
+      - require_unimplemented_servers=false
   - plugin: buf.build/protocolbuffers/python:v21.12
     out: ../lang/python/src/
   - plugin: buf.build/grpc/python:v1.52.0
