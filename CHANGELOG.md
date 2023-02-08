@@ -1,3 +1,10 @@
+## [2.77.1](https://gitlab.com/strmprivacy/api-definitions/compare/v2.77.0...v2.77.1) (2023-02-08)
+
+
+### Bug Fixes
+
+* **strm-668:** do not require unimplemented servers for go ([ca5805e](https://gitlab.com/strmprivacy/api-definitions/commit/ca5805e341dec471a29438d20d9f51f89e71119d))
+
 # [2.77.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.76.0...v2.77.0) (2023-02-08)
 
 
