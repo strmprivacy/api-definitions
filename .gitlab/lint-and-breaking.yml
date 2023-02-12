@@ -8,7 +8,7 @@
     - when: on_success
 
 .buf:
-  image: bufbuild/buf:1.13.1
+  image: bufbuild/buf:1.14.0
   stage: lint-and-breaking
   extends:
     - .rules
