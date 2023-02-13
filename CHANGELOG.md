@@ -1,3 +1,10 @@
+# [2.78.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.77.1...v2.78.0) (2023-02-13)
+
+
+### Features
+
+* **strm-2273:** add private key for bigquery jdbc query ([3485102](https://gitlab.com/strmprivacy/api-definitions/commit/34851023c4075a8f9559fccbf31c583a480a69cb))
+
 ## [2.77.1](https://gitlab.com/strmprivacy/api-definitions/compare/v2.77.0...v2.77.1) (2023-02-08)
 
 
