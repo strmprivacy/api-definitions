@@ -278,6 +278,9 @@ message AzureClientSecretCredential {
 
 message JdbcLocation {
   string jdbc_uri = 1 [(validate.rules).string.min_len = 1];
+  // this is a private key for a service account to authenticate with google bigquery. It is added by the cli upon
+  // creating the jdbc data connector
+  string private_key = 2 [(validate.rules).string.ignore_empty = true];
   DatabaseType database_type = 3;
 }
 
