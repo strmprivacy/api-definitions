@@ -1,3 +1,10 @@
+# [2.79.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.78.0...v2.79.0) (2023-02-15)
+
+
+### Features
+
+* **strm-668:** create gripmock image ([d8deb81](https://gitlab.com/strmprivacy/api-definitions/commit/d8deb8178000dc0e6eb3a36413189014e4880faa))
+
 # [2.78.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.77.1...v2.78.0) (2023-02-13)
 
 
