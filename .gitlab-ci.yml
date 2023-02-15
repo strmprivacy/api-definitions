@@ -8,6 +8,7 @@ include:
   - local: '.gitlab/lint-and-breaking.yml'
   - local: '.gitlab/python.yml'
   - local: '.gitlab/typescript.yml'
+  - local: '.gitlab/gripmock.yml'
 
 stages:
   - lint-and-breaking

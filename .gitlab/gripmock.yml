@@ -1,0 +1,41 @@
+include:
+  - project: 'strmprivacy/tools-and-utilities/ci-templates'
+    file: '/google/image-publish.yml'
+
+.gripmock:
+  variables:
+    GIT_CHECKOUT: "true"
+    DOCKERFILES_DIRECTORY: "mock"
+    APPLICATION_NAME: strm-gripmock
+  script:
+    - apk add make
+    - make mock-ci-prepare
+
+gripmock-snapshot:
+  stage: publish
+  extends:
+    - .image-snapshot-template
+    - .gripmock
+  script:
+    - !reference [ .gripmock, script ]
+    - !reference [ .image-snapshot-template, script ]
+  needs:
+    - job: go-repo-update
+      optional: false
+      artifacts: false
+
+gripmock-release:
+  stage: publish
+  extends:
+    - .image-release-template
+    - .gripmock
+  variables:
+    DOCKERFILES_DIRECTORY: "mock"
+    APPLICATION_NAME: strm-gripmock
+  script:
+    - !reference [ .gripmock, script ]
+    - !reference [ .image-snapshot-template, script ]
+  needs:
+    - job: go-repo-update-and-tag
+      optional: false
+      artifacts: false

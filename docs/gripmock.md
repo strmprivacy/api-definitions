@@ -1,30 +1,22 @@
 # Stubbing API responses for tests
 
-## Pre-requisites
-
-Run the following make command, to ensure that the instructions in this document work for you:
-```shell
-make protoc-gen-validate-dependency default-google-dependencies
-```
-
-## Setup
 In order to stub API responses, for
-tests, [Gripmock](https://github.com/tokopedia/gripmock) can be used. As the
-STRM Privacy APIs use various imports, the Docker command is not straight
-forward. To run one of the STRM Privacy gRPC services, and install stubs with
-Gripmock, do the following:
-
-1. Make sure your current working directory is the root of this repository
-2. Change the path to the proto file for which you want to run a stub in the
-   file `scripts/gripmock.sh`
-3. Update the stub following the API logic of Gripmock in `scripts/stub.json`
-4. Run the Gripmock server by executing the `scripts/gripmock.sh` file
+tests, [Gripmock](https://github.com/tokopedia/gripmock) can be used.
 
 ## Starting the server
 
-After running `scripts/gripmock.sh`, the Gripmock server is started and serving
-the generated code for the proto files you specified. This may take a while, but
-you should see:
+The following command starts a Gripmock admin and gRPC server, which allows for
+stubbing responses. One sample stub is installed here via a static file, which
+is present in the
+`mock` directory.
+The admin server to install stubs dynamically is exposed on port 4771, and the
+gRPC server is exposed on port 4770.
+
+```shell
+docker run -it -p 4770:4770 -p 4771:4771 -v mock/sample-stub.json:/stubs/account.json europe-west4-docker.pkg.dev/stream-machine-development/docker/strm-gripmock:v<apiVersion>
+```
+
+After a while you should see:
 
 ```shell
 Starting GripMock
@@ -33,7 +25,7 @@ grpc server pid: 552
 Serving gRPC on tcp://:4770
 ```
 
-## Verify whether the stubs are working
+### Verify whether the stubs are working
 
 You can use any gRPC client to verify this, I'll
 use [Evans](https://github.com/ktr0731/evans/) for this:
@@ -66,7 +58,7 @@ billing_id (TYPE_STRING) => banana
 }
 ```
 
-## Viewing the stubs
+### Viewing the stubs
 
 The admin interface can be used to view the currently active stubs:
 
@@ -107,12 +99,9 @@ Date: Tue, 31 Jan 2023 14:14:50 GMT
 }
 ```
 
-## Improvements
+### Improvements
 
-This obviously is limited to a single proto file. Gripmock does support multiple
-proto files at once, feel free to experiment with that. However, my current plan
-is to create a new Docker image, that makes sure that all logic that is
-contained in the startup command, and the protoc plugin execution that Gripmock
-does is only done once, instead on every startup of Gripmock itself. This will
-save a lot of time, as the mocks only need to be updated once the API
-definitions change.
+The image currently is only generated for x86-64, not for ARM architectures.
+[This tutorial](https://cloud.google.com/architecture/building-multi-architecture-container-images-iot-devices-tutorial)
+for Google Cloud Build helps in setting that up.
+

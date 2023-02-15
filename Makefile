@@ -44,7 +44,7 @@ ${common_protos}/google/api: ${common_protos}/proto-google-common-protos.jar
 	unzip -d ${common_protos} $< "google/**/*.proto"
 
 ${common_protos}/validate/validate.proto:
-	curl "https://raw.githubusercontent.com/bufbuild/protoc-gen-validate/v0.6.13/validate/validate.proto" --create-dirs -o "${common_protos}/validate/validate.proto"
+	curl "https://raw.githubusercontent.com/bufbuild/protoc-gen-validate/v0.9.1/validate/validate.proto" --create-dirs -o "${common_protos}/validate/validate.proto"
 
 # To ensure that we use the same Google Common Protobuf files in all languages, we extract them from the jar
 default-google-dependencies: ${common_protos}/google/protobuf ${common_protos}/google/api
@@ -75,6 +75,18 @@ protodocs-clean:
 
 protodocs: protodocs-clean
 	docker run --rm -v "$(pwd)/protodocs:/out" -v "$(pwd)/protos:/protos" -v "$(pwd)/lang:/lang" pseudomuto/protoc-gen-doc ${relative_proto_files} --proto_path=lang/.common-protos --doc_opt=markdown,docs.md
+
+mock-ci-prepare: default-google-dependencies protoc-gen-validate-dependency
+	rm -rf mock/lang/ mock/protos/strmprivacy && \
+	mkdir -p mock/lang/ mock/protos/strmprivacy && \
+	cp -r $$(find lang/.common-protos -type d -maxdepth 1) mock/lang/ && \
+	cp -r protos/strmprivacy/api mock/protos/strmprivacy/api
+
+mock-build: default-google-dependencies protoc-gen-validate-dependency
+	docker build -t strm-gripmock --build-arg BUILD_DIR=mock -f mock/Dockerfile .
+
+mock-start:
+	docker run -p 4770:4770 -p 4771:4771 -v "$(pwd)/mock/sample-stub.json:/protos:/stubs/account.json" strm-gripmock
 
 # =======================
 # Build and publish tasks

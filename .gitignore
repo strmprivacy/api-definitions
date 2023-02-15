@@ -10,6 +10,8 @@ node_modules
 VERSION.env
 prev-api-definitions/
 protos/.protoc-plugins
+mock/lang
+mock/protos
 
 # JVM
 .gradle
