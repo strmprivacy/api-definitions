@@ -1068,4 +1068,5 @@ enum DatabaseType {
   POSTGRES = 1;
   MYSQL = 2;
   BIGQUERY = 3;
+  SNOWFLAKE = 4;
 }
