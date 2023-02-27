@@ -5,10 +5,10 @@ go 1.20
 require (
 	github.com/go-chi/chi v4.1.2+incompatible
 	github.com/golang/protobuf v1.5.2
-	github.com/lithammer/fuzzysearch v1.1.1
-	github.com/stretchr/testify v1.7.0
+	github.com/lithammer/fuzzysearch v1.1.5
+	github.com/stretchr/testify v1.8.2
 	github.com/tokopedia/gripmock/protogen/example v0.0.0
-	google.golang.org/grpc v1.50.0
+	google.golang.org/grpc v1.53.0
 )
 
 require (
