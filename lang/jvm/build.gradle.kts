@@ -16,7 +16,7 @@ rootProject.version = if (tag != null || branch == "master") {
 
 buildscript {
     tasks.named<Wrapper>("wrapper") {
-        gradleVersion = "7.6.1"
+        gradleVersion = "8.0.1"
         distributionType = Wrapper.DistributionType.ALL
     }
 }
