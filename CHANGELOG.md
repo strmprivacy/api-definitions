@@ -1,3 +1,10 @@
+# [2.80.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.79.0...v2.80.0) (2023-03-02)
+
+
+### Features
+
+* **strm-2321:** add snowflake as databaseType ([18ceb55](https://gitlab.com/strmprivacy/api-definitions/commit/18ceb55593956b47ed465efc796c5c0e7854eadc))
+
 # [2.79.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.78.0...v2.79.0) (2023-02-15)
 
 
