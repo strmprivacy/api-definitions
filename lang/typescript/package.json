@@ -13,8 +13,8 @@
     "@strmprivacy:registry": " https://europe-west4-npm.pkg.dev/stream-machine-development/npm/"
   },
   "devDependencies": {
-    "google-artifactregistry-auth": "3.1.0",
-    "typescript": "5.0.2"
+    "google-artifactregistry-auth": "3.1.1",
+    "typescript": "5.0.3"
   },
   "dependencies": {
     "@bufbuild/connect-web": "0.8.4",
