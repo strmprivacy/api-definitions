@@ -17,7 +17,7 @@
     "typescript": "5.0.3"
   },
   "dependencies": {
-    "@bufbuild/connect-web": "0.8.4",
+    "@bufbuild/connect-web": "0.8.5",
     "@bufbuild/protobuf": "1.2.0"
   },
   "scripts": {
