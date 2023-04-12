@@ -1,3 +1,10 @@
+# [2.81.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.80.0...v2.81.0) (2023-04-12)
+
+
+### Features
+
+* add optional initial user role ([706dcff](https://gitlab.com/strmprivacy/api-definitions/commit/706dcff9c626ef7ec0dbf22a6b4acd72680f6b93))
+
 # [2.80.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.79.0...v2.80.0) (2023-03-02)
 
 
