@@ -26,6 +26,7 @@ message InviteUsersRequest {
 
 message UserInvite {
   string email = 1 [(validate.rules).string = {email: true}];
+  strmprivacy.api.entities.v1.UserRole user_role = 2;
 }
 
 message InviteUsersResponse {

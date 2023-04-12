@@ -464,7 +464,7 @@ message Policy {
   string legal_grounds = 4 [(validate.rules).string = {max_len: 1000}];
   // Can be empty during an update, field mask specifies which fields actually get modified.
   int32 retention_days = 5 [(validate.rules).int32 = {gte: 1, ignore_empty: true}];
-  State state = 6;
+  State state = 6 [(google.api.field_behavior) = OUTPUT_ONLY];
 
   enum State {
     STATE_UNSPECIFIED = 0;
