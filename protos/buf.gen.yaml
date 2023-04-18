@@ -1,0 +1,23 @@
+version: v1
+plugins:
+  - plugin: buf.build/protocolbuffers/java:v21.12
+    out: ../lang/jvm/src/main/java/
+  - plugin: buf.build/grpc/java:v1.52.1
+    out: ../lang/jvm/src/main/java/
+  - plugin: buf.build/grpc/kotlin:v1.3.0
+    out: ../lang/jvm/src/main/kotlin/
+  - plugin: buf.build/bufbuild/validate-java:v0.9.0
+    out: ../lang/jvm/src/main/java/
+  - plugin: buf.build/protocolbuffers/go:v1.28.1
+    out: ../lang/go/src/
+    opt:
+      - module=github.com/strmprivacy/api-definitions-go/v2
+  - plugin: buf.build/grpc/go:v1.2.0
+    out: ../lang/go/src/
+    opt:
+      - module=github.com/strmprivacy/api-definitions-go/v2
+      - require_unimplemented_servers=false
+  - plugin: buf.build/protocolbuffers/python:v21.12
+    out: ../lang/python/src/
+  - plugin: buf.build/grpc/python:v1.52.0
+    out: ../lang/python/src/

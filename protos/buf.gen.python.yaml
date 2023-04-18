@@ -1,6 +1,0 @@
-version: v1
-plugins:
-  - plugin: buf.build/protocolbuffers/python:v21.12
-    out: ../lang/python/src/
-  - plugin: buf.build/grpc/python:v1.52.0
-    out: ../lang/python/src/
