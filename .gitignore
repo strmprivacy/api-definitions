@@ -5,6 +5,7 @@
 node_modules
 
 # Common
+protos/.last-modification-time
 .envrc
 .common-protos/
 VERSION.env

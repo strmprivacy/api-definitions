@@ -965,6 +965,7 @@ message User {
   string first_name = 2 [(validate.rules).string = {pattern: "^[^\\pC]+$", min_len: 2, max_len: 100}];
   string last_name = 3 [(validate.rules).string = {pattern: "^[^\\pC]+$", min_len: 2, max_len: 100}];
   repeated UserRole user_roles = 4;
+  string external_user_id = 5 [(validate.rules).string = {uuid:true, ignore_empty: true}];
 }
 
 message PurposeMapping {

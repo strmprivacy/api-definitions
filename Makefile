@@ -97,8 +97,14 @@ build: jvm-build python-build go-build typescript-build
 # -----------------
 # generate
 # -----------------
-lang/jvm/src lang/go/src lang/python/src: $@
-	cd protos; buf generate
+lang/jvm/src:
+	cd protos; buf generate --template buf.gen.jvm.yaml
+
+lang/go/src:
+	cd protos; buf generate --template buf.gen.go.yaml
+
+lang/python/src:
+	cd protos; buf generate --template buf.gen.python.yaml
 
 # See protos/buf.gen.typescript.yaml for the reason this is necessary
 lang/typescript/src:
