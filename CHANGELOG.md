@@ -1,3 +1,11 @@
+## [2.81.1](https://gitlab.com/strmprivacy/api-definitions/compare/v2.81.0...v2.81.1) (2023-04-18)
+
+
+### Bug Fixes
+
+* buf files reverted ([8ba4772](https://gitlab.com/strmprivacy/api-definitions/commit/8ba47724ed8931b6eb16a34cf9e433cb946db431))
+* user should return its own external user id ([7eb428d](https://gitlab.com/strmprivacy/api-definitions/commit/7eb428d4a3cede2a6122de2bb969eee01cb6ed56))
+
 # [2.81.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.80.0...v2.81.0) (2023-04-12)
 
 
