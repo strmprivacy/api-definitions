@@ -962,10 +962,12 @@ message Project {
 //     aip.dev/not-precedent . --)
 message User {
   string email = 1 [(validate.rules).string = {email: true, ignore_empty: true}];
-  string first_name = 2 [(validate.rules).string = {pattern: "^[^\\pC]+$", min_len: 2, max_len: 100}];
-  string last_name = 3 [(validate.rules).string = {pattern: "^[^\\pC]+$", min_len: 2, max_len: 100}];
+  string first_name = 2;
+  string last_name = 3;
   repeated UserRole user_roles = 4;
   string external_user_id = 5 [(validate.rules).string = {uuid:true, ignore_empty: true}];
+  // the organization of the user.
+  string organization_id = 6 [(validate.rules).string = {uuid: true, ignore_empty: true}];
 }
 
 message PurposeMapping {
@@ -975,6 +977,35 @@ message PurposeMapping {
   string purpose = 2 [(validate.rules).string = {min_len: 2, max_len: 100}];
   // a more elaborate description
   string description = 3 [(validate.rules).string = {ignore_empty: true, min_len: 2}];
+}
+
+// A generic reference to an entity. This is used to reference entities in a generic way, e.g. in comments or audit trails.
+message GenericRef {
+  oneof ref {
+    DataContractRef data_contract_ref = 1;
+  }
+}
+
+message Comment {
+  string id = 1 [(validate.rules).string = {uuid: true, ignore_empty: true}];
+  google.protobuf.Timestamp create_time = 2 [(validate.rules).timestamp.required = false];
+  // The entity this comment is attached to.
+  entities.v1.GenericRef entity_ref = 3 [(validate.rules).message.required = true];
+  // The content of the comment.
+  string content = 4 [(validate.rules).string = {min_len: 1, max_len: 1000}];
+  // The user who created the comment.
+  entities.v1.User creator = 5 [(validate.rules).message.required = false];
+}
+
+message AuditTrailEntry {
+  string id = 1 [(validate.rules).string = {uuid: true, ignore_empty: true}];
+  google.protobuf.Timestamp create_time = 2 [(validate.rules).timestamp.required = false];
+  // The entity this audit trail entry is attached to.
+  entities.v1.GenericRef entity_ref = 3 [(validate.rules).message.required = true];
+  // The content of the audit trail entry.
+  string content = 4 [(validate.rules).string = {min_len: 1, max_len: 1000}];
+  // The user whose action triggered the audit trail entry. Upon creation, only the user's external_user_id needs to be set.
+  entities.v1.User actor = 5 [(validate.rules).message.required = true];
 }
 
 enum UserRole {

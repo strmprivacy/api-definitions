@@ -1,0 +1,39 @@
+syntax = "proto3";
+
+package strmprivacy.api.audit.v1;
+
+import "strmprivacy/api/entities/v1/entities_v1.proto";
+import "validate/validate.proto";
+
+option go_package = "github.com/strmprivacy/api-definitions-go/v2/api/audit/v1;audit";
+option java_package = "io.strmprivacy.api.audit.v1";
+option java_multiple_files = true;
+
+service AuditService {
+  // GetAuditTrail returns a list of audit trail entries for a given entity to be shown to an
+  // end user, e.g. in the Console.
+  rpc GetAuditTrail(GetAuditTrailRequest) returns (GetAuditTrailResponse);
+  // CreateAuditTrailEntry creates a new audit trail entry for a given entity,
+  // and is called by source system owning the entity whenever a relevant change is made.
+  rpc CreateAuditTrailEntry(CreateAuditTrailEntryRequest) returns (CreateAuditTrailEntryResponse);
+}
+
+message GetAuditTrailRequest {
+  // entity_ref is the entity to get the audit trail for.
+  entities.v1.GenericRef entity_ref = 1 [(validate.rules).message.required = true];
+  int32 page_size = 2;
+  string page_token = 3;
+}
+
+message GetAuditTrailResponse {
+  repeated entities.v1.AuditTrailEntry entries = 1;
+  string next_page_token = 2;
+}
+
+message CreateAuditTrailEntryRequest {
+  entities.v1.AuditTrailEntry audit_trail_entry = 1 [(validate.rules).message.required = true];
+}
+
+message CreateAuditTrailEntryResponse {
+  entities.v1.AuditTrailEntry audit_trail_entry = 1;
+}

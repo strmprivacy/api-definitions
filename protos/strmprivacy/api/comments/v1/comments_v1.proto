@@ -1,0 +1,45 @@
+syntax = "proto3";
+
+package strmprivacy.api.comments.v1;
+
+import "strmprivacy/api/entities/v1/entities_v1.proto";
+import "validate/validate.proto";
+
+option go_package = "github.com/strmprivacy/api-definitions-go/v2/api/comments/v1;comments";
+option java_package = "io.strmprivacy.api.comments.v1";
+option java_multiple_files = true;
+
+service CommentsService {
+  rpc CreateComment (CreateCommentRequest) returns (CreateCommentResponse);
+
+  rpc ListComments (ListCommentsRequest) returns (ListCommentsResponse);
+
+  rpc DeleteComment (DeleteCommentRequest) returns (DeleteCommentResponse);
+}
+
+message CreateCommentRequest {
+  entities.v1.Comment comment = 1 [(validate.rules).message.required = true];
+}
+
+message CreateCommentResponse {
+  entities.v1.Comment comment = 1;
+}
+
+message ListCommentsRequest {
+  // The entity to list comments for.
+  entities.v1.GenericRef entity_ref = 1 [(validate.rules).message.required = true];
+  int32 page_size = 2;
+  string page_token = 3;
+}
+
+message ListCommentsResponse {
+  repeated entities.v1.Comment comments = 1;
+  string next_page_token = 2;
+}
+
+message DeleteCommentRequest {
+  string comment_id = 1 [(validate.rules).string = {uuid: true, ignore_empty: false}];
+}
+
+message DeleteCommentResponse {
+}

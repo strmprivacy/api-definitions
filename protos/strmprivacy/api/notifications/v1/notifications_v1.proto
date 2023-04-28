@@ -1,0 +1,123 @@
+syntax = "proto3";
+
+package strmprivacy.api.notifications.v1;
+
+import "strmprivacy/api/entities/v1/entities_v1.proto";
+import "validate/validate.proto";
+import "google/protobuf/timestamp.proto";
+
+option go_package = "github.com/strmprivacy/api-definitions-go/v2/api/notifications/v1;notifications";
+option java_package = "io.strmprivacy.api.notifications.v1";
+option java_multiple_files = true;
+
+service NotificationsService {
+  // Tell the notification service that the given user should receive notifications about the given entity.
+  rpc SubscribeNotifications(SubscribeNotificationsRequest) returns (SubscribeNotificationsResponse);
+
+  // Tell the notification service that the given user should *not* receive notifications about the given entity.
+  rpc UnSubscribeNotifications(UnSubscribeNotificationsRequest) returns (UnSubscribeNotificationsResponse);
+
+  // List the subscriptions of a certain user.
+  rpc ListSubscriptions(ListSubscriptionsRequest) returns (ListSubscriptionsResponse);
+
+  // Called by systems (schema-registry for instance) that want to notify subscribed users about something.
+  rpc NotifySubscribers(NotifySubscribersRequest) returns (NotifySubscribersResponse);
+
+  // Called by the user's browser to receive notifications.
+  rpc ReceiveNotifications(ReceiveNotificationsRequest) returns (stream ReceiveNotificationsResponse);
+
+  // List notifications for a user.
+  rpc ListNotifications(ListNotificationsRequest) returns (ListNotificationsResponse);
+}
+
+// The user's browser will subscribe to a stream to receive notifications. The user follows from the JWT.
+message ReceiveNotificationsRequest {
+
+}
+
+message ReceiveNotificationsResponse {
+  UserNotification notification = 1;
+}
+
+// Users subscribed to notifications about the given entity will receive the given notification.
+message NotifySubscribersRequest {
+  // The entity that the notification is about
+  entities.v1.GenericRef entity_ref = 1 [(validate.rules).message.required = true];
+  Notification notification = 2 [(validate.rules).message.required = true];
+}
+
+message NotifySubscribersResponse {
+}
+
+message Notification  {
+  google.protobuf.Timestamp create_time = 1 [(validate.rules).timestamp.required = false];
+  oneof notification {
+    entities.v1.Comment comment = 2;
+    entities.v1.AuditTrailEntry audit_trail_entry = 3;
+  }
+}
+
+// The actual notification to be sent to an individual user.
+message UserNotification {
+  string id = 1 [(validate.rules).string = {uuid: true, ignore_empty: true}];
+  Notification notification = 2 [(validate.rules).message.required = true];
+  // The reason a specific receiver of this notification received it.
+  string reason = 3 [(validate.rules).string.min_len = 1];
+  string external_user_id = 4;
+  // mail was sent at this moment. If null|0, mail was not sent.
+  google.protobuf.Timestamp mail_sent_time = 5 [(validate.rules).timestamp.required = false];
+}
+
+message SubscribeNotificationsRequest {
+  // The user that should be subscribed.
+  string external_user_id = 1 [(validate.rules).string = {uuid: true, ignore_empty: true}];
+  // The entity for which the user should be subscribed to notifications.
+  entities.v1.GenericRef entity_ref = 2 [(validate.rules).message.required = true];
+}
+message SubscribeNotificationsResponse {
+
+}
+/**
+Tell the notification server that
+
+user X is interested in receiving notifications about item Y
+ */
+message UnSubscribeNotificationsRequest {
+  // The user that should be unsubscribed.
+  string external_user_id = 1 [(validate.rules).string = {uuid: true, ignore_empty: true}];
+  // The entity for which the user should be unsubscribed from notifications.
+  entities.v1.GenericRef entity_ref = 2 [(validate.rules).message.required = true];
+}
+message UnSubscribeNotificationsResponse {
+
+}
+
+message ListSubscriptionsRequest {
+  // The user for which to list subscriptions.
+  // ignored unless it's a system call
+  string external_user_id = 1 [(validate.rules).string = {uuid: true, ignore_empty: true}];
+}
+message ListSubscriptionsResponse {
+  repeated Subscription subscriptions = 1;
+}
+
+message Subscription {
+  // The subscribed user.
+  string external_user_id = 1 [(validate.rules).string = {uuid: true, ignore_empty: true}];
+  // The entity for which to list notifications.
+  entities.v1.GenericRef entity_ref = 2 [(validate.rules).message.required = true];
+}
+
+message ListNotificationsRequest {
+  // The user for which to list notifications.
+  string external_user_id = 1 [(validate.rules).string = {uuid: true, ignore_empty: true}];
+  // The entity for which to list notifications.
+  entities.v1.GenericRef entity_ref = 2 [(validate.rules).message.required = true];
+  int32 page_size = 3;
+  string page_token = 4;
+}
+
+message ListNotificationsResponse {
+  repeated UserNotification notifications = 1;
+  string next_page_token = 2;
+}
