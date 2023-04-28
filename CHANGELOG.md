@@ -1,3 +1,10 @@
+# [2.82.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.81.1...v2.82.0) (2023-04-28)
+
+
+### Features
+
+* **strm-2370:** added notifications and comments service ([30e6f09](https://gitlab.com/strmprivacy/api-definitions/commit/30e6f099a91bf266c19c4b176c47b44ed87c0a46))
+
 ## [2.81.1](https://gitlab.com/strmprivacy/api-definitions/compare/v2.81.0...v2.81.1) (2023-04-18)
 
 
