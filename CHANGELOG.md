@@ -1,3 +1,10 @@
+# [2.83.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.82.0...v2.83.0) (2023-05-05)
+
+
+### Features
+
+* **deps:** update dependency build.buf.protoc-gen-validate:pgv-java-stub to v1 ([171a108](https://gitlab.com/strmprivacy/api-definitions/commit/171a108644b129740e1a1b86468c68a9b6d51701))
+
 # [2.82.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.81.1...v2.82.0) (2023-04-28)
 
 
