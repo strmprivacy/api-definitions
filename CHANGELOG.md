@@ -1,3 +1,10 @@
+# [2.84.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.83.0...v2.84.0) (2023-05-10)
+
+
+### Features
+
+* **strm-2408:** add TimestampPageToken ([07d3537](https://gitlab.com/strmprivacy/api-definitions/commit/07d3537f3725c1613f282de5f5186880ba8b842d))
+
 # [2.83.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.82.0...v2.83.0) (2023-05-05)
 
 
