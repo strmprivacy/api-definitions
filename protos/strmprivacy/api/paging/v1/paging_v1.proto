@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package strmprivacy.api.paging.v1;
+
+option go_package = "github.com/strmprivacy/api-definitions-go/v2/api/paging/v1;paging";
+option java_package = "io.strmprivacy.api.paging.v1";
+option java_multiple_files = true;
+
+message TimestampPageToken {
+  // (-- api-linter: core::0142::time-field-type=disabled
+  //     aip.dev/not-precedent: As this is a generic page token that uses timestamps, this is a string. --)
+  string timestamp = 1;
+}
