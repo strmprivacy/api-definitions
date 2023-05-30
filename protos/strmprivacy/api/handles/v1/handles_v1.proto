@@ -1,4 +1,8 @@
 syntax = "proto3";
+// (-- api-linter: core::0133::request-id-field=disabled
+//     aip.dev/not-precedent: We need to do this because we typically use entities that contain
+//     references inside them, and not an entity id directly in the request.
+//     --)
 
 package strmprivacy.api.handles.v1;
 

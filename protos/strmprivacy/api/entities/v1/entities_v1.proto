@@ -87,7 +87,7 @@ message MaskedFields {
       // if empty skip validations and a default seed is generated upon creation
       ignore_empty: true,
       max_len: 1000,
-      pattern: "^[\\pL\\pN\\pS\\pM\\pP]+$"
+      pattern: "^[\\pL\\pN\\pS\\pM\\pP\\s]+$"
     }
   ];
   /*
@@ -142,7 +142,7 @@ message StreamRef {
     ignore_empty: true,
     min_len: 4,
     max_len: 100,
-    pattern: "^[\\pL\\pN\\pS\\pM\\pP]+$"
+    pattern: "^[\\pL\\pN\\pS\\pM\\pP\\s]+$"
   }];
   string project_id = 3 [(validate.rules).string.uuid = true];
 }
@@ -158,7 +158,7 @@ message KeyStreamRef {
     min_len: 4,
     max_len: 100,
     // Only printable unicode characters are supported
-    pattern: "^[\\pL\\pN\\pS\\pM\\pP]+$"
+    pattern: "^[\\pL\\pN\\pS\\pM\\pP\\s]+$"
   }];
   string project_id = 3 [(validate.rules).string.uuid = true];
 }
@@ -220,7 +220,7 @@ message DataConnector {
 
 message DataConnectorRef {
   string billing_id = 1 [deprecated = true, (validate.rules).string = {len: 0, ignore_empty: true}];
-  string name = 2 [(validate.rules).string = {pattern: "^[\\pL\\pN\\pS\\pM\\pP]+$", min_len: 4, max_len: 100}];
+  string name = 2 [(validate.rules).string = {pattern: "^[\\pL\\pN\\pS\\pM\\pP\\s]+$", min_len: 4, max_len: 100}];
   string project_id = 3 [(validate.rules).string.uuid = true];
 }
 
@@ -341,7 +341,7 @@ message BatchExporterRef {
   string billing_id = 1 [deprecated = true, (validate.rules).string = {len: 0, ignore_empty: true}];
   string name = 2 [(validate.rules).string = {
     ignore_empty: true,
-    pattern: "^[\\pL\\pN\\pS\\pM\\pP]+$", min_len: 4, max_len: 100
+    pattern: "^[\\pL\\pN\\pS\\pM\\pP\\s]+$", min_len: 4, max_len: 100
   }];
   string project_id = 3 [(validate.rules).string.uuid = true];
 }
@@ -365,7 +365,7 @@ message KafkaClusterRef {
   /*
   constraints: generic name constraint
   */
-  string name = 2 [(validate.rules).string = {pattern: "^[\\pL\\pN\\pS\\pM\\pP]+$", min_len: 4, max_len: 100}];
+  string name = 2 [(validate.rules).string = {pattern: "^[\\pL\\pN\\pS\\pM\\pP\\s]+$", min_len: 4, max_len: 100}];
   string project_id = 3 [(validate.rules).string = {uuid: true, ignore_empty: true}];
 }
 
@@ -380,10 +380,8 @@ message KafkaExporterRef {
   string billing_id = 1;
   /*
   default value  <cluster-name>-<stream-name>
-
-  constraints: generic name constraint
   */
-  string name = 2 [(validate.rules).string = {pattern: "^[\\pL\\pN\\pS\\pM\\pP]+$", min_len: 4, max_len: 100}];
+  string name = 2 [(google.api.field_behavior) = OUTPUT_ONLY];
   string project_id = 3 [(validate.rules).string = {uuid: true, ignore_empty: true}];
 }
 
@@ -398,7 +396,7 @@ message KafkaExporterTarget {
     // Kafka topic validations: https://github.com/apache/kafka/blob/trunk/clients/src/main/java/org/apache/kafka/common/internals/Topic.java
     max_len: 249,
     pattern: "^[a-zA-Z0-9._-]+$"
-  }];
+  , ignore_empty: true}];
   // used to access the target Kafka Cluster in case of OAuth based authentication
   string client_id = 3 [(validate.rules).string = {uuid: true, ignore_empty: true}];
   // used to access the target Kafka Cluster in case of OAuth based authentication
@@ -441,7 +439,7 @@ message ConsentLevelMapping {
   some text like 'analytics'
   constraints: generic name constraint
   */
-  string name = 2 [(validate.rules).string = {pattern: "^[\\pL\\pN\\pS\\pM\\pP]+$", min_len: 4, max_len: 100}];
+  string name = 2 [(validate.rules).string = {pattern: "^[\\pL\\pN\\pS\\pM\\pP\\s]+$", min_len: 4, max_len: 100}];
 }
 
 message ConsentLevelMappingRef {
@@ -454,7 +452,7 @@ message ConsentLevelMappingRef {
 message Policy {
   string id = 1 [(validate.rules).string.uuid = true];
   string name = 2 [(validate.rules).string = {
-    pattern: "^[\\pL\\pN\\pS\\pM\\pP ]+$",
+    pattern: "^[\\pL\\pN\\pS\\pM\\pP\\s]+$",
     min_len: 4,
     max_len: 100,
     // Can be empty during an update, field mask specifies which fields actually get modified.
@@ -838,7 +836,7 @@ message DataContractRef {
   /* constraint: handle should already exist */
   string handle = 1 [(google.api.field_behavior) = REQUIRED, (validate.rules).string.min_len = 4];
   /* constraints: generic name constraint, unique within handle */
-  string name = 2 [(validate.rules).string = {pattern: "^[\\pL\\pN\\pS\\pM\\pP]+$", min_len: 4, max_len: 100}];
+  string name = 2 [(validate.rules).string = {pattern: "^[^/]+$", min_len: 4, max_len: 100}];
   /* constraints: semantic version, e.g. 1.12.3 */
   string version = 3 [(google.api.field_behavior) = REQUIRED, (validate.rules).string = {
     pattern: "^\\d+\\.\\d+\\.\\d+$"
@@ -947,7 +945,7 @@ message DataContractMetadata {
 
 message Project {
   string id = 1 [(google.api.field_behavior) = OUTPUT_ONLY];
-  string name = 2 [(validate.rules).string = {pattern: "^[\\pL\\pN\\pS\\pM\\pP]+$", min_len: 2, max_len: 100}];
+  string name = 2 [(validate.rules).string = {pattern: "^[\\pL\\pN\\pS\\pM\\pP\\s]+$", min_len: 2, max_len: 100}];
   string description = 3 [(validate.rules).string = {max_len: 5000}];
   string organization_id = 4 [(google.api.field_behavior) = OUTPUT_ONLY];
   State state = 5 [(google.api.field_behavior) = OUTPUT_ONLY];

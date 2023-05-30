@@ -1,3 +1,6 @@
+// (-- api-linter: core::0133::request-id-field=disabled
+//     aip.dev/not-precedent: We need to do this because we typically use entities that contain
+//     references inside them, and not an entity id directly in the request. --)
 syntax = "proto3";
 
 package strmprivacy.api.batch_jobs.v1;
@@ -41,7 +44,9 @@ message ListBatchJobsResponse {
 
 message CreateBatchJobRequest {
   entities.v1.BatchJob batch_job = 1 [deprecated = true];
-  // Todo: use [(validate.rules).message.required = true] instead once all apps use the wrapper
+  // (-- api-linter: core::0133::request-required-fields=disabled
+  //     aip.dev/not-precedent: We really need this field to be required because
+  // reasons. --)
   entities.v1.BatchJobWrapper job = 2 [(google.api.field_behavior) = REQUIRED];
 }
 

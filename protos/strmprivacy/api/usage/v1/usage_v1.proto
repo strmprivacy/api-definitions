@@ -1,3 +1,6 @@
+// (-- api-linter: core::0133::request-id-field=disabled
+//     aip.dev/not-precedent: We need to do this because we typically use entities that contain
+//     references inside them, and not an entity id directly in the request. --)
 syntax = "proto3";
 
 package strmprivacy.api.usage.v1;
@@ -32,7 +35,7 @@ message GetStreamEventUsageResponse {
 
 message StoreUsageEventRequest {
   string billing_id = 1 [deprecated = true, (validate.rules).string = {len: 0, ignore_empty: true}];
-  string stream = 2 [(validate.rules).string = {pattern: "^[\\pL\\pN\\pS\\pM\\pP]+$", min_len: 4, max_len: 100}];
+  string stream = 2 [(validate.rules).string = {pattern: "^[\\pL\\pN\\pS\\pM\\pP\\s]+$", min_len: 4, max_len: 100}];
   int32  event_count = 3 [(validate.rules).int32 = {gte:0}];
   google.protobuf.Timestamp event_arrival_time = 4;
   string project_id = 5 [(validate.rules).string.uuid = true];
