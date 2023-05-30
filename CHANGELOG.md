@@ -1,3 +1,10 @@
+# [2.85.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.84.0...v2.85.0) (2023-05-30)
+
+
+### Features
+
+* **master:** added whitespace to be valid for entity names ([16cdbff](https://gitlab.com/strmprivacy/api-definitions/commit/16cdbffed69368c2bbca4c518bb43c5efc1d516a))
+
 # [2.84.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.83.0...v2.84.0) (2023-05-10)
 
 
