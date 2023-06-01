@@ -1,3 +1,10 @@
+# [2.86.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.85.0...v2.86.0) (2023-06-01)
+
+
+### Features
+
+* **strm-2407:** create initial entities for project plans ([94ab5a7](https://gitlab.com/strmprivacy/api-definitions/commit/94ab5a74c3072c9a52d5d0a06ff09b2f1b4992c0))
+
 # [2.85.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.84.0...v2.85.0) (2023-05-30)
 
 
