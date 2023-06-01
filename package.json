@@ -18,8 +18,7 @@
   },
   "release": {
     "branches": [
-      "master",
-      "feature/strm-1909"
+      "master"
     ],
     "plugins": [
       "@semantic-release/commit-analyzer",

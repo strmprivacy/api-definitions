@@ -44,9 +44,10 @@ message ListBatchJobsResponse {
 
 message CreateBatchJobRequest {
   entities.v1.BatchJob batch_job = 1 [deprecated = true];
+  // Todo: use [(validate.rules).message.required = true] instead once all apps use the wrapper
   // (-- api-linter: core::0133::request-required-fields=disabled
   //     aip.dev/not-precedent: We really need this field to be required because
-  // reasons. --)
+  // it used to work up til now, and api-linter is complaining just for the fun of it. --)
   entities.v1.BatchJobWrapper job = 2 [(google.api.field_behavior) = REQUIRED];
 }
 

@@ -1,0 +1,43 @@
+syntax = "proto3";
+
+package strmprivacy.api.project_plans.v1alpha;
+
+import "google/api/field_behavior.proto";
+import "strmprivacy/api/entities/v1alpha/entities_v1alpha.proto";
+import "validate/validate.proto";
+
+option go_package = "github.com/strmprivacy/api-definitions-go/v2/api/project_plans/v1alpha;project_plans";
+option java_package = "io.strmprivacy.api.project_plans.v1alpha";
+option java_multiple_files = true;
+
+service ProjectPlansService {
+  rpc ListProjectPlans(ListProjectPlansRequest) returns (ListProjectPlansResponse);
+  rpc GetProjectPlan (GetProjectPlanRequest) returns (GetProjectPlanResponse);
+  rpc UpsertProjectPlan (UpsertProjectPlanRequest) returns (UpsertProjectPlanResponse);
+}
+
+message ListProjectPlansRequest {
+  // only list templates
+  bool is_template = 1;
+
+}
+
+message ListProjectPlansResponse {
+  repeated entities.v1alpha.ProjectPlan project_plans = 1;
+}
+
+message GetProjectPlanRequest {
+  string project_id = 1 [(validate.rules).string.uuid = true];
+}
+
+message GetProjectPlanResponse {
+  entities.v1alpha.ProjectPlan project_plan = 1 [(google.api.field_behavior) = REQUIRED];
+}
+
+message UpsertProjectPlanRequest {
+  entities.v1alpha.ProjectPlan project_plan = 1 [(google.api.field_behavior) = REQUIRED];
+}
+
+message UpsertProjectPlanResponse {
+  entities.v1alpha.ProjectPlan project_plan = 1 [(google.api.field_behavior) = REQUIRED];
+}

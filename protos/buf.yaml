@@ -8,6 +8,7 @@ breaking:
   use:
     - FILE
     - WIRE
+  ignore_unstable_packages: true
 lint:
   use:
     - DEFAULT

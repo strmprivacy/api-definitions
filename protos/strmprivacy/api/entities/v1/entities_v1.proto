@@ -963,9 +963,10 @@ message User {
   string first_name = 2;
   string last_name = 3;
   repeated UserRole user_roles = 4;
-  string external_user_id = 5 [(validate.rules).string = {uuid:true, ignore_empty: true}];
+  string external_user_id = 5 [(validate.rules).string = {uuid: true, ignore_empty: true}];
   // the organization of the user.
   string organization_id = 6 [(validate.rules).string = {uuid: true, ignore_empty: true}];
+  string function_title = 7;
 }
 
 message PurposeMapping {
