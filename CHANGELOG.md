@@ -1,3 +1,10 @@
+## [2.87.1](https://gitlab.com/strmprivacy/api-definitions/compare/v2.87.0...v2.87.1) (2023-06-05)
+
+
+### Bug Fixes
+
+* generate with lower buf version ([63a83fc](https://gitlab.com/strmprivacy/api-definitions/commit/63a83fc30d520906cd4477b3a92e5ae7edc67d9c))
+
 # [2.87.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.86.0...v2.87.0) (2023-06-05)
 
 
