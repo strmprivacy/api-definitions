@@ -68,7 +68,7 @@ buf-lint: ${common_protos}/google/api ${common_protos}/google/protobuf
 
 # Make sure the google api linter is on your path (https://github.com/googleapis/api-linter/releases)
 api-lint:
-	docker run --rm -v "$(pwd):/workspace" europe-west4-docker.pkg.dev/stream-machine-development/docker/build/google-api-linter:latest ./scripts/api-linter.sh
+	docker run --rm -v "$(pwd):/workspace" europe-west4-docker.pkg.dev/stream-machine-development/docker/build/google-api-linter:1.48.0 ./scripts/api-linter.sh
 
 protodocs-clean:
 	rm -rf protodocs

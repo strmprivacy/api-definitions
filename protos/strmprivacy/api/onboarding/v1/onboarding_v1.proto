@@ -1,0 +1,26 @@
+// (-- api-linter: core::0133::request-id-field=disabled
+//     aip.dev/not-precedent: We need to do this because we typically use entities that contain
+//     references inside them, and not an entity id directly in the request. --)
+syntax = "proto3";
+
+package strmprivacy.api.onboarding.v1;
+
+import "google/api/field_behavior.proto";
+import "strmprivacy/api/entities/v1/entities_v1.proto";
+import "validate/validate.proto";
+
+option go_package = "github.com/strmprivacy/api-definitions-go/v2/api/onboarding/v1;onboarding";
+option java_package = "io.strmprivacy.api.onboarding.v1";
+option java_multiple_files = true;
+
+service OnboardingService {
+  rpc PopulateOnboardingProject(PopulateOnboardingProjectRequest) returns (PopulateOnboardingProjectResponse);
+}
+
+message PopulateOnboardingProjectRequest {
+  string handle = 1 [(google.api.field_behavior) = REQUIRED, (validate.rules).string.min_len = 4];
+  strmprivacy.api.entities.v1.Project project = 2 [(google.api.field_behavior) = REQUIRED];
+}
+
+message PopulateOnboardingProjectResponse {
+}
