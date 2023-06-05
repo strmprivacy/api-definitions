@@ -1,3 +1,10 @@
+# [2.87.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.86.0...v2.87.0) (2023-06-05)
+
+
+### Features
+
+* add onboarding api ([09079e1](https://gitlab.com/strmprivacy/api-definitions/commit/09079e1c1cbe07c11ee35a47dcf6e8db216ca33f))
+
 # [2.86.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.85.0...v2.86.0) (2023-06-01)
 
 

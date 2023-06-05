@@ -21,7 +21,7 @@ buf-lint:
 
 aip-guidelines-lint:
   image:
-    name: europe-west4-docker.pkg.dev/stream-machine-development/docker/build/google-api-linter:latest
+    name: europe-west4-docker.pkg.dev/stream-machine-development/docker/build/google-api-linter:1.48.0
   stage: lint-and-breaking
   extends:
     - .rules
