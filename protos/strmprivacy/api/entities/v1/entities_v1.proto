@@ -396,7 +396,7 @@ message KafkaExporterTarget {
     // Kafka topic validations: https://github.com/apache/kafka/blob/trunk/clients/src/main/java/org/apache/kafka/common/internals/Topic.java
     max_len: 249,
     pattern: "^[a-zA-Z0-9._-]+$"
-  , ignore_empty: true}];
+    , ignore_empty: true}];
   // used to access the target Kafka Cluster in case of OAuth based authentication
   string client_id = 3 [(validate.rules).string = {uuid: true, ignore_empty: true}];
   // used to access the target Kafka Cluster in case of OAuth based authentication
@@ -720,7 +720,6 @@ message BatchJob {
 message BatchJobWrapper {
   oneof job {
     option (validate.required) = true;
-
     entities.v1.BatchJob encryption_batch_job = 1;
     entities.v1.MicroAggregationBatchJob micro_aggregation_batch_job = 2;
   }
@@ -980,8 +979,12 @@ message PurposeMapping {
 
 // A generic reference to an entity. This is used to reference entities in a generic way, e.g. in comments or audit trails.
 message GenericRef {
-  oneof ref {
-    DataContractRef data_contract_ref = 1;
+  GenericRefType type = 1;
+  string id = 2;
+
+  enum GenericRefType {
+    GENERIC_REF_TYPE_UNSPECIFIED = 0;
+    DATA_CONTRACT = 1;
   }
 }
 
