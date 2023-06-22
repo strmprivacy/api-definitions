@@ -1,3 +1,15 @@
+# [3.0.0](https://gitlab.com/strmprivacy/api-definitions/compare/v2.87.1...v3.0.0) (2023-06-22)
+
+
+### Bug Fixes
+
+* generic ref is now a generic type plus an id ([67086b0](https://gitlab.com/strmprivacy/api-definitions/commit/67086b0a747809a1ae942398087ac8ad81be1592))
+
+
+### BREAKING CHANGES
+
+* oneof entityref changed to type plus id
+
 ## [2.87.1](https://gitlab.com/strmprivacy/api-definitions/compare/v2.87.0...v2.87.1) (2023-06-05)
 
 
