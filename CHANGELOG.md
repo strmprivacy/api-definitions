@@ -1,3 +1,10 @@
+# [3.1.0](https://gitlab.com/strmprivacy/api-definitions/compare/v3.0.1...v3.1.0) (2023-06-28)
+
+
+### Features
+
+* **strm-2512:** added id to ProjectPlan ([53256ef](https://gitlab.com/strmprivacy/api-definitions/commit/53256efe95c838e474c626eeddb197d235282c1c))
+
 ## [3.0.1](https://gitlab.com/strmprivacy/api-definitions/compare/v3.0.0...v3.0.1) (2023-06-22)
 
 
