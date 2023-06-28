@@ -1,3 +1,10 @@
+# [3.2.0](https://gitlab.com/strmprivacy/api-definitions/compare/v3.1.0...v3.2.0) (2023-06-28)
+
+
+### Features
+
+* **strm-2510:** make ItemProperties id optional and add id to ItemGroup ([43c274e](https://gitlab.com/strmprivacy/api-definitions/commit/43c274eb92fff5d8bf2148f7707248739e796dae))
+
 # [3.1.0](https://gitlab.com/strmprivacy/api-definitions/compare/v3.0.1...v3.1.0) (2023-06-28)
 
 
