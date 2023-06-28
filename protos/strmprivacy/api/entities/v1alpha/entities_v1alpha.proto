@@ -20,6 +20,8 @@ message ProjectPlan {
   repeated entities.v1.User users = 5;
   // is this instance actually a template, i.e. without filled in values.
   bool is_template = 6;
+  // the id of the project plan, never null
+  string id = 7 [(validate.rules).string.uuid = true];
 }
 
 message ItemGroup {
