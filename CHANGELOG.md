@@ -1,3 +1,10 @@
+# [3.3.0](https://gitlab.com/strmprivacy/api-definitions/compare/v3.2.0...v3.3.0) (2023-06-29)
+
+
+### Features
+
+* **strm-2513:** list projectplans include_dummy_template ([8bcd8e9](https://gitlab.com/strmprivacy/api-definitions/commit/8bcd8e9946e46a2f4cba994fc5378c23721c24d4))
+
 # [3.2.0](https://gitlab.com/strmprivacy/api-definitions/compare/v3.1.0...v3.2.0) (2023-06-28)
 
 
