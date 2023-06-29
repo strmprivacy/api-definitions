@@ -19,6 +19,9 @@ service ProjectPlansService {
 message ListProjectPlansRequest {
   // only list templates
   bool is_template = 1;
+  // include the hardcoded dummy template.
+  // TOD this flag will be removed once we're out of v1alpha
+  bool include_dummy_template = 2;
 
 }
 
