@@ -8,7 +8,7 @@ require (
 	github.com/lithammer/fuzzysearch v1.1.8
 	github.com/stretchr/testify v1.8.4
 	github.com/tokopedia/gripmock/protogen/example v0.0.0
-	google.golang.org/grpc v1.56.1
+	google.golang.org/grpc v1.56.2
 )
 
 require (
