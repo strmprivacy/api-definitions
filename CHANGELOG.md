@@ -1,3 +1,10 @@
+## [3.4.1](https://gitlab.com/strmprivacy/api-definitions/compare/v3.4.0...v3.4.1) (2023-07-10)
+
+
+### Bug Fixes
+
+* needed to revert bufbuild versions for code generation, again ([b78db90](https://gitlab.com/strmprivacy/api-definitions/commit/b78db909496bcb856118d80a6338efc53d4200b5))
+
 # [3.4.0](https://gitlab.com/strmprivacy/api-definitions/compare/v3.3.0...v3.4.0) (2023-07-10)
 
 
