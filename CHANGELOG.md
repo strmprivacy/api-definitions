@@ -1,3 +1,10 @@
+# [3.4.0](https://gitlab.com/strmprivacy/api-definitions/compare/v3.3.0...v3.4.0) (2023-07-10)
+
+
+### Features
+
+* **strm-2520:** add project id to audit trail entries ([882e3e3](https://gitlab.com/strmprivacy/api-definitions/commit/882e3e35a354db24136c843343fee64a93e57daf))
+
 # [3.3.0](https://gitlab.com/strmprivacy/api-definitions/compare/v3.2.0...v3.3.0) (2023-06-29)
 
 
