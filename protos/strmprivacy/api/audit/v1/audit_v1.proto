@@ -23,9 +23,13 @@ service AuditService {
 
 message GetAuditTrailRequest {
   // entity_ref is the entity to get the audit trail for.
-  entities.v1.GenericRef entity_ref = 1 [(validate.rules).message.required = true];
+  // If empty, a project id must be provided instead.
+  entities.v1.GenericRef entity_ref = 1;
   int32 page_size = 2;
   string page_token = 3;
+  // If a project id is specified, an audit trail for all entities in the project is returned.
+  // If empty, an entity_ref must be provided instead.
+  string project_id = 4 [(validate.rules).string = {uuid: true, ignore_empty: true}];
 }
 
 message GetAuditTrailResponse {

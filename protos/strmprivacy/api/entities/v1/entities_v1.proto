@@ -1008,6 +1008,10 @@ message AuditTrailEntry {
   string content = 4 [(validate.rules).string = {min_len: 1, max_len: 1000}];
   // The user whose action triggered the audit trail entry. Upon creation, only the user's external_user_id needs to be set.
   entities.v1.User actor = 5 [(validate.rules).message.required = true];
+  // The project this audit trail entry belongs to, if applicable.
+  string project_id = 6 [(validate.rules).string = {uuid: true, ignore_empty: true}];
+  // Human readable name of the entity.
+  string entity_name = 7;
 }
 
 enum UserRole {
