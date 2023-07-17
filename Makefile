@@ -66,7 +66,6 @@ buf-breaking:
 buf-lint: ${common_protos}/google/api ${common_protos}/google/protobuf
 	cd protos; buf lint
 
-# Make sure the google api linter is on your path (https://github.com/googleapis/api-linter/releases)
 api-lint:
 	docker run --rm -v "$(pwd):/workspace" europe-west4-docker.pkg.dev/stream-machine-development/docker/build/google-api-linter:1.48.0 ./scripts/api-linter.sh
 

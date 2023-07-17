@@ -102,7 +102,7 @@ message UpdateDataContractRequest {
   strmprivacy.api.entities.v1.DataContract data_contract = 2 [(validate.rules).message.required = true];
   string checksum = 3 [(validate.rules).string.min_len = 1];
   // The fields to update.
-  google.protobuf.FieldMask update_mask = 4 [(validate.rules).message.required = true];
+  google.protobuf.FieldMask update_mask = 4;
   ConsoleWizardStep console_wizard_step = 5;
 
   enum ConsoleWizardStep {

@@ -23,6 +23,9 @@ service NotificationsService {
   // Called by systems (schema-registry for instance) that want to notify subscribed users about something.
   rpc NotifySubscribers(NotifySubscribersRequest) returns (NotifySubscribersResponse);
 
+  // Notify specific users directly, regardless of their subscriptions.
+  rpc NotifyUsers(NotifyUsersRequest) returns (NotifyUsersResponse);
+
   // Called by the user's browser to receive notifications.
   rpc ReceiveNotifications(ReceiveNotificationsRequest) returns (stream ReceiveNotificationsResponse);
 
@@ -47,6 +50,14 @@ message NotifySubscribersRequest {
 }
 
 message NotifySubscribersResponse {
+}
+
+message NotifyUsersRequest {
+  repeated string external_user_ids = 1 [(validate.rules).repeated.items.string = {uuid: true}];
+  Notification notification = 2 [(validate.rules).message.required = true];
+}
+
+message NotifyUsersResponse {
 }
 
 message Notification  {
@@ -111,10 +122,12 @@ message Subscription {
 message ListNotificationsRequest {
   // The user for which to list notifications.
   string external_user_id = 1 [(validate.rules).string = {uuid: true, ignore_empty: true}];
-  // The entity for which to list notifications.
-  entities.v1.GenericRef entity_ref = 2 [(validate.rules).message.required = true];
+  // The entity for which to filter the notifications.
+  entities.v1.GenericRef entity_ref = 2 [(validate.rules).message.required = false];
   int32 page_size = 3;
   string page_token = 4;
+  // Timestamp from which to list notifications
+  google.protobuf.Timestamp offset_time = 5 [(validate.rules).timestamp.required = false];
 }
 
 message ListNotificationsResponse {

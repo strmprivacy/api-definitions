@@ -997,6 +997,10 @@ message Comment {
   string content = 4 [(validate.rules).string = {min_len: 1, max_len: 1000}];
   // The user who created the comment.
   entities.v1.User creator = 5 [(validate.rules).message.required = false];
+  // The project this comment is attached to (through the entity).
+  string project_id = 6 [(validate.rules).string = {uuid: true, ignore_empty: true}];
+  // Human readable name of the entity this comment is attached to.
+  string entity_name = 7;
 }
 
 message AuditTrailEntry {
