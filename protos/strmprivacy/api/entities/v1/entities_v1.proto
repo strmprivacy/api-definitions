@@ -985,6 +985,7 @@ message GenericRef {
   enum GenericRefType {
     GENERIC_REF_TYPE_UNSPECIFIED = 0;
     DATA_CONTRACT = 1;
+    PROJECT = 2;
   }
 }
 
