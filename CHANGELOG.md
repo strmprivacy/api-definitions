@@ -1,3 +1,10 @@
+# [3.5.0](https://gitlab.com/strmprivacy/api-definitions/compare/v3.4.1...v3.5.0) (2023-07-17)
+
+
+### Features
+
+* **strm-2523:** add project id and entity name to comments, add NotifyUsers rpc ([f36c246](https://gitlab.com/strmprivacy/api-definitions/commit/f36c2463fa66fe7afab399437c367e75d398d81a))
+
 ## [3.4.1](https://gitlab.com/strmprivacy/api-definitions/compare/v3.4.0...v3.4.1) (2023-07-10)
 
 
