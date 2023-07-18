@@ -1,3 +1,10 @@
+# [3.6.0](https://gitlab.com/strmprivacy/api-definitions/compare/v3.5.0...v3.6.0) (2023-07-18)
+
+
+### Features
+
+* **strm-2521:** add project to GenericRefType ([02e73b2](https://gitlab.com/strmprivacy/api-definitions/commit/02e73b267c499c20d82794434abdf461ebb0ffcf))
+
 # [3.5.0](https://gitlab.com/strmprivacy/api-definitions/compare/v3.4.1...v3.5.0) (2023-07-17)
 
 
