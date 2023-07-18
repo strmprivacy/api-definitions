@@ -1,3 +1,10 @@
+# [3.7.0](https://gitlab.com/strmprivacy/api-definitions/compare/v3.6.0...v3.7.0) (2023-07-18)
+
+
+### Features
+
+* **strm-2541:** added stream GenericRefType to GenericRef ([95c78a1](https://gitlab.com/strmprivacy/api-definitions/commit/95c78a1a94d342df736d806861acd70ec3643357))
+
 # [3.6.0](https://gitlab.com/strmprivacy/api-definitions/compare/v3.5.0...v3.6.0) (2023-07-18)
 
 
