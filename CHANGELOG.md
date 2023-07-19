@@ -1,3 +1,10 @@
+# [3.9.0](https://gitlab.com/strmprivacy/api-definitions/compare/v3.8.1...v3.9.0) (2023-07-19)
+
+
+### Features
+
+* **strm-2541:** added some types to GenericRef ([04ed1be](https://gitlab.com/strmprivacy/api-definitions/commit/04ed1be6a7a8fc5a5e693d0e459e4db4d7856996))
+
 ## [3.8.1](https://gitlab.com/strmprivacy/api-definitions/compare/v3.8.0...v3.8.1) (2023-07-19)
 
 
