@@ -991,6 +991,12 @@ message GenericRef {
     PROJECT = 2;
     // id contains the stream uuid
     STREAM = 3;
+    // id = '<project-id>:<name>'
+    BATCH_EXPORTER = 4;
+    // id = '<project-id>:<name>'
+    DATA_CONNECTOR = 5;
+    // id = '<project-id>:<name>'
+    KAFKA_EXPORTER = 6;
   }
 }
 
