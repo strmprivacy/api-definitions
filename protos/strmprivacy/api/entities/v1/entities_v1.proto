@@ -858,6 +858,7 @@ message DataContract {
   string data_subject_field = 10;
   string project_id = 11 [(validate.rules).string.uuid = true];
   repeated FieldMetadata field_metadata = 12;
+  string creator_external_user_id = 13 [(validate.rules).string = {uuid: true, ignore_empty: true}];
 
   enum State {
     STATE_UNSPECIFIED = 0;
