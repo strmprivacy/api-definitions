@@ -1,3 +1,10 @@
+## [3.8.1](https://gitlab.com/strmprivacy/api-definitions/compare/v3.8.0...v3.8.1) (2023-07-19)
+
+
+### Bug Fixes
+
+* downgrade bufbuild version ([4bb41e2](https://gitlab.com/strmprivacy/api-definitions/commit/4bb41e2dd06347556543725c989e5e41b4af5dab))
+
 # [3.8.0](https://gitlab.com/strmprivacy/api-definitions/compare/v3.7.0...v3.8.0) (2023-07-19)
 
 
