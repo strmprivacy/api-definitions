@@ -35,6 +35,10 @@ message ItemGroup {
     InfoAssetItems info_asset_items = 6;
     DocumentItems document_items = 7;
     PipelineItems pipeline_items = 8;
+    FreeformItems freeform_items = 10;
+    RiskAssessmentItems risk_assessment_items = 11;
+    RiskMitigationItems risk_mitigation_items = 12;
+    RecordingItems recording_items = 13;
   }
   string id = 9 [(validate.rules).string = {uuid: true, ignore_empty: true}];
 }
@@ -48,6 +52,8 @@ message ItemProperties {
   entities.v1.User creator = 5;
   // The user that is assigned to this item.
   entities.v1.User assignee = 6;
+  // help text describing the item. Might give an example response for instance.
+  string help_text = 7;
 }
 
 message TodoItems {
@@ -120,6 +126,48 @@ message PipelineItems {
       entities.v1.StreamRef stream = 2;
       entities.v1.BatchJobRef batch_job = 3;
     }
+  }
+}
+
+message FreeformItems {
+  repeated Item items = 2;
+  message Item {
+    ItemProperties item_properties = 1;
+    string question = 2;
+    string answer = 3;
+    string remark = 4;
+  }
+}
+
+message RiskAssessmentItems {
+  repeated Item items = 2;
+  message Item {
+    ItemProperties item_properties = 1;
+    string risk = 2;
+    string harm_likelihood = 3;
+    string harm_severity = 4;
+    string overall_risk = 5;
+  }
+}
+
+message RiskMitigationItems {
+  repeated Item items = 2;
+  message Item {
+    ItemProperties item_properties = 1;
+    string risk = 2;
+    string overall_risk = 3;
+    string mitigation_measure = 5;
+    string residual_risk = 6;
+    string approval = 7;
+  }
+}
+
+message RecordingItems {
+  repeated Item items = 2;
+  message Item {
+    ItemProperties item_properties = 1;
+    string particular = 2;
+    string remarks = 4;
   }
 }
 
