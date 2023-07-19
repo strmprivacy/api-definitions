@@ -1,3 +1,10 @@
+# [3.10.0](https://gitlab.com/strmprivacy/api-definitions/compare/v3.9.0...v3.10.0) (2023-07-19)
+
+
+### Features
+
+* **strm-2543:** added DPIA items to ProjectPlan ([1b9ed35](https://gitlab.com/strmprivacy/api-definitions/commit/1b9ed358c8e4b6a17797bcaaf41f936f1623e214))
+
 # [3.9.0](https://gitlab.com/strmprivacy/api-definitions/compare/v3.8.1...v3.9.0) (2023-07-19)
 
 
