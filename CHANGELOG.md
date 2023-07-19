@@ -1,3 +1,10 @@
+# [3.8.0](https://gitlab.com/strmprivacy/api-definitions/compare/v3.7.0...v3.8.0) (2023-07-19)
+
+
+### Features
+
+* add creator external user id to data contract ([d06c741](https://gitlab.com/strmprivacy/api-definitions/commit/d06c741bfcc122a2a057f384a2f01929e21b2897))
+
 # [3.7.0](https://gitlab.com/strmprivacy/api-definitions/compare/v3.6.0...v3.7.0) (2023-07-18)
 
 
