@@ -1,3 +1,10 @@
+# [3.11.0](https://gitlab.com/strmprivacy/api-definitions/compare/v3.10.0...v3.11.0) (2023-07-20)
+
+
+### Features
+
+* add archived state to projects ([45bfc79](https://gitlab.com/strmprivacy/api-definitions/commit/45bfc79345b6609dd2949d9ef9ee10630f57f618))
+
 # [3.10.0](https://gitlab.com/strmprivacy/api-definitions/compare/v3.9.0...v3.10.0) (2023-07-19)
 
 
