@@ -17,6 +17,7 @@ service ProjectsService {
   rpc ListProjects(ListProjectsRequest) returns (ListProjectsResponse);
   rpc CreateProject(CreateProjectRequest) returns (CreateProjectResponse);
   rpc DeleteProject(DeleteProjectRequest) returns (DeleteProjectResponse);
+  rpc ArchiveProject(ArchiveProjectRequest) returns (ArchiveProjectResponse);
   rpc GetProject(GetProjectRequest) returns (GetProjectResponse);
   rpc AddProjectMembers(AddProjectMembersRequest) returns (AddProjectMembersResponse);
   rpc RemoveProjectMembers(RemoveProjectMembersRequest) returns (RemoveProjectMembersResponse);
@@ -50,6 +51,12 @@ message DeleteProjectRequest {
 }
 
 message DeleteProjectResponse {}
+
+message ArchiveProjectRequest {
+  string project_id = 1 [(validate.rules).string.uuid = true];
+}
+
+message ArchiveProjectResponse {}
 
 message AddProjectMembersRequest {
   repeated string emails = 1 [(validate.rules).repeated = {

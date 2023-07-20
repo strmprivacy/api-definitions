@@ -953,6 +953,7 @@ message Project {
     STATE_UNSPECIFIED = 0;
     OPERATIONAL = 1;
     PENDING_DELETION = 2;
+    ARCHIVED = 3;
   }
 }
 
