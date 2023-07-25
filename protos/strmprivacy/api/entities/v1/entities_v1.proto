@@ -998,6 +998,8 @@ message GenericRef {
     DATA_CONNECTOR = 5;
     // id = '<project-id>:<name>'
     KAFKA_EXPORTER = 6;
+    // id = project-plan id
+    PROJECT_PLAN = 7;
   }
 }
 
