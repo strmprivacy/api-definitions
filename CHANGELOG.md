@@ -1,3 +1,10 @@
+# [3.12.0](https://gitlab.com/strmprivacy/api-definitions/compare/v3.11.0...v3.12.0) (2023-07-27)
+
+
+### Features
+
+* **feature/prod-137:** added PROJECT_PLAN to GenericRef ([a6c181a](https://gitlab.com/strmprivacy/api-definitions/commit/a6c181ae2f7c5ae286147f7cd986830cdb96cf66))
+
 # [3.11.0](https://gitlab.com/strmprivacy/api-definitions/compare/v3.10.0...v3.11.0) (2023-07-20)
 
 
