@@ -219,7 +219,9 @@
             ],
             matchPackageNames: [
                 "@types/google-protobuf",
-                "google-protobuf"
+                "google-protobuf",
+                "@bufbuild/connect-web",
+                "@bufbuild/protobuf"
             ],
             matchUpdateTypes: [
                 "major",
