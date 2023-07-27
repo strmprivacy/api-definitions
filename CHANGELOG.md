@@ -1,3 +1,10 @@
+## [3.12.1](https://gitlab.com/strmprivacy/api-definitions/compare/v3.12.0...v3.12.1) (2023-07-27)
+
+
+### Bug Fixes
+
+* downgrade bufbuild versions ([b948d95](https://gitlab.com/strmprivacy/api-definitions/commit/b948d95911d998afbae74846346507e1b4775244))
+
 # [3.12.0](https://gitlab.com/strmprivacy/api-definitions/compare/v3.11.0...v3.12.0) (2023-07-27)
 
 
