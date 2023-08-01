@@ -31,6 +31,9 @@ service NotificationsService {
 
   // List notifications for a user.
   rpc ListNotifications(ListNotificationsRequest) returns (ListNotificationsResponse);
+
+  // set the has_been_seen status of notification(s)
+  rpc AlterNotificationsHasBeenSeen(AlterNotificationsHasBeenSeenRequest) returns (AlterNotificationsHasBeenSeenResponse);
 }
 
 // The user's browser will subscribe to a stream to receive notifications. The user follows from the JWT.
@@ -77,6 +80,7 @@ message UserNotification {
   string external_user_id = 4;
   // mail was sent at this moment. If null|0, mail was not sent.
   google.protobuf.Timestamp mail_sent_time = 5 [(validate.rules).timestamp.required = false];
+  bool has_been_seen = 6;
 }
 
 message SubscribeNotificationsRequest {
@@ -128,9 +132,23 @@ message ListNotificationsRequest {
   string page_token = 4;
   // Timestamp from which to list notifications
   google.protobuf.Timestamp offset_time = 5 [(validate.rules).timestamp.required = false];
+  bool include_already_seen = 6;
 }
 
 message ListNotificationsResponse {
   repeated UserNotification notifications = 1;
   string next_page_token = 2;
+}
+
+message AlterNotificationsHasBeenSeenRequest {
+  // list of UserNotification id's
+  repeated string ids = 1;
+  // true if you have seen these notifications, false to restore unseen status
+  bool has_been_seen = 2;
+
+
+}
+
+message AlterNotificationsHasBeenSeenResponse {
+
 }

@@ -1024,15 +1024,86 @@ message AuditTrailEntry {
   // The entity this audit trail entry is attached to.
   entities.v1.GenericRef entity_ref = 3 [(validate.rules).message.required = true];
   // The content of the audit trail entry.
-  string content = 4 [(validate.rules).string = {min_len: 1, max_len: 1000}];
+  string content = 4 [(validate.rules).string = {min_len: 1, max_len: 1000}, deprecated=true];
   // The user whose action triggered the audit trail entry. Upon creation, only the user's external_user_id needs to be set.
   entities.v1.User actor = 5 [(validate.rules).message.required = true];
   // The project this audit trail entry belongs to, if applicable.
   string project_id = 6 [(validate.rules).string = {uuid: true, ignore_empty: true}];
   // Human readable name of the entity.
   string entity_name = 7;
+
+  // what is happening in this audit trail entry.
+  Action action = 8;
+  enum Action {
+    ACTION_UNSPECIFIED = 0;
+    CREATED = 1;
+    DELETED = 2;
+    CHANGED = 3;
+  }
+
+  // define who (or what screen) sees what.
+  // Used for filtering depending on who is using the UI,
+  // or specific views in the UI.
+  repeated Category category = 9;
+  enum Category {
+    CATEGORY_UNSPECIFIED = 0;
+    TECH = 1;
+    CIO = 2;
+    LEGAL = 3;
+  }
+
+  // the strictly defined details, that are going to supplant the `content` field.
+  Details details = 10;
+  message Details {
+    oneof content {
+      Experimental experimental = 1;
+      ProjectPlanDiffs project_plan_diffs = 2;
+      ProjectMemberChange project_member_change = 3;
+    }
+    // for when we don't yet know what the details should entail.
+    // Note: this should only be used for a few weeks at most, then
+    // a message should be added to the oneof content.
+    message Experimental {
+      string content = 1;
+    }
+    message ProjectPlanDiffs  {
+      repeated Diff diffs = 1;
+    }
+    message ProjectMemberChange {
+      ChangeType change_type = 1;
+      User user = 2;
+      enum ChangeType {
+        CHANGE_TYPE_UNSPECIFIED = 0;
+        PROJECT_MEMBER_ADDED = 1;
+        PROJECT_MEMBER_REMOVED = 2;
+      }
+    }
+  }
+
+  // level of detail between 0 (quiet) and 5 (verbose)
+  // Verbosity verbosity = 11;
+  // TODO check with Paul before we decide.
+  // enum Verbosity {
+  //   VERBOSITY_UNDEFINED = 0;
+  //   INFO = 1;
+  //   DEBUG = 2;
+  //   TRACE = 3;
+  // }
 }
 
+// used for describing changes in json trees
+message Diff {
+  DiffType diff_type = 1;
+  string path = 2;
+  string node = 3;
+  string expected = 4;
+  enum DiffType {
+    DIFF_TYPE_UNSPECIFIED = 0;
+    MISSING = 1;
+    UNEXPECTED = 2;
+    DIFFERENT = 3;
+  }
+}
 enum UserRole {
   USER_ROLE_UNSPECIFIED = 0;
   ADMIN = 1;
