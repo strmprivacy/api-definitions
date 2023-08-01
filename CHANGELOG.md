@@ -1,3 +1,10 @@
+# [3.13.0](https://gitlab.com/strmprivacy/api-definitions/compare/v3.12.1...v3.13.0) (2023-08-01)
+
+
+### Features
+
+* **strm-2573:** anc improvements ([294f3a6](https://gitlab.com/strmprivacy/api-definitions/commit/294f3a692df141dd967a6d8dbe19a411fadd3ec2))
+
 ## [3.12.1](https://gitlab.com/strmprivacy/api-definitions/compare/v3.12.0...v3.12.1) (2023-07-27)
 
 
