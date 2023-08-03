@@ -5,7 +5,7 @@ package strmprivacy.api.agents.v1;
 import "strmprivacy/api/entities/v1/entities_v1.proto";
 import "validate/validate.proto";
 
-option go_package = "github.com/strmprivacy/api-definitions-go/v2/api/agents/v1;agents";
+option go_package = "github.com/strmprivacy/api-definitions-go/v3/api/agents/v1;agents";
 option java_package = "io.strmprivacy.api.agents.v1";
 option java_multiple_files = true;
 

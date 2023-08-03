@@ -6,7 +6,7 @@ import "google/api/field_behavior.proto";
 import "strmprivacy/api/entities/v1alpha/entities_v1alpha.proto";
 import "validate/validate.proto";
 
-option go_package = "github.com/strmprivacy/api-definitions-go/v2/api/project_plans/v1alpha;project_plans";
+option go_package = "github.com/strmprivacy/api-definitions-go/v3/api/project_plans/v1alpha;project_plans";
 option java_package = "io.strmprivacy.api.project_plans.v1alpha";
 option java_multiple_files = true;
 

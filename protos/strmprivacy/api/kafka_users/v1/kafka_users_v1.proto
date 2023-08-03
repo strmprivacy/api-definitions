@@ -9,7 +9,7 @@ import "google/api/field_behavior.proto";
 import "strmprivacy/api/entities/v1/entities_v1.proto";
 import "validate/validate.proto";
 
-option go_package = "github.com/strmprivacy/api-definitions-go/v2/api/kafka_users/v1;kafka_users";
+option go_package = "github.com/strmprivacy/api-definitions-go/v3/api/kafka_users/v1;kafka_users";
 option java_package = "io.strmprivacy.api.kafka_users.v1";
 option java_multiple_files = true;
 

@@ -16,7 +16,7 @@ require (
 	//github.com/envoyproxy/protoc-gen-validate v0.9.1 // indirect
 	github.com/kr/pretty v0.2.0 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
-	github.com/strmprivacy/api-definitions-go/v2 v2.77.1 // indirect
+	github.com/strmprivacy/api-definitions-go/v3 v3.13.0 // indirect
 	golang.org/x/net v0.2.0 // indirect
 	golang.org/x/sys v0.2.0 // indirect
 	golang.org/x/text v0.4.0 // indirect

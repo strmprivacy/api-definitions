@@ -9,7 +9,7 @@ import "google/api/field_behavior.proto";
 import "strmprivacy/api/entities/v1/entities_v1.proto";
 import "validate/validate.proto";
 
-option go_package = "github.com/strmprivacy/api-definitions-go/v2/api/onboarding/v1;onboarding";
+option go_package = "github.com/strmprivacy/api-definitions-go/v3/api/onboarding/v1;onboarding";
 option java_package = "io.strmprivacy.api.onboarding.v1";
 option java_multiple_files = true;
 

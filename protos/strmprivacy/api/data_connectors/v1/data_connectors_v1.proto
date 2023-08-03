@@ -9,7 +9,7 @@ import "google/api/field_behavior.proto";
 import "strmprivacy/api/entities/v1/entities_v1.proto";
 import "validate/validate.proto";
 
-option go_package = "github.com/strmprivacy/api-definitions-go/v2/api/data_connectors/v1;data_connectors";
+option go_package = "github.com/strmprivacy/api-definitions-go/v3/api/data_connectors/v1;data_connectors";
 option java_package = "io.strmprivacy.api.data_connectors.v1";
 option java_multiple_files = true;
 

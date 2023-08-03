@@ -8,7 +8,7 @@ package strmprivacy.api.streams.v1;
 import "strmprivacy/api/entities/v1/entities_v1.proto";
 import "validate/validate.proto";
 
-option go_package = "github.com/strmprivacy/api-definitions-go/v2/api/streams/v1;streams";
+option go_package = "github.com/strmprivacy/api-definitions-go/v3/api/streams/v1;streams";
 option java_package = "io.strmprivacy.api.streams.v1";
 option java_multiple_files = true;
 

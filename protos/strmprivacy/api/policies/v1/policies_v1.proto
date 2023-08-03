@@ -10,7 +10,7 @@ import "google/protobuf/field_mask.proto";
 import "strmprivacy/api/entities/v1/entities_v1.proto";
 import "validate/validate.proto";
 
-option go_package = "github.com/strmprivacy/api-definitions-go/v2/api/policies/v1;policies";
+option go_package = "github.com/strmprivacy/api-definitions-go/v3/api/policies/v1;policies";
 option java_package = "io.strmprivacy.api.policies.v1";
 option java_multiple_files = true;
 

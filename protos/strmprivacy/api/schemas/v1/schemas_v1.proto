@@ -9,7 +9,7 @@ import "google/api/field_behavior.proto";
 import "google/protobuf/field_mask.proto";
 import "strmprivacy/api/entities/v1/entities_v1.proto";
 
-option go_package = "github.com/strmprivacy/api-definitions-go/v2/api/schemas/v1;schemas";
+option go_package = "github.com/strmprivacy/api-definitions-go/v3/api/schemas/v1;schemas";
 option java_package = "io.strmprivacy.api.schemas.v1";
 option java_multiple_files = true;
 

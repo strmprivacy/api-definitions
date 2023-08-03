@@ -6,7 +6,7 @@ import "google/api/field_behavior.proto";
 import "strmprivacy/api/installations/v1/entities_v1.proto";
 import "validate/validate.proto";
 
-option go_package = "github.com/strmprivacy/api-definitions-go/v2/api/customer_entity_versions/v1;customer_entity_versions";
+option go_package = "github.com/strmprivacy/api-definitions-go/v3/api/customer_entity_versions/v1;customer_entity_versions";
 option java_package = "io.strmprivacy.api.customer_entity_versions.v1";
 option java_multiple_files = true;
 

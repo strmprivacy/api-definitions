@@ -11,7 +11,7 @@ import (
     "github.com/tokopedia/gripmock/stub"
 
     //_ "github.com/envoyproxy/protoc-gen-validate"
-    _ "github.com/strmprivacy/api-definitions-go/v2/api/account/v1"
+    _ "github.com/strmprivacy/api-definitions-go/v3/api/account/v1"
 )
 
 func main() {

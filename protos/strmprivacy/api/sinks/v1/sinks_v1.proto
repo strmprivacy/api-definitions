@@ -5,7 +5,7 @@ package strmprivacy.api.sinks.v1;
 import "google/api/field_behavior.proto";
 import "strmprivacy/api/entities/v1/entities_v1.proto";
 
-option go_package = "github.com/strmprivacy/api-definitions-go/v2/api/sinks/v1;sinks";
+option go_package = "github.com/strmprivacy/api-definitions-go/v3/api/sinks/v1;sinks";
 option java_package = "io.strmprivacy.api.sinks.v1";
 option java_multiple_files = true;
 

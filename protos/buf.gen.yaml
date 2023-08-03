@@ -11,11 +11,11 @@ plugins:
   - plugin: buf.build/protocolbuffers/go:v1.28.1
     out: ../lang/go/src/
     opt:
-      - module=github.com/strmprivacy/api-definitions-go/v2
+      - module=github.com/strmprivacy/api-definitions-go/v3
   - plugin: buf.build/grpc/go:v1.2.0
     out: ../lang/go/src/
     opt:
-      - module=github.com/strmprivacy/api-definitions-go/v2
+      - module=github.com/strmprivacy/api-definitions-go/v3
       - require_unimplemented_servers=false
   - plugin: buf.build/protocolbuffers/python:v21.12
     out: ../lang/python/src/

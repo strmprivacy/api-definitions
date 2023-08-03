@@ -6,7 +6,7 @@ import "google/api/field_behavior.proto";
 import "google/protobuf/field_mask.proto";
 import "google/protobuf/timestamp.proto";
 
-option go_package = "github.com/strmprivacy/api-definitions-go/v2/api/monitoring/v1;monitoring";
+option go_package = "github.com/strmprivacy/api-definitions-go/v3/api/monitoring/v1;monitoring";
 option java_package = "io.strmprivacy.api.monitoring.v1";
 option java_multiple_files = true;
 
