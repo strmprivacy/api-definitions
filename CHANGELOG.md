@@ -1,3 +1,10 @@
+# [3.14.0](https://gitlab.com/strmprivacy/api-definitions/compare/v3.13.0...v3.14.0) (2023-08-04)
+
+
+### Features
+
+* **feature/prod-154:** go-lang v3 packages ([24dd8d8](https://gitlab.com/strmprivacy/api-definitions/commit/24dd8d8736861b78795369c60ce50a5cf9dc1d24))
+
 # [3.13.0](https://gitlab.com/strmprivacy/api-definitions/compare/v3.12.1...v3.13.0) (2023-08-01)
 
 
