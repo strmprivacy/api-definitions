@@ -2,6 +2,7 @@ syntax = "proto3";
 
 package strmprivacy.api.organizations.v1;
 
+import "google/api/field_behavior.proto";
 import "strmprivacy/api/entities/v1/entities_v1.proto";
 import "validate/validate.proto";
 
@@ -11,6 +12,7 @@ option java_multiple_files = true;
 
 service OrganizationsService {
   rpc InviteUsers (InviteUsersRequest) returns (InviteUsersResponse);
+  rpc ListUserInvites (ListUserInvitesRequest) returns (ListUserInvitesResponse);
   rpc UpdateUserRoles (UpdateUserRolesRequest) returns (UpdateUserRolesResponse);
   rpc GetUser (GetUserRequest) returns (GetUserResponse);
   rpc ListOrganizationMembers (ListOrganizationMembersRequest) returns (ListOrganizationMembersResponse);
@@ -24,9 +26,26 @@ message InviteUsersRequest {
   string organization_id = 2 [(validate.rules).string = {uuid: true, ignore_empty: true}];
 }
 
+message ListUserInvitesRequest {
+  string organization_id = 1 [(validate.rules).string = {uuid: true, ignore_empty: true}];
+}
+
+message ListUserInvitesResponse {
+  repeated UserInvite user_invites = 1;
+}
+
 message UserInvite {
   string email = 1 [(validate.rules).string = {email: true}];
   strmprivacy.api.entities.v1.UserRole user_role = 2;
+  State state = 3 [(google.api.field_behavior) = OUTPUT_ONLY];
+
+  enum State {
+    STATE_UNSPECIFIED = 0;
+    PENDING = 1;
+    NOTIFIED = 2;
+    COMPLETED = 3;
+    EXPIRED = 4;
+  }
 }
 
 message InviteUsersResponse {
