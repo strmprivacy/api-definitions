@@ -1,3 +1,10 @@
+# [3.15.0](https://gitlab.com/strmprivacy/api-definitions/compare/v3.14.0...v3.15.0) (2023-08-08)
+
+
+### Features
+
+* **strm-25888:** add userInviteState; add listuserinvites ([be57cdc](https://gitlab.com/strmprivacy/api-definitions/commit/be57cdcc7a04e34950b32f7b4fa3165ab56ea683))
+
 # [3.14.0](https://gitlab.com/strmprivacy/api-definitions/compare/v3.13.0...v3.14.0) (2023-08-04)
 
 
