@@ -1,3 +1,10 @@
+# [3.16.0](https://gitlab.com/strmprivacy/api-definitions/compare/v3.15.0...v3.16.0) (2023-08-10)
+
+
+### Features
+
+* **strm-2593:** added serialized project plan to ProjectPlanDiffs ([cc82d66](https://gitlab.com/strmprivacy/api-definitions/commit/cc82d66988143b6bda9c944cbaeb9d3124fbdb06))
+
 # [3.15.0](https://gitlab.com/strmprivacy/api-definitions/compare/v3.14.0...v3.15.0) (2023-08-08)
 
 
