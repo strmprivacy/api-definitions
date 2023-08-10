@@ -1068,6 +1068,10 @@ message AuditTrailEntry {
     }
     message ProjectPlanDiffs  {
       repeated Diff diffs = 1;
+      // the current project plan. The diffs led to this one.
+      // using ProjectPlan from v1alpha leads to a cyclic dependency.
+      // format json.
+      string serialized_project_plan = 2;
     }
     message ProjectMemberChange {
       ChangeType change_type = 1;
