@@ -12,7 +12,7 @@ pluginManagement {
         id("org.jetbrains.kotlin.jvm") version kotlinVersion
         id("com.google.cloud.artifactregistry.gradle-plugin") version "2.2.1"
         id("org.ajoberstar.grgit") version "5.2.0"
-        id("com.autonomousapps.dependency-analysis") version "1.20.0"
+        id("com.autonomousapps.dependency-analysis") version "1.21.0"
     }
 }
 
