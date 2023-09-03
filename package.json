@@ -7,7 +7,7 @@
     "@semantic-release/git": "10.0.1",
     "@semantic-release/gitlab": "12.0.5",
     "commitlint": "17.7.1",
-    "conventional-changelog-conventionalcommits": "6.1.0",
+    "conventional-changelog-conventionalcommits": "7.0.1",
     "cz-conventional-changelog": "3.3.0",
     "husky": "8.0.3",
     "semantic-release": "21.1.1"
