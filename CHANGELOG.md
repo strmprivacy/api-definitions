@@ -1,3 +1,10 @@
+## [3.17.1](https://gitlab.com/strmprivacy/api-definitions/compare/v3.17.0...v3.17.1) (2023-09-05)
+
+
+### Bug Fixes
+
+* **strm-2586:** add missing update_time fields ([8e3f88b](https://gitlab.com/strmprivacy/api-definitions/commit/8e3f88b2af3e7be8fe81ed89d55cd5f4d2605021))
+
 # [3.17.0](https://gitlab.com/strmprivacy/api-definitions/compare/v3.16.0...v3.17.0) (2023-09-05)
 
 
