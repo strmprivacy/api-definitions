@@ -242,6 +242,7 @@ message Party {
   // Two-letter region code as mandated by the AIP https://google.aip.dev/143#countries-and-regions
   string region_code = 4 [(validate.rules).string = {len: 2, ignore_empty: true}];
   repeated ContactDetails contact_details = 5;
+  google.protobuf.Timestamp update_time = 6;
 
   // This is only relevant within the scope of a ROPA record, following from the relation of this party to that record.
   enum RelationType {
@@ -263,6 +264,7 @@ message Category {
   string id = 1 [(validate.rules).string = {uuid: true, ignore_empty: true}];
   string name = 2;
   Type type = 3;
+  google.protobuf.Timestamp update_time = 4;
 
   enum Type {
     TYPE_UNSPECIFIED = 0;
@@ -291,6 +293,7 @@ message DataAsset {
   string contact_person_name = 5;
   // Two-letter region code as mandated by the AIP https://google.aip.dev/143#countries-and-regions
   string region_code = 6 [(validate.rules).string = {len: 2, ignore_empty: true}];
+  google.protobuf.Timestamp update_time = 7;
 
   // This is only relevant within the scope of a ROPA record, following from the relation of this data asset to that record.
   enum RelationType {
