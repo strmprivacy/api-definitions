@@ -1,0 +1,47 @@
+syntax = "proto3";
+
+package strmprivacy.api.parties.v1alpha;
+
+import "strmprivacy/api/entities/v1alpha/entities_v1alpha.proto";
+import "strmprivacy/api/paging/v1alpha/paging_v1alpha.proto";
+import "validate/validate.proto";
+
+option go_package = "github.com/strmprivacy/api-definitions-go/v3/api/parties/v1alpha;parties";
+option java_package = "io.strmprivacy.api.parties.v1alpha";
+option java_multiple_files = true;
+
+service PartiesService {
+  // List all parties for an organization. The organization is derived from the calling user.
+  rpc ListParties (ListPartiesRequest) returns (ListPartiesResponse);
+  // Get a party by its id
+  rpc GetParty (GetPartyRequest) returns (GetPartyResponse);
+  // Create or update a party. To create a party, leave its id empty. To update a party, set its id.
+  rpc UpsertParty (UpsertPartyRequest) returns (UpsertPartyResponse);
+}
+
+message ListPartiesRequest {
+  paging.v1alpha.PageInfo page_info = 1;
+}
+
+message ListPartiesResponse {
+  // Parties returned.
+  repeated entities.v1alpha.Party parties = 1;
+  paging.v1alpha.PageInfo page_info = 2;
+}
+
+message GetPartyRequest {
+  string id = 1 [(validate.rules).string = {uuid: true}];
+}
+
+message GetPartyResponse {
+  entities.v1alpha.Party party = 1;
+}
+
+// To create a party, leave its id empty. To update a party, set its id.
+message UpsertPartyRequest {
+  entities.v1alpha.Party party = 1;
+}
+
+message UpsertPartyResponse {
+  entities.v1alpha.Party party = 1;
+}

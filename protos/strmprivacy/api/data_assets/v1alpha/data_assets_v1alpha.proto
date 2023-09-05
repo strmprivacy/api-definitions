@@ -1,0 +1,48 @@
+syntax = "proto3";
+
+package strmprivacy.api.data_assets.v1alpha;
+
+import "strmprivacy/api/entities/v1alpha/entities_v1alpha.proto";
+import "strmprivacy/api/paging/v1alpha/paging_v1alpha.proto";
+import "validate/validate.proto";
+
+option go_package = "github.com/strmprivacy/api-definitions-go/v3/api/data_assets/v1alpha;data_assets";
+option java_package = "io.strmprivacy.api.data_assets.v1alpha";
+option java_multiple_files = true;
+
+service DataAssetsService {
+  // List all data assets for an organization. The organization is derived from the calling user.
+  rpc ListDataAssets (ListDataAssetsRequest) returns (ListDataAssetsResponse);
+  // Get a data asset by its id.
+  rpc GetDataAsset (GetDataAssetRequest) returns (GetDataAssetResponse);
+  // Create or update a data asset.
+  rpc UpsertDataAsset (UpsertDataAssetRequest) returns (UpsertDataAssetResponse);
+}
+
+message ListDataAssetsRequest {
+  paging.v1alpha.PageInfo page_info = 1;
+}
+
+message ListDataAssetsResponse {
+  // DataAssets returned.
+  repeated entities.v1alpha.DataAsset data_assets = 1;
+  paging.v1alpha.PageInfo page_info = 2;
+}
+
+message GetDataAssetRequest {
+  string id = 1 [(validate.rules).string = {uuid: true}];
+}
+
+message GetDataAssetResponse {
+  entities.v1alpha.DataAsset data_asset = 1;
+}
+
+// To create a data asset, leave its id empty. To update a data asset, set its id.
+// The content of nested entities (parties, categories) are not updated. They may be provided with just their ids.
+message UpsertDataAssetRequest {
+  entities.v1alpha.DataAsset data_asset = 1;
+}
+
+message UpsertDataAssetResponse {
+  entities.v1alpha.DataAsset data_asset = 1;
+}

@@ -213,3 +213,143 @@ message InfoAsset {
     float value = 3;
   }
 }
+
+message ContactDetails {
+  ContactType type = 1;
+  // The type of contact in case OTHER was selected.
+  string other_type = 2;
+  string name = 3;
+  string address = 4;
+  string email = 5;
+  string phone = 6;
+
+  enum ContactType {
+    CONTACT_TYPE_UNSPECIFIED = 0;
+    PRIMARY = 1;
+    REPRESENTATIVE = 2;
+    DATA_PROTECTION_OFFICER = 3;
+    OTHER = 4;
+  }
+}
+
+// A party is a (legal) entity that is involved in the processing of data in some way.
+// It can be an organization, but also a person, a department, a team, etc.
+message Party {
+  string id = 1 [(validate.rules).string = {uuid: true, ignore_empty: true}];
+  // Whether this is an external party or not.
+  bool external = 2;
+  string name = 3;
+  // Two-letter region code as mandated by the AIP https://google.aip.dev/143#countries-and-regions
+  string region_code = 4 [(validate.rules).string = {len: 2, ignore_empty: true}];
+  repeated ContactDetails contact_details = 5;
+
+  // This is only relevant within the scope of a ROPA record, following from the relation of this party to that record.
+  enum RelationType {
+    RELATION_TYPE_UNSPECIFIED = 0;
+    CONTROLLER = 1;
+    PROCESSOR = 2;
+    RECIPIENT = 3;
+  }
+
+  // Just a wrapper around a list of parties, used in the multi-maps in the ROPA record.
+  message List {
+    repeated Party parties = 1;
+  }
+}
+
+// Categories are pretty arbitrary classifications, but always have a specific type.
+// Their names are unique within a type. Names can be reused across types.
+message Category {
+  string id = 1 [(validate.rules).string = {uuid: true, ignore_empty: true}];
+  string name = 2;
+  Type type = 3;
+
+  enum Type {
+    TYPE_UNSPECIFIED = 0;
+    DATA = 1;
+    DATA_SUBJECT = 2;
+    DATA_RECIPIENT = 3;
+    DATA_ASSET = 4;
+    PERSONAL_DATA = 5;
+    PROCESSING = 6;
+    SECURITY_MEASURE = 7;
+  }
+
+  // Just a wrapper around a list of categories, used in the multi-maps in the ROPA record.
+  message List {
+    repeated Category categories = 1;
+  }
+}
+
+message DataAsset {
+  string id = 1 [(validate.rules).string = {uuid: true, ignore_empty: true}];
+  string name = 2;
+  // These are categories of type DATA_ASSET.
+  repeated Category categories = 3;
+  Party hosting_party = 4;
+  // Contact person at hosting party, details should be in the party record.
+  string contact_person_name = 5;
+  // Two-letter region code as mandated by the AIP https://google.aip.dev/143#countries-and-regions
+  string region_code = 6 [(validate.rules).string = {len: 2, ignore_empty: true}];
+
+  // This is only relevant within the scope of a ROPA record, following from the relation of this data asset to that record.
+  enum RelationType {
+    RELATION_TYPE_UNSPECIFIED = 0;
+    DATA_SOURCE = 1;
+  }
+
+  // Just a wrapper around a list of data assets, used in the multi-maps in the ROPA record.
+  message List {
+    repeated DataAsset data_assets = 1;
+  }
+}
+
+// A continuous collection of all first and third party data processing activities
+// of an organization. It is a "living document" that should be updated constantly as things change.
+// It is not a snapshot but a dynamic collection of the processing activities that at any time
+// reflects the current state of the data processing activities.
+// When a ROPA is requested for an audit, the auditor would normally expect the most recent version
+// that reflects the current activities, not a historical log of all previous versions or changes.
+// But this does not mean that the history of certain data processing activities can be ignored.
+// For example, if data has been transferred or shared, or if incidents (hack / leak of certain data
+// or whatever) have occurred, this should be reflected in the version history of individual ROPA records.
+message Ropa {
+  // The STRM organization ID this ROPA is for.
+  string organization_id = 1 [(validate.rules).string = {uuid: true, ignore_empty: true}];
+  repeated Record records = 2;
+
+  message Record {
+    string id = 1 [(validate.rules).string = {uuid: true, ignore_empty: true}];
+    // The ID of the STRM organization this record belongs to.
+    string organization_id = 2 [(validate.rules).string = {uuid: true, ignore_empty: true}];
+    string name = 3;
+    google.protobuf.Timestamp update_time = 4;
+    entities.v1.User update_user = 5;
+    int32 version = 6;
+
+    // Related parties, grouped by Party.RelationType, e.g. CONTROLLER, PROCESSOR, RECIPIENT.
+    map<string, Party.List> parties = 7;
+
+    // Purpose levels as defined in the organizations Purpose Map.
+    repeated int32 purpose_levels = 8;
+
+    // Related categories, grouped by their type, e.g. DATA_SUBJECT, PROCESSING.
+    // Some may be derived from the data contract.
+    map<string, Category.List> categories = 9;
+
+    // Linked data contract(s), if applicable, can change over time.
+    repeated string data_contract_ids = 10;
+
+    // Data assets, grouped by DataAsset.RelationType, e.g. DATA_SOURCE.
+    map<string, DataAsset.List> data_assets = 11;
+
+    // Data transfer details.
+    string data_transfer_details = 12;
+
+    // Data retention policies, references policies in the organization's policy list.
+    repeated string data_retention_policy_ids = 13;
+
+    // Additional information, free format.
+    string additional_info = 14;
+  }
+}

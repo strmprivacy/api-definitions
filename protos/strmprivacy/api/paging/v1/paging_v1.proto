@@ -11,3 +11,26 @@ message TimestampPageToken {
   //     aip.dev/not-precedent: As this is a generic page token that uses timestamps, this is a string. --)
   string timestamp = 1;
 }
+
+message OffsetPageToken {
+  int64 offset = 1;
+}
+
+// A page token that contains all fields that were used for ordering results.
+// Each field contains the last known value and the ordering direction, which
+// allows to use this in combination with the seek operator in SQL databases.
+message FieldsOffsetPageToken {
+  // key = field name, value = field offset information
+  map<string, FieldOffset> fields = 1;
+
+  message FieldOffset {
+    string last_value = 1;
+    Ordering ordering = 2;
+  }
+
+  enum Ordering {
+    ORDERING_UNSPECIFIED = 0;
+    ASC = 1;
+    DESC = 2;
+  }
+}

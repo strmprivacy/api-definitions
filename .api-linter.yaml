@@ -56,6 +56,12 @@
     # Disable HTTP URI rules, as we do not have HTTP REST annotations on Proto messages yet
     - 'core::0133::http-uri-parent'
 
+    # We don't require an id field to be set for creates, as it's often generated
+    - 'core::0133::request-id-field'
+
+    # We would like to provide more information regarding pagination in list responses as well
+    - 'core::0132::response-unknown-fields'
+
 - included_paths:
     - '**/consent_levels_*.proto'
   disabled_rules:

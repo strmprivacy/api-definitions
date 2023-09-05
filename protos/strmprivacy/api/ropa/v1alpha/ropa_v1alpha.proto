@@ -1,0 +1,51 @@
+syntax = "proto3";
+
+package strmprivacy.api.ropa.v1alpha;
+
+import "strmprivacy/api/entities/v1/entities_v1.proto";
+import "strmprivacy/api/paging/v1alpha/paging_v1alpha.proto";
+import "validate/validate.proto";
+import "strmprivacy/api/entities/v1alpha/entities_v1alpha.proto";
+
+option go_package = "github.com/strmprivacy/api-definitions-go/v3/api/ropa/v1alpha;ropa";
+option java_package = "io.strmprivacy.api.ropa.v1alpha";
+option java_multiple_files = true;
+
+service RopaService {
+  // This will return all (latest versions of) the records.
+  rpc GetRopa (GetRopaRequest) returns (GetRopaResponse);
+  // Create a new record (leave its id empty) or a new version of an existing record (provide its id and current version).
+  rpc CreateRecord (CreateRecordRequest) returns (CreateRecordResponse);
+  // Get a record by its id.
+  rpc GetRecord (GetRecordRequest) returns (GetRecordResponse);
+}
+
+// Get all (latest versions of) the ROPA records for the organization of the calling user.
+message GetRopaRequest {
+  // Limits the number of records returned in the response.
+  paging.v1alpha.PageInfo page_info = 1;
+}
+
+message GetRopaResponse {
+  entities.v1alpha.Ropa ropa = 1;
+  paging.v1alpha.PageInfo page_info = 2;
+}
+
+// To create a new ROPA Record, leave its id empty. To create a new version of an existing record, set its id.
+// The content of nested entities (parties, data subjects, data categories) are not updated. They may be provided with
+// just their ids.
+message CreateRecordRequest {
+  entities.v1alpha.Ropa.Record record = 1;
+}
+
+message CreateRecordResponse {
+  entities.v1alpha.Ropa.Record record = 1;
+}
+
+message GetRecordRequest {
+  string id = 1 [(validate.rules).string = {uuid: true, ignore_empty: true}];
+}
+
+message GetRecordResponse {
+  entities.v1alpha.Ropa.Record record = 1;
+}

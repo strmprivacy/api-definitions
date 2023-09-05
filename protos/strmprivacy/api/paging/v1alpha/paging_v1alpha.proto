@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+package strmprivacy.api.paging.v1alpha;
+
+import "google/api/field_behavior.proto";
+
+option go_package = "github.com/strmprivacy/api-definitions-go/v3/api/paging/v1alpha;paging";
+option java_package = "io.strmprivacy.api.paging.v1alpha";
+option java_multiple_files = true;
+
+
+message PageInfo {
+  // The maximum number of results to return. The server may return fewer than
+  // this number of results, when current_page == total_pages.
+  int32 page_size = 1;
+  // The total number of results in the result set.
+  int32 total_size = 2 [(google.api.field_behavior) = OUTPUT_ONLY];
+
+  // The index of the current page of results (starting at 1).
+  int32 current_page = 3 [(google.api.field_behavior) = OUTPUT_ONLY];
+  // The requested page number, if the Proto default was used (value = 0), then the next page will be returned.
+  int32 requested_page = 4;
+  // The total number of pages in the result set.
+  int32 total_pages = 5 [(google.api.field_behavior) = OUTPUT_ONLY];
+
+  // A page token, received from a previous `ListCategories` call. Provide this to
+  // retrieve the subsequent page. When PageInfo is part of a response, this is the next page token.
+  // When PageInfo is part of a request, this page token is used to retrieve the next page.
+  string page_token = 6 [(google.api.field_behavior) = OUTPUT_ONLY];
+}

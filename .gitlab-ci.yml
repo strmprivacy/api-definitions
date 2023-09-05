@@ -36,6 +36,8 @@ generate:
   needs:
     - job: buf-lint
       optional: true
+    - job: aip-guidelines-lint
+      optional: true
     - job: breaking
       optional: true
   except:

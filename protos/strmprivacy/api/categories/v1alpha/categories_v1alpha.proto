@@ -1,0 +1,49 @@
+syntax = "proto3";
+
+package strmprivacy.api.categories.v1alpha;
+
+import "strmprivacy/api/paging/v1alpha/paging_v1alpha.proto";
+import "validate/validate.proto";
+import "strmprivacy/api/entities/v1alpha/entities_v1alpha.proto";
+
+option go_package = "github.com/strmprivacy/api-definitions-go/v3/api/categories/v1alpha;categories";
+option java_package = "io.strmprivacy.api.categories.v1alpha";
+option java_multiple_files = true;
+
+service CategoriesService {
+  // List all categories, optionally filtered for a given type. The organization is derived from the calling user.
+  rpc ListCategories (ListCategoriesRequest) returns (ListCategoriesResponse);
+  // Get a category by id.
+  rpc GetCategory (GetCategoryRequest) returns (GetCategoryResponse);
+  // Create or update a category. To create a category, leave its id empty. To update a category, set its id.
+  rpc UpsertCategory (UpsertCategoryRequest) returns (UpsertCategoryResponse);
+}
+
+message ListCategoriesRequest {
+  // The type of the categories to list.
+  entities.v1alpha.Category.Type type = 1;
+  paging.v1alpha.PageInfo page_info = 2;
+}
+
+message ListCategoriesResponse {
+  // Categories returned.
+  repeated entities.v1alpha.Category categories = 1;
+  paging.v1alpha.PageInfo page_info = 2;
+}
+
+message GetCategoryRequest {
+  string id = 1 [(validate.rules).string = {uuid: true}];
+}
+
+message GetCategoryResponse {
+  entities.v1alpha.Category category = 1;
+}
+
+// To create a category, leave its id empty. To update a category, set its id.
+message UpsertCategoryRequest {
+  entities.v1alpha.Category category = 1;
+}
+
+message UpsertCategoryResponse {
+  entities.v1alpha.Category category = 1;
+}
