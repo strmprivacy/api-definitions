@@ -1,3 +1,10 @@
+# [3.17.0](https://gitlab.com/strmprivacy/api-definitions/compare/v3.16.0...v3.17.0) (2023-09-05)
+
+
+### Features
+
+* **strm-2586:** initial ropa api ([75fb77f](https://gitlab.com/strmprivacy/api-definitions/commit/75fb77f8f8c3de6476b0dc7005290a983af76c01))
+
 # [3.16.0](https://gitlab.com/strmprivacy/api-definitions/compare/v3.15.0...v3.16.0) (2023-08-10)
 
 
