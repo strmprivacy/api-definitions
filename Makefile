@@ -21,7 +21,7 @@ export
 # =======================
 # Versions and dependencies
 # =======================
-strmprivacy_api_version := 3.17.1
+strmprivacy_api_version := 3.18.0
 
 grpc_version := 1.50.0
 protobuf_version := 3.21.9

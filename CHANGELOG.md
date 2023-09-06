@@ -1,3 +1,10 @@
+# [3.18.0](https://gitlab.com/strmprivacy/api-definitions/compare/v3.17.1...v3.18.0) (2023-09-06)
+
+
+### Features
+
+* **feature/prod-186:** wip forms ([6cad6ee](https://gitlab.com/strmprivacy/api-definitions/commit/6cad6eeb83da60a51c7dcfca92c32b02eae80a2c))
+
 ## [3.17.1](https://gitlab.com/strmprivacy/api-definitions/compare/v3.17.0...v3.17.1) (2023-09-05)
 
 
