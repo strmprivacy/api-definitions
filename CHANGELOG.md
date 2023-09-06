@@ -1,3 +1,10 @@
+## [3.18.1](https://gitlab.com/strmprivacy/api-definitions/compare/v3.18.0...v3.18.1) (2023-09-06)
+
+
+### Bug Fixes
+
+* make project id not mandatory for validate only project plans ([cacaa58](https://gitlab.com/strmprivacy/api-definitions/commit/cacaa58ac2a9e1fa3e74d7a8beb68ae2cc5d979a))
+
 # [3.18.0](https://gitlab.com/strmprivacy/api-definitions/compare/v3.17.1...v3.18.0) (2023-09-06)
 
 
