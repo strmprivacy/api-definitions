@@ -2,7 +2,6 @@ syntax = "proto3";
 
 package strmprivacy.api.entities.v1alpha;
 
-import "google/api/field_behavior.proto";
 import "google/protobuf/timestamp.proto";
 import "validate/validate.proto";
 import "strmprivacy/api/entities/v1/entities_v1.proto";
@@ -11,207 +10,197 @@ option go_package = "github.com/strmprivacy/api-definitions-go/v3/api/entities/v
 option java_package = "io.strmprivacy.api.entities.v1alpha";
 option java_multiple_files = true;
 
+/*
+A project plan contains a series of Entry instances, each of which will typically concern one
+form question. There is also a `html` entry, that allow you to put anything you want in it. This
+allows the person designing the form to add explanatory sections, or headers, or images, or ...
+
+Meta information like name, title and description is that of the associated Project.
+
+NOTE:  these no longer can be templates, and they don't have an `id`, i.e. they don't exist by
+themselves, but only in the context of a project.
+ */
 message ProjectPlan {
-  string project_id = 1;
-  // If title is empty, the project name from the project message can be used.
-  string title = 2 [(validate.rules).string = {ignore_empty: true, min_len: 1, max_len: 300}];
-  string description = 3 [(validate.rules).string = {ignore_empty: true, max_len: 5000}];
-  repeated ItemGroup item_groups = 4;
-  repeated entities.v1.User users = 5;
-  // is this instance actually a template, i.e. without filled in values.
-  bool is_template = 6;
-  // the id of the project plan, never null
-  string id = 7 [(validate.rules).string.uuid = true];
+  string project_id = 1 [(validate.rules).string = {uuid : true}];
+  repeated Entry entries = 2;
 }
 
-message ItemGroup {
-  string name = 1 [(validate.rules).string = {min_len: 1, max_len: 100}];
-  string description = 2 [(validate.rules).string = {ignore_empty: true, max_len: 5000}];
-  oneof items {
-    option (validate.required) = true;
-
-    TodoItems todo_items = 4;
-    DataContractItems data_contract_items = 5;
-    InfoAssetItems info_asset_items = 6;
-    DocumentItems document_items = 7;
-    PipelineItems pipeline_items = 8;
-    FreeformItems freeform_items = 10;
-    RiskAssessmentItems risk_assessment_items = 11;
-    RiskMitigationItems risk_mitigation_items = 12;
-    RecordingItems recording_items = 13;
+message FormTemplate {
+  string id = 1 [(validate.rules).string.uuid = true];
+  // organization unique name
+  string name = 2;
+  string organization_id = 3 [(validate.rules).string.uuid = true];
+  repeated EntryOrFormTemplateId items = 4;
+  message EntryOrFormTemplateId {
+    oneof part {
+      FormTemplateReference form_template = 1;
+      Entry entry = 2;
+    }
   }
-  string id = 9 [(validate.rules).string = {uuid: true, ignore_empty: true}];
+
+  // This flag means that this form template will be shown when starting a project.
+  // The form template should have at least one Entry of type MultipleChoiceItem, where
+  // the associated_form_template_id's can be used to build a project plan
+  bool is_project_intake = 5;
 }
 
-message ItemProperties {
+message FormTemplateReference {
+  string id = 1 [(validate.rules).string.uuid = true];
+  bool render_inline = 2;
+}
+
+/* an Entry in a form or ProjectPlan.
+
+An entry has some generic attributes (all the fields above the `oneof item`) and then
+one of the various Entry types.
+
+An interesting type is the `html` type that just contains html that will directly be shown in the browser.
+This allows us to add arbitrary non-functional parts. The html will have to be sanitized.
+ */
+message Entry {
   string id = 1 [(validate.rules).string = {uuid: true, ignore_empty: true}];
-  google.protobuf.Timestamp creation_time = 2;
-  google.protobuf.Timestamp due_time = 3;
-  google.protobuf.Timestamp completion_time = 4;
+  // the name of an entry, just a human readable reference to be rendered
+  string name = 2 [(validate.rules).string = {ignore_empty: true, max_len: 100}];
+  // the content of an entry; the question to be asked, the task to be completed, ...
+  string content = 3 [(validate.rules).string = {ignore_empty: true, max_len: 5000}];
+  // when was the entry created
+  google.protobuf.Timestamp creation_time = 4;
+  // when is the entry due to be filled in
+  google.protobuf.Timestamp due_time = 5;
+  // when was the entry filled in.
+  google.protobuf.Timestamp completion_time = 6;
   // The user that created this item, retrieved from the JWT token.
-  entities.v1.User creator = 5;
+  entities.v1.User creator = 7;
   // The user that is assigned to this item.
-  entities.v1.User assignee = 6;
+  entities.v1.User assignee = 8;
   // help text describing the item. Might give an example response for instance.
-  string help_text = 7;
-}
+  string help_text = 9;
+  // generic remark to be filled in by a user.
+  string remark = 10;
+  // whether or not the user can delete an item.
+  bool can_be_deleted = 11;
 
-message TodoItems {
-  repeated TodoItem items = 2;
+  // renders a header of a certain type of item.
+  // this might involve adding a <table> element in html
+  // this creates a sort of section which will be closed when one of the following occurs
+  // * an entry of a different type is the next to be processed
+  // * we encounter another render_header entry.
+  // * we just rendered the last Entry in the list
+  string form_template_id = 12 [(validate.rules).string = {uuid: true, ignore_empty: true}];
 
-  message TodoItem {
-    ItemProperties item_properties = 1;
-    // If the completion date is 0, then the todo is not done yet.
-    string description = 2 [(validate.rules).string = {max_len: 5000}];
+  oneof item {
+    option (validate.required) = true;
+    Task task = 13;
+    DataContract data_contract = 14;
+    Document document = 15;
+    Pipeline pipeline = 16;
+    Question question = 17;
+    MultipleChoiceItem choices = 18;
+    string html = 19;
+    // special kind of item that opens a new element that is being rendered.
+    SectionOpen section_open = 20;
+    // special kind of item that closes the current element that is being rendered.
+    SectionClose section_close = 21;
+    AddOneEntry add_one_entry = 109;
   }
-}
 
-message DataContractItems {
-  repeated DataContractItem items = 1;
+  // special kind of entry that renders a user-interface element, that when
+  // activated will create an entry of a certain type just above this entry.
+  message AddOneEntry {
+    oneof type {
+      option (validate.required) = true;
+      Task task = 1;
+      DataContract data_contract = 2;
+      Document document = 3;
+      Pipeline pipeline = 4;
+      Question question = 5;
+      MultipleChoiceItem choices = 6;
+      string html = 7;
+    }
+  }
 
-  message DataContractItem {
-    ItemProperties item_properties = 1;
+  message Task {
+    // If the completion date is 0, then the todo is not done yet.
+  }
+
+  message DataContract {
     // Data Contract details can be retrieved through the Data Contract API.
     entities.v1.DataContractRef ref = 2 [(validate.rules).message.required = true];
   }
-}
 
-message InfoAssetItems {
-  repeated InfoAssetItem items = 1;
-
-  message InfoAssetItem {
-    ItemProperties item_properties = 1;
-    string name = 2 [(validate.rules).string = {max_len: 300}];
-    State state = 3 [(google.api.field_behavior) = OUTPUT_ONLY];
-    Classification classification = 4;
-    InfoAsset info_asset = 5;
-
-    enum State {
-      STATE_UNSPECIFIED = 0;
-      DRAFT = 1;
-      IN_REVIEW = 2;
-      APPROVED = 3;
-    }
-
-    // TODO is the name correct? Could also be SensitivityClassification or RiskClassification.
-    // TODO is points a part of the classification or a separate field?
-    message Classification {
-      string name = 1 [(validate.rules).string = {max_len: 300}];
-      string color_css = 2;
-      // The sensitivity points of the information asset (higher is more sensitive)
-      int32 points = 4;
-    }
-  }
-}
-
-message DocumentItems {
-  repeated DocumentItem items = 1;
-
-  message DocumentItem {
-    ItemProperties item_properties = 1;
+  message Document {
     // Filename should be unique within the project.
     string filename = 2;
     // If the URI is set, then the document originates from an external source.
     string uri = 3;
   }
-}
-
-message PipelineItems {
-  repeated PipelineItem items = 2;
-
-  message PipelineItem {
-    ItemProperties item_properties = 1;
+  message Pipeline {
     oneof pipeline {
-      option (validate.required) = true;
       entities.v1.StreamRef stream = 2;
       entities.v1.BatchJobRef batch_job = 3;
     }
   }
-}
 
-message FreeformItems {
-  repeated Item items = 2;
-  message Item {
-    ItemProperties item_properties = 1;
-    string question = 2;
-    string answer = 3;
-    string remark = 4;
+  message Question {
+    // the question is the `content` field
+    repeated AnswerAndLabel answers_and_labels = 1;
+    message AnswerAndLabel {
+      string answer = 1;
+      string label = 2;
+    }
   }
-}
 
-message RiskAssessmentItems {
-  repeated Item items = 2;
-  message Item {
-    ItemProperties item_properties = 1;
+  message MultipleChoiceItem {
+    string text = 1;
+    // the choices are what gets rendered
+    repeated string choices = 2;
+    // the weights are a 1 to 1 mapping on the choices, i.e. choice[2] corresponds to weight[2]
+    repeated float weights = 3;
+    // answers contain the zero-based index(es) to the choice(s) selected by the user.
+    repeated int32 answers = 4;
+    // Style determines both the type of rendering, and whether or not multiple answers might be given
+    Style style = 5;
+    // in case of a project-intake template, these point to associated form template id's that
+    // will be used to build a ProjectPlan by an on-the fly chaining of the forms that were checked.
+    // For most entries, this field will be empty, but for project intake form templates, it should have the same
+    // number of entries as the choices!
+    repeated string associated_form_template_id = 6 [(validate.rules).repeated = {items: {string: {uuid: true}}}];
+    enum Style {
+      STYLE_UNSPECIFIED = 0;
+      // multiple answers allowed
+      CHECKBOX = 1;
+      // single answer
+      DROPDOWN = 2;
+      // single answer
+      RADIO = 3;
+    }
+  }
+
+  message RiskAssessmentItem  {
     string risk = 2;
     string harm_likelihood = 3;
     string harm_severity = 4;
     string overall_risk = 5;
   }
-}
 
-message RiskMitigationItems {
-  repeated Item items = 2;
-  message Item {
-    ItemProperties item_properties = 1;
+  message RiskMitigationItem  {
     string risk = 2;
     string overall_risk = 3;
     string mitigation_measure = 5;
     string residual_risk = 6;
     string approval = 7;
   }
-}
 
-message RecordingItems {
-  repeated Item items = 2;
-  message Item {
-    ItemProperties item_properties = 1;
+  message RecordingItem  {
     string particular = 2;
     string remarks = 4;
   }
-}
 
-message InfoAsset {
-  string template = 1;
-  string name = 2;
-  bool embargo = 3;
-  repeated BusinessImpactRating business_impacts = 4;
-
-  repeated string security_levels = 5;
-  string security_level = 6;
-
-  repeated Section sections = 7;
-
-  // is this instance actually a template, i.e. without filled in values.
-  bool is_template = 8;
-
-
-  message Section {
-    // Business consequences for instance
-    string name = 1;
-    repeated SubSection sub_sections = 2;
+  message SectionOpen {
+    bool render_inline = 1;
   }
-  message SubSection {
-    // 'Impact on core business' for instance
-    string name = 1;
-    string description = 2;
-    string explanation = 3;
-    repeated Check checks = 4;
-  }
-  message Check {
-    string name = 1;
-    string detail_info = 2;
-    bool  checked = 3;
-  }
-  message BusinessImpactRating {
-    string label = 1;
-    BusinessImpactCategory category = 2;
-  }
-  message BusinessImpactCategory {
-    string name = 1;
-    string description = 2;
-    float value = 3;
-  }
+
+  message SectionClose {}
 }
 
 message ContactDetails {

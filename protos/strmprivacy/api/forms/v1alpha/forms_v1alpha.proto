@@ -1,0 +1,52 @@
+syntax = "proto3";
+
+package strmprivacy.api.forms.v1alpha;
+
+import "google/api/field_behavior.proto";
+import "strmprivacy/api/entities/v1alpha/entities_v1alpha.proto";
+import "validate/validate.proto";
+
+option go_package = "github.com/strmprivacy/api-definitions-go/v3/api/forms/v1alpha;forms";
+option java_package = "io.strmprivacy.api.forms.v1alpha";
+option java_multiple_files = true;
+
+service FormsService {
+  // CRUD on Form Templates
+  // returns all the form templates for the organization of the caller.
+  // currently also includes the hard-coded templates
+  rpc ListFormTemplates(ListFormTemplatesRequest) returns (ListFormTemplatesResponse);
+  rpc GetFormTemplate (GetFormTemplateRequest) returns (GetFormTemplateResponse);
+  rpc UpsertFormTemplate (UpsertFormTemplateRequest) returns (UpsertFormTemplateResponse);
+  rpc DeleteFormTemplate (DeleteFormTemplateRequest) returns (DeleteFormTemplateResponse);
+
+}
+
+message ListFormTemplatesRequest {
+}
+
+message ListFormTemplatesResponse {
+  repeated entities.v1alpha.FormTemplate form_templates = 1;
+}
+
+message GetFormTemplateRequest {
+  string id = 1 [(validate.rules).string.uuid = true];
+}
+
+message GetFormTemplateResponse {
+  entities.v1alpha.FormTemplate form_template = 1;
+}
+
+message UpsertFormTemplateRequest {
+  entities.v1alpha.FormTemplate form_template = 1 [(google.api.field_behavior) = REQUIRED];
+}
+
+message UpsertFormTemplateResponse {
+  entities.v1alpha.FormTemplate form_template = 1 [(google.api.field_behavior) = REQUIRED];
+}
+
+message DeleteFormTemplateRequest {
+  string id = 1 [(google.api.field_behavior) = REQUIRED];
+}
+
+message DeleteFormTemplateResponse {
+}

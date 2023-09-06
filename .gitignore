@@ -40,3 +40,4 @@ google-api-linter
 lang/typescript/src
 lang/typescript/dist
 lang/typescript/.npmrc
+json-schema/

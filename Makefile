@@ -1,4 +1,6 @@
-.PHONY: intellij clean build publish buf-breaking buf-lint api-lint default-protobuf-dependencies protodocs protodocs-clean clean-common-protos generate typescript-generate protoc-gen-validate-dependency
+.PHONY: intellij clean build publish buf-breaking buf-lint api-lint default-protobuf-dependencies \
+	protodocs protodocs-clean clean-common-protos generate typescript-generate protoc-gen-validate-dependency\
+	json-schema
 
 # =======================
 # Variables
@@ -12,6 +14,7 @@ common_protos := ${CURDIR}/lang/.common-protos
 common_proto_files := $(shell find "${common_protos}" -name *.proto)
 git_sha := $(shell git rev-parse --short HEAD)
 git_branch := $(shell git rev-parse --abbrev-ref HEAD)
+entities_protos := $(shell find ${pwd}/protos/strmprivacy/api -name entities*.proto)
 
 export
 
@@ -167,3 +170,13 @@ typescript-publish-release: lang/typescript/src
 
 typescript-publish-snapshot: lang/typescript/src
 	make -C lang/typescript publish-snapshot
+
+json-schema:
+	mkdir -p json-schema
+	rm -rf json-schema/*
+	protoc --jsonschema_out=json-schema \
+		--proto_path=${protos_dir}:${common_protos} \
+		--jsonschema_opt=enforce_oneof \
+		--jsonschema_opt=disallow_additional_properties \
+		${entities_protos}
+

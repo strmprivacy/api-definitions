@@ -14,14 +14,22 @@ service ProjectPlansService {
   rpc ListProjectPlans(ListProjectPlansRequest) returns (ListProjectPlansResponse);
   rpc GetProjectPlan (GetProjectPlanRequest) returns (GetProjectPlanResponse);
   rpc UpsertProjectPlan (UpsertProjectPlanRequest) returns (UpsertProjectPlanResponse);
+  rpc DeleteProjectPlan (DeleteProjectPlanRequest) returns (DeleteProjectPlanResponse);
+
+  // builds an empty (not filled-in) project plan from a template and store it in the database.
+  rpc BuildProjectPlan (BuildProjectPlanRequest) returns  (BuildProjectPlanResponse);
+
+  // builds an empty (not filled-in) project plan from a template and store it in the database.
+  // (-- api-linter: core::0136::prepositions=disabled
+  //     aip.dev/not-precedent: We need to do this because the name makes sense. --)
+  rpc BuildProjectPlanFromTemplateIds (BuildProjectPlanFromTemplateIdsRequest) returns  (BuildProjectPlanFromTemplateIdsResponse);
 }
 
 message ListProjectPlansRequest {
-  // only list templates
-  bool is_template = 1;
-  // include the hardcoded dummy template.
-  // TOD this flag will be removed once we're out of v1alpha
-  bool include_dummy_template = 2;
+  // project plan templates no longer exist
+  bool is_template = 1 [deprecated=true];
+  // project plan templates no longer exist
+  bool include_dummy_template = 2 [deprecated=true];
 
 }
 
@@ -43,4 +51,39 @@ message UpsertProjectPlanRequest {
 
 message UpsertProjectPlanResponse {
   entities.v1alpha.ProjectPlan project_plan = 1 [(google.api.field_behavior) = REQUIRED];
+}
+
+message DeleteProjectPlanRequest {
+  string project_id = 1 [(google.api.field_behavior) = REQUIRED];
+}
+
+message DeleteProjectPlanResponse {
+}
+message BuildProjectPlanRequest {
+  string project_plan_template_id = 1 [(validate.rules).string.uuid = true];
+  string project_id = 2 [(validate.rules).string.uuid = true];
+  // do not store the generated project plan in the database
+  // this is useful for previews, or generally for developer purposes
+  bool validate_only = 3;
+  // allow overwriting existing project plans. If not set, an already existing
+  // project plan would trigger an exception.
+  bool allow_overwrite = 4;
+}
+
+message BuildProjectPlanResponse {
+  entities.v1alpha.ProjectPlan project_plan = 1;
+}
+message BuildProjectPlanFromTemplateIdsRequest {
+  repeated string form_template_ids = 1 [(validate.rules).repeated = { items: { string: {uuid: true} } }];
+  string project_id = 2 [(validate.rules).string.uuid = true];
+  // do not store the generated project plan in the database
+  // this is useful for previews, or generally for developer purposes
+  bool validate_only = 3;
+  // allow overwriting existing project plans. If not set, an already existing
+  // project plan would trigger an exception.
+  bool allow_overwrite = 4;
+}
+
+message BuildProjectPlanFromTemplateIdsResponse {
+  entities.v1alpha.ProjectPlan project_plan = 1;
 }
