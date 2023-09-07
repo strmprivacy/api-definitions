@@ -75,7 +75,7 @@ message BuildProjectPlanResponse {
 }
 message BuildProjectPlanFromTemplateIdsRequest {
   repeated string form_template_ids = 1 [(validate.rules).repeated = { items: { string: {uuid: true} } }];
-  string project_id = 2 [(validate.rules).string.uuid = true];
+  string project_id = 2 [(validate.rules).string = {uuid: true, ignore_empty: true}];
   // do not store the generated project plan in the database
   // this is useful for previews, or generally for developer purposes
   bool validate_only = 3;
