@@ -1,3 +1,10 @@
+## [3.18.2](https://gitlab.com/strmprivacy/api-definitions/compare/v3.18.1...v3.18.2) (2023-09-07)
+
+
+### Bug Fixes
+
+* also update it for from template ids request ([db4d1a2](https://gitlab.com/strmprivacy/api-definitions/commit/db4d1a2e61564279d5a05fb3e1a11398ccc1ded3))
+
 ## [3.18.1](https://gitlab.com/strmprivacy/api-definitions/compare/v3.18.0...v3.18.1) (2023-09-06)
 
 
