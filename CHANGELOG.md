@@ -1,3 +1,10 @@
+## [3.18.3](https://gitlab.com/strmprivacy/api-definitions/compare/v3.18.2...v3.18.3) (2023-09-14)
+
+
+### Bug Fixes
+
+* add one entry types for datacontracts and pipelines should not need refs ([e18426d](https://gitlab.com/strmprivacy/api-definitions/commit/e18426df00556c96548f316ee11e3e89b70579ad))
+
 ## [3.18.2](https://gitlab.com/strmprivacy/api-definitions/compare/v3.18.1...v3.18.2) (2023-09-07)
 
 
