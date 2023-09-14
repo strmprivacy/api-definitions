@@ -110,9 +110,9 @@ message Entry {
     oneof type {
       option (validate.required) = true;
       Task task = 1;
-      DataContract data_contract = 2;
+      DataContractNewEntry data_contract = 2;
       Document document = 3;
-      Pipeline pipeline = 4;
+      PipelineNewEntry pipeline = 4;
       Question question = 5;
       MultipleChoiceItem choices = 6;
       string html = 7;
@@ -128,6 +128,8 @@ message Entry {
     entities.v1.DataContractRef ref = 2 [(validate.rules).message.required = true];
   }
 
+  message DataContractNewEntry {}
+
   message Document {
     // Filename should be unique within the project.
     string filename = 2;
@@ -140,6 +142,16 @@ message Entry {
       entities.v1.BatchJobRef batch_job = 3;
     }
   }
+
+  message PipelineNewEntry {
+    oneof pipeline {
+      StreamNewEntry stream = 2;
+      BatchJobNewEntry batch_job = 3;
+    }
+  }
+
+  message StreamNewEntry {}
+  message BatchJobNewEntry {}
 
   message Question {
     // the question is the `content` field
