@@ -29,7 +29,7 @@ message FormTemplate {
   string id = 1 [(validate.rules).string.uuid = true];
   // organization unique name
   string name = 2;
-  string organization_id = 3 [(validate.rules).string.uuid = true];
+  string organization_id = 3 [(validate.rules).string = {uuid: true, ignore_empty: true}];
   repeated EntryOrFormTemplateId items = 4;
   message EntryOrFormTemplateId {
     oneof part {
@@ -79,14 +79,6 @@ message Entry {
   string remark = 10;
   // whether or not the user can delete an item.
   bool can_be_deleted = 11;
-
-  // renders a header of a certain type of item.
-  // this might involve adding a <table> element in html
-  // this creates a sort of section which will be closed when one of the following occurs
-  // * an entry of a different type is the next to be processed
-  // * we encounter another render_header entry.
-  // * we just rendered the last Entry in the list
-  string form_template_id = 12 [(validate.rules).string = {uuid: true, ignore_empty: true}];
 
   oneof item {
     option (validate.required) = true;
