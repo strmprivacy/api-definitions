@@ -1,3 +1,10 @@
+## [3.18.4](https://gitlab.com/strmprivacy/api-definitions/compare/v3.18.3...v3.18.4) (2023-09-19)
+
+
+### Bug Fixes
+
+* **strm-2655:** allow empty org id ([29002da](https://gitlab.com/strmprivacy/api-definitions/commit/29002daf124c4db5391cfc3563b791cfc8266b16))
+
 ## [3.18.3](https://gitlab.com/strmprivacy/api-definitions/compare/v3.18.2...v3.18.3) (2023-09-14)
 
 
