@@ -14,7 +14,7 @@
   },
   "devDependencies": {
     "google-artifactregistry-auth": "3.1.2",
-    "typescript": "5.3.2"
+    "typescript": "5.3.3"
   },
   "dependencies": {
     "@bufbuild/connect-web": "0.8.6",
